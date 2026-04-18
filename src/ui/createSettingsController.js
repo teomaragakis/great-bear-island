@@ -1,9 +1,11 @@
-export function createSettingsController({ elements, onChange }) {
+export function createSettingsController({ elements, onChange, onGroupingChange }) {
   const {
     settingsPanel,
     settingsToggle,
     poiSearch,
     poiSearchClear,
+    groupPois,
+    groupByCategory,
     hideMissingPois,
     showDlcPois,
     flattenPois,
@@ -21,6 +23,14 @@ export function createSettingsController({ elements, onChange }) {
     return flattenPois.checked;
   }
 
+  function shouldGroupItems() {
+    return groupPois.checked;
+  }
+
+  function shouldGroupByCategory() {
+    return groupPois.checked && groupByCategory.checked;
+  }
+
   function getSearchTerm() {
     return poiSearch.value;
   }
@@ -32,6 +42,10 @@ export function createSettingsController({ elements, onChange }) {
   function syncSettingsCollapse() {
     const isCollapsed = settingsPanel.classList.contains('collapsed');
     settingsToggle.setAttribute('aria-expanded', String(!isCollapsed));
+  }
+
+  function syncGroupingDependencies() {
+    groupByCategory.disabled = !groupPois.checked;
   }
 
   function bind() {
@@ -52,6 +66,15 @@ export function createSettingsController({ elements, onChange }) {
       poiSearch.focus();
     });
 
+    groupPois.addEventListener('change', () => {
+      syncGroupingDependencies();
+      onGroupingChange?.();
+      onChange();
+    });
+    groupByCategory.addEventListener('change', () => {
+      onGroupingChange?.();
+      onChange();
+    });
     hideMissingPois.addEventListener('change', onChange);
     showDlcPois.addEventListener('change', onChange);
     flattenPois.addEventListener('change', onChange);
@@ -60,6 +83,7 @@ export function createSettingsController({ elements, onChange }) {
   function sync() {
     syncPoiSearchClearButton();
     syncSettingsCollapse();
+    syncGroupingDependencies();
   }
 
   return {
@@ -68,6 +92,8 @@ export function createSettingsController({ elements, onChange }) {
     shouldHideMissingItems,
     shouldShowDlcItems,
     shouldFlattenItems,
+    shouldGroupItems,
+    shouldGroupByCategory,
     getSearchTerm,
   };
 }

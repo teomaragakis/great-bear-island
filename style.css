@@ -391,6 +391,12 @@ main {
   cursor: pointer;
 }
 
+.settings-toggle:has(input:disabled) {
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .settings-toggle + .settings-toggle {
   margin-top: 12px;
 }
@@ -426,6 +432,15 @@ main {
 .settings-toggle input:checked + .settings-switch {
   background: rgba(215, 173, 49, 0.22);
   border-color: rgba(215, 173, 49, 0.4);
+}
+
+.settings-toggle input:disabled + .settings-switch {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.settings-toggle input:disabled + .settings-switch::after {
+  background: rgba(255, 255, 255, 0.45);
 }
 
 .settings-toggle input:checked + .settings-switch::after {
@@ -649,17 +664,17 @@ main {
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   background: var(--category-color);
-  border: 2px solid transparent;
+  border: 2px solid rgba(255, 255, 255, 0.45);
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 .custom-marker:hover {
-  transform: rotate(-45deg) scale(1.2);
+  transform: rotate(-45deg) scale(1.1);
   box-shadow: 0 4px 16px rgba(0,0,0,0.8);
 }
 .custom-marker.active-marker {
-  transform: rotate(-45deg) scale(1.3);
+  transform: rotate(-45deg) scale(1.28);
   border-color: white;
 }
 
@@ -674,6 +689,26 @@ main {
   justify-content: center;
   width: 100%; height: 100%;
   font-size: 12px;
+}
+
+.poi-cluster-icon {
+  background: transparent;
+  border: none;
+}
+
+.poi-cluster-badge {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--cluster-color, rgba(215, 173, 49, 0.92));
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .icon-asset {

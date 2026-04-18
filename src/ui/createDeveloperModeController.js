@@ -245,6 +245,8 @@ export function createDeveloperModeController({
           toggleButton.setAttribute('aria-pressed', String(developerModeEnabled));
           mapView.setMaxZoom(developerModeEnabled ? 2 : 1);
           syncDeveloperControls();
+          markerController.closeCurrentPopup();
+          markerController.buildMarkers(getCurrentArea());
           markerController.setAllMarkerDragState(developerModeEnabled);
           temporaryMarkers.forEach(({ marker }) => markerController.setMarkerDragState(marker, developerModeEnabled));
 

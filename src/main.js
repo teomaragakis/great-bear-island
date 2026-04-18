@@ -24,6 +24,8 @@ const elements = {
   settingsToggle: document.getElementById('settings-toggle'),
   poiSearch: document.getElementById('poi-search'),
   poiSearchClear: document.getElementById('poi-search-clear'),
+  groupPois: document.getElementById('group-pois'),
+  groupByCategory: document.getElementById('group-by-category'),
   hideMissingPois: document.getElementById('hide-missing-pois'),
   showDlcPois: document.getElementById('show-dlc-pois'),
   flattenPois: document.getElementById('flatten-pois'),
@@ -76,6 +78,8 @@ const markerController = createMarkerController({
   getCategoryMeta,
   getSubcategoryMeta,
   getPointIcon,
+  shouldClusterMarkers: () => settingsController.shouldGroupItems(),
+  shouldClusterByCategory: () => settingsController.shouldGroupByCategory(),
   isDeveloperModeEnabled: () => developerMode?.isDeveloperModeEnabled() ?? false,
   onOpenDeveloperEditor: entry => developerMode?.openDeveloperEditor(entry),
   onDeveloperPointMoved: entry => developerMode?.onExistingPointMoved(entry),
@@ -84,6 +88,7 @@ const markerController = createMarkerController({
 const settingsController = createSettingsController({
   elements,
   onChange: () => legendController.buildLegend(),
+  onGroupingChange: () => markerController.buildMarkers(),
 });
 
 const legendController = createLegendController({

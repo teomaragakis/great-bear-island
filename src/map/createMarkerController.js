@@ -9,6 +9,8 @@ export function createMarkerController({
   getCategoryMeta,
   getSubcategoryMeta,
   getPointIcon,
+  shouldClusterMarkers,
+  shouldClusterByCategory,
   isDeveloperModeEnabled,
   onOpenDeveloperEditor,
   onDeveloperPointMoved,
@@ -17,6 +19,7 @@ export function createMarkerController({
   let currentPopup = null;
   let activeMarkerEl = null;
   let activeViewPoi = null;
+  let clusterLayers = new Map();
 
   function getPixelCoords(latlng) {
     return {
@@ -46,7 +49,7 @@ export function createMarkerController({
     const subcategory = getSubcategoryMeta(point.category, point.subcategory);
     const pointIcon = getPointIcon(point.category, point.subcategory, point);
     const popupTitle = point.name || subcategory?.label || category.label;
-    const popupDesc = point.desc ?? '';
+    const popupDesc = point.desc ?? subcategory?.desc ?? '';
     const titleHtml = `
       <div class="popup-title-row">
         <span class="popup-title-icon">${pointIcon}</span>
@@ -126,8 +129,53 @@ export function createMarkerController({
     else marker.dragging.disable();
   }
 
+  function supportsClustering() {
+    return typeof L.markerClusterGroup === 'function';
+  }
+
+  function createClusterLayer(categoryKey) {
+    if (!supportsClustering()) return null;
+
+    const category = categoryKey === '__all__' ? null : getCategoryMeta(categoryKey);
+
+    return L.markerClusterGroup({
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      zoomToBoundsOnClick: true,
+      maxClusterRadius: zoom => {
+        if (zoom <= -2) return 140;
+        if (zoom <= -1) return 100;
+        return 72;
+      },
+      iconCreateFunction(cluster) {
+        return L.divIcon({
+          className: 'poi-cluster-icon',
+          html: `<div class="poi-cluster-badge" style="--cluster-color: ${category?.color ?? '#d7ad31'}">${cluster.getChildCount()}</div>`,
+          iconSize: [40, 40],
+        });
+      },
+    });
+  }
+
+  function getClusterLayer(categoryKey) {
+    if (!clusterLayers.has(categoryKey)) {
+      const layer = createClusterLayer(categoryKey);
+      if (layer) {
+        clusterLayers.set(categoryKey, layer);
+        map.addLayer(layer);
+      }
+    }
+
+    return clusterLayers.get(categoryKey) ?? null;
+  }
+
   function clearMarkers() {
     activeMarkers.forEach(({ marker }) => marker.remove());
+    clusterLayers.forEach(layer => {
+      map.removeLayer(layer);
+      layer.clearLayers();
+    });
+    clusterLayers = new Map();
     activeMarkers = [];
     activeMarkerEl = null;
   }
@@ -135,6 +183,8 @@ export function createMarkerController({
   function buildMarkers(areaKey = getCurrentArea()) {
     clearMarkers();
     const pois = getAreas()[areaKey].pois;
+    const shouldCluster = supportsClustering() && shouldClusterMarkers() && !isDeveloperModeEnabled();
+    const clusterByCategory = shouldClusterByCategory();
 
     pois.forEach(poi => {
       const category = getCategoryMeta(poi.category);
@@ -151,7 +201,14 @@ export function createMarkerController({
         }),
         keyboard: false,
         draggable: isDeveloperModeEnabled(),
-      }).addTo(map);
+      });
+
+      if (shouldCluster) {
+        const clusterKey = clusterByCategory ? poi.category : '__all__';
+        getClusterLayer(clusterKey)?.addLayer(marker);
+      } else {
+        marker.addTo(map);
+      }
 
       setMarkerDragState(marker, isDeveloperModeEnabled());
 
@@ -184,7 +241,13 @@ export function createMarkerController({
         reopenPopupAfterDrag(entry, el);
       });
 
-      activeMarkers.push({ marker, el, poi });
+      activeMarkers.push({
+        marker,
+        el,
+        poi,
+        categoryKey: poi.category,
+        clusterKey: clusterByCategory ? poi.category : '__all__',
+      });
     });
 
     refreshMarkerVisibility();
@@ -192,16 +255,19 @@ export function createMarkerController({
 
   function refreshMarkerVisibility() {
     const activeFilters = getActiveFilters();
-    activeMarkers.forEach(({ marker, poi }) => {
+    activeMarkers.forEach(({ marker, poi, clusterKey }) => {
       const isVisible = activeFilters.has(getFilterKey(poi.category, poi.subcategory));
-      const isOnMap = map.hasLayer(marker);
+      const clusterLayer = clusterLayers.get(clusterKey) ?? null;
+      const isOnMap = clusterLayer ? clusterLayer.hasLayer(marker) : map.hasLayer(marker);
 
       if (isVisible && !isOnMap) {
-        marker.addTo(map);
+        if (clusterLayer) clusterLayer.addLayer(marker);
+        else marker.addTo(map);
       }
 
       if (!isVisible && isOnMap) {
-        marker.remove();
+        if (clusterLayer) clusterLayer.removeLayer(marker);
+        else marker.remove();
       }
     });
   }

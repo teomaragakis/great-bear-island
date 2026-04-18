@@ -18,7 +18,7 @@
   },
   "harvestable-plants": {
     "label": "Harvestable Plants",
-    "color": "#4ade80",
+    "color": "#5e8c4a",
     "subcategories": {
       "cat-tails": { "label": "Cat tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
       "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
