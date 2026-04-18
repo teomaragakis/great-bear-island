@@ -1,0 +1,29 @@
+{
+  "areas": {
+    "coastal-highway": {
+      "name": "Coastal Highway",
+      "info": {
+        "desc": "A weather-battered coastline wrapped around a frozen bay, Coastal Highway is an intermediate region with strong shelter coverage, abundant early loot, fishing access, and coastal beachcombing. Its advantages are offset by thin ice in parts of the bay and heavy predator pressure, especially around the townsite, Log Sort, and Misanthrope's Homestead.",
+        "stats": [
+          { "label": "Difficulty", "value": "Intermediate" },
+          { "label": "Shelter Density", "value": "High" },
+          { "label": "Wildlife", "value": "Wolves / Bears / Moose" },
+          { "label": "Fishing", "value": "Excellent" },
+          { "label": "Beachcombing", "value": "Yes" },
+          { "label": "Trade Drop Box", "value": "Yes" },
+          { "label": "Connects To", "value": "Mystery Lake / Bleak Inlet / Pleasant Valley / Desolation Point" }
+        ]
+      },
+      "layers": {
+        "imageSize": {
+          "width": 5200,
+          "height": 4000
+        },
+        "aerial": "assets/maps/coastal_highway-aerial.jpeg",
+        "aerial-contour": "assets/maps/coastal_highway-aerial-contour.jpeg",
+        "topographic": "assets/maps/coastal_highway-topo.jpeg"
+      },
+      "path": "data/areas/coastal-highway.json"
+    }
+  }
+}

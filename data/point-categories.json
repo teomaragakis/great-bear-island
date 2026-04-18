@@ -1,0 +1,83 @@
+{
+  "shelter": {
+    "label": "Shelters",
+    "color": "#dadada",
+    "icon": "🛖",
+    "subcategories": {
+      "cabin": { "label": "Cabin" },
+      "ice-fishing-hut": { "label": "Ice Fishing Hut" }
+    }
+  },
+  "loot": {
+    "label": "Loot",
+    "color": "#facc15",
+    "icon": "🎒",
+    "subcategories": {
+      "townsite": { "label": "Townsite" },
+      "high-value": { "label": "High Value" }
+    }
+  },
+  "navigation": {
+    "label": "Navigation",
+    "color": "#818cf8",
+    "icon": "🧭",
+    "subcategories": {
+      "transition": { "label": "Transition"},
+      "landmark": { "label": "Landmark" }
+    }
+  },
+  "harvestable-plants": {
+    "label": "Harvestable Plants",
+    "color": "#4ade80",
+    "icon": "🌿",
+    "subcategories": {
+      "cat-tails": { "label": "Cat Tails" },
+      "birch-bark": { "label": "Birch Bark" },
+      "maple-sapling": { "label": "Maple Sapling" },
+      "birch-sapling": { "label": "Birch Sapling" },
+      "rose-hips": { "label": "Rose Hips" },
+      "old-mans-beard-lichen": { "label": "Old Man's Beard Lichen" },
+      "reishi-mushrooms": { "label": "Reishi Mushrooms" },
+      "burdock-roots": { "label": "Burdock Roots" },
+      "oak-tree": { "label": "Oak Tree" }
+    }
+  },
+  "weapons-and-tools": {
+    "label": "Weapons & Tools",
+    "color": "#ef4444",
+    "icon": "🪓",
+    "subcategories": {
+      "vaughns-rifle": { "label": "Vaughn's Rifle", "dlc": true },
+      "rifle": { "label": "Rifle" },
+      "hunters-revolver": { "label": "Hunter's Revolver", "dlc": true },
+      "revolver": { "label": "Revolver" },
+      "distress-pistol": { "label": "Distress Pistol" },
+      "bow": { "label": "Bow" },
+      "hatchet": { "label": "Hatchet" },
+      "knife": { "label": "Knife" },
+      "hammer": { "label": "Hammer" }
+    }
+  },
+  "predators": {
+    "label": "Predators",
+    "color": "#dc2626",
+    "icon": "🐺",
+    "subcategories": {
+      "wolf": { "label": "Wolf" },
+      "bear": { "label": "Bear" },
+      "moose": { "label": "Moose" },
+      "cougar": { "label": "Cougar" }
+    }
+  },
+  "prey": {
+    "label": "Prey / Hunting",
+    "color": "#92664a",
+    "icon": "🦌",
+    "subcategories": {
+      "rabbit": { "label": "Rabbit" },
+      "deer": { "label": "Deer" },
+      "ptarmigan": { "label": "Ptarmigan" },
+      "possible-deer-carcass": { "label": "Possible Deer Carcass" }
+    }
+  }
+}

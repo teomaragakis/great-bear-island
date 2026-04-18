@@ -1,0 +1,153 @@
+[
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [2158, 2164]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [2344, 2110]
+  },
+  {
+    "category": "shelter",
+    "subcategory": "base",
+    "pixelCoords": [2354, 1879]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [2596, 1898]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [2510, 1973]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [2531, 1908]
+  },
+  {
+    "category": "prey",
+    "subcategory": "deer",
+    "pixelCoords": [2075, 2067]
+  },
+  {
+    "category": "prey",
+    "subcategory": "rabbit",
+    "pixelCoords": [2339, 1995]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "rose-hips",
+    "pixelCoords": [2326, 1904]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "rose-hips",
+    "pixelCoords": [2380, 1877]
+  },
+  {
+    "category": "prey",
+    "subcategory": "deer",
+    "pixelCoords": [2651, 2144]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "birch-sapling",
+    "pixelCoords": [1976, 2017]
+  },
+  {
+    "category": "shelter",
+    "subcategory": "ice-fishing-hut",
+    "pixelCoords": [3066, 1922]
+  },
+  {
+    "category": "weapons-and-tools",
+    "subcategory": "revolver",
+    "pixelCoords": [3348, 1874]
+  },
+  {
+    "category": "prey",
+    "subcategory": "rabbit",
+    "pixelCoords": [3350, 1913]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [3623, 1847]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [3570, 1838]
+  },
+  {
+    "category": "prey",
+    "subcategory": "deer",
+    "pixelCoords": [3665, 1801]
+  },
+  {
+    "category": "shelter",
+    "subcategory": "cabin",
+    "name": "Misanthrope's Homestead",
+    "pixelCoords": [3646, 1724]
+  },
+  {
+    "category": "weapons-and-tools",
+    "subcategory": "hatchet",
+    "pixelCoords": [3688, 1700]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [3709, 1666]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [3740, 1647]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "old-mans-beard-lichen",
+    "pixelCoords": [3790, 1588]
+  },
+  {
+    "category": "harvestable-plants",
+    "subcategory": "birch-sapling",
+    "pixelCoords": [4017, 1485]
+  },
+  {
+    "category": "predators",
+    "subcategory": "bear",
+    "pixelCoords": [3854, 1654]
+  },
+  {
+    "category": "predators",
+    "subcategory": "wolf",
+    "pixelCoords": [3893, 1225]
+  },
+  {
+    "category": "predators",
+    "subcategory": "wolf",
+    "pixelCoords": [3899, 1050]
+  },
+  {
+    "category": "prey",
+    "subcategory": "deer",
+    "pixelCoords": [4058, 650]
+  },
+  {
+    "category": "prey",
+    "subcategory": "deer",
+    "pixelCoords": [4470, 1402]
+  },
+  {
+    "category": "prey",
+    "subcategory": "deer",
+    "pixelCoords": [4676, 1811]
+  }
+]
