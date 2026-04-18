@@ -154,7 +154,7 @@ export function createMarkerController({
       if (!latlng) return;
 
       const marker = L.marker(latlng, {
-        interactive: false,
+        interactive: true,
         keyboard: false,
         zIndexOffset: -100,
         icon: L.divIcon({
@@ -163,6 +163,16 @@ export function createMarkerController({
           iconSize: [0, 0],
         }),
       }).addTo(map);
+
+      marker.on('click', event => {
+        if (event.originalEvent) L.DomEvent.stop(event.originalEvent);
+
+        const targetZoom = Math.min(map.getMaxZoom(), 0);
+
+        map.setView(latlng, targetZoom, {
+          animate: true,
+        });
+      });
 
       activeLocationLabels.push(marker);
     });
