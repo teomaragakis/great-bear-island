@@ -47,19 +47,16 @@ export function formatPoiJson(payload) {
   );
 }
 
-async function detectAvailableIcons(pointCategories) {
-  const subcategoryKeys = Object.values(pointCategories).flatMap(category =>
-    Object.keys(category.subcategories ?? {}),
-  );
+async function detectAvailableIcons() {
+  const response = await fetch('assets/icons/', { cache: 'no-store' });
+  if (!response.ok) return [];
 
-  const iconChecks = await Promise.all(
-    subcategoryKeys.map(async subcategoryKey => {
-      const response = await fetch(`assets/icons/${subcategoryKey}.svg`, { cache: 'no-store' });
-      return response.ok ? subcategoryKey : null;
-    }),
-  );
+  const html = await response.text();
+  const matches = [...html.matchAll(/href="([^"]+\.svg)"/g)];
 
-  return iconChecks.filter(Boolean);
+  return matches
+    .map(([, href]) => href.split('/').pop()?.replace(/\.svg$/i, '') ?? null)
+    .filter(Boolean);
 }
 
 export async function loadAreas() {
@@ -82,7 +79,7 @@ export async function loadAreas() {
 
   const areaIndex = rawAreaIndex.areas ?? {};
   const pointCategories = rawCategories;
-  const availableIcons = await detectAvailableIcons(pointCategories);
+  const availableIcons = await detectAvailableIcons();
 
   const areaEntries = await Promise.all(
     Object.entries(areaIndex).map(async ([areaKey, areaMeta]) => {
