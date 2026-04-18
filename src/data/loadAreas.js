@@ -61,15 +61,15 @@ async function detectAvailableIcons() {
 
 export async function loadAreas() {
   const [areaIndexResponse, categoriesResponse] = await Promise.all([
-    fetch('data/areas.json', { cache: 'no-store' }),
-    fetch('data/point-categories.json', { cache: 'no-store' }),
+    fetch('data/regions.json', { cache: 'no-store' }),
+    fetch('data/poi-categories.json', { cache: 'no-store' }),
   ]);
 
   if (!areaIndexResponse.ok) {
-    throw new Error(`Failed to load areas.json (${areaIndexResponse.status})`);
+    throw new Error(`Failed to load regions.json (${areaIndexResponse.status})`);
   }
   if (!categoriesResponse.ok) {
-    throw new Error(`Failed to load point-categories.json (${categoriesResponse.status})`);
+    throw new Error(`Failed to load poi-categories.json (${categoriesResponse.status})`);
   }
 
   const [rawAreaIndex, rawCategories] = await Promise.all([
@@ -77,7 +77,7 @@ export async function loadAreas() {
     categoriesResponse.json(),
   ]);
 
-  const areaIndex = rawAreaIndex.areas ?? {};
+  const areaIndex = rawAreaIndex.regions ?? rawAreaIndex.areas ?? {};
   const pointCategories = rawCategories;
   const availableIcons = await detectAvailableIcons();
 

@@ -12,9 +12,9 @@ This project renders region maps as static image overlays with Leaflet and a JSO
 
 Current functionality includes:
 
-- Region metadata loaded from `data/areas.json`
-- Per-region POI data loaded from `data/areas/<region>.json`
-- Shared point taxonomy loaded from `data/point-categories.json`
+- Region metadata loaded from `data/regions.json`
+- Per-region POI data loaded from `data/regions/<region>.json`
+- Shared point taxonomy loaded from `data/poi-categories.json`
 - Region switching through the top-bar area selector
 - Layer switching between aerial contour, aerial, and topographic map views
 - Region overview modal with description and stat cards
@@ -38,9 +38,9 @@ Current functionality includes:
 ```text
 .
 ├── data/
-│   ├── areas.json
-│   ├── point-categories.json
-│   └── areas/
+│   ├── regions.json
+│   ├── poi-categories.json
+│   └── regions/
 │       └── coastal-highway.json
 ├── src/
 │   ├── config/
@@ -68,14 +68,14 @@ Then open `http://localhost:8000`.
 
 ## Data Model
 
-`data/areas.json` contains area-level metadata:
+`data/regions.json` contains region-level metadata under the `regions` key:
 
 - display name
 - region overview text and stats
 - layer image paths and image size
 - path to the region POI file
 
-Per-region files in `data/areas/` currently contain an array of POIs.
+Per-region files in `data/regions/` currently contain an array of POIs.
 
 Each POI uses this shape:
 
@@ -90,7 +90,7 @@ Each POI uses this shape:
 }
 ```
 
-`data/point-categories.json` defines the master category and subcategory taxonomy, including category labels/colors plus subcategory labels/icons, wiki `url` values, and optional `dlc` flags.
+`data/poi-categories.json` defines the master category and subcategory taxonomy, including category labels/colors plus subcategory labels/icons, wiki `url` values, and optional `dlc` flags.
 
 At runtime, each POI is normalized with Leaflet-friendly coordinates derived from `pixelCoords`.
 
@@ -124,4 +124,4 @@ Temporary POIs are kept in memory and are cleared when switching regions or refr
 
 ## Current Scope
 
-The current repository is set up around Coastal Highway, but the data model supports additional regions through the same `areas.json` + per-region `pois` file structure.
+The current repository is set up around Coastal Highway, but the data model supports additional regions through the same `regions` index in `regions.json` plus per-region `pois` files.

@@ -4,6 +4,7 @@ import { getFilterKey } from '../ui/createLegendController.js';
 export function createMarkerController({
   map,
   getAreas,
+  getAreaIndex,
   getCurrentArea,
   getActiveFilters,
   getCategoryMeta,
@@ -16,6 +17,7 @@ export function createMarkerController({
   onDeveloperPointMoved,
 }) {
   let activeMarkers = [];
+  let activeLocationLabels = [];
   let currentPopup = null;
   let activeMarkerEl = null;
   let activeViewPoi = null;
@@ -129,6 +131,43 @@ export function createMarkerController({
     else marker.dragging.disable();
   }
 
+  function clearLocationLabels() {
+    activeLocationLabels.forEach(label => label.remove());
+    activeLocationLabels = [];
+  }
+
+  function getLocationLatLng(location, pois) {
+    if (Array.isArray(location.pixelCoords) && location.pixelCoords.length === 2) {
+      return px(location.pixelCoords[0], location.pixelCoords[1]);
+    }
+
+    const matchedPoi = pois.find(poi => poi.name === location.name);
+    return matchedPoi?.coords ?? null;
+  }
+
+  function buildLocationLabels(areaKey, pois) {
+    clearLocationLabels();
+
+    const locations = getAreaIndex()[areaKey]?.locations ?? [];
+    locations.forEach(location => {
+      const latlng = getLocationLatLng(location, pois);
+      if (!latlng) return;
+
+      const marker = L.marker(latlng, {
+        interactive: false,
+        keyboard: false,
+        zIndexOffset: -100,
+        icon: L.divIcon({
+          className: 'region-location-label-icon',
+          html: `<div class="region-location-label">${location.name}</div>`,
+          iconSize: [0, 0],
+        }),
+      }).addTo(map);
+
+      activeLocationLabels.push(marker);
+    });
+  }
+
   function supportsClustering() {
     return typeof L.markerClusterGroup === 'function';
   }
@@ -171,6 +210,7 @@ export function createMarkerController({
 
   function clearMarkers() {
     activeMarkers.forEach(({ marker }) => marker.remove());
+    clearLocationLabels();
     clusterLayers.forEach(layer => {
       map.removeLayer(layer);
       layer.clearLayers();
@@ -250,6 +290,7 @@ export function createMarkerController({
       });
     });
 
+    buildLocationLabels(areaKey, pois);
     refreshMarkerVisibility();
   }
 

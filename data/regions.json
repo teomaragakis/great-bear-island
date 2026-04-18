@@ -1,7 +1,18 @@
 {
-  "areas": {
+  "regions": {
     "coastal-highway": {
       "name": "Coastal Highway",
+      "locations": [
+        { "name": "Coastal Townsite", "pixelCoords": [4418, 2634] },
+        { "name": "Fishing Camp", "pixelCoords": [1515, 2613] },
+        { "name": "Jackrabbit Island", "pixelCoords": [2334, 1968] },
+        { "name": "Misanthrope's Homestead" },
+        { "name": "Log Sort", "pixelCoords": [2984, 2987] },
+        { "name": "Train Unloading", "pixelCoords": [1299, 3795] },
+        { "name": "Silent Clearing", "pixelCoords": [4886, 2810] },
+        { "name": "Waterfront Cottages", "pixelCoords": [4292, 1048] },
+        { "name": "Commuter's Lament", "pixelCoords": [4295, 479] }
+      ],
       "info": {
         "desc": "A weather-battered coastline wrapped around a frozen bay, Coastal Highway is an intermediate region with strong shelter coverage, abundant early loot, fishing access, and coastal beachcombing. Its advantages are offset by thin ice in parts of the bay and heavy predator pressure, especially around the townsite, Log Sort, and Misanthrope's Homestead.",
         "stats": [
@@ -23,7 +34,7 @@
         "aerial-contour": "assets/maps/coastal_highway-aerial-contour.jpeg",
         "topographic": "assets/maps/coastal_highway-topo.jpeg"
       },
-      "path": "data/areas/coastal-highway.json"
+      "path": "data/regions/coastal-highway.json"
     }
   }
 }

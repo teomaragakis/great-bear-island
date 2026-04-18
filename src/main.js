@@ -73,6 +73,7 @@ let developerMode;
 const markerController = createMarkerController({
   map: mapView.map,
   getAreas,
+  getAreaIndex,
   getCurrentArea,
   getActiveFilters,
   getCategoryMeta,
