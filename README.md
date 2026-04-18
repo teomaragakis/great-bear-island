@@ -4,6 +4,8 @@ Interactive map app for exploring *The Long Dark* regions with layered static ma
 
 ⚠️ Right now only Coastal Highway is enabled and most POIs are missing. Consider this an alpha.
 
+View it here: [teomaragakis.github.io/great-bear-island/](https://teomaragakis.github.io/great-bear-island/)
+
 ## Overview
 
 This project renders region maps as static image overlays with Leaflet and a JSON-driven data model. As a fan of the game, I initially used https://elektronixx.github.io/TLD-Interactive-Map/ but I was not happy with the fact that POIs on the map were static and the map itself was not very realistic, so I used [The Long Dark Topographic Maps](https://steamcommunity.com/sharedfiles/filedetails/?id=1142193220) made by delta. Delta, if you're reading this you're a god damn legend.
