@@ -4,6 +4,7 @@ export const state = {
   areas: {},
   areaIndex: {},
   pointCategories: {},
+  availableIcons: new Set(),
   currentArea: DEFAULT_AREA,
   currentLayer: DEFAULT_LAYER,
   activeSubcategoryFilters: new Set(),
@@ -41,8 +42,32 @@ export function getSubcategoryMeta(categoryKey, subcategoryKey) {
   return getCategoryMeta(categoryKey)?.subcategories?.[subcategoryKey] ?? null;
 }
 
-export function getPointIcon(categoryKey, subcategoryKey) {
-  return getSubcategoryMeta(categoryKey, subcategoryKey)?.icon
-    ?? getCategoryMeta(categoryKey)?.icon
-    ?? '';
+function getSubcategoryIconPath(subcategoryKey) {
+  return state.availableIcons.has(subcategoryKey)
+    ? `assets/icons/${subcategoryKey}.svg`
+    : '';
+}
+
+function isSvgIcon(icon) {
+  return typeof icon === 'string' && icon.trim().toLowerCase().endsWith('.svg');
+}
+
+function escapeHtmlAttribute(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('"', '&quot;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+}
+
+export function getPointIcon(categoryKey, subcategoryKey, point = null) {
+  const icon = point?.icon ?? getSubcategoryIconPath(subcategoryKey);
+  if (!icon) return '';
+
+  if (isSvgIcon(icon)) {
+    const alt = point?.name ?? getSubcategoryMeta(categoryKey, subcategoryKey)?.label ?? '';
+    return `<span class="icon-asset icon-asset-mask" role="img" aria-label="${escapeHtmlAttribute(alt)}" style="--icon-url: url('${escapeHtmlAttribute(icon)}');"></span>`;
+  }
+
+  return icon;
 }

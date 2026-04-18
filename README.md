@@ -90,7 +90,7 @@ Each POI uses this shape:
 }
 ```
 
-`data/point-categories.json` defines the master category and subcategory taxonomy, including labels, colors, icons, and optional `dlc` flags.
+`data/point-categories.json` defines the master category and subcategory taxonomy, including category labels/colors plus subcategory labels/icons, wiki `url` values, and optional `dlc` flags.
 
 At runtime, each POI is normalized with Leaflet-friendly coordinates derived from `pixelCoords`.
 

@@ -1,32 +1,32 @@
 [
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [2158, 2164]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [2344, 2110]
   },
   {
-    "category": "shelter",
-    "subcategory": "base",
+    "category": "locations",
+    "subcategory": "indoor",
     "pixelCoords": [2354, 1879]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [2596, 1898]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [2510, 1973]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [2531, 1908]
   },
   {
@@ -60,8 +60,8 @@
     "pixelCoords": [1976, 2017]
   },
   {
-    "category": "shelter",
-    "subcategory": "ice-fishing-hut",
+    "category": "locations",
+    "subcategory": "fishing-hut",
     "pixelCoords": [3066, 1922]
   },
   {
@@ -76,12 +76,12 @@
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [3623, 1847]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [3570, 1838]
   },
   {
@@ -90,8 +90,8 @@
     "pixelCoords": [3665, 1801]
   },
   {
-    "category": "shelter",
-    "subcategory": "cabin",
+    "category": "locations",
+    "subcategory": "indoor",
     "name": "Misanthrope's Homestead",
     "pixelCoords": [3646, 1724]
   },
@@ -102,17 +102,17 @@
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [3709, 1666]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [3740, 1647]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "old-mans-beard-lichen",
+    "subcategory": "lichen",
     "pixelCoords": [3790, 1588]
   },
   {

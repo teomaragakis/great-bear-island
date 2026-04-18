@@ -109,6 +109,8 @@ export function createDeveloperModeController({
 
   function renderDeveloperForm(entry) {
     const { point } = entry;
+    const pointName = point.name ?? '';
+    const pointDesc = point.desc ?? '';
     const container = document.createElement('div');
     container.className = 'developer-form';
     container.innerHTML = `
@@ -126,11 +128,11 @@ export function createDeveloperModeController({
       </label>
       <label class="developer-field">
         <span>Name</span>
-        <input data-role="name" type="text" value="${point.name}">
+        <input data-role="name" type="text" value="${pointName}">
       </label>
       <label class="developer-field">
         <span>Description</span>
-        <textarea data-role="desc" rows="3">${point.desc}</textarea>
+        <textarea data-role="desc" rows="3">${pointDesc}</textarea>
       </label>
       <div class="developer-coords">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>
       <button type="button" class="developer-delete">Delete POI</button>

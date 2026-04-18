@@ -35,8 +35,8 @@ export function createMarkerController({
     const category = getCategoryMeta(point.category);
     const el = document.createElement('div');
     el.className = `custom-marker${extraClassName ? ` ${extraClassName}` : ''}`;
-    el.style.background = category.color;
-    el.innerHTML = `<div class="marker-icon">${getPointIcon(point.category, point.subcategory)}</div>`;
+    el.style.setProperty('--category-color', category.color);
+    el.innerHTML = `<div class="marker-icon">${getPointIcon(point.category, point.subcategory, point)}</div>`;
     if (point.id) el.dataset.poiId = point.id;
     return el;
   }
@@ -44,8 +44,9 @@ export function createMarkerController({
   function getPopupContent(point) {
     const category = getCategoryMeta(point.category);
     const subcategory = getSubcategoryMeta(point.category, point.subcategory);
-    const pointIcon = getPointIcon(point.category, point.subcategory);
+    const pointIcon = getPointIcon(point.category, point.subcategory, point);
     const popupTitle = point.name || subcategory?.label || category.label;
+    const popupDesc = point.desc ?? '';
     const titleHtml = `
       <div class="popup-title-row">
         <span class="popup-title-icon">${pointIcon}</span>
@@ -59,7 +60,7 @@ export function createMarkerController({
     return `
       <div class="popup-cat" style="color:${category.color}">${category.label}</div>
       ${titleHtml}
-      <div class="popup-desc">${point.desc}</div>
+      <div class="popup-desc">${popupDesc}</div>
       ${coordsHtml}
     `;
   }

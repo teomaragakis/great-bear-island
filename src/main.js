@@ -196,6 +196,7 @@ async function boot() {
     const loaded = await loadAreas();
     state.areaIndex = loaded.areaIndex;
     state.pointCategories = loaded.pointCategories;
+    state.availableIcons = new Set(loaded.availableIcons);
     state.areas = loaded.areas;
 
     bindEvents();

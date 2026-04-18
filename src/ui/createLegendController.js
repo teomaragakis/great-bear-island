@@ -59,8 +59,9 @@ export function createLegendController({
     const item = document.createElement('div');
     item.className = `legend-item${isDisabled ? ' disabled' : ''}${!isDisabled && !activeFilters.has(filterKey) ? ' inactive' : ''}`;
     item.dataset.filterKey = filterKey;
+    item.style.setProperty('--category-color', category.color);
     item.innerHTML = `
-      <div class="legend-dot" style="background:${category.color}"></div>
+      <div class="legend-dot"></div>
       <span class="legend-label">${getPointIcon(categoryKey, subcategoryKey)} ${subcategory.label}</span>
       <span class="legend-count">${count}</span>
     `;

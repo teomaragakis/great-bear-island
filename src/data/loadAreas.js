@@ -47,10 +47,25 @@ export function formatPoiJson(payload) {
   );
 }
 
+async function detectAvailableIcons(pointCategories) {
+  const subcategoryKeys = Object.values(pointCategories).flatMap(category =>
+    Object.keys(category.subcategories ?? {}),
+  );
+
+  const iconChecks = await Promise.all(
+    subcategoryKeys.map(async subcategoryKey => {
+      const response = await fetch(`assets/icons/${subcategoryKey}.svg`, { cache: 'no-store' });
+      return response.ok ? subcategoryKey : null;
+    }),
+  );
+
+  return iconChecks.filter(Boolean);
+}
+
 export async function loadAreas() {
   const [areaIndexResponse, categoriesResponse] = await Promise.all([
-    fetch('data/areas.json'),
-    fetch('data/point-categories.json'),
+    fetch('data/areas.json', { cache: 'no-store' }),
+    fetch('data/point-categories.json', { cache: 'no-store' }),
   ]);
 
   if (!areaIndexResponse.ok) {
@@ -67,10 +82,11 @@ export async function loadAreas() {
 
   const areaIndex = rawAreaIndex.areas ?? {};
   const pointCategories = rawCategories;
+  const availableIcons = await detectAvailableIcons(pointCategories);
 
   const areaEntries = await Promise.all(
     Object.entries(areaIndex).map(async ([areaKey, areaMeta]) => {
-      const response = await fetch(areaMeta.path);
+      const response = await fetch(areaMeta.path, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error(`Failed to load ${areaMeta.path} (${response.status})`);
       }
@@ -89,6 +105,7 @@ export async function loadAreas() {
   return {
     areaIndex,
     pointCategories,
+    availableIcons,
     areas: normalizeAreas(Object.fromEntries(areaEntries)),
   };
 }

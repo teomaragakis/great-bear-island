@@ -1,83 +1,69 @@
 {
-  "shelter": {
-    "label": "Shelters",
-    "color": "#dadada",
-    "icon": "🛖",
+  "locations": {
+    "label": "Locations",
+    "color": "#aaaaaa",
     "subcategories": {
-      "cabin": { "label": "Cabin" },
-      "ice-fishing-hut": { "label": "Ice Fishing Hut" }
-    }
-  },
-  "loot": {
-    "label": "Loot",
-    "color": "#facc15",
-    "icon": "🎒",
-    "subcategories": {
-      "townsite": { "label": "Townsite" },
-      "high-value": { "label": "High Value" }
+      "indoor": { "label": "Indoor location", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations" },
+      "fishing-hut": { "label": "Fishing hut", "url": "https://thelongdark.fandom.com/wiki/Fishing_hut" }
     }
   },
   "navigation": {
     "label": "Navigation",
     "color": "#818cf8",
-    "icon": "🧭",
     "subcategories": {
-      "transition": { "label": "Transition"},
+      "spawn-point": { "label": "Spawn point" },
+      "transition": { "label": "Transition point" },
       "landmark": { "label": "Landmark" }
     }
   },
   "harvestable-plants": {
     "label": "Harvestable Plants",
     "color": "#4ade80",
-    "icon": "🌿",
     "subcategories": {
-      "cat-tails": { "label": "Cat Tails" },
-      "birch-bark": { "label": "Birch Bark" },
-      "maple-sapling": { "label": "Maple Sapling" },
-      "birch-sapling": { "label": "Birch Sapling" },
-      "rose-hips": { "label": "Rose Hips" },
-      "old-mans-beard-lichen": { "label": "Old Man's Beard Lichen" },
-      "reishi-mushrooms": { "label": "Reishi Mushrooms" },
-      "burdock-roots": { "label": "Burdock Roots" },
-      "oak-tree": { "label": "Oak Tree" }
+      "cat-tails": { "label": "Cat tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
+      "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
+      "maple-sapling": { "label": "Maple Sapling", "url": "https://thelongdark.fandom.com/wiki/Cured_Maple_Sapling" },
+      "birch-sapling": { "label": "Birch Sapling", "url": "https://thelongdark.fandom.com/wiki/Green_Birch_Sapling" },
+      "rose-hips": { "label": "Rose Hips", "url": "https://thelongdark.fandom.com/wiki/Rose_Hip" },
+      "lichen": { "label": "Old Man's Beard Lichen", "url": "https://thelongdark.fandom.com/wiki/Old_Man%27s_Beard_Lichen" },
+      "reishi-mushrooms": { "label": "Reishi Mushrooms", "url": "https://thelongdark.fandom.com/wiki/Reishi_Mushroom" },
+      "burdock-roots": { "label": "Burdock Roots", "url": "https://thelongdark.fandom.com/wiki/Burdock_Root" },
+      "oak-tree": { "label": "Oak Tree", "url": "https://thelongdark.fandom.com/wiki/Oak_Tree" }
     }
   },
   "weapons-and-tools": {
     "label": "Weapons & Tools",
     "color": "#ef4444",
-    "icon": "🪓",
     "subcategories": {
-      "vaughns-rifle": { "label": "Vaughn's Rifle", "dlc": true },
-      "rifle": { "label": "Rifle" },
-      "hunters-revolver": { "label": "Hunter's Revolver", "dlc": true },
-      "revolver": { "label": "Revolver" },
-      "distress-pistol": { "label": "Distress Pistol" },
-      "bow": { "label": "Bow" },
-      "hatchet": { "label": "Hatchet" },
-      "knife": { "label": "Knife" },
-      "hammer": { "label": "Hammer" }
+      "vaughns-rifle": { "label": "Vaughn's Rifle", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle" },
+      "rifle": { "label": "Rifle", "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle" },
+      "hunters-revolver": { "label": "Hunter's Revolver", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Hunter%27s_Revolver" },
+      "revolver": { "label": "Revolver", "url": "https://thelongdark.fandom.com/wiki/Revolver" },
+      "distress-pistol": { "label": "Distress Pistol", "url": "https://thelongdark.fandom.com/wiki/Distress_Pistol" },
+      "bow": { "label": "Bow", "url": "https://thelongdark.fandom.com/wiki/Survival_Bow" },
+      "hatchet": { "label": "Hatchet", "url": "https://thelongdark.fandom.com/wiki/Hatchet" },
+      "knife": { "label": "Knife", "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife" },
+      "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" }
     }
   },
   "predators": {
     "label": "Predators",
     "color": "#dc2626",
-    "icon": "🐺",
     "subcategories": {
-      "wolf": { "label": "Wolf" },
-      "bear": { "label": "Bear" },
-      "moose": { "label": "Moose" },
-      "cougar": { "label": "Cougar" }
+      "wolf": { "label": "Wolf", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
+      "bear": { "label": "Bear", "url": "https://thelongdark.fandom.com/wiki/Bear" },
+      "moose": { "label": "Moose", "url": "https://thelongdark.fandom.com/wiki/Moose" },
+      "cougar": { "label": "Cougar", "url": "https://thelongdark.fandom.com/wiki/Cougar" }
     }
   },
   "prey": {
     "label": "Prey / Hunting",
     "color": "#92664a",
-    "icon": "🦌",
     "subcategories": {
-      "rabbit": { "label": "Rabbit" },
-      "deer": { "label": "Deer" },
-      "ptarmigan": { "label": "Ptarmigan" },
-      "possible-deer-carcass": { "label": "Possible Deer Carcass" }
+      "rabbit": { "label": "Rabbit", "url": "https://thelongdark.fandom.com/wiki/Rabbit" },
+      "deer": { "label": "Deer", "url": "https://thelongdark.fandom.com/wiki/Deer" },
+      "ptarmigan": { "label": "Ptarmigan", "url": "https://thelongdark.fandom.com/wiki/Ptarmigan" },
+      "deer-carcass": { "label": "Deer Carcass", "url": "https://thelongdark.fandom.com/wiki/Deer_Carcass" }
     }
   }
 }
