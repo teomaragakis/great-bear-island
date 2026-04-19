@@ -47,22 +47,11 @@ export function formatPoiJson(payload) {
   );
 }
 
-async function detectAvailableIcons() {
-  const response = await fetch('assets/icons/', { cache: 'no-store' });
-  if (!response.ok) return [];
-
-  const html = await response.text();
-  const matches = [...html.matchAll(/href="([^"]+\.svg)"/g)];
-
-  return matches
-    .map(([, href]) => href.split('/').pop()?.replace(/\.svg$/i, '') ?? null)
-    .filter(Boolean);
-}
-
 export async function loadAreas() {
-  const [areaIndexResponse, categoriesResponse] = await Promise.all([
+  const [areaIndexResponse, categoriesResponse, iconIndexResponse] = await Promise.all([
     fetch('data/regions.json', { cache: 'no-store' }),
     fetch('data/poi-categories.json', { cache: 'no-store' }),
+    fetch('assets/icons/index.json', { cache: 'no-store' }),
   ]);
 
   if (!areaIndexResponse.ok) {
@@ -71,15 +60,19 @@ export async function loadAreas() {
   if (!categoriesResponse.ok) {
     throw new Error(`Failed to load poi-categories.json (${categoriesResponse.status})`);
   }
+  if (!iconIndexResponse.ok) {
+    throw new Error(`Failed to load assets/icons/index.json (${iconIndexResponse.status})`);
+  }
 
-  const [rawAreaIndex, rawCategories] = await Promise.all([
+  const [rawAreaIndex, rawCategories, rawIconIndex] = await Promise.all([
     areaIndexResponse.json(),
     categoriesResponse.json(),
+    iconIndexResponse.json(),
   ]);
 
   const areaIndex = rawAreaIndex.regions ?? rawAreaIndex.areas ?? {};
   const pointCategories = rawCategories;
-  const availableIcons = await detectAvailableIcons();
+  const availableIcons = rawIconIndex.icons ?? [];
 
   const areaEntries = await Promise.all(
     Object.entries(areaIndex).map(async ([areaKey, areaMeta]) => {

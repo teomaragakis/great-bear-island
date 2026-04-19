@@ -720,7 +720,7 @@ main {
 .region-location-label {
   transform: translate(-50%, -50%);
   display: inline-block;
-  max-width: 200px;
+  max-width: 220px;
   padding: 0;
   background: transparent;
   border: none;

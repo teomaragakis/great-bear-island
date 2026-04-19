@@ -3,6 +3,8 @@
     "coastal-highway": {
       "name": "Coastal Highway",
       "locations": [
+        { "name": "Rabbit Grove", "pixelCoords": [406, 3220] },
+        { "name": "Bear Creek Campground", "pixelCoords": [600, 3008] },
         { "name": "Coastal Townsite", "pixelCoords": [4418, 2634] },
         { "name": "Fishing Camp", "pixelCoords": [1515, 2613] },
         { "name": "Jackrabbit Island", "pixelCoords": [2334, 1968] },
