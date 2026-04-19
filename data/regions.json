@@ -2,31 +2,17 @@
   "regions": {
     "coastal-highway": {
       "name": "Coastal Highway",
-      "locations": [
-        { "name": "Rabbit Grove", "pixelCoords": [406, 3220] },
-        { "name": "Bear Creek Campground", "pixelCoords": [600, 3008] },
-        { "name": "Coastal Townsite", "pixelCoords": [4418, 2634] },
-        { "name": "Fishing Camp", "pixelCoords": [1515, 2613] },
-        { "name": "Jackrabbit Island", "pixelCoords": [2334, 1968] },
-        { "name": "Misanthrope's Homestead" },
-        { "name": "Log Sort", "pixelCoords": [2984, 2987] },
-        { "name": "Train Unloading", "pixelCoords": [1299, 3795] },
-        { "name": "Silent Clearing", "pixelCoords": [4886, 2810] },
-        { "name": "Waterfront Cottages", "pixelCoords": [4292, 1048] },
-        { "name": "Commuter's Lament", "pixelCoords": [4295, 479] }
+      "desc": "A weather-battered coastline wrapped around a frozen bay, Coastal Highway is an intermediate region with strong shelter coverage, abundant early loot, fishing access, and coastal beachcombing. Its advantages are offset by thin ice in parts of the bay and heavy predator pressure, especially around the townsite, Log Sort, and Misanthrope's Homestead.",
+      "path": "data/regions/coastal-highway.json",
+      "stats": [
+        { "label": "Difficulty", "value": "Intermediate" },
+        { "label": "Shelter Density", "value": "High" },
+        { "label": "Wildlife", "value": "Wolves / Bears / Moose" },
+        { "label": "Fishing", "value": "Excellent" },
+        { "label": "Beachcombing", "value": "Yes" },
+        { "label": "Trade Drop Box", "value": "Yes" },
+        { "label": "Connects To", "value": "Mystery Lake / Bleak Inlet / Pleasant Valley / Desolation Point" }
       ],
-      "info": {
-        "desc": "A weather-battered coastline wrapped around a frozen bay, Coastal Highway is an intermediate region with strong shelter coverage, abundant early loot, fishing access, and coastal beachcombing. Its advantages are offset by thin ice in parts of the bay and heavy predator pressure, especially around the townsite, Log Sort, and Misanthrope's Homestead.",
-        "stats": [
-          { "label": "Difficulty", "value": "Intermediate" },
-          { "label": "Shelter Density", "value": "High" },
-          { "label": "Wildlife", "value": "Wolves / Bears / Moose" },
-          { "label": "Fishing", "value": "Excellent" },
-          { "label": "Beachcombing", "value": "Yes" },
-          { "label": "Trade Drop Box", "value": "Yes" },
-          { "label": "Connects To", "value": "Mystery Lake / Bleak Inlet / Pleasant Valley / Desolation Point" }
-        ]
-      },
       "layers": {
         "imageSize": {
           "width": 5200,
@@ -36,7 +22,20 @@
         "aerial-contour": "assets/maps/coastal_highway-aerial-contour.jpeg",
         "topographic": "assets/maps/coastal_highway-topo.jpeg"
       },
-      "path": "data/regions/coastal-highway.json"
+      "locations": [
+        { "name": "Rockfall", "pixelCoords": [942, 1750] },
+        { "name": "Rabbit Grove", "pixelCoords": [406, 3220] },
+        { "name": "Bear Creek Campground", "pixelCoords": [600, 3008] },
+        { "name": "Coastal Townsite", "pixelCoords": [4418, 2634] },
+        { "name": "Fishing Camp", "pixelCoords": [1474, 2660] },
+        { "name": "Jackrabbit Island", "pixelCoords": [2334, 1968] },
+        { "name": "Misanthrope's Homestead" },
+        { "name": "Log Sort", "pixelCoords": [2984, 2987] },
+        { "name": "Train Unloading", "pixelCoords": [1299, 3795] },
+        { "name": "Silent Clearing", "pixelCoords": [4886, 2810] },
+        { "name": "Waterfront Cottages", "pixelCoords": [4292, 1048] },
+        { "name": "Commuter's Lament", "pixelCoords": [4295, 479] }
+      ]
     }
   }
 }

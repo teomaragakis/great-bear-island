@@ -56,10 +56,10 @@ function closeAreaInfoModal() {
 }
 
 function updateRegionInfo(areaKey) {
-  const { info, name } = state.areas[areaKey];
+  const { desc, stats = [], name } = state.areas[areaKey];
   elements.areaInfoModalTitle.textContent = name;
-  elements.regionDesc.textContent = info.desc;
-  elements.regionStats.innerHTML = info.stats.map(stat => `
+  elements.regionDesc.textContent = desc;
+  elements.regionStats.innerHTML = stats.map(stat => `
     <div class="stat-box">
       <div class="stat-label">${stat.label}</div>
       <div class="stat-value">${stat.value}</div>
