@@ -1,25 +1,45 @@
 {
   "locations": {
     "label": "Locations",
-    "color": "#aaaaaa",
-    "subcategories": {
-      "indoor": { "label": "Indoor location", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations" },
-      "fishing-hut": { "label": "Fishing hut", "url": "https://thelongdark.fandom.com/wiki/Fishing_hut" }
+    "color": "#888888",
+    "types": {
+      "cabin": { "label": "Cabin", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations" },
+      "fishing-hut": { "label": "Fishing hut", "url": "https://thelongdark.fandom.com/wiki/Fishing_hut" },
+      "mine": {
+        "label": "Mine",
+        "url": "https://thelongdark.fandom.com/wiki/Mine",
+        "fields": {
+          "target-region": {
+            "label": "Region connection",
+            "type": "region-key"
+          }
+        }
+      }
     }
   },
   "navigation": {
     "label": "Navigation",
     "color": "#818cf8",
-    "subcategories": {
+    "types": {
       "spawn-point": { "label": "Spawn point" },
-      "transition": { "label": "Transition point" },
+      "transition": {
+        "label": "Transition point",
+        "hideName": true,
+        "fields": {
+          "target-region": {
+            "label": "Region connection",
+            "type": "region-key",
+            "required": true
+          }
+        }
+      },
       "landmark": { "label": "Landmark" }
     }
   },
   "harvestable-plants": {
     "label": "Harvestable Plants",
     "color": "#5e8c4a",
-    "subcategories": {
+    "types": {
       "cat-tails": { "label": "Cat tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
       "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
       "maple-sapling": { "label": "Maple Sapling", "url": "https://thelongdark.fandom.com/wiki/Cured_Maple_Sapling" },
@@ -34,7 +54,7 @@
   "weapons-and-tools": {
     "label": "Weapons & Tools",
     "color": "#ef4444",
-    "subcategories": {
+    "types": {
       "vaughns-rifle": { "label": "Vaughn's Rifle", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle" },
       "rifle": { "label": "Rifle", "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle" },
       "hunters-revolver": { "label": "Hunter's Revolver", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Hunter%27s_Revolver" },
@@ -49,7 +69,7 @@
   "predators": {
     "label": "Predators",
     "color": "#dc2626",
-    "subcategories": {
+    "types": {
       "wolf": { "label": "Wolf", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
       "bear": { "label": "Bear", "url": "https://thelongdark.fandom.com/wiki/Bear" },
       "moose": { "label": "Moose", "url": "https://thelongdark.fandom.com/wiki/Moose" },
@@ -59,7 +79,7 @@
   "prey": {
     "label": "Prey / Hunting",
     "color": "#92664a",
-    "subcategories": {
+    "types": {
       "rabbit": { "label": "Rabbit", "url": "https://thelongdark.fandom.com/wiki/Rabbit" },
       "deer": { "label": "Deer", "url": "https://thelongdark.fandom.com/wiki/Deer" },
       "ptarmigan": { "label": "Ptarmigan", "url": "https://thelongdark.fandom.com/wiki/Ptarmigan" },

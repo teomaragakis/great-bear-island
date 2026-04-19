@@ -1,29 +1,30 @@
-import { DEFAULT_AREA, DEFAULT_LAYER } from '../config/constants.js';
+// Shared in-memory app state plus a few small read helpers used by controllers.
+import { DEFAULT_LAYER, DEFAULT_REGION } from '../config/constants.js';
 
 export const state = {
-  areas: {},
-  areaIndex: {},
+  regions: {},
+  regionIndex: {},
   pointCategories: {},
   availableIcons: new Set(),
-  currentArea: DEFAULT_AREA,
+  currentRegion: DEFAULT_REGION,
   currentLayer: DEFAULT_LAYER,
-  activeSubcategoryFilters: new Set(),
+  activeTypeFilters: new Set(),
 };
 
-export function getAreas() {
-  return state.areas;
+export function getRegions() {
+  return state.regions;
 }
 
-export function getAreaIndex() {
-  return state.areaIndex;
+export function getRegionIndex() {
+  return state.regionIndex;
 }
 
 export function getPointCategories() {
   return state.pointCategories;
 }
 
-export function getCurrentArea() {
-  return state.currentArea;
+export function getCurrentRegion() {
+  return state.currentRegion;
 }
 
 export function getCurrentLayer() {
@@ -31,20 +32,20 @@ export function getCurrentLayer() {
 }
 
 export function getActiveFilters() {
-  return state.activeSubcategoryFilters;
+  return state.activeTypeFilters;
 }
 
 export function getCategoryMeta(categoryKey) {
   return state.pointCategories[categoryKey];
 }
 
-export function getSubcategoryMeta(categoryKey, subcategoryKey) {
-  return getCategoryMeta(categoryKey)?.subcategories?.[subcategoryKey] ?? null;
+export function getTypeMeta(categoryKey, typeKey) {
+  return getCategoryMeta(categoryKey)?.types?.[typeKey] ?? null;
 }
 
-function getSubcategoryIconPath(subcategoryKey) {
-  return state.availableIcons.has(subcategoryKey)
-    ? `assets/icons/${subcategoryKey}.svg`
+function getTypeIconPath(typeKey) {
+  return state.availableIcons.has(typeKey)
+    ? `assets/icons/${typeKey}.svg`
     : '';
 }
 
@@ -60,12 +61,12 @@ function escapeHtmlAttribute(value) {
     .replaceAll('>', '&gt;');
 }
 
-export function getPointIcon(categoryKey, subcategoryKey, point = null) {
-  const icon = point?.icon ?? getSubcategoryIconPath(subcategoryKey);
+export function getPointIcon(categoryKey, typeKey, point = null) {
+  const icon = point?.icon ?? getTypeIconPath(typeKey);
   if (!icon) return '';
 
   if (isSvgIcon(icon)) {
-    const alt = point?.name ?? getSubcategoryMeta(categoryKey, subcategoryKey)?.label ?? '';
+    const alt = point?.name ?? getTypeMeta(categoryKey, typeKey)?.label ?? '';
     return `<span class="icon-asset icon-asset-mask" role="img" aria-label="${escapeHtmlAttribute(alt)}" style="--icon-url: url('${escapeHtmlAttribute(icon)}');"></span>`;
   }
 

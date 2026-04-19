@@ -1,12 +1,13 @@
+// Developer-only POI editing, JSON export, and temporary marker tooling.
 import { formatPoiJson, serializePointForJson } from '../data/loadAreas.js';
 
 export function createDeveloperModeController({
   map,
   mapView,
   elements,
-  getAreas,
-  getAreaIndex,
-  getCurrentArea,
+  getRegions,
+  getRegionIndex,
+  getCurrentRegion,
   getPointCategories,
   getCategoryMeta,
   markerController,
@@ -53,7 +54,7 @@ export function createDeveloperModeController({
 
   function getCurrentPoisSnapshot() {
     return [
-      ...getAreas()[getCurrentArea()].pois.map(serializePointForJson),
+      ...getRegions()[getCurrentRegion()].pois.map(serializePointForJson),
       ...temporaryMarkers.map(({ point }) => serializePointForJson(point)),
     ];
   }
@@ -69,9 +70,9 @@ export function createDeveloperModeController({
   }
 
   function exportCurrentPoisSnapshot() {
-    const currentArea = getCurrentArea();
-    const areaPath = getAreaIndex()[currentArea]?.path ?? `${currentArea}.json`;
-    const filename = areaPath.split('/').pop() || `${currentArea}.json`;
+    const currentRegion = getCurrentRegion();
+    const regionPath = getRegionIndex()[currentRegion]?.path ?? `${currentRegion}.json`;
+    const filename = regionPath.split('/').pop() || `${currentRegion}.json`;
     downloadJsonFile(getCurrentPoisSnapshot(), filename);
   }
 
@@ -88,16 +89,161 @@ export function createDeveloperModeController({
     jsonModal.hidden = true;
   }
 
-  function getDefaultSubcategory(categoryKey) {
+  function getDefaultType(categoryKey) {
     const category = getCategoryMeta(categoryKey);
-    const [firstSubcategory] = Object.keys(category?.subcategories ?? {});
-    return firstSubcategory ?? '';
+    const [firstType] = Object.keys(category?.types ?? {});
+    return firstType ?? '';
   }
 
-  function buildDeveloperSubcategoryOptions(categoryKey, selectedSubcategory) {
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;');
+  }
+
+  function getTypeMeta(categoryKey, typeKey) {
+    return getCategoryMeta(categoryKey)?.types?.[typeKey] ?? null;
+  }
+
+  function getTypeFields(categoryKey, typeKey) {
+    return getTypeMeta(categoryKey, typeKey)?.fields ?? {};
+  }
+
+  function shouldHideNameField(categoryKey, typeKey) {
+    return getTypeMeta(categoryKey, typeKey)?.hideName === true;
+  }
+
+  function getSelectableRegionOptions(selectedValue = '') {
+    return Object.entries(getRegionIndex())
+      .map(([regionKey, regionMeta]) => `
+        <option value="${escapeHtml(regionKey)}" ${regionKey === selectedValue ? 'selected' : ''}>
+          ${escapeHtml(regionMeta.name)}
+        </option>
+      `)
+      .join('');
+  }
+
+  function getPointFieldValue(point, fieldKey) {
+    if (point[fieldKey] !== undefined) return point[fieldKey];
+    return '';
+  }
+
+  function buildFieldInput(fieldKey, fieldMeta, point) {
+    // Field rendering is schema-driven from data/categories.json.
+    const value = getPointFieldValue(point, fieldKey);
+    const label = fieldMeta.label ?? fieldKey;
+    const isChecked = value !== '';
+
+    if (fieldMeta.type === 'region-key') {
+      if (fieldMeta.required !== true) {
+        return `
+          <div class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
+            <label class="settings-toggle">
+              <span>${escapeHtml(label)}</span>
+              <input
+                data-role="custom-field-toggle"
+                data-field-key="${escapeHtml(fieldKey)}"
+                type="checkbox"
+                ${isChecked ? 'checked' : ''}
+              >
+              <span class="settings-switch" aria-hidden="true"></span>
+            </label>
+            <select
+              data-role="custom-field"
+              data-field-key="${escapeHtml(fieldKey)}"
+              ${isChecked ? '' : 'hidden'}
+            >
+              <option value="">Select region</option>
+              ${getSelectableRegionOptions(value)}
+            </select>
+          </div>
+        `;
+      }
+
+      return `
+        <label class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
+          <span>${escapeHtml(label)}</span>
+          <select data-role="custom-field" data-field-key="${escapeHtml(fieldKey)}">
+            <option value="">Select region</option>
+            ${getSelectableRegionOptions(value)}
+          </select>
+        </label>
+      `;
+    }
+
+    return `
+      <label class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
+        <span>${escapeHtml(label)}</span>
+        <input
+          data-role="custom-field"
+          data-field-key="${escapeHtml(fieldKey)}"
+          type="text"
+          value="${escapeHtml(value)}"
+        >
+      </label>
+    `;
+  }
+
+  function buildCustomFieldsMarkup(categoryKey, typeKey, point) {
+    return Object.entries(getTypeFields(categoryKey, typeKey))
+      .map(([fieldKey, fieldMeta]) => buildFieldInput(fieldKey, fieldMeta, point))
+      .join('');
+  }
+
+  function syncPointCustomFields(point) {
+    // Keep POIs aligned with the currently selected type schema.
+    const allowedFieldKeys = new Set(Object.keys(getTypeFields(point.category, point.type)));
+    if (shouldHideNameField(point.category, point.type)) {
+      delete point.name;
+    }
+
+    Object.keys(point).forEach(key => {
+      if (['id', 'category', 'type', 'name', 'desc', 'pixelCoords', 'coords'].includes(key)) return;
+      if (!allowedFieldKeys.has(key)) {
+        delete point[key];
+      }
+    });
+  }
+
+  function attachCustomFieldListeners(container, entry) {
+    container.querySelectorAll('[data-role="custom-field-toggle"]').forEach(input => {
+      const fieldKey = input.dataset.fieldKey;
+      const fieldInput = container.querySelector(`[data-role="custom-field"][data-field-key="${fieldKey}"]`);
+
+      input.addEventListener('change', () => {
+        if (input.checked) {
+          fieldInput.hidden = false;
+          entry.point[fieldKey] = fieldInput.value || '';
+        } else {
+          fieldInput.hidden = true;
+          fieldInput.value = '';
+          delete entry.point[fieldKey];
+        }
+        markerController.refreshPopup(entry);
+      });
+    });
+
+    container.querySelectorAll('[data-role="custom-field"]').forEach(input => {
+      const fieldKey = input.dataset.fieldKey;
+      input.addEventListener('input', () => {
+        if (input.value === '') delete entry.point[fieldKey];
+        else entry.point[fieldKey] = input.value;
+        markerController.refreshPopup(entry);
+      });
+      input.addEventListener('change', () => {
+        if (input.value === '') delete entry.point[fieldKey];
+        else entry.point[fieldKey] = input.value;
+        markerController.refreshPopup(entry);
+      });
+    });
+  }
+
+  function buildDeveloperTypeOptions(categoryKey, selectedType) {
     const category = getCategoryMeta(categoryKey);
-    return Object.entries(category?.subcategories ?? {}).map(([key, subcategory]) => `
-      <option value="${key}" ${key === selectedSubcategory ? 'selected' : ''}>${subcategory.label}</option>
+    return Object.entries(category?.types ?? {}).map(([key, type]) => `
+      <option value="${key}" ${key === selectedType ? 'selected' : ''}>${type.label}</option>
     `).join('');
   }
 
@@ -111,6 +257,7 @@ export function createDeveloperModeController({
     const { point } = entry;
     const pointName = point.name ?? '';
     const pointDesc = point.desc ?? '';
+    const hideNameField = shouldHideNameField(point.category, point.type);
     const container = document.createElement('div');
     container.className = 'developer-form';
     container.innerHTML = `
@@ -121,15 +268,20 @@ export function createDeveloperModeController({
         </select>
       </label>
       <label class="developer-field">
-        <span>Subcategory</span>
-        <select data-role="subcategory">
-          ${buildDeveloperSubcategoryOptions(point.category, point.subcategory)}
+        <span>Type</span>
+        <select data-role="type">
+          ${buildDeveloperTypeOptions(point.category, point.type)}
         </select>
       </label>
+      ${hideNameField ? '' : `
       <label class="developer-field">
         <span>Name</span>
-        <input data-role="name" type="text" value="${pointName}">
+        <input data-role="name" type="text" value="${escapeHtml(pointName)}">
       </label>
+      `}
+      <div data-role="custom-fields">
+        ${buildCustomFieldsMarkup(point.category, point.type, point)}
+      </div>
       <label class="developer-field">
         <span>Description</span>
         <textarea data-role="desc" rows="3">${pointDesc}</textarea>
@@ -139,24 +291,32 @@ export function createDeveloperModeController({
     `;
 
     const categorySelect = container.querySelector('[data-role="category"]');
-    const subcategorySelect = container.querySelector('[data-role="subcategory"]');
+    const typeSelect = container.querySelector('[data-role="type"]');
     const nameInput = container.querySelector('[data-role="name"]');
     const descInput = container.querySelector('[data-role="desc"]');
     const deleteButton = container.querySelector('.developer-delete');
 
+    attachCustomFieldListeners(container, entry);
+
+    function rerenderForm() {
+      syncPointCustomFields(point);
+      openDeveloperEditor(entry);
+    }
+
     categorySelect.addEventListener('change', () => {
       point.category = categorySelect.value;
-      point.subcategory = getDefaultSubcategory(point.category);
-      subcategorySelect.innerHTML = buildDeveloperSubcategoryOptions(point.category, point.subcategory);
+      point.type = getDefaultType(point.category);
+      rerenderForm();
       markerController.refreshPopup(entry);
     });
 
-    subcategorySelect.addEventListener('change', () => {
-      point.subcategory = subcategorySelect.value;
+    typeSelect.addEventListener('change', () => {
+      point.type = typeSelect.value;
+      rerenderForm();
       markerController.refreshPopup(entry);
     });
 
-    nameInput.addEventListener('input', () => {
+    nameInput?.addEventListener('input', () => {
       point.name = nameInput.value;
       markerController.refreshPopup(entry);
     });
@@ -174,8 +334,13 @@ export function createDeveloperModeController({
   }
 
   function openDeveloperEditor(entry) {
-    activeDeveloperEntry = entry;
-    setDeveloperPanelContent(renderDeveloperForm(entry));
+    // Existing markers use `poi`; temporary markers use `point`.
+    const normalizedEntry = {
+      ...entry,
+      point: entry.point ?? entry.poi,
+    };
+    activeDeveloperEntry = normalizedEntry;
+    setDeveloperPanelContent(renderDeveloperForm(normalizedEntry));
   }
 
   function updateDeveloperPointPosition(entry) {
@@ -240,37 +405,30 @@ export function createDeveloperModeController({
 
         L.DomEvent.disableClickPropagation(container);
         L.DomEvent.on(toggleButton, 'click', () => {
+          // Preserve the currently selected POI across the marker rebuild done for edit mode.
+          const selectedPoi = markerController.getActiveViewPoi();
           developerModeEnabled = !developerModeEnabled;
           toggleButton.classList.toggle('active', developerModeEnabled);
           toggleButton.setAttribute('aria-pressed', String(developerModeEnabled));
           mapView.setMaxZoom(developerModeEnabled ? 2 : 1);
           syncDeveloperControls();
           markerController.closeCurrentPopup();
-          markerController.buildMarkers(getCurrentArea());
+          markerController.buildMarkers(getCurrentRegion());
           markerController.setAllMarkerDragState(developerModeEnabled);
           temporaryMarkers.forEach(({ marker }) => markerController.setMarkerDragState(marker, developerModeEnabled));
 
-          const currentPopup = markerController.getCurrentPopup();
-          if (currentPopup) {
-            if (activeDeveloperEntry) {
-              markerController.openPopupFromEntry(activeDeveloperEntry);
-            } else {
-              markerController.refreshActivePopupContent();
-              if (developerModeEnabled) {
-                const activeViewPoi = markerController.getActiveViewPoi();
-                const entry = activeViewPoi
-                  ? markerController.getMarkerEntryForPoint(activeViewPoi)
-                    ?? temporaryMarkers.find(candidate => candidate.point === activeViewPoi)
-                  : null;
-                if (entry) {
-                  openDeveloperEditor({
-                    marker: entry.marker,
-                    point: entry.poi ?? entry.point,
-                    el: entry.el,
-                  });
-                }
-              }
+          if (developerModeEnabled && selectedPoi) {
+            const entry = markerController.getMarkerEntryForPoint(selectedPoi)
+              ?? temporaryMarkers.find(candidate => candidate.point === selectedPoi);
+
+            if (entry) {
+              markerController.openPopupFromEntry(entry);
+              openDeveloperEditor(entry);
             }
+          } else if (activeDeveloperEntry && markerController.getMarkerEntryForPoint(activeDeveloperEntry.point)) {
+            markerController.openPopupFromEntry(markerController.getMarkerEntryForPoint(activeDeveloperEntry.point));
+          } else {
+            markerController.refreshActivePopupContent();
           }
 
           if (!developerModeEnabled) {
@@ -288,7 +446,7 @@ export function createDeveloperModeController({
     const { x, y } = markerController.getPixelCoords(latlng);
     const point = {
       category: 'navigation',
-      subcategory: 'landmark',
+      type: 'landmark',
       name: '',
       desc: '',
       pixelCoords: [x, y],
@@ -299,9 +457,9 @@ export function createDeveloperModeController({
       icon: L.divIcon({
         className: 'poi-div-icon',
         html: markerElement,
-        iconSize: [28, 28],
-        iconAnchor: [14, 28],
-        popupAnchor: [0, -28],
+        iconSize: [28, 34],
+        iconAnchor: [14, 34],
+        popupAnchor: [0, -34],
       }),
       keyboard: false,
       draggable: developerModeEnabled,

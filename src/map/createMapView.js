@@ -1,6 +1,7 @@
-import { getAreaBounds } from '../data/loadAreas.js';
+// Leaflet map wrapper responsible for region image layers and bounds management.
+import { getRegionBounds } from '../data/loadAreas.js';
 
-export function createMapView(initialAreaKey, getAreaByKey) {
+export function createMapView(getCurrentRegionKey, getRegionByKey) {
   const map = L.map('map', {
     crs: L.CRS.Simple,
     minZoom: -2,
@@ -12,12 +13,14 @@ export function createMapView(initialAreaKey, getAreaByKey) {
 
   let currentImageOverlay = null;
 
-  function getCurrentAreaBounds() {
-    return getAreaBounds(getAreaByKey(initialAreaKey()));
+  function getCurrentRegionBounds() {
+    return getRegionBounds(getRegionByKey(getCurrentRegionKey()));
   }
 
   function updateBounds() {
-    map.setMaxBounds(getCurrentAreaBounds());
+    const regionBounds = getCurrentRegionBounds();
+    if (!regionBounds) return;
+    map.setMaxBounds(regionBounds);
   }
 
   function clearMapLayers() {
@@ -27,18 +30,21 @@ export function createMapView(initialAreaKey, getAreaByKey) {
     }
   }
 
-  function loadMapLayer(areaKey, layerKey) {
+  function loadMapLayer(regionKey, layerKey) {
     clearMapLayers();
 
-    const area = getAreaByKey(areaKey);
-    const imgPath = area.layers[layerKey];
+    const region = getRegionByKey(regionKey);
+    const imgPath = region?.layers?.[layerKey];
     if (!imgPath) return;
 
-    currentImageOverlay = L.imageOverlay(imgPath, getAreaBounds(area)).addTo(map);
+    currentImageOverlay = L.imageOverlay(imgPath, getRegionBounds(region)).addTo(map);
   }
 
-  function fitArea(areaKey, animate = true) {
-    map.fitBounds(getAreaBounds(getAreaByKey(areaKey)), {
+  function fitRegion(regionKey, animate = true) {
+    const region = getRegionByKey(regionKey);
+    if (!region) return;
+
+    map.fitBounds(getRegionBounds(region), {
       padding: [0, 0],
       animate,
     });
@@ -52,8 +58,8 @@ export function createMapView(initialAreaKey, getAreaByKey) {
     map,
     updateBounds,
     loadMapLayer,
-    fitArea,
-    getCurrentAreaBounds,
+    fitRegion,
+    getCurrentRegionBounds,
     setMaxZoom,
   };
 }

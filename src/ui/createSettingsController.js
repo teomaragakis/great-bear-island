@@ -1,3 +1,4 @@
+// Sidebar settings state, including localStorage persistence and control dependencies.
 export function createSettingsController({ elements, onChange, onGroupingChange }) {
   const STORAGE_KEY = 'great-bear-island:settings';
   const {
@@ -72,6 +73,7 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
   }
 
   function syncGroupingDependencies() {
+    // Group-by-category only matters when grouping itself is enabled.
     groupByCategory.disabled = !groupPois.checked;
   }
 

@@ -1,153 +1,172 @@
 [
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [2158, 2164]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [2344, 2110]
   },
   {
     "category": "locations",
-    "subcategory": "indoor",
+    "type": "cabin",
     "pixelCoords": [2354, 1879]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [2596, 1898]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [2510, 1973]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [2531, 1908]
   },
   {
     "category": "prey",
-    "subcategory": "deer",
+    "type": "deer",
     "pixelCoords": [2075, 2067]
   },
   {
     "category": "prey",
-    "subcategory": "rabbit",
+    "type": "rabbit",
     "pixelCoords": [2339, 1995]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "rose-hips",
+    "type": "rose-hips",
     "pixelCoords": [2326, 1904]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "rose-hips",
+    "type": "rose-hips",
     "pixelCoords": [2380, 1877]
   },
   {
     "category": "prey",
-    "subcategory": "deer",
+    "type": "deer",
     "pixelCoords": [2651, 2144]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "birch-sapling",
+    "type": "birch-sapling",
     "pixelCoords": [1976, 2017]
   },
   {
     "category": "locations",
-    "subcategory": "fishing-hut",
+    "type": "fishing-hut",
     "pixelCoords": [3066, 1922]
   },
   {
     "category": "weapons-and-tools",
-    "subcategory": "revolver",
+    "type": "revolver",
     "pixelCoords": [3348, 1874]
   },
   {
     "category": "prey",
-    "subcategory": "rabbit",
+    "type": "rabbit",
     "pixelCoords": [3350, 1913]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [3623, 1847]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [3570, 1838]
   },
   {
     "category": "prey",
-    "subcategory": "deer",
+    "type": "deer",
     "pixelCoords": [3665, 1801]
   },
   {
     "category": "locations",
-    "subcategory": "indoor",
+    "type": "cabin",
     "name": "Misanthrope's Homestead",
     "pixelCoords": [3646, 1724]
   },
   {
     "category": "weapons-and-tools",
-    "subcategory": "hatchet",
+    "type": "hatchet",
     "pixelCoords": [3688, 1700]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [3709, 1666]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [3740, 1647]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "lichen",
+    "type": "lichen",
     "pixelCoords": [3790, 1588]
   },
   {
     "category": "harvestable-plants",
-    "subcategory": "birch-sapling",
+    "type": "birch-sapling",
     "pixelCoords": [4017, 1485]
   },
   {
     "category": "predators",
-    "subcategory": "bear",
+    "type": "bear",
     "pixelCoords": [3854, 1654]
   },
   {
     "category": "predators",
-    "subcategory": "wolf",
+    "type": "wolf",
     "pixelCoords": [3893, 1225]
   },
   {
     "category": "predators",
-    "subcategory": "wolf",
+    "type": "wolf",
     "pixelCoords": [3899, 1050]
   },
   {
     "category": "prey",
-    "subcategory": "deer",
+    "type": "deer",
     "pixelCoords": [4058, 650]
   },
   {
     "category": "prey",
-    "subcategory": "deer",
+    "type": "deer",
     "pixelCoords": [4470, 1402]
   },
   {
     "category": "prey",
-    "subcategory": "deer",
+    "type": "deer",
     "pixelCoords": [4676, 1811]
+  },
+  {
+    "category": "navigation",
+    "type": "transition",
+     "targetRegion": "ravine",
+    "pixelCoords": [640, 3712]
+  },
+  {
+    "category": "navigation",
+    "type": "transition",
+    "targetRegion": "crumbling-highway",
+    "pixelCoords": [4370, 222]
+  },
+  {
+    "category": "locations",
+    "type": "mine",
+    "name": "Cinder Hills Coal Mine",
+    "targetRegion": "pleasant-valley",
+    "pixelCoords": [2831, 3949]
   }
 ]

@@ -23,19 +23,224 @@
         "topographic": "assets/maps/coastal_highway-topo.jpeg"
       },
       "locations": [
-        { "name": "Rockfall", "pixelCoords": [942, 1750] },
-        { "name": "Rabbit Grove", "pixelCoords": [406, 3220] },
-        { "name": "Bear Creek Campground", "pixelCoords": [600, 3008] },
+        { "name": "Abandoned Lookout", "pixelCoords": [3612, 3618] },
+        { "name": "Bear Creek Campground", "pixelCoords": [502, 3010] },
         { "name": "Coastal Townsite", "pixelCoords": [4418, 2634] },
+        { "name": "Commuter's Lament", "pixelCoords": [4334, 296] },
         { "name": "Fishing Camp", "pixelCoords": [1474, 2660] },
         { "name": "Jackrabbit Island", "pixelCoords": [2334, 1968] },
-        { "name": "Misanthrope's Homestead" },
         { "name": "Log Sort", "pixelCoords": [2984, 2987] },
-        { "name": "Train Unloading", "pixelCoords": [1299, 3795] },
+        { "name": "Misanthrope's Homestead" },
+        { "name": "Rabbit Grove", "pixelCoords": [406, 3220] },
+        { "name": "Rockfall", "pixelCoords": [942, 1750] },
         { "name": "Silent Clearing", "pixelCoords": [4886, 2810] },
-        { "name": "Waterfront Cottages", "pixelCoords": [4292, 1048] },
-        { "name": "Commuter's Lament", "pixelCoords": [4295, 479] }
+        { "name": "Train Unloading", "pixelCoords": [1299, 3795] },
+        { "name": "Waterfront Cottages", "pixelCoords": [4292, 1048] }
       ]
+    },
+    "mystery-lake": {
+      "name": "Mystery Lake",
+      "disabled": true,
+      "desc": "A balanced inland region centered on its namesake lake, with cabins, rail lines, fishing, and relatively forgiving navigation for new players.",
+      "stats": [
+        { "label": "Difficulty", "value": "Beginner" },
+        { "label": "Mode", "value": "Survival / Story" },
+        { "label": "Connects To", "value": "Mountain Town / Forlorn Muskeg / Pleasant Valley" }
+      ],
+      "path": "data/regions/mystery-lake.json"
+    },
+    "ravine": {
+      "name": "Ravine",
+      "disabled": true,
+      "desc": "A narrow transition region dominated by a deep ravine, rail bridge crossing, sparse resources, and low shelter coverage.",
+      "stats": [
+        { "label": "Difficulty", "value": "Intermediate" },
+        { "label": "Mode", "value": "Survival / Story" },
+        { "label": "Connects To", "value": "Mystery Lake / Coastal Highway / Bleak Inlet" }
+      ],
+      "path": "data/regions/ravine.json"
+    },
+    "pleasant-valley": {
+      "name": "Pleasant Valley",
+      "desc": "A large agricultural basin known for long sightlines, punishing blizzards, scattered farmsteads, and wide travel distances between shelters.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Shelter Density", "value": "Medium" },
+        { "label": "Wildlife", "value": "Wolves / Bears / Deer / Rabbits / Moose" },
+        { "label": "Fishing", "value": "No" },
+        { "label": "Forge", "value": "No" },
+        { "label": "Trade Drop Box", "value": "No" },
+        { "label": "Weather", "value": "Severe Blizzards" },
+        { "label": "Connects To", "value": "Coastal Highway / Mystery Lake / Timberwolf Mountain / Blackrock" }
+      ],
+      "layers": {
+        "imageSize": {
+          "width": 4800,
+          "height": 4800
+        },
+        "aerial": "assets/maps/pleasant_valley-aerial.jpeg",
+        "aerial-contour": "assets/maps/pleasant_valley-aerial-contour.jpeg",
+        "topographic": "assets/maps/pleasant_valley-topo.jpeg"
+      },
+      "path": "data/regions/pleasant-valley.json"
+    },
+    "desolation-point": {
+      "name": "Desolation Point",
+      "disabled": true,
+      "desc": "A compact industrial peninsula with a forge, lighthouse, shipwreck loot, and frequent predator pressure along narrow travel routes.",
+      "stats": [
+        { "label": "Difficulty", "value": "Intermediate" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Coastal Highway" }
+      ],
+      "path": "data/regions/desolation-point.json"
+    },
+    "crumbling-highway": {
+      "name": "Crumbling Highway",
+      "disabled": true,
+      "desc": "A collapsed coastal transition zone with mine tunnels, broken roadways, and limited shelter connecting Coastal Highway to Desolation Point.",
+      "stats": [
+        { "label": "Difficulty", "value": "Intermediate" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Coastal Highway / Desolation Point" }
+      ],
+      "path": "data/regions/crumbling-highway.json"
+    },
+    "timberwolf-mountain": {
+      "name": "Timberwolf Mountain",
+      "disabled": true,
+      "desc": "A steep alpine region built around rope climbs, exposed travel, and the summit’s high-value cargo loot.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Pleasant Valley / Ash Canyon" }
+      ],
+      "path": "data/regions/timberwolf-mountain.json"
+    },
+    "forlorn-muskeg": {
+      "name": "Forlorn Muskeg",
+      "disabled": true,
+      "desc": "A bleak marshland of thin ice, rail lines, and sparse shelter that rewards route knowledge and caution.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival / Story" },
+        { "label": "Connects To", "value": "Mystery Lake / Broken Railroad / Mountain Town" }
+      ],
+      "path": "data/regions/forlorn-muskeg.json"
+    },
+    "broken-railroad": {
+      "name": "Broken Railroad",
+      "disabled": true,
+      "desc": "A narrow end-of-line region with strong shelter options, industrial loot, and dangerous wildlife concentrated around chokepoints.",
+      "stats": [
+        { "label": "Difficulty", "value": "Intermediate" },
+        { "label": "Mode", "value": "Survival / Story" },
+        { "label": "Connects To", "value": "Forlorn Muskeg / Far Range Branch Line" }
+      ],
+      "path": "data/regions/broken-railroad.json"
+    },
+    "mountain-town": {
+      "name": "Mountain Town",
+      "disabled": true,
+      "desc": "A beginner-friendly region built around the town of Milton, with dense shelter, good early loot, and surrounding cliffs and basins.",
+      "stats": [
+        { "label": "Difficulty", "value": "Beginner" },
+        { "label": "Mode", "value": "Survival / Story" },
+        { "label": "Connects To", "value": "Mystery Lake / Forlorn Muskeg / Hushed River Valley" }
+      ],
+      "path": "data/regions/mountain-town.json"
+    },
+    "hushed-river-valley": {
+      "name": "Hushed River Valley",
+      "disabled": true,
+      "desc": "A remote wilderness region with no conventional indoor shelter, vertical navigation, rich resources, and strong survival demands.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Mountain Town" }
+      ],
+      "path": "data/regions/hushed-river-valley.json"
+    },
+    "bleak-inlet": {
+      "name": "Bleak Inlet",
+      "disabled": true,
+      "desc": "A storm-lashed coastal-industrial region featuring timberwolves, dangerous traversals, and access to ammunition crafting infrastructure.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Coastal Highway / Forlorn Muskeg" }
+      ],
+      "path": "data/regions/bleak-inlet.json"
+    },
+    "ash-canyon": {
+      "name": "Ash Canyon",
+      "disabled": true,
+      "desc": "A severe canyonland of rope climbs, narrow ledges, and high-value unique rewards hidden in difficult terrain.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Timberwolf Mountain" }
+      ],
+      "path": "data/regions/ash-canyon.json"
+    },
+    "blackrock": {
+      "name": "Blackrock",
+      "disabled": true,
+      "desc": "A mountainous prison region mixing industrial structures, severe weather, timberwolves, and long, hazardous routes.",
+      "stats": [
+        { "label": "Difficulty", "value": "Intermediate" },
+        { "label": "Mode", "value": "Survival / Story" },
+        { "label": "Connects To", "value": "Pleasant Valley / Keeper's Pass" }
+      ],
+      "path": "data/regions/blackrock.json"
+    },
+    "transfer-pass": {
+      "name": "Transfer Pass",
+      "disabled": true,
+      "dlc": true,
+      "desc": "A rail transfer hub that serves as the main gateway into the Far Territory expansion regions.",
+      "stats": [
+        { "label": "Difficulty", "value": "Intermediate" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Forsaken Airfield / Zone of Contamination / Sundered Pass" }
+      ],
+      "path": "data/regions/transfer-pass.json"
+    },
+    "forsaken-airfield": {
+      "name": "Forsaken Airfield",
+      "disabled": true,
+      "dlc": true,
+      "desc": "A vast, exposed airfield region with bitter cold, heavy travel distances, and sparse but valuable infrastructure.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Transfer Pass / Sundered Pass" }
+      ],
+      "path": "data/regions/forsaken-airfield.json"
+    },
+    "zone-of-contamination": {
+      "name": "Zone of Contamination",
+      "disabled": true,
+      "dlc": true,
+      "desc": "A poisoned industrial mining region defined by toxic gas hazards, mine structures, and severe environmental risk.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Transfer Pass" }
+      ],
+      "path": "data/regions/zone-of-contamination.json"
+    },
+    "sundered-pass": {
+      "name": "Sundered Pass",
+      "disabled": true,
+      "dlc": true,
+      "desc": "A high-altitude mountain pass with avalanches, extreme cold, and exposed routes linking the Far Territory regions.",
+      "stats": [
+        { "label": "Difficulty", "value": "Advanced" },
+        { "label": "Mode", "value": "Survival" },
+        { "label": "Connects To", "value": "Transfer Pass / Forsaken Airfield / Zone of Contamination" }
+      ],
+      "path": "data/regions/sundered-pass.json"
     }
   }
 }

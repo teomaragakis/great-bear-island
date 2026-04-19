@@ -1,12 +1,13 @@
-export function getFilterKey(categoryKey, subcategoryKey) {
-  return `${categoryKey}:${subcategoryKey}`;
+// Sidebar legend, search, and filter state synchronization for visible POI types.
+export function getFilterKey(categoryKey, typeKey) {
+  return `${categoryKey}:${typeKey}`;
 }
 
 export function createLegendController({
   legendEl,
   hideAllButtonEl,
-  getAreas,
-  getCurrentArea,
+  getRegions,
+  getCurrentRegion,
   getPointCategories,
   getActiveFilters,
   shouldHideMissingItems,
@@ -19,7 +20,7 @@ export function createLegendController({
   const collapsedGroups = new Set();
 
   function getCurrentPois() {
-    return getAreas()[getCurrentArea()].pois;
+    return getRegions()[getCurrentRegion()].pois;
   }
 
   function getVisibleFilterKeys(filterKeys) {
@@ -39,7 +40,7 @@ export function createLegendController({
     }
   }
 
-  function toggleSubcategoryFilter(filterKey, el, groupFilterKeys, groupToggleEl) {
+  function toggleTypeFilter(filterKey, el, groupFilterKeys, groupToggleEl) {
     const activeFilters = getActiveFilters();
     if (activeFilters.has(filterKey)) {
       activeFilters.delete(filterKey);
@@ -53,7 +54,7 @@ export function createLegendController({
     refreshMarkerVisibility();
   }
 
-  function buildLegendItem({ categoryKey, category, subcategoryKey, subcategory, filterKey, count, isDisabled }, activeFilters, enabledFilterKeys, groupToggleEl = null) {
+  function buildLegendItem({ categoryKey, category, typeKey, type, filterKey, count, isDisabled }, activeFilters, enabledFilterKeys, groupToggleEl = null) {
     if (!isDisabled) enabledFilterKeys.push(filterKey);
 
     const item = document.createElement('div');
@@ -62,13 +63,13 @@ export function createLegendController({
     item.style.setProperty('--category-color', category.color);
     item.innerHTML = `
       <div class="legend-dot"></div>
-      <span class="legend-label">${getPointIcon(categoryKey, subcategoryKey)} ${subcategory.label}</span>
+      <span class="legend-label">${getPointIcon(categoryKey, typeKey)} ${type.label}</span>
       <span class="legend-count">${count}</span>
     `;
 
     if (!isDisabled) {
       item.addEventListener('click', () => {
-        toggleSubcategoryFilter(filterKey, item, enabledFilterKeys, groupToggleEl);
+        toggleTypeFilter(filterKey, item, enabledFilterKeys, groupToggleEl);
       });
     }
 
@@ -76,18 +77,18 @@ export function createLegendController({
   }
 
   function getCategoryEntries(categoryKey, category, counts) {
-    return Object.entries(category.subcategories ?? {}).map(([subcategoryKey, subcategory]) => {
-      const filterKey = getFilterKey(categoryKey, subcategoryKey);
+    return Object.entries(category.types ?? {}).map(([typeKey, type]) => {
+      const filterKey = getFilterKey(categoryKey, typeKey);
       const count = counts[filterKey] || 0;
       return {
         categoryKey,
         category,
-        subcategoryKey,
-        subcategory,
+        typeKey,
+        type,
         filterKey,
         count,
         isDisabled: count === 0,
-        isDlc: subcategory.dlc === true,
+        isDlc: type.dlc === true,
       };
     });
   }
@@ -102,8 +103,8 @@ export function createLegendController({
 
     return entries.filter(entry => {
       const categoryLabel = entry.category.label.toLowerCase();
-      const subcategoryLabel = entry.subcategory.label.toLowerCase();
-      return categoryLabel.includes(searchTerm) || subcategoryLabel.includes(searchTerm);
+      const typeLabel = entry.type.label.toLowerCase();
+      return categoryLabel.includes(searchTerm) || typeLabel.includes(searchTerm);
     });
   }
 
@@ -158,15 +159,16 @@ export function createLegendController({
     syncGroupCollapse(groupKey, groupEl, collapseToggleEl);
   }
 
-  function buildLegend(areaKey = getCurrentArea()) {
-    const pois = getAreas()[areaKey].pois;
+  function buildLegend(regionKey = getCurrentRegion()) {
+    // The legend is derived from the current region's live POI counts.
+    const pois = getRegions()[regionKey].pois;
     const pointCategories = getPointCategories();
     const activeFilters = getActiveFilters();
     legendEl.innerHTML = '';
 
     const counts = {};
     pois.forEach(point => {
-      const filterKey = getFilterKey(point.category, point.subcategory);
+      const filterKey = getFilterKey(point.category, point.type);
       counts[filterKey] = (counts[filterKey] || 0) + 1;
     });
 
@@ -179,7 +181,7 @@ export function createLegendController({
           getVisibleEntries(getCategoryEntries(categoryKey, category, counts)),
         ))
         .filter(entry => !(shouldHideMissingItems() && entry.isDisabled))
-        .sort((left, right) => left.subcategory.label.localeCompare(right.subcategory.label));
+        .sort((left, right) => left.type.label.localeCompare(right.type.label));
 
       flatEntries.forEach(entry => {
         flatContainer.appendChild(buildLegendItem(entry, activeFilters, enabledFilterKeys));
@@ -266,7 +268,7 @@ export function createLegendController({
 
     if (activeFilters.size === 0) {
       getCurrentPois().forEach(point => {
-        activeFilters.add(getFilterKey(point.category, point.subcategory));
+        activeFilters.add(getFilterKey(point.category, point.type));
       });
     } else {
       activeFilters.clear();

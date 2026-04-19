@@ -14,13 +14,13 @@ Current functionality includes:
 
 - Region metadata loaded from `data/regions.json`
 - Per-region POI data loaded from `data/regions/<region>.json`
-- Shared point taxonomy loaded from `data/poi-categories.json`
+- Shared point taxonomy loaded from `data/categories.json`
 - Region switching through the top-bar area selector
 - Layer switching between aerial contour, aerial, and topographic map views
 - Region overview modal with description and stat cards
-- Grouped legend built from the category/subcategory taxonomy
-- POI filtering at subcategory level, including per-group show/hide and global show/hide
-- Searchable POI legend that matches category or subcategory labels
+- Grouped legend built from the category/type taxonomy
+- POI filtering at type level, including per-group show/hide and global show/hide
+- Searchable POI legend that matches category or type labels
 - Sidebar settings for hiding missing categories, showing DLC categories, and flattening the grouped legend into a single alphabetical list
 - Custom POI markers and popups with icon, title, category label, description, and developer coordinates
 - Static-image map bounds handling with responsive refit on resize
@@ -39,7 +39,7 @@ Current functionality includes:
 .
 ├── data/
 │   ├── regions.json
-│   ├── poi-categories.json
+│   ├── categories.json
 │   └── regions/
 │       └── coastal-highway.json
 ├── src/
@@ -83,14 +83,14 @@ Each POI uses this shape:
 {
   "id": "optional-id",
   "category": "navigation",
-  "subcategory": "landmark",
+  "type": "landmark",
   "name": "Example Point",
   "desc": "Description text.",
   "pixelCoords": [1800, 1200]
 }
 ```
 
-`data/poi-categories.json` defines the master category and subcategory taxonomy, including category labels/colors plus subcategory labels/icons, wiki `url` values, and optional `dlc` flags.
+`data/categories.json` defines the master category and type taxonomy, including category labels/colors plus type labels/icons, wiki `url` values, and optional `dlc` flags.
 
 At runtime, each POI is normalized with Leaflet-friendly coordinates derived from `pixelCoords`.
 
@@ -99,8 +99,8 @@ At runtime, each POI is normalized with Leaflet-friendly coordinates derived fro
 - Switch between available map layers for the current region
 - Open region information from the header
 - Browse POIs through a grouped or flattened sidebar legend
-- Search categories and subcategories from the sidebar search input
-- Toggle individual POI subcategories, whole legend groups, or all POIs at once
+- Search categories and types from the sidebar search input
+- Toggle individual POI types, whole legend groups, or all POIs at once
 - Hide legend items that do not exist in the current region
 - Show or hide DLC-tagged categories
 - View POI popups directly on the map
@@ -112,7 +112,7 @@ Developer mode is available from the map controls and is intended for POI author
 In developer mode you can:
 
 - Click the map to create temporary POIs
-- Edit category, subcategory, name, and description in the sidebar
+- Edit category, type, name, and description in the sidebar
 - Drag existing region POIs and temporary POIs to update their pixel coordinates
 - Inspect live `x` and `y` coordinates in the popup and editor
 - Delete temporary POIs

@@ -1,14 +1,15 @@
+// Marker lifecycle for POIs, popups, clustering, and region label overlays.
 import { px, serializePointForJson } from '../data/loadAreas.js';
 import { getFilterKey } from '../ui/createLegendController.js';
 
 export function createMarkerController({
   map,
-  getAreas,
-  getAreaIndex,
-  getCurrentArea,
+  getRegions,
+  getRegionIndex,
+  getCurrentRegion,
   getActiveFilters,
   getCategoryMeta,
-  getSubcategoryMeta,
+  getTypeMeta,
   getPointIcon,
   shouldClusterMarkers,
   shouldClusterByCategory,
@@ -41,17 +42,18 @@ export function createMarkerController({
     const el = document.createElement('div');
     el.className = `custom-marker${extraClassName ? ` ${extraClassName}` : ''}`;
     el.style.setProperty('--category-color', category.color);
-    el.innerHTML = `<div class="marker-icon">${getPointIcon(point.category, point.subcategory, point)}</div>`;
+    el.innerHTML = `<div class="marker-icon">${getPointIcon(point.category, point.type, point)}</div>`;
     if (point.id) el.dataset.poiId = point.id;
     return el;
   }
 
   function getPopupContent(point) {
+    // Popups fall back from POI-specific fields to the shared type metadata.
     const category = getCategoryMeta(point.category);
-    const subcategory = getSubcategoryMeta(point.category, point.subcategory);
-    const pointIcon = getPointIcon(point.category, point.subcategory, point);
-    const popupTitle = point.name || subcategory?.label || category.label;
-    const popupDesc = point.desc ?? subcategory?.desc ?? '';
+    const type = getTypeMeta(point.category, point.type);
+    const pointIcon = getPointIcon(point.category, point.type, point);
+    const popupTitle = point.name || type?.label || category.label;
+    const popupDesc = point.desc ?? type?.desc ?? '';
     const titleHtml = `
       <div class="popup-title-row">
         <span class="popup-title-icon">${pointIcon}</span>
@@ -115,12 +117,16 @@ export function createMarkerController({
   }
 
   function reopenPopupAfterDrag(entry, activeEl = null) {
-    currentPopup = openPopupForPoint(entry.point, entry.marker.getLatLng(), activeEl);
+    const point = entry.point ?? entry.poi;
+    if (!point) return;
+    currentPopup = openPopupForPoint(point, entry.marker.getLatLng(), activeEl);
   }
 
   function refreshPopup(entry) {
+    const point = entry.point ?? entry.poi;
+    if (!point) return;
     if (currentPopup) {
-      currentPopup.setContent(getPopupContent(entry.point));
+      currentPopup.setContent(getPopupContent(point));
       currentPopup.setLatLng(entry.marker.getLatLng());
     }
   }
@@ -145,10 +151,11 @@ export function createMarkerController({
     return matchedPoi?.coords ?? null;
   }
 
-  function buildLocationLabels(areaKey, pois) {
+  function buildLocationLabels(regionKey, pois) {
     clearLocationLabels();
 
-    const locations = getAreaIndex()[areaKey]?.locations ?? [];
+    // Region labels are separate from POIs and come from the region metadata file.
+    const locations = getRegionIndex()[regionKey]?.locations ?? [];
     locations.forEach(location => {
       const latlng = getLocationLatLng(location, pois);
       if (!latlng) return;
@@ -230,9 +237,9 @@ export function createMarkerController({
     activeMarkerEl = null;
   }
 
-  function buildMarkers(areaKey = getCurrentArea()) {
+  function buildMarkers(regionKey = getCurrentRegion()) {
     clearMarkers();
-    const pois = getAreas()[areaKey].pois;
+    const pois = getRegions()[regionKey].pois;
     const shouldCluster = supportsClustering() && shouldClusterMarkers() && !isDeveloperModeEnabled();
     const clusterByCategory = shouldClusterByCategory();
 
@@ -245,15 +252,16 @@ export function createMarkerController({
         icon: L.divIcon({
           className: 'poi-div-icon',
           html: el,
-          iconSize: [28, 28],
-          iconAnchor: [14, 28],
-          popupAnchor: [0, -28],
+          iconSize: [28, 34],
+          iconAnchor: [14, 34],
+          popupAnchor: [0, -34],
         }),
         keyboard: false,
         draggable: isDeveloperModeEnabled(),
       });
 
       if (shouldCluster) {
+        // Category-aware clustering is optional and driven by user settings.
         const clusterKey = clusterByCategory ? poi.category : '__all__';
         getClusterLayer(clusterKey)?.addLayer(marker);
       } else {
@@ -266,12 +274,12 @@ export function createMarkerController({
         if (event.originalEvent) L.DomEvent.stop(event.originalEvent);
 
         const cat = getCategoryMeta(poi.category);
-        const subcat = getSubcategoryMeta(poi.category, poi.subcategory);
+        const subcat = getTypeMeta(poi.category, poi.type);
         console.debug('POI clicked', {
           point: serializePointForJson(poi),
           developerModeEnabled: isDeveloperModeEnabled(),
           categoryLabel: cat?.label ?? null,
-          subcategoryLabel: subcat?.label ?? null,
+          typeLabel: subcat?.label ?? null,
           latlng: marker.getLatLng(),
         });
 
@@ -300,14 +308,14 @@ export function createMarkerController({
       });
     });
 
-    buildLocationLabels(areaKey, pois);
+    buildLocationLabels(regionKey, pois);
     refreshMarkerVisibility();
   }
 
   function refreshMarkerVisibility() {
     const activeFilters = getActiveFilters();
     activeMarkers.forEach(({ marker, poi, clusterKey }) => {
-      const isVisible = activeFilters.has(getFilterKey(poi.category, poi.subcategory));
+      const isVisible = activeFilters.has(getFilterKey(poi.category, poi.type));
       const clusterLayer = clusterLayers.get(clusterKey) ?? null;
       const isOnMap = clusterLayer ? clusterLayer.hasLayer(marker) : map.hasLayer(marker);
 
@@ -343,7 +351,9 @@ export function createMarkerController({
   }
 
   function openPopupFromEntry(entry, activeEl = entry.el ?? null) {
-    currentPopup = openPopupForPoint(entry.point, entry.marker.getLatLng(), activeEl);
+    const point = entry.point ?? entry.poi;
+    if (!point) return;
+    currentPopup = openPopupForPoint(point, entry.marker.getLatLng(), activeEl);
   }
 
   function getCurrentPopup() {

@@ -1,4 +1,5 @@
-import { loadAreas } from './data/loadAreas.js';
+// App bootstrap and top-level wiring between state, map, legend, settings, and developer tools.
+import { loadRegions, isRegionSelectable } from './data/loadAreas.js';
 import { createMapView } from './map/createMapView.js';
 import { createMarkerController } from './map/createMarkerController.js';
 import { createLegendController, getFilterKey } from './ui/createLegendController.js';
@@ -6,19 +7,19 @@ import { createDeveloperModeController } from './ui/createDeveloperModeControlle
 import { createSettingsController } from './ui/createSettingsController.js';
 import {
   state,
-  getAreas,
-  getAreaIndex,
+  getRegions,
+  getRegionIndex,
   getPointCategories,
-  getCurrentArea,
+  getCurrentRegion,
   getActiveFilters,
   getCategoryMeta,
-  getSubcategoryMeta,
+  getTypeMeta,
   getPointIcon,
 } from './state/appState.js';
 
 const elements = {
-  areaSelect: document.getElementById('area-select'),
-  areaInfoTrigger: document.getElementById('area-info-trigger'),
+  regionSelect: document.getElementById('area-select'),
+  regionInfoTrigger: document.getElementById('area-info-trigger'),
   hideAllPois: document.getElementById('hide-all-pois'),
   settingsPanel: document.getElementById('sidebar-settings'),
   settingsToggle: document.getElementById('settings-toggle'),
@@ -40,24 +41,37 @@ const elements = {
   jsonModalCopy: document.getElementById('json-modal-copy'),
   jsonModalExport: document.getElementById('json-modal-export'),
   jsonModalBackdrop: document.querySelector('[data-close-json-modal]'),
-  areaInfoModal: document.getElementById('area-info-modal'),
-  areaInfoModalTitle: document.getElementById('area-info-modal-title'),
-  areaInfoModalClose: document.getElementById('area-info-modal-close'),
-  areaInfoModalBackdrop: document.querySelector('[data-close-area-info-modal]'),
+  regionInfoModal: document.getElementById('area-info-modal'),
+  regionInfoModalTitle: document.getElementById('area-info-modal-title'),
+  regionInfoModalClose: document.getElementById('area-info-modal-close'),
+  regionInfoModalBackdrop: document.querySelector('[data-close-area-info-modal]'),
   layerButtons: document.querySelectorAll('.layer-btn'),
 };
 
-function openAreaInfoModal() {
-  elements.areaInfoModal.hidden = false;
+function getSelectableRegionEntries() {
+  return Object.entries(state.regionIndex).filter(([, regionMeta]) => isRegionSelectable(regionMeta));
 }
 
-function closeAreaInfoModal() {
-  elements.areaInfoModal.hidden = true;
+function populateRegionSelect() {
+  // The selector is driven entirely by region metadata, not hardcoded markup.
+  const options = getSelectableRegionEntries()
+    .map(([regionKey, regionMeta]) => `<option value="${regionKey}">${regionMeta.name}</option>`)
+    .join('');
+
+  elements.regionSelect.innerHTML = options;
 }
 
-function updateRegionInfo(areaKey) {
-  const { desc, stats = [], name } = state.areas[areaKey];
-  elements.areaInfoModalTitle.textContent = name;
+function openRegionInfoModal() {
+  elements.regionInfoModal.hidden = false;
+}
+
+function closeRegionInfoModal() {
+  elements.regionInfoModal.hidden = true;
+}
+
+function updateRegionInfo(regionKey) {
+  const { desc, stats = [], name } = state.regions[regionKey];
+  elements.regionInfoModalTitle.textContent = name;
   elements.regionDesc.textContent = desc;
   elements.regionStats.innerHTML = stats.map(stat => `
     <div class="stat-box">
@@ -67,17 +81,18 @@ function updateRegionInfo(areaKey) {
   `).join('');
 }
 
-const mapView = createMapView(getCurrentArea, areaKey => state.areas[areaKey]);
+const mapView = createMapView(getCurrentRegion, regionKey => state.regions[regionKey]);
 
 let developerMode;
+// Controllers are kept loosely coupled and communicate through getters/callbacks.
 const markerController = createMarkerController({
   map: mapView.map,
-  getAreas,
-  getAreaIndex,
-  getCurrentArea,
+  getRegions,
+  getRegionIndex,
+  getCurrentRegion,
   getActiveFilters,
   getCategoryMeta,
-  getSubcategoryMeta,
+  getTypeMeta,
   getPointIcon,
   shouldClusterMarkers: () => settingsController.shouldGroupItems(),
   shouldClusterByCategory: () => settingsController.shouldGroupByCategory(),
@@ -95,8 +110,8 @@ const settingsController = createSettingsController({
 const legendController = createLegendController({
   legendEl: elements.legend,
   hideAllButtonEl: elements.hideAllPois,
-  getAreas,
-  getCurrentArea,
+  getRegions,
+  getCurrentRegion,
   getPointCategories,
   getActiveFilters,
   shouldHideMissingItems: () => settingsController.shouldHideMissingItems(),
@@ -111,9 +126,9 @@ developerMode = createDeveloperModeController({
   map: mapView.map,
   mapView,
   elements,
-  getAreas,
-  getAreaIndex,
-  getCurrentArea,
+  getRegions,
+  getRegionIndex,
+  getCurrentRegion,
   getPointCategories,
   getCategoryMeta,
   markerController,
@@ -121,25 +136,25 @@ developerMode = createDeveloperModeController({
 
 developerMode.installControl();
 
-function switchArea(areaKey) {
-  state.currentArea = areaKey;
-  state.activeSubcategoryFilters = new Set(
-    state.areas[areaKey].pois.map(poi => getFilterKey(poi.category, poi.subcategory)),
+function switchRegion(regionKey) {
+  state.currentRegion = regionKey;
+  state.activeTypeFilters = new Set(
+    state.regions[regionKey].pois.map(poi => getFilterKey(poi.category, poi.type)),
   );
 
   markerController.closeCurrentPopup();
   developerMode.clearDeveloperPointers();
-  mapView.loadMapLayer(areaKey, state.currentLayer);
-  markerController.buildMarkers(areaKey);
-  legendController.buildLegend(areaKey);
-  updateRegionInfo(areaKey);
+  mapView.loadMapLayer(regionKey, state.currentLayer);
+  markerController.buildMarkers(regionKey);
+  legendController.buildLegend(regionKey);
+  updateRegionInfo(regionKey);
   mapView.updateBounds();
-  mapView.fitArea(areaKey, true);
+  mapView.fitRegion(regionKey, true);
 }
 
 function switchLayer(layerKey) {
   state.currentLayer = layerKey;
-  mapView.loadMapLayer(state.currentArea, layerKey);
+  mapView.loadMapLayer(state.currentRegion, layerKey);
 
   elements.layerButtons.forEach(button => {
     button.classList.toggle('active', button.dataset.layer === layerKey);
@@ -147,8 +162,8 @@ function switchLayer(layerKey) {
 }
 
 function bindEvents() {
-  elements.areaSelect.addEventListener('change', event => {
-    switchArea(event.target.value);
+  elements.regionSelect.addEventListener('change', event => {
+    switchRegion(event.target.value);
   });
 
   elements.layerButtons.forEach(button => {
@@ -168,17 +183,17 @@ function bindEvents() {
   });
   elements.jsonModalExport.addEventListener('click', () => developerMode.exportCurrentPoisSnapshot());
   elements.jsonModalBackdrop.addEventListener('click', () => developerMode.closeJsonModal());
-  elements.areaInfoTrigger.addEventListener('click', openAreaInfoModal);
-  elements.areaInfoModalClose.addEventListener('click', closeAreaInfoModal);
-  elements.areaInfoModalBackdrop.addEventListener('click', closeAreaInfoModal);
+  elements.regionInfoTrigger.addEventListener('click', openRegionInfoModal);
+  elements.regionInfoModalClose.addEventListener('click', closeRegionInfoModal);
+  elements.regionInfoModalBackdrop.addEventListener('click', closeRegionInfoModal);
 
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
     if (!elements.jsonModal.hidden) {
       developerMode.closeJsonModal();
     }
-    if (!elements.areaInfoModal.hidden) {
-      closeAreaInfoModal();
+    if (!elements.regionInfoModal.hidden) {
+      closeRegionInfoModal();
     }
   });
 
@@ -190,7 +205,7 @@ function bindEvents() {
   window.addEventListener('resize', () => {
     mapView.map.invalidateSize();
     mapView.updateBounds();
-    mapView.map.fitBounds(mapView.getCurrentAreaBounds(), {
+    mapView.map.fitBounds(mapView.getCurrentRegionBounds(), {
       padding: [0, 0],
       animate: false,
     });
@@ -199,17 +214,24 @@ function bindEvents() {
 
 async function boot() {
   try {
-    const loaded = await loadAreas();
-    state.areaIndex = loaded.areaIndex;
+    // Load data first, then bind UI so the first render uses the real dataset.
+    const loaded = await loadRegions();
+    state.regionIndex = loaded.regionIndex;
     state.pointCategories = loaded.pointCategories;
     state.availableIcons = new Set(loaded.availableIcons);
-    state.areas = loaded.areas;
+    state.regions = loaded.regions;
+
+    populateRegionSelect();
+
+    if (!state.regions[state.currentRegion]) {
+      state.currentRegion = getSelectableRegionEntries()[0]?.[0] ?? '';
+    }
 
     bindEvents();
     settingsController.sync();
     mapView.map.invalidateSize();
-    elements.areaSelect.value = state.currentArea;
-    switchArea(state.currentArea);
+    elements.regionSelect.value = state.currentRegion;
+    switchRegion(state.currentRegion);
   } catch (error) {
     console.error(error);
   }
