@@ -129,7 +129,7 @@ export function createMarkerController({
   }
 
   function getTransitionHtml(point) {
-    if (point.category !== 'navigation' || point.type !== 'transition' || !point['target-region']) {
+    if (!point['target-region']) {
       return '';
     }
 

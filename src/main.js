@@ -105,7 +105,7 @@ function closeRegionInfoModal() {
 }
 
 function getRegionTransitionPois(regionKey) {
-  return state.regions[regionKey].pois.filter(poi => poi.category === 'navigation' && poi.type === 'transition');
+  return state.regions[regionKey].pois.filter(poi => Boolean(poi['target-region']));
 }
 
 function buildRegionStatsMarkup(regionKey) {
