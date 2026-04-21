@@ -115,6 +115,21 @@ export function createMarkerController({
     `;
   }
 
+  function getTransitionHtml(point) {
+    if (point.category !== 'navigation' || point.type !== 'transition' || !point['target-region']) {
+      return '';
+    }
+
+    const targetRegionName = getRegionIndex()[point['target-region']]?.name ?? point['target-region'];
+
+    return `
+      <div class="popup-transition">
+        <div class="popup-transition-label">Leads To</div>
+        <div class="popup-transition-value">${targetRegionName}</div>
+      </div>
+    `;
+  }
+
   function getPopupContent(point) {
     // Popups fall back from POI-specific fields to the shared type metadata.
     const category = getCategoryMeta(point.category);
@@ -123,6 +138,7 @@ export function createMarkerController({
     const popupTitle = point.name || type?.label || category.label;
     const popupDesc = point.desc ?? type?.desc ?? '';
     const contentsHtml = getContentsHtml(point);
+    const transitionHtml = getTransitionHtml(point);
     const titleHtml = `
       <div class="popup-title-row">
         <span class="popup-title-icon">${pointIcon}</span>
@@ -140,6 +156,7 @@ export function createMarkerController({
       <div class="popup-cat" style="color:${category.color}">${category.label}</div>
       ${titleHtml}
       <div class="popup-desc">${popupDesc}</div>
+      ${transitionHtml}
       ${contentsHtml}
       ${idHtml}
       ${coordsHtml}
@@ -445,6 +462,7 @@ export function createMarkerController({
   function openPopupFromEntry(entry, activeEl = entry.el ?? null) {
     const point = entry.point ?? entry.poi;
     if (!point) return;
+    activeViewPoi = point;
     currentPopup = openPopupForPoint(point, entry.marker.getLatLng(), activeEl);
   }
 

@@ -88,16 +88,69 @@ function closeRegionInfoModal() {
   elements.regionInfoModal.hidden = true;
 }
 
+function getRegionTransitionPois(regionKey) {
+  return state.regions[regionKey].pois.filter(poi => poi.category === 'navigation' && poi.type === 'transition');
+}
+
+function buildRegionStatsMarkup(regionKey) {
+  const region = state.regions[regionKey];
+  const transitions = getRegionTransitionPois(regionKey);
+  const baseStats = (region.stats ?? []).filter(stat => stat.label !== 'Connects To');
+  const stats = [
+    ...baseStats,
+    {
+      label: 'Region Transitions',
+      value: transitions.length
+        ? transitions.map(transition => ({
+            id: transition.id,
+            label: state.regionIndex[transition['target-region']]?.name ?? transition['target-region'],
+          }))
+        : [],
+    },
+  ];
+
+  return stats.map(stat => {
+    const valueMarkup = Array.isArray(stat.value)
+      ? (
+          stat.value.length
+            ? `<div class="stat-transition-list">${stat.value.map(item => `
+                <button type="button" class="stat-transition-link" data-transition-id="${item.id}">
+                  ${item.label}
+                </button>
+              `).join('')}</div>`
+            : '<div class="stat-value">None</div>'
+        )
+      : `<div class="stat-value">${stat.value}</div>`;
+
+    return `
+      <div class="stat-box">
+        <div class="stat-label">${stat.label}</div>
+        ${valueMarkup}
+      </div>
+    `;
+  }).join('');
+}
+
 function updateRegionInfo(regionKey) {
-  const { desc, stats = [], name } = state.regions[regionKey];
+  const { desc, name } = state.regions[regionKey];
   elements.regionInfoModalTitle.textContent = name;
   elements.regionDesc.textContent = desc;
-  elements.regionStats.innerHTML = stats.map(stat => `
-    <div class="stat-box">
-      <div class="stat-label">${stat.label}</div>
-      <div class="stat-value">${stat.value}</div>
-    </div>
-  `).join('');
+  elements.regionStats.innerHTML = buildRegionStatsMarkup(regionKey);
+
+  elements.regionStats.querySelectorAll('[data-transition-id]').forEach(button => {
+    button.addEventListener('click', () => {
+      const transitionPoi = getRegionTransitionPois(regionKey).find(poi => poi.id === button.dataset.transitionId);
+      if (!transitionPoi) return;
+
+      closeRegionInfoModal();
+      const targetZoom = Math.min(mapView.map.getMaxZoom(), 0);
+      mapView.map.setView(transitionPoi.coords, targetZoom, { animate: true });
+      const markerEntry = markerController.getMarkerEntryForPoint(transitionPoi);
+      if (markerEntry) {
+        markerController.openPopupFromEntry(markerEntry);
+      }
+    });
+  });
 }
 
 const mapView = createMapView(getCurrentRegion, regionKey => state.regions[regionKey]);

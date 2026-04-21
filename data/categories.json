@@ -1,4 +1,23 @@
 {
+  "navigation": {
+    "label": "Navigation",
+    "color": "#a1045a",
+    "types": {
+      "spawn-point": { "label": "Spawn point" },
+      "transition": {
+        "label": "Transition point",
+        "hideName": true,
+        "fields": {
+          "target-region": {
+            "label": "Region connection",
+            "type": "region-key",
+            "required": true
+          }
+        }
+      },
+      "landmark": { "label": "Landmark" }
+    }
+  },
   "locations": {
     "label": "Locations",
     "color": "#1B5886",
@@ -18,23 +37,14 @@
       }
     }
   },
-  "navigation": {
-    "label": "Navigation",
-    "color": "#a1045a",
+  "amenities": {
+    "label": "Amenities",
+    "color": "#6b7d8a",
     "types": {
-      "spawn-point": { "label": "Spawn point" },
-      "transition": {
-        "label": "Transition point",
-        "hideName": true,
-        "fields": {
-          "target-region": {
-            "label": "Region connection",
-            "type": "region-key",
-            "required": true
-          }
-        }
-      },
-      "landmark": { "label": "Landmark" }
+      "bed": { "label": "Bed" },
+      "first-aid": { "label": "First Aid" },
+      "metal-box": { "label": "Metal Box" },
+      "plastic-box": { "label": "Plastic Box" }
     }
   },
   "harvestable-plants": {
@@ -68,16 +78,6 @@
       "hatchet": { "label": "Hatchet", "url": "https://thelongdark.fandom.com/wiki/Hatchet" },
       "knife": { "label": "Knife", "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife" },
       "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" }
-    }
-  },
-  "amenities": {
-    "label": "Amenities",
-    "color": "#6b7d8a",
-    "types": {
-      "bed": { "label": "Bed" },
-      "first-aid": { "label": "First Aid" },
-      "metal-box": { "label": "Metal Box" },
-      "plastic-box": { "label": "Plastic Box" }
     }
   },
   "vehicles": {

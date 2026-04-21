@@ -651,6 +651,30 @@ main {
   color: var(--accent);
 }
 
+.stat-transition-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.stat-transition-link {
+  appearance: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+  cursor: pointer;
+  text-align: left;
+}
+
+.stat-transition-link:hover {
+  color: var(--text-primary);
+}
+
 /* ─────────────────────────────────────────
    LEAFLET MARKER OVERRIDES
 ───────────────────────────────────────── */
@@ -883,6 +907,25 @@ main {
   font-size: 0.9rem;
   color: var(--text-primary);
   line-height: 1.5;
+}
+
+.popup-transition {
+  margin-top: 10px;
+}
+
+.popup-transition-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.popup-transition-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
 }
 
 .popup-contents {
