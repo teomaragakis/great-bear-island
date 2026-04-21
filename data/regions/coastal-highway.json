@@ -1,588 +1,338 @@
-[
-  {
-    "category": "harvestable-plants",
-    "type": "birch-sapling",
-    "pixelCoords": [
-      1976,
-      2017
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "birch-sapling",
-    "pixelCoords": [
-      4017,
-      1485
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      401,
-      3026
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      408,
-      2985
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      428,
-      2958
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      449,
-      2992
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      456,
-      2887
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      489,
-      3079
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      500,
-      3142
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      511,
-      2860
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      552,
-      3187
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      577,
-      2837
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      606,
-      2799
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      606,
-      3221
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      663,
-      3245
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      670,
-      2703
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      764,
-      3281
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      821,
-      3317
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      839,
-      3353
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      855,
-      3398
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      865,
-      3439
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      871,
-      3474
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      877,
-      3549
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      878,
-      3610
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      882,
-      3646
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      887,
-      3678
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "cat-tails",
-    "pixelCoords": [
-      896,
-      3707
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      2158,
-      2164
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      2344,
-      2110
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      2510,
-      1973
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      2531,
-      1908
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      2596,
-      1898
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      3570,
-      1838
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      3623,
-      1847
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      3709,
-      1666
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      3740,
-      1647
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "lichen",
-    "pixelCoords": [
-      3790,
-      1588
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "rose-hips",
-    "pixelCoords": [
-      2326,
-      1904
-    ]
-  },
-  {
-    "category": "harvestable-plants",
-    "type": "rose-hips",
-    "pixelCoords": [
-      2380,
-      1877
-    ]
-  },
-  {
-    "category": "locations",
-    "type": "building",
-    "contents": ["bed",
-      "first-aid",
-      "rifle",
-      "revolver",
-      "metal-box"
+{
+  "harvestable-plants": {
+    "birch-sapling": [
+      {
+        "id": "poi-0001",
+        "pixelCoords": [1976, 2017]
+      },
+      {
+        "id": "poi-0002",
+        "pixelCoords": [4017, 1485]
+      }
     ],
-    "pixelCoords": [
-      2354,
-      1879
-    ]
-  },
-  {
-    "category": "locations",
-    "type": "building",
-    "pixelCoords": [
-      4242,
-      2598
-    ]
-  },
-  {
-    "category": "locations",
-    "type": "building",
-    "pixelCoords": [
-      4317,
-      2479
-    ]
-  },
-  {
-    "category": "locations",
-    "type": "building",
-    "pixelCoords": [
-      4334,
-      2728
-    ]
-  },
-  {
-    "category": "locations",
-    "type": "building",
-    "pixelCoords": [
-      4420,
-      2807
-    ]
-  },
-  {
-    "category": "locations",
-    "type": "building",
-    "pixelCoords": [
-      4464,
-      2717
-    ]
-  },
-  {
-    "category": "locations",
-    "type": "building",
-    "name": "Misanthrope's Homestead",
-    "contents": [
-      "bed",
-      "first-aid",
-      "metal-box",
-      "plastic-box"
+    "cat-tails": [
+      {
+        "id": "poi-0003",
+        "pixelCoords": [401, 3026]
+      },
+      {
+        "id": "poi-0004",
+        "pixelCoords": [408, 2985]
+      },
+      {
+        "id": "poi-0005",
+        "pixelCoords": [428, 2958]
+      },
+      {
+        "id": "poi-0006",
+        "pixelCoords": [449, 2992]
+      },
+      {
+        "id": "poi-0007",
+        "pixelCoords": [456, 2887]
+      },
+      {
+        "id": "poi-0008",
+        "pixelCoords": [489, 3079]
+      },
+      {
+        "id": "poi-0009",
+        "pixelCoords": [500, 3142]
+      },
+      {
+        "id": "poi-0010",
+        "pixelCoords": [511, 2860]
+      },
+      {
+        "id": "poi-0011",
+        "pixelCoords": [552, 3187]
+      },
+      {
+        "id": "poi-0012",
+        "pixelCoords": [577, 2837]
+      },
+      {
+        "id": "poi-0013",
+        "pixelCoords": [606, 2799]
+      },
+      {
+        "id": "poi-0014",
+        "pixelCoords": [606, 3221]
+      },
+      {
+        "id": "poi-0015",
+        "pixelCoords": [663, 3245]
+      },
+      {
+        "id": "poi-0016",
+        "pixelCoords": [670, 2703]
+      },
+      {
+        "id": "poi-0017",
+        "pixelCoords": [764, 3281]
+      },
+      {
+        "id": "poi-0018",
+        "pixelCoords": [821, 3317]
+      },
+      {
+        "id": "poi-0019",
+        "pixelCoords": [839, 3353]
+      },
+      {
+        "id": "poi-0020",
+        "pixelCoords": [855, 3398]
+      },
+      {
+        "id": "poi-0021",
+        "pixelCoords": [865, 3439]
+      },
+      {
+        "id": "poi-0022",
+        "pixelCoords": [871, 3474]
+      },
+      {
+        "id": "poi-0023",
+        "pixelCoords": [877, 3549]
+      },
+      {
+        "id": "poi-0024",
+        "pixelCoords": [878, 3610]
+      },
+      {
+        "id": "poi-0025",
+        "pixelCoords": [882, 3646]
+      },
+      {
+        "id": "poi-0026",
+        "pixelCoords": [887, 3678]
+      },
+      {
+        "id": "poi-0027",
+        "pixelCoords": [896, 3707]
+      }
     ],
-    "pixelCoords": [
-      3646,
-      1724
+    "lichen": [
+      {
+        "id": "poi-0028",
+        "pixelCoords": [2158, 2164]
+      },
+      {
+        "id": "poi-0029",
+        "pixelCoords": [2344, 2110]
+      },
+      {
+        "id": "poi-0030",
+        "pixelCoords": [2510, 1973]
+      },
+      {
+        "id": "poi-0031",
+        "pixelCoords": [2531, 1908]
+      },
+      {
+        "id": "poi-0032",
+        "pixelCoords": [2596, 1898]
+      },
+      {
+        "id": "poi-0033",
+        "pixelCoords": [3570, 1838]
+      },
+      {
+        "id": "poi-0034",
+        "pixelCoords": [3623, 1847]
+      },
+      {
+        "id": "poi-0035",
+        "pixelCoords": [3709, 1666]
+      },
+      {
+        "id": "poi-0036",
+        "pixelCoords": [3740, 1647]
+      },
+      {
+        "id": "poi-0037",
+        "pixelCoords": [3790, 1588]
+      }
+    ],
+    "rose-hips": [
+      {
+        "id": "poi-0038",
+        "pixelCoords": [2326, 1904]
+      },
+      {
+        "id": "poi-0039",
+        "pixelCoords": [2380, 1877]
+      }
     ]
   },
-  {
-    "category": "locations",
-    "type": "building",
-    "name": "Quonset Garage",
-    "pixelCoords": [
-      4393,
-      2591
+  "locations": {
+    "building": [
+      {
+        "id": "poi-0040",
+        "contents": ["bed", "first-aid", "rifle", "revolver", "metal-box"],
+        "pixelCoords": [2354, 1879]
+      },
+      {
+        "id": "poi-0041",
+        "pixelCoords": [4242, 2598]
+      },
+      {
+        "id": "poi-0042",
+        "pixelCoords": [4317, 2479]
+      },
+      {
+        "id": "poi-0043",
+        "pixelCoords": [4334, 2728]
+      },
+      {
+        "id": "poi-0044",
+        "pixelCoords": [4420, 2807]
+      },
+      {
+        "id": "poi-0045",
+        "pixelCoords": [4464, 2717]
+      },
+      {
+        "id": "misanthropes-homestead",
+        "name": "Misanthrope's Homestead",
+        "contents": ["bed", "first-aid", "metal-box", "plastic-box"],
+        "pixelCoords": [3646, 1724]
+      },
+      {
+        "id": "quonset-garage",
+        "name": "Quonset Garage",
+        "pixelCoords": [4393, 2591]
+      }
+    ],
+    "fishing-hut": [
+      {
+        "id": "poi-0048",
+        "pixelCoords": [3066, 1922]
+      }
+    ],
+    "mine": [
+      {
+        "id": "cinder-hills-coal-mine",
+        "name": "Cinder Hills Coal Mine",
+        "target-region": "pleasant-valley",
+        "pixelCoords": [2831, 3949]
+      }
     ]
   },
-  {
-    "category": "locations",
-    "type": "fishing-hut",
-    "pixelCoords": [
-      3066,
-      1922
+  "navigation": {
+    "transition": [
+      {
+        "id": "poi-0050",
+        "target-region": "ravine",
+        "pixelCoords": [640, 3712]
+      },
+      {
+        "id": "poi-0051",
+        "target-region": "crumbling-highway",
+        "pixelCoords": [4370, 222]
+      }
     ]
   },
-  {
-    "category": "locations",
-    "type": "mine",
-    "name": "Cinder Hills Coal Mine",
-    "target-region": "pleasant-valley",
-    "pixelCoords": [
-      2831,
-      3949
+  "predators": {
+    "bear": [
+      {
+        "id": "poi-0052",
+        "pixelCoords": [3854, 1654]
+      }
+    ],
+    "wolf": [
+      {
+        "id": "poi-0053",
+        "pixelCoords": [3893, 1225]
+      },
+      {
+        "id": "poi-0054",
+        "pixelCoords": [3899, 1050]
+      },
+      {
+        "id": "poi-0055",
+        "pixelCoords": [4317, 2584]
+      }
     ]
   },
-  {
-    "category": "navigation",
-    "type": "transition",
-    "target-region": "ravine",
-    "pixelCoords": [
-      640,
-      3712
+  "prey": {
+    "deer": [
+      {
+        "id": "poi-0056",
+        "pixelCoords": [2075, 2067]
+      },
+      {
+        "id": "poi-0057",
+        "pixelCoords": [2651, 2144]
+      },
+      {
+        "id": "poi-0058",
+        "pixelCoords": [3665, 1801]
+      },
+      {
+        "id": "poi-0059",
+        "pixelCoords": [4058, 650]
+      },
+      {
+        "id": "poi-0060",
+        "pixelCoords": [4395, 2671]
+      },
+      {
+        "id": "poi-0061",
+        "pixelCoords": [4470, 1402]
+      },
+      {
+        "id": "poi-0062",
+        "pixelCoords": [4676, 1811]
+      }
+    ],
+    "rabbit": [
+      {
+        "id": "poi-0063",
+        "pixelCoords": [2339, 1995]
+      },
+      {
+        "id": "poi-0064",
+        "pixelCoords": [3350, 1913]
+      }
     ]
   },
-  {
-    "category": "navigation",
-    "type": "transition",
-    "target-region": "crumbling-highway",
-    "pixelCoords": [
-      4370,
-      222
+  "vehicles": {
+    "car": [
+      {
+        "id": "poi-0065",
+        "pixelCoords": [4309, 2707]
+      },
+      {
+        "id": "poi-0066",
+        "pixelCoords": [4469, 2485]
+      },
+      {
+        "id": "poi-0067",
+        "pixelCoords": [4469, 2832]
+      },
+      {
+        "id": "poi-0068",
+        "pixelCoords": [4480, 2683]
+      },
+      {
+        "id": "poi-0069",
+        "pixelCoords": [4501, 2622]
+      }
     ]
   },
-  {
-    "category": "predators",
-    "type": "bear",
-    "pixelCoords": [
-      3854,
-      1654
-    ]
-  },
-  {
-    "category": "predators",
-    "type": "wolf",
-    "pixelCoords": [
-      3893,
-      1225
-    ]
-  },
-  {
-    "category": "predators",
-    "type": "wolf",
-    "pixelCoords": [
-      3899,
-      1050
-    ]
-  },
-  {
-    "category": "predators",
-    "type": "wolf",
-    "pixelCoords": [
-      4317,
-      2584
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "deer",
-    "pixelCoords": [
-      2075,
-      2067
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "deer",
-    "pixelCoords": [
-      2651,
-      2144
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "deer",
-    "pixelCoords": [
-      3665,
-      1801
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "deer",
-    "pixelCoords": [
-      4058,
-      650
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "deer",
-    "pixelCoords": [
-      4395,
-      2671
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "deer",
-    "pixelCoords": [
-      4470,
-      1402
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "deer",
-    "pixelCoords": [
-      4676,
-      1811
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "rabbit",
-    "pixelCoords": [
-      2339,
-      1995
-    ]
-  },
-  {
-    "category": "prey",
-    "type": "rabbit",
-    "pixelCoords": [
-      3350,
-      1913
-    ]
-  },
-  {
-    "category": "vehicles",
-    "type": "car",
-    "pixelCoords": [
-      4309,
-      2707
-    ]
-  },
-  {
-    "category": "vehicles",
-    "type": "car",
-    "pixelCoords": [
-      4469,
-      2485
-    ]
-  },
-  {
-    "category": "vehicles",
-    "type": "car",
-    "pixelCoords": [
-      4469,
-      2832
-    ]
-  },
-  {
-    "category": "vehicles",
-    "type": "car",
-    "pixelCoords": [
-      4480,
-      2683
-    ]
-  },
-  {
-    "category": "vehicles",
-    "type": "car",
-    "pixelCoords": [
-      4501,
-      2622
-    ]
-  },
-  {
-    "category": "weapons-and-tools",
-    "type": "hatchet",
-    "pixelCoords": [
-      3688,
-      1700
-    ]
-  },
-  {
-    "category": "weapons-and-tools",
-    "type": "revolver",
-    "pixelCoords": [
-      3348,
-      1874
+  "weapons-and-tools": {
+    "hatchet": [
+      {
+        "id": "poi-0070",
+        "pixelCoords": [3688, 1700]
+      }
+    ],
+    "revolver": [
+      {
+        "id": "poi-0071",
+        "pixelCoords": [3348, 1874]
+      }
     ]
   }
-]
+}

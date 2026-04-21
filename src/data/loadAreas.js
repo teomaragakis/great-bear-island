@@ -22,13 +22,49 @@ export function normalizeRegions(rawRegions) {
       regionKey,
       {
         ...region,
-        pois: (region.pois ?? []).map(poi => ({
-          ...normalizeLegacyPoiFields(poi),
-          coords: px(poi.pixelCoords[0], poi.pixelCoords[1]),
-        })),
+        pois: flattenRegionPois(region.pois ?? []).map((poi, index) => {
+          const normalizedPoi = normalizeLegacyPoiFields(poi);
+          return {
+            ...normalizedPoi,
+            id: normalizedPoi.id ?? buildPointId(normalizedPoi, index + 1),
+            coords: px(normalizedPoi.pixelCoords[0], normalizedPoi.pixelCoords[1]),
+          };
+        }),
       },
     ]),
   );
+}
+
+function slugifyPointName(name) {
+  return String(name)
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function buildPointId(point, index) {
+  const slug = point?.name?.trim() ? slugifyPointName(point.name) : '';
+  if (slug) return slug;
+  return `poi-${String(index).padStart(4, '0')}`;
+}
+
+export function flattenRegionPois(regionPois) {
+  if (Array.isArray(regionPois)) {
+    return regionPois;
+  }
+
+  return Object.entries(regionPois ?? {}).flatMap(([categoryKey, typeGroups]) => (
+    Object.entries(typeGroups ?? {}).flatMap(([typeKey, pois]) => (
+      (pois ?? []).map(poi => ({
+        ...poi,
+        category: categoryKey,
+        type: typeKey,
+      }))
+    ))
+  ));
 }
 
 function normalizeLegacyPoiFields(poi) {
@@ -64,10 +100,52 @@ export function serializePointForJson(point) {
   };
 }
 
+export function groupPoisForJson(points) {
+  const usedIds = new Set();
+
+  function getUniquePointId(point, index) {
+    const baseId = point.id ?? buildPointId(point, index);
+    if (!usedIds.has(baseId)) {
+      usedIds.add(baseId);
+      return baseId;
+    }
+
+    let suffix = 2;
+    let candidate = `${baseId}-${suffix}`;
+    while (usedIds.has(candidate)) {
+      suffix += 1;
+      candidate = `${baseId}-${suffix}`;
+    }
+    usedIds.add(candidate);
+    return candidate;
+  }
+
+  return points.reduce((groups, point, index) => {
+    const serializedPoint = serializePointForJson({
+      ...point,
+      id: getUniquePointId(point, index + 1),
+    });
+    const { category, type, ...storedPoint } = serializedPoint;
+
+    if (!groups[category]) groups[category] = {};
+    if (!groups[category][type]) groups[category][type] = [];
+    groups[category][type].push(storedPoint);
+    return groups;
+  }, {});
+}
+
 export function formatPoiJson(payload) {
-  return JSON.stringify(payload, null, 2).replace(
+  const groupedPayload = Array.isArray(payload) ? groupPoisForJson(payload) : payload;
+
+  return JSON.stringify(groupedPayload, null, 2).replace(
     /"pixelCoords": \[\n\s+(-?\d+(?:\.\d+)?),\n\s+(-?\d+(?:\.\d+)?)\n\s+\]/g,
     '"pixelCoords": [$1, $2]',
+  ).replace(
+    /"contents": \[\n((?:\s+"[^"]+",?\n)+)\s+\]/g,
+    (_, items) => {
+      const values = [...items.matchAll(/"[^"]+"/g)].map(match => match[0]);
+      return `"contents": [${values.join(', ')}]`;
+    },
   );
 }
 

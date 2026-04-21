@@ -1,6 +1,6 @@
 # Great Bear Island
 
-Interactive map app for exploring *The Long Dark* regions with layered static map imagery, category-based points of interest, searchable filtering, and built-in tooling for authoring POIs.
+Interactive map app for exploring *The Long Dark* regions with layered static map imagery, category-based points of interest, searchable filtering, clustering, and built-in tooling for authoring POIs.
 
 ⚠️ Right now only Coastal Highway is enabled and most POIs are missing. Consider this an alpha.
 
@@ -15,16 +15,19 @@ Current functionality includes:
 - Region metadata loaded from `data/regions.json`
 - Per-region POI data loaded from `data/regions/<region>.json`
 - Shared point taxonomy loaded from `data/categories.json`
-- Region switching through the top-bar area selector
+- Region switching through the top-bar region selector
 - Layer switching between aerial contour, aerial, and topographic map views
 - Region overview modal with description and stat cards
+- Region label overlays loaded from `regions.json`
 - Grouped legend built from the category/type taxonomy
 - POI filtering at type level, including per-group show/hide and global show/hide
 - Searchable POI legend that matches category or type labels
-- Sidebar settings for hiding missing categories, showing DLC categories, and flattening the grouped legend into a single alphabetical list
-- Custom POI markers and popups with icon, title, category label, description, and developer coordinates
+- Sidebar settings for grouping nearby items, grouping by category, hiding missing categories, showing DLC categories, and flattening the grouped legend into a single alphabetical list
+- Category-aware clustering in view mode
+- Custom POI markers and popups with icon, title, category label, description, developer coordinates, and optional contents lists
+- Popup behavior controlled from taxonomy metadata
 - Static-image map bounds handling with responsive refit on resize
-- Developer mode for creating temporary POIs, editing existing POIs, dragging markers, deleting temporary POIs, previewing the combined JSON snapshot, copying it to the clipboard, and exporting it as a file
+- Developer mode for creating temporary POIs, editing existing POIs, dragging markers, deleting POIs, previewing the combined JSON snapshot, copying it to the clipboard, and exporting it as a file
 
 ## Tech Stack
 
@@ -38,10 +41,13 @@ Current functionality includes:
 ```text
 .
 ├── data/
+│   ├── README.md
 │   ├── regions.json
 │   ├── categories.json
 │   └── regions/
-│       └── coastal-highway.json
+│       ├── README.md
+│       ├── coastal-highway.json
+│       └── pleasant-valley.json
 ├── src/
 │   ├── config/
 │   ├── data/
@@ -71,26 +77,52 @@ Then open `http://localhost:8000`.
 `data/regions.json` contains region-level metadata under the `regions` key:
 
 - display name
-- region overview text and stats
+- `desc` and `stats`
 - layer image paths and image size
 - path to the region POI file
+- optional `locations` label metadata
+- optional `disabled` / `dlc` flags
 
-Per-region files in `data/regions/` currently contain an array of POIs.
+Per-region files in `data/regions/` are grouped by category and then by type.
 
-Each POI uses this shape:
+Saved region POIs use this shape:
 
 ```json
 {
-  "id": "optional-id",
-  "category": "navigation",
-  "type": "landmark",
-  "name": "Example Point",
-  "desc": "Description text.",
+  "locations": {
+    "building": [
+      {
+        "id": "quonset-garage",
+        "name": "Quonset Garage",
+        "pixelCoords": [4393, 2591]
+      }
+    ]
+  }
+}
+```
+
+Inside each type array, POIs can include:
+
+```json
+{
+  "id": "poi-0001",
+  "name": "Optional Name",
+  "desc": "Optional description.",
+  "contents": ["bed", "first-aid"],
+  "target-region": "pleasant-valley",
   "pixelCoords": [1800, 1200]
 }
 ```
 
-`data/categories.json` defines the master category and type taxonomy, including category labels/colors plus type labels/icons, wiki `url` values, and optional `dlc` flags.
+`data/categories.json` defines the master category and type taxonomy, including:
+
+- category labels and colors
+- type labels and optional wiki `url`
+- optional `popup` behavior flags
+- optional type-specific field schemas
+- optional `dlc` flags
+
+Icons are resolved from `assets/icons/index.json` plus matching SVG files in `assets/icons/`.
 
 At runtime, each POI is normalized with Leaflet-friendly coordinates derived from `pixelCoords`.
 
@@ -103,7 +135,9 @@ At runtime, each POI is normalized with Leaflet-friendly coordinates derived fro
 - Toggle individual POI types, whole legend groups, or all POIs at once
 - Hide legend items that do not exist in the current region
 - Show or hide DLC-tagged categories
+- Group nearby POIs, optionally by category
 - View POI popups directly on the map
+- View popup contents lists for container-style POIs
 
 ## Developer Mode
 
@@ -112,16 +146,16 @@ Developer mode is available from the map controls and is intended for POI author
 In developer mode you can:
 
 - Click the map to create temporary POIs
-- Edit category, type, name, and description in the sidebar
+- Edit category, type, name, description, and schema-driven custom fields in the sidebar
 - Drag existing region POIs and temporary POIs to update their pixel coordinates
 - Inspect live `x` and `y` coordinates in the popup and editor
-- Delete temporary POIs
+- Delete POIs
 - Open a modal showing the current region's POI snapshot JSON
 - Copy the current snapshot JSON to the clipboard
-- Export the current snapshot JSON to a file named after the area data file
+- Export the current snapshot JSON to a file named after the region data file
 
 Temporary POIs are kept in memory and are cleared when switching regions or refreshing the page unless exported.
 
 ## Current Scope
 
-The current repository is set up around Coastal Highway, but the data model supports additional regions through the same `regions` index in `regions.json` plus per-region `pois` files.
+The current repository is set up around Coastal Highway, with Pleasant Valley scaffolded and additional regions listed in `data/regions.json` as disabled placeholders until their map assets and POI data are ready.

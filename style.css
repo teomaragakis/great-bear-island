@@ -929,10 +929,18 @@ main {
   height: 16px;
 }
 
+.popup-meta-row,
 .popup-coordinates {
   font-size: 0.8rem;
   color: var(--text-muted);
   line-height: 1.5;
+}
+
+.popup-meta-row {
+  margin-top: 8px;
+}
+
+.popup-coordinates {
   margin-top: 4px;
 }
 

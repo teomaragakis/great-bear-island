@@ -129,6 +129,9 @@ export function createMarkerController({
         <div class="popup-title">${popupTitle}</div>
       </div>
     `;
+    const idHtml = isDeveloperModeEnabled() && point.id
+      ? `<div class="popup-meta-row">ID: ${point.id}</div>`
+      : '';
     const coordsHtml = isDeveloperModeEnabled()
       ? `<div class="popup-coordinates">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>`
       : '';
@@ -138,6 +141,7 @@ export function createMarkerController({
       ${titleHtml}
       <div class="popup-desc">${popupDesc}</div>
       ${contentsHtml}
+      ${idHtml}
       ${coordsHtml}
     `;
   }
