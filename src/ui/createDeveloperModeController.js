@@ -38,6 +38,8 @@ export function createDeveloperModeController({
     if (content) {
       developerPoiForm.appendChild(content);
       developerPoiPanel.hidden = false;
+      const firstField = developerPoiForm.querySelector('input:not([hidden]), select:not([hidden]), textarea:not([hidden])');
+      firstField?.focus();
       requestAnimationFrame(() => {
         developerPoiPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
