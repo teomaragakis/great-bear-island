@@ -45,6 +45,11 @@ data/regions/
 - `icon`
 - `pixelCoords`
 
+## Taxonomy Notes
+
+- `data/categories.json` can mark category or type fields with `name: false` or `desc: false`
+- `popup: false` disables view-mode popups by default unless the POI has its own description or contents
+
 ## Current Files
 
 - `coastal-highway.json`: active region data

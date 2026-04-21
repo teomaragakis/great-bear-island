@@ -6,7 +6,7 @@
       "spawn-point": { "label": "Spawn point" },
       "transition": {
         "label": "Transition point",
-        "hideName": true,
+        "name": false,
         "fields": {
           "target-region": {
             "label": "Region connection",
@@ -51,8 +51,8 @@
     "label": "Harvestable Plants",
     "color": "#0b6623",
     "popup": false,
-    "hideName": true,
-    "hideDesc": true,
+    "name": false,
+    "desc": false,
     "types": {
       "cat-tails": { "label": "Cat tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
       "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
@@ -92,8 +92,8 @@
     "label": "Predators",
     "color": "#dc2626",
     "popup": false,
-    "hideName": true,
-    "hideDesc": true,
+    "name": false,
+    "desc": false,
     "types": {
       "wolf": { "label": "Wolf", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
       "wolf-carcass": { "label": "Wolf Carcass", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
@@ -106,8 +106,8 @@
     "label": "Prey / Hunting",
     "color": "#92664a",
     "popup": false,
-    "hideName": true,
-    "hideDesc": true,
+    "name": false,
+    "desc": false,
     "types": {
       "rabbit": { "label": "Rabbit", "url": "https://thelongdark.fandom.com/wiki/Rabbit" },
       "deer": { "label": "Deer", "url": "https://thelongdark.fandom.com/wiki/Deer" },

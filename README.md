@@ -105,7 +105,7 @@ Inside each type array, POIs can include:
 
 ```json
 {
-  "id": "poi-0001",
+  "id": "quonset-garage",
   "name": "Optional Name",
   "desc": "Optional description.",
   "contents": ["bed", "first-aid"],
@@ -119,6 +119,7 @@ Inside each type array, POIs can include:
 - category labels and colors
 - type labels and optional wiki `url`
 - optional `popup` behavior flags
+- optional `name: false` / `desc: false` field visibility flags
 - optional type-specific field schemas
 - optional `dlc` flags
 

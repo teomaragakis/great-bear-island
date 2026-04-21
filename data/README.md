@@ -35,3 +35,4 @@ data/
 - `pixelCoords` are stored in source JSON and converted to Leaflet coordinates at runtime
 - `contents` is an array of type keys from `categories.json`
 - `target-region` stores a region key from `regions.json`
+- categories and types can use `name: false` / `desc: false` to hide those fields in the editor

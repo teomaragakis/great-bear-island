@@ -146,11 +146,11 @@ export function createDeveloperModeController({
   }
 
   function shouldHideNameField(categoryKey, typeKey) {
-    return getCategoryMeta(categoryKey)?.hideName === true || getTypeMeta(categoryKey, typeKey)?.hideName === true;
+    return getCategoryMeta(categoryKey)?.name === false || getTypeMeta(categoryKey, typeKey)?.name === false;
   }
 
   function shouldHideDescField(categoryKey, typeKey) {
-    return getCategoryMeta(categoryKey)?.hideDesc === true || getTypeMeta(categoryKey, typeKey)?.hideDesc === true;
+    return getCategoryMeta(categoryKey)?.desc === false || getTypeMeta(categoryKey, typeKey)?.desc === false;
   }
 
   function getSelectableRegionOptions(selectedValue = '') {
