@@ -18,6 +18,7 @@ export function createMarkerController({
   onOpenDeveloperEditor,
   onDeveloperPointMoved,
 }) {
+  const POPUP_EDGE_PADDING = 20;
   let activeMarkers = [];
   let activeLocationLabels = [];
   let currentPopup = null;
@@ -163,6 +164,42 @@ export function createMarkerController({
     `;
   }
 
+  function ensurePopupFits(popup, attempt = 0) {
+    window.setTimeout(() => {
+      const popupEl = popup.getElement();
+      if (!popupEl || currentPopup !== popup) return;
+
+      const mapRect = map.getContainer().getBoundingClientRect();
+      const popupRect = popupEl.getBoundingClientRect();
+
+      let deltaX = 0;
+      let deltaY = 0;
+
+      if (popupRect.left < mapRect.left + POPUP_EDGE_PADDING) {
+        deltaX = popupRect.left - (mapRect.left + POPUP_EDGE_PADDING);
+      } else if (popupRect.right > mapRect.right - POPUP_EDGE_PADDING) {
+        deltaX = popupRect.right - (mapRect.right - POPUP_EDGE_PADDING);
+      }
+
+      if (popupRect.top < mapRect.top + POPUP_EDGE_PADDING) {
+        deltaY = popupRect.top - (mapRect.top + POPUP_EDGE_PADDING);
+      } else if (popupRect.bottom > mapRect.bottom - POPUP_EDGE_PADDING) {
+        deltaY = popupRect.bottom - (mapRect.bottom - POPUP_EDGE_PADDING);
+      }
+
+      if (deltaX !== 0 || deltaY !== 0) {
+        map.panBy([deltaX, deltaY], { animate: true });
+        if (attempt < 1) {
+          map.once('moveend', () => {
+            if (currentPopup !== popup) return;
+            popup.update();
+            ensurePopupFits(popup, attempt + 1);
+          });
+        }
+      }
+    }, 20);
+  }
+
   function openPopupForPoint(point, latlng, activeEl = null) {
     if (currentPopup) {
       map.closePopup(currentPopup);
@@ -182,6 +219,10 @@ export function createMarkerController({
       closeButton: true,
       autoClose: false,
       closeOnClick: false,
+      autoPan: true,
+      keepInView: true,
+      autoPanPaddingTopLeft: [POPUP_EDGE_PADDING, POPUP_EDGE_PADDING],
+      autoPanPaddingBottomRight: [POPUP_EDGE_PADDING, POPUP_EDGE_PADDING],
       className: 'poi-popup',
       maxWidth: 280,
     })
@@ -198,6 +239,7 @@ export function createMarkerController({
     });
 
     currentPopup.openOn(map);
+    ensurePopupFits(currentPopup);
     return currentPopup;
   }
 
