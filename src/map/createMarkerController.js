@@ -122,7 +122,7 @@ export function createMarkerController({
 
     return `
       <div class="popup-contents">
-        <div class="popup-contents-title">Contents</div>
+        <div class="popup-label">Contents</div>
         <ul class="popup-contents-list">${itemsHtml}</ul>
       </div>
     `;
@@ -137,7 +137,7 @@ export function createMarkerController({
 
     return `
       <div class="popup-transition">
-        <div class="popup-transition-label">Leads To</div>
+        <div class="popup-label">Leads To</div>
         <div class="popup-transition-value">${targetRegionName}</div>
       </div>
     `;
@@ -159,10 +159,20 @@ export function createMarkerController({
       </div>
     `;
     const idHtml = isDeveloperModeEnabled() && point.id
-      ? `<div class="popup-meta-row">ID: ${point.id}</div>`
+      ? `
+        <div class="popup-meta-row">
+          <span class="popup-label">ID</span>
+          <span class="popup-mono-value">${point.id}</span>
+        </div>
+      `
       : '';
     const coordsHtml = isDeveloperModeEnabled()
-      ? `<div class="popup-coordinates">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>`
+      ? `
+        <div class="popup-coordinates">
+          <span class="popup-label">Coordinates</span>
+          <span class="popup-mono-value">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</span>
+        </div>
+      `
       : '';
 
     return `

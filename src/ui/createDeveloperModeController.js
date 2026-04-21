@@ -178,7 +178,7 @@ export function createDeveloperModeController({
       if (fieldMeta.required !== true) {
         return `
           <div class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
-            <label class="settings-toggle">
+            <label class="settings-toggle developer-inline-toggle">
               <span>${escapeHtml(label)}</span>
               <input
                 data-role="custom-field-toggle"
@@ -201,18 +201,18 @@ export function createDeveloperModeController({
       }
 
       return `
-        <label class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
+        <div class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
           <span>${escapeHtml(label)}</span>
           <select data-role="custom-field" data-field-key="${escapeHtml(fieldKey)}">
             <option value="">Select region</option>
             ${getSelectableRegionOptions(value)}
           </select>
-        </label>
+        </div>
       `;
     }
 
     return `
-      <label class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
+      <div class="developer-field" data-custom-field="${escapeHtml(fieldKey)}">
         <span>${escapeHtml(label)}</span>
         <input
           data-role="custom-field"
@@ -220,7 +220,7 @@ export function createDeveloperModeController({
           type="text"
           value="${escapeHtml(value)}"
         >
-      </label>
+      </div>
     `;
   }
 
@@ -303,32 +303,32 @@ export function createDeveloperModeController({
     const container = document.createElement('div');
     container.className = 'developer-form';
     container.innerHTML = `
-      <label class="developer-field">
+      <div class="developer-field">
         <span>Category</span>
         <select data-role="category">
           ${buildDeveloperCategoryOptions(point.category)}
         </select>
-      </label>
-      <label class="developer-field">
+      </div>
+      <div class="developer-field">
         <span>Type</span>
         <select data-role="type">
           ${buildDeveloperTypeOptions(point.category, point.type)}
         </select>
-      </label>
+      </div>
       ${hideNameField ? '' : `
-      <label class="developer-field">
+      <div class="developer-field">
         <span>Name</span>
         <input data-role="name" type="text" value="${escapeHtml(pointName)}">
-      </label>
+      </div>
       `}
       <div data-role="custom-fields">
         ${buildCustomFieldsMarkup(point.category, point.type, point)}
       </div>
       ${hideDescField ? '' : `
-      <label class="developer-field">
+      <div class="developer-field">
         <span>Description</span>
         <textarea data-role="desc" rows="3">${pointDesc}</textarea>
-      </label>
+      </div>
       `}
       <div class="developer-coords">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>
       <button type="button" class="developer-delete">Delete POI</button>

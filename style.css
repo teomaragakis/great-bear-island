@@ -448,6 +448,22 @@ main {
   background: var(--accent);
 }
 
+.developer-inline-toggle .settings-switch {
+  width: 32px;
+  height: 18px;
+}
+
+.developer-inline-toggle .settings-switch::after {
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+}
+
+.developer-inline-toggle input:checked + .settings-switch::after {
+  transform: translateX(14px);
+}
+
 /* ─────────────────────────────────────────
    LEGEND / FILTER
 ───────────────────────────────────────── */
@@ -913,7 +929,7 @@ main {
   margin-top: 10px;
 }
 
-.popup-transition-label {
+.popup-label {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -930,15 +946,6 @@ main {
 
 .popup-contents {
   margin-top: 10px;
-}
-
-.popup-contents-title {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 6px;
 }
 
 .popup-contents-list {
@@ -975,8 +982,11 @@ main {
 .popup-meta-row,
 .popup-coordinates {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: var(--text-primary);
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .popup-meta-row {
@@ -985,6 +995,10 @@ main {
 
 .popup-coordinates {
   margin-top: 4px;
+}
+
+.popup-mono-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .developer-form {
