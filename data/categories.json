@@ -76,8 +76,8 @@
     "types": {
       "bed": { "label": "Bed" },
       "first-aid": { "label": "First Aid" },
-      "metal-box": { "label": "Metal box" },
-      "plastic-box": { "label": "Plastic box" }
+      "metal-box": { "label": "Metal Box" },
+      "plastic-box": { "label": "Plastic Box" }
     }
   },
   "vehicles": {
