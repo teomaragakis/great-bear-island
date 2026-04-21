@@ -23,19 +23,19 @@
         "topographic": "assets/maps/coastal_highway-topo.jpeg"
       },
       "locations": [
-        { "name": "Abandoned Lookout", "pixelCoords": [3612, 3618] },
-        { "name": "Bear Creek Campground", "pixelCoords": [502, 3010] },
-        { "name": "Coastal Townsite", "pixelCoords": [4418, 2634] },
-        { "name": "Commuter's Lament", "pixelCoords": [4334, 296] },
-        { "name": "Fishing Camp", "pixelCoords": [1474, 2660] },
-        { "name": "Jackrabbit Island", "pixelCoords": [2334, 1968] },
-        { "name": "Log Sort", "pixelCoords": [2814, 3114] },
-        { "name": "Misanthrope's Homestead" },
-        { "name": "Rabbit Grove", "pixelCoords": [406, 3220] },
-        { "name": "Rockfall", "pixelCoords": [942, 1750] },
-        { "name": "Silent Clearing", "pixelCoords": [4886, 2810] },
-        { "name": "Train Unloading", "pixelCoords": [1299, 3795] },
-        { "name": "Waterfront Cottages", "pixelCoords": [4292, 1048] }
+        { "name": "Abandoned Lookout", "desc": "A small fire lookout tower on the northern hill near the Pleasant Valley mine route.", "pixelCoords": [3612, 3618] },
+        { "name": "Bear Creek Campground", "desc": "An exposed campground beside a creek on the western side of the region.", "pixelCoords": [502, 3010] },
+        { "name": "Coastal Townsite", "desc": "A small settlement centered on the Quonset area, with many houses, cars, and frequent predators.", "pixelCoords": [4418, 2634] },
+        { "name": "Commuter's Lament", "desc": "A rockfall-choked roadside landmark at the southeastern edge that leads toward Crumbling Highway.", "pixelCoords": [4334, 296] },
+        { "name": "Fishing Camp", "desc": "A cluster of fishing cabins and docks between Bear Creek Campground and Jackrabbit Island.", "pixelCoords": [1474, 2660] },
+        { "name": "Jackrabbit Island", "desc": "An offshore island with a house and strong rabbit activity near the Fishing Camp.", "pixelCoords": [2334, 1968] },
+        { "name": "Log Sort", "desc": "A coastal worksite with log piles, a house, a trailer, and a nearby lower mine entrance.", "pixelCoords": [2814, 3114] },
+        { "name": "Misanthrope's Homestead", "desc": "A two-story house on a small island between Jackrabbit Island and the Waterfront Cottages." },
+        { "name": "Rabbit Grove", "desc": "A rabbit-rich area across the creek from Bear Creek Campground with a nearby cabin on the hill.", "pixelCoords": [406, 3220] },
+        { "name": "Rockfall", "desc": "The blocked western end of the Great Bear Highway with no passable route beyond it.", "pixelCoords": [942, 1750] },
+        { "name": "Silent Clearing", "desc": "An open clearing northeast of Coastal Townsite with harvested plants, deer, and a nearby rope climb.", "pixelCoords": [4886, 2810] },
+        { "name": "Train Unloading", "desc": "A far northern rail-side stop near the Ravine connection with a small trailer and modest loot.", "pixelCoords": [1299, 3795] },
+        { "name": "Waterfront Cottages", "desc": "A small cluster of southeastern cottages that can provide shelter and supplies depending on spawned condition.", "pixelCoords": [4292, 1048] }
       ]
     },
     "mystery-lake": {
