@@ -23,6 +23,22 @@ export function createLegendController({
     return getRegions()[getCurrentRegion()].pois;
   }
 
+  function getCategoryKeyForType(typeKey) {
+    return Object.entries(getPointCategories()).find(([, category]) => category.types?.[typeKey])?.[0] ?? '';
+  }
+
+  function getRelatedFilterKeys(point) {
+    const filterKeys = new Set([getFilterKey(point.category, point.type)]);
+
+    (point.contents ?? []).forEach(typeKey => {
+      const categoryKey = getCategoryKeyForType(typeKey);
+      if (!categoryKey) return;
+      filterKeys.add(getFilterKey(categoryKey, typeKey));
+    });
+
+    return [...filterKeys];
+  }
+
   function getVisibleFilterKeys(filterKeys) {
     const activeFilters = getActiveFilters();
     return filterKeys.filter(filterKey => activeFilters.has(filterKey));
@@ -169,8 +185,9 @@ export function createLegendController({
 
     const counts = {};
     pois.forEach(point => {
-      const filterKey = getFilterKey(point.category, point.type);
-      counts[filterKey] = (counts[filterKey] || 0) + 1;
+      getRelatedFilterKeys(point).forEach(filterKey => {
+        counts[filterKey] = (counts[filterKey] || 0) + 1;
+      });
     });
 
     if (shouldFlattenItems()) {

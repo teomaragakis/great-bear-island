@@ -92,6 +92,18 @@ export function createMarkerController({
     return null;
   }
 
+  function getRelatedFilterKeys(point) {
+    const filterKeys = new Set([getFilterKey(point.category, point.type)]);
+
+    (point.contents ?? []).forEach(typeKey => {
+      const contentMeta = getContentTypeMeta(typeKey);
+      if (!contentMeta) return;
+      filterKeys.add(getFilterKey(contentMeta.categoryKey, contentMeta.typeKey));
+    });
+
+    return [...filterKeys];
+  }
+
   function getContentsHtml(point) {
     if (!hasContents(point)) return '';
 
@@ -466,7 +478,7 @@ export function createMarkerController({
   function refreshMarkerVisibility() {
     const activeFilters = getActiveFilters();
     activeMarkers.forEach(({ marker, poi, clusterKey }) => {
-      const isVisible = activeFilters.has(getFilterKey(poi.category, poi.type));
+      const isVisible = getRelatedFilterKeys(poi).some(filterKey => activeFilters.has(filterKey));
       const clusterLayer = clusterLayers.get(clusterKey) ?? null;
       const isOnMap = clusterLayer ? clusterLayer.hasLayer(marker) : map.hasLayer(marker);
 

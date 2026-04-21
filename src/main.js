@@ -71,6 +71,22 @@ function getSelectableRegionEntries() {
   return Object.entries(state.regionIndex).filter(([, regionMeta]) => isRegionSelectable(regionMeta));
 }
 
+function getCategoryKeyForType(typeKey) {
+  return Object.entries(state.pointCategories).find(([, category]) => category.types?.[typeKey])?.[0] ?? '';
+}
+
+function getRelatedFilterKeys(point) {
+  const filterKeys = new Set([getFilterKey(point.category, point.type)]);
+
+  (point.contents ?? []).forEach(typeKey => {
+    const categoryKey = getCategoryKeyForType(typeKey);
+    if (!categoryKey) return;
+    filterKeys.add(getFilterKey(categoryKey, typeKey));
+  });
+
+  return [...filterKeys];
+}
+
 function populateRegionSelect() {
   // The selector is driven entirely by region metadata, not hardcoded markup.
   const options = getSelectableRegionEntries()
@@ -212,7 +228,7 @@ developerMode.installControl();
 function switchRegion(regionKey) {
   state.currentRegion = regionKey;
   state.activeTypeFilters = new Set(
-    state.regions[regionKey].pois.map(poi => getFilterKey(poi.category, poi.type)),
+    state.regions[regionKey].pois.flatMap(getRelatedFilterKeys),
   );
 
   markerController.closeCurrentPopup();
