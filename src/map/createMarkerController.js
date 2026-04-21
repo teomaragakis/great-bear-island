@@ -7,6 +7,7 @@ export function createMarkerController({
   getRegions,
   getRegionIndex,
   getCurrentRegion,
+  getPointCategories,
   getActiveFilters,
   getCategoryMeta,
   getTypeMeta,
@@ -47,6 +48,73 @@ export function createMarkerController({
     return el;
   }
 
+  function hasExplicitDescription(point) {
+    return typeof point.desc === 'string' && point.desc.trim().length > 0;
+  }
+
+  function hasContents(point) {
+    return Array.isArray(point.contents) && point.contents.length > 0;
+  }
+
+  function getPopupSetting(point) {
+    const category = getCategoryMeta(point.category);
+    const type = getTypeMeta(point.category, point.type);
+
+    if (typeof category?.popup === 'boolean') {
+      return category.popup;
+    }
+
+    if (typeof type?.popup === 'boolean') {
+      return type.popup;
+    }
+
+    return true;
+  }
+
+  function shouldOpenPopupOnClick(point) {
+    return hasExplicitDescription(point) || hasContents(point) || getPopupSetting(point);
+  }
+
+  function getContentTypeMeta(typeKey) {
+    for (const [categoryKey, category] of Object.entries(getPointCategories())) {
+      const type = category?.types?.[typeKey];
+      if (type) {
+        return {
+          categoryKey,
+          category,
+          typeKey,
+          type,
+        };
+      }
+    }
+
+    return null;
+  }
+
+  function getContentsHtml(point) {
+    if (!hasContents(point)) return '';
+
+    const itemsHtml = point.contents.map(typeKey => {
+      const contentMeta = getContentTypeMeta(typeKey);
+      const icon = contentMeta ? getPointIcon(contentMeta.categoryKey, contentMeta.typeKey) : '';
+      const label = contentMeta?.type?.label ?? typeKey;
+
+      return `
+        <li class="popup-contents-item">
+          <span class="popup-contents-icon">${icon}</span>
+          <span class="popup-contents-name">${label}</span>
+        </li>
+      `;
+    }).join('');
+
+    return `
+      <div class="popup-contents">
+        <div class="popup-contents-title">Contents</div>
+        <ul class="popup-contents-list">${itemsHtml}</ul>
+      </div>
+    `;
+  }
+
   function getPopupContent(point) {
     // Popups fall back from POI-specific fields to the shared type metadata.
     const category = getCategoryMeta(point.category);
@@ -54,6 +122,7 @@ export function createMarkerController({
     const pointIcon = getPointIcon(point.category, point.type, point);
     const popupTitle = point.name || type?.label || category.label;
     const popupDesc = point.desc ?? type?.desc ?? '';
+    const contentsHtml = getContentsHtml(point);
     const titleHtml = `
       <div class="popup-title-row">
         <span class="popup-title-icon">${pointIcon}</span>
@@ -68,6 +137,7 @@ export function createMarkerController({
       <div class="popup-cat" style="color:${category.color}">${category.label}</div>
       ${titleHtml}
       <div class="popup-desc">${popupDesc}</div>
+      ${contentsHtml}
       ${coordsHtml}
     `;
   }
@@ -198,16 +268,27 @@ export function createMarkerController({
       showCoverageOnHover: false,
       spiderfyOnMaxZoom: true,
       zoomToBoundsOnClick: true,
+      disableClusteringAtZoom: map.getMaxZoom(),
       maxClusterRadius: zoom => {
         if (zoom <= -2) return 140;
         if (zoom <= -1) return 100;
         return 72;
       },
       iconCreateFunction(cluster) {
+        const firstChildPoint = cluster.getAllChildMarkers()[0]?.__poi ?? null;
+        const clusterIcon = category && firstChildPoint
+          ? getPointIcon(firstChildPoint.category, firstChildPoint.type, firstChildPoint)
+          : '';
+
         return L.divIcon({
           className: 'poi-cluster-icon',
-          html: `<div class="poi-cluster-badge" style="--cluster-color: ${category?.color ?? '#d7ad31'}">${cluster.getChildCount()}</div>`,
-          iconSize: [40, 40],
+          html: `
+            <div class="poi-cluster-badge" style="--cluster-color: ${category?.color ?? '#d7ad31'}">
+              ${clusterIcon ? `<span class="poi-cluster-badge-icon">${clusterIcon}</span>` : ''}
+              <span class="poi-cluster-badge-count">${cluster.getChildCount()}</span>
+            </div>
+          `,
+          iconSize: [44, 44],
         });
       },
     });
@@ -252,13 +333,14 @@ export function createMarkerController({
         icon: L.divIcon({
           className: 'poi-div-icon',
           html: el,
-          iconSize: [28, 34],
-          iconAnchor: [14, 34],
-          popupAnchor: [0, -34],
+          iconSize: [32, 38],
+          iconAnchor: [16, 38],
+          popupAnchor: [0, -38],
         }),
         keyboard: false,
         draggable: isDeveloperModeEnabled(),
       });
+      marker.__poi = poi;
 
       if (shouldCluster) {
         // Category-aware clustering is optional and driven by user settings.
@@ -284,6 +366,12 @@ export function createMarkerController({
         });
 
         activeViewPoi = poi;
+        if (!isDeveloperModeEnabled() && !shouldOpenPopupOnClick(poi)) {
+          closeCurrentPopup();
+          activeViewPoi = null;
+          return;
+        }
+
         currentPopup = openPopupForPoint(poi, poi.coords, el);
 
         if (isDeveloperModeEnabled()) {

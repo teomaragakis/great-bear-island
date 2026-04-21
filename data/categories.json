@@ -1,10 +1,11 @@
 {
   "locations": {
     "label": "Locations",
-    "color": "#888888",
+    "color": "#1B5886",
     "types": {
-      "cabin": { "label": "Cabin", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations" },
+      "building": { "label": "Building", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations" },
       "fishing-hut": { "label": "Fishing hut", "url": "https://thelongdark.fandom.com/wiki/Fishing_hut" },
+      "other": { "label": "Other" },
       "mine": {
         "label": "Mine",
         "url": "https://thelongdark.fandom.com/wiki/Mine",
@@ -19,7 +20,7 @@
   },
   "navigation": {
     "label": "Navigation",
-    "color": "#818cf8",
+    "color": "#a1045a",
     "types": {
       "spawn-point": { "label": "Spawn point" },
       "transition": {
@@ -38,7 +39,10 @@
   },
   "harvestable-plants": {
     "label": "Harvestable Plants",
-    "color": "#5e8c4a",
+    "color": "#0b6623",
+    "popup": false,
+    "hideName": true,
+    "hideDesc": true,
     "types": {
       "cat-tails": { "label": "Cat tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
       "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
@@ -53,7 +57,7 @@
   },
   "weapons-and-tools": {
     "label": "Weapons & Tools",
-    "color": "#ef4444",
+    "color": "#1CA3DE",
     "types": {
       "vaughns-rifle": { "label": "Vaughn's Rifle", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle" },
       "rifle": { "label": "Rifle", "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle" },
@@ -66,11 +70,33 @@
       "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" }
     }
   },
+  "amenities": {
+    "label": "Amenities",
+    "color": "#6b7d8a",
+    "types": {
+      "bed": { "label": "Bed" },
+      "first-aid": { "label": "First Aid" },
+      "metal-box": { "label": "Metal box" },
+      "plastic-box": { "label": "Plastic box" }
+    }
+  },
+  "vehicles": {
+    "label": "Vehicles",
+    "color": "#5293BB",
+    "types": {
+      "car": { "label": "Car" },
+      "train-car": { "label": "Train car" }
+    }
+  },
   "predators": {
     "label": "Predators",
     "color": "#dc2626",
+    "popup": false,
+    "hideName": true,
+    "hideDesc": true,
     "types": {
       "wolf": { "label": "Wolf", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
+      "wolf-carcass": { "label": "Wolf Carcass", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
       "bear": { "label": "Bear", "url": "https://thelongdark.fandom.com/wiki/Bear" },
       "moose": { "label": "Moose", "url": "https://thelongdark.fandom.com/wiki/Moose" },
       "cougar": { "label": "Cougar", "url": "https://thelongdark.fandom.com/wiki/Cougar" }
@@ -79,6 +105,9 @@
   "prey": {
     "label": "Prey / Hunting",
     "color": "#92664a",
+    "popup": false,
+    "hideName": true,
+    "hideDesc": true,
     "types": {
       "rabbit": { "label": "Rabbit", "url": "https://thelongdark.fandom.com/wiki/Rabbit" },
       "deer": { "label": "Deer", "url": "https://thelongdark.fandom.com/wiki/Deer" },

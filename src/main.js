@@ -48,6 +48,25 @@ const elements = {
   layerButtons: document.querySelectorAll('.layer-btn'),
 };
 
+let jsonCopyFeedbackTimeout = null;
+
+function resetJsonCopyButtonLabel() {
+  if (jsonCopyFeedbackTimeout) {
+    window.clearTimeout(jsonCopyFeedbackTimeout);
+    jsonCopyFeedbackTimeout = null;
+  }
+  elements.jsonModalCopy.textContent = 'Copy';
+}
+
+function showJsonCopySuccess() {
+  resetJsonCopyButtonLabel();
+  elements.jsonModalCopy.textContent = 'Copied to clipboard';
+  jsonCopyFeedbackTimeout = window.setTimeout(() => {
+    elements.jsonModalCopy.textContent = 'Copy';
+    jsonCopyFeedbackTimeout = null;
+  }, 1800);
+}
+
 function getSelectableRegionEntries() {
   return Object.entries(state.regionIndex).filter(([, regionMeta]) => isRegionSelectable(regionMeta));
 }
@@ -90,6 +109,7 @@ const markerController = createMarkerController({
   getRegions,
   getRegionIndex,
   getCurrentRegion,
+  getPointCategories,
   getActiveFilters,
   getCategoryMeta,
   getTypeMeta,
@@ -175,14 +195,22 @@ function bindEvents() {
   });
   settingsController.bind();
 
-  elements.jsonModalClose.addEventListener('click', () => developerMode.closeJsonModal());
+  elements.jsonModalClose.addEventListener('click', () => {
+    resetJsonCopyButtonLabel();
+    developerMode.closeJsonModal();
+  });
   elements.jsonModalCopy.addEventListener('click', () => {
-    developerMode.copyCurrentPoisSnapshot().catch(error => {
-      console.error('Failed to copy POI JSON', error);
-    });
+    developerMode.copyCurrentPoisSnapshot()
+      .then(showJsonCopySuccess)
+      .catch(error => {
+        console.error('Failed to copy POI JSON', error);
+      });
   });
   elements.jsonModalExport.addEventListener('click', () => developerMode.exportCurrentPoisSnapshot());
-  elements.jsonModalBackdrop.addEventListener('click', () => developerMode.closeJsonModal());
+  elements.jsonModalBackdrop.addEventListener('click', () => {
+    resetJsonCopyButtonLabel();
+    developerMode.closeJsonModal();
+  });
   elements.regionInfoTrigger.addEventListener('click', openRegionInfoModal);
   elements.regionInfoModalClose.addEventListener('click', closeRegionInfoModal);
   elements.regionInfoModalBackdrop.addEventListener('click', closeRegionInfoModal);
@@ -190,6 +218,7 @@ function bindEvents() {
   document.addEventListener('keydown', event => {
     if (event.key !== 'Escape') return;
     if (!elements.jsonModal.hidden) {
+      resetJsonCopyButtonLabel();
       developerMode.closeJsonModal();
     }
     if (!elements.regionInfoModal.hidden) {
@@ -231,6 +260,7 @@ async function boot() {
     settingsController.sync();
     mapView.map.invalidateSize();
     elements.regionSelect.value = state.currentRegion;
+    resetJsonCopyButtonLabel();
     switchRegion(state.currentRegion);
   } catch (error) {
     console.error(error);

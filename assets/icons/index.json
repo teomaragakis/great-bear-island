@@ -1,14 +1,17 @@
 {
   "icons": [
     "bear",
+    "bed",
     "birch-bark",
     "birch-sapling",
     "bow",
     "burdock-roots",
-    "cabin",
+    "building",
+    "car",
     "cat-tails",
     "cougar",
     "deer",
+    "deer-carcass",
     "distress-pistol",
     "fishing-hut",
     "hammer",
@@ -20,9 +23,13 @@
     "landmark",
     "lichen",
     "maple-sapling",
+    "first-aid",
+    "metal-box",
     "mine",
     "moose",
     "oak-tree",
+    "other",
+    "plastic-box",
     "ptarmigan",
     "rabbit",
     "reishi-mushrooms",
@@ -31,8 +38,10 @@
     "rose-hips",
     "spawn-point",
     "townsite",
+    "train-car",
     "transition",
     "vaughns-rifle",
-    "wolf"
+    "wolf",
+    "wolf-carcass"
   ]
 }

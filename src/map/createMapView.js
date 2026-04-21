@@ -1,11 +1,12 @@
 // Leaflet map wrapper responsible for region image layers and bounds management.
+import { VIEW_MODE_MAX_ZOOM } from '../config/constants.js';
 import { getRegionBounds } from '../data/loadAreas.js';
 
 export function createMapView(getCurrentRegionKey, getRegionByKey) {
   const map = L.map('map', {
     crs: L.CRS.Simple,
     minZoom: -2,
-    maxZoom: 1,
+    maxZoom: VIEW_MODE_MAX_ZOOM,
     zoomControl: true,
     attributionControl: false,
     maxBoundsViscosity: 1,

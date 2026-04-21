@@ -1,4 +1,5 @@
 // Developer-only POI editing, JSON export, and temporary marker tooling.
+import { EDIT_MODE_MAX_ZOOM, VIEW_MODE_MAX_ZOOM } from '../config/constants.js';
 import { formatPoiJson, serializePointForJson } from '../data/loadAreas.js';
 
 export function createDeveloperModeController({
@@ -16,6 +17,10 @@ export function createDeveloperModeController({
   let temporaryMarkers = [];
   let developerViewButton = null;
   let activeDeveloperEntry = null;
+  let lastTemporaryPointConfig = {
+    category: 'navigation',
+    type: 'landmark',
+  };
 
   const {
     developerPoiPanel,
@@ -89,6 +94,33 @@ export function createDeveloperModeController({
     jsonModal.hidden = true;
   }
 
+  function rememberPointConfig(point) {
+    lastTemporaryPointConfig = {
+      category: point.category,
+      type: point.type,
+    };
+  }
+
+  function isTemporaryEntry(entry) {
+    return temporaryMarkers.includes(entry);
+  }
+
+  function syncEntryMarkerVisual(entry) {
+    const point = entry.point ?? entry.poi;
+    if (!point) return;
+
+    const nextMarkerElement = markerController.createMarkerElement(
+      point,
+      isTemporaryEntry(entry) ? 'temporary-marker' : '',
+    );
+
+    entry.el.className = nextMarkerElement.className;
+    entry.el.style.cssText = nextMarkerElement.style.cssText;
+    entry.el.innerHTML = nextMarkerElement.innerHTML;
+    if (nextMarkerElement.dataset.poiId) entry.el.dataset.poiId = nextMarkerElement.dataset.poiId;
+    else delete entry.el.dataset.poiId;
+  }
+
   function getDefaultType(categoryKey) {
     const category = getCategoryMeta(categoryKey);
     const [firstType] = Object.keys(category?.types ?? {});
@@ -112,7 +144,11 @@ export function createDeveloperModeController({
   }
 
   function shouldHideNameField(categoryKey, typeKey) {
-    return getTypeMeta(categoryKey, typeKey)?.hideName === true;
+    return getCategoryMeta(categoryKey)?.hideName === true || getTypeMeta(categoryKey, typeKey)?.hideName === true;
+  }
+
+  function shouldHideDescField(categoryKey, typeKey) {
+    return getCategoryMeta(categoryKey)?.hideDesc === true || getTypeMeta(categoryKey, typeKey)?.hideDesc === true;
   }
 
   function getSelectableRegionOptions(selectedValue = '') {
@@ -198,6 +234,9 @@ export function createDeveloperModeController({
     if (shouldHideNameField(point.category, point.type)) {
       delete point.name;
     }
+    if (shouldHideDescField(point.category, point.type)) {
+      delete point.desc;
+    }
 
     Object.keys(point).forEach(key => {
       if (['id', 'category', 'type', 'name', 'desc', 'pixelCoords', 'coords'].includes(key)) return;
@@ -258,6 +297,7 @@ export function createDeveloperModeController({
     const pointName = point.name ?? '';
     const pointDesc = point.desc ?? '';
     const hideNameField = shouldHideNameField(point.category, point.type);
+    const hideDescField = shouldHideDescField(point.category, point.type);
     const container = document.createElement('div');
     container.className = 'developer-form';
     container.innerHTML = `
@@ -282,10 +322,12 @@ export function createDeveloperModeController({
       <div data-role="custom-fields">
         ${buildCustomFieldsMarkup(point.category, point.type, point)}
       </div>
+      ${hideDescField ? '' : `
       <label class="developer-field">
         <span>Description</span>
         <textarea data-role="desc" rows="3">${pointDesc}</textarea>
       </label>
+      `}
       <div class="developer-coords">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>
       <button type="button" class="developer-delete">Delete POI</button>
     `;
@@ -300,18 +342,21 @@ export function createDeveloperModeController({
 
     function rerenderForm() {
       syncPointCustomFields(point);
+      syncEntryMarkerVisual(entry);
       openDeveloperEditor(entry);
     }
 
     categorySelect.addEventListener('change', () => {
       point.category = categorySelect.value;
       point.type = getDefaultType(point.category);
+      rememberPointConfig(point);
       rerenderForm();
       markerController.refreshPopup(entry);
     });
 
     typeSelect.addEventListener('change', () => {
       point.type = typeSelect.value;
+      rememberPointConfig(point);
       rerenderForm();
       markerController.refreshPopup(entry);
     });
@@ -321,7 +366,7 @@ export function createDeveloperModeController({
       markerController.refreshPopup(entry);
     });
 
-    descInput.addEventListener('input', () => {
+    descInput?.addEventListener('input', () => {
       point.desc = descInput.value;
       markerController.refreshPopup(entry);
     });
@@ -351,6 +396,7 @@ export function createDeveloperModeController({
   }
 
   function deleteDeveloperEntry(entry) {
+    markerController.closeCurrentPopup();
     map.removeLayer(entry.marker);
     temporaryMarkers = temporaryMarkers.filter(candidate => candidate !== entry);
 
@@ -410,7 +456,7 @@ export function createDeveloperModeController({
           developerModeEnabled = !developerModeEnabled;
           toggleButton.classList.toggle('active', developerModeEnabled);
           toggleButton.setAttribute('aria-pressed', String(developerModeEnabled));
-          mapView.setMaxZoom(developerModeEnabled ? 2 : 1);
+          mapView.setMaxZoom(developerModeEnabled ? EDIT_MODE_MAX_ZOOM : VIEW_MODE_MAX_ZOOM);
           syncDeveloperControls();
           markerController.closeCurrentPopup();
           markerController.buildMarkers(getCurrentRegion());
@@ -425,9 +471,7 @@ export function createDeveloperModeController({
               markerController.openPopupFromEntry(entry);
               openDeveloperEditor(entry);
             }
-          } else if (activeDeveloperEntry && markerController.getMarkerEntryForPoint(activeDeveloperEntry.point)) {
-            markerController.openPopupFromEntry(markerController.getMarkerEntryForPoint(activeDeveloperEntry.point));
-          } else {
+          } else if (developerModeEnabled) {
             markerController.refreshActivePopupContent();
           }
 
@@ -445,21 +489,23 @@ export function createDeveloperModeController({
   function addTemporaryMarker(latlng) {
     const { x, y } = markerController.getPixelCoords(latlng);
     const point = {
-      category: 'navigation',
-      type: 'landmark',
+      category: lastTemporaryPointConfig.category,
+      type: lastTemporaryPointConfig.type,
       name: '',
       desc: '',
       pixelCoords: [x, y],
     };
+    syncPointCustomFields(point);
+    rememberPointConfig(point);
 
     const markerElement = markerController.createMarkerElement(point, 'temporary-marker');
     const developerMarker = L.marker(latlng, {
       icon: L.divIcon({
         className: 'poi-div-icon',
         html: markerElement,
-        iconSize: [28, 34],
-        iconAnchor: [14, 34],
-        popupAnchor: [0, -34],
+        iconSize: [32, 38],
+        iconAnchor: [16, 38],
+        popupAnchor: [0, -38],
       }),
       keyboard: false,
       draggable: developerModeEnabled,

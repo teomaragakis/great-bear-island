@@ -117,7 +117,7 @@ export function createLegendController({
     toggleEl.textContent = allVisible ? 'Hide' : 'Show';
   }
 
-  function toggleLegendGroup(filterKeys, itemsContainer, toggleEl) {
+  function toggleLegendGroup(groupKey, filterKeys, itemsContainer, toggleEl, groupEl, collapseToggleEl) {
     if (!filterKeys.length) return;
 
     const activeFilters = getActiveFilters();
@@ -136,6 +136,7 @@ export function createLegendController({
       item.classList.toggle('inactive', !activeFilters.has(filterKey));
     });
 
+    setGroupCollapsed(groupKey, allVisible, groupEl, collapseToggleEl);
     syncLegendGroupToggle(toggleEl, filterKeys);
     refreshMarkerVisibility();
   }
@@ -247,7 +248,7 @@ export function createLegendController({
       syncGroupCollapse(key, group, collapseToggle);
       title.addEventListener('click', () => toggleGroupCollapse(key, group, collapseToggle));
       syncLegendGroupToggle(toggle, enabledFilterKeys);
-      toggle.addEventListener('click', () => toggleLegendGroup(enabledFilterKeys, items, toggle));
+      toggle.addEventListener('click', () => toggleLegendGroup(key, enabledFilterKeys, items, toggle, group, collapseToggle));
 
       group.appendChild(items);
       legendEl.appendChild(group);

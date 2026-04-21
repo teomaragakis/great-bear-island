@@ -660,7 +660,7 @@ main {
 }
 
 .custom-marker {
-  width: 28px; height: 28px;
+  width: 32px; height: 32px;
   border-radius: 50% 50% 50% 0;
   transform: rotate(-45deg);
   background: var(--category-color);
@@ -697,11 +697,12 @@ main {
 }
 
 .poi-cluster-badge {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   border-radius: 999px;
   background: var(--cluster-color, rgba(215, 173, 49, 0.92));
   color: #fff;
@@ -709,6 +710,24 @@ main {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
   font-size: 0.82rem;
   font-weight: 800;
+}
+
+.poi-cluster-badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.poi-cluster-badge-icon .icon-asset {
+  width: 14px;
+  height: 14px;
+}
+
+.poi-cluster-badge-count {
+  line-height: 1;
 }
 
 .region-location-label-icon {
@@ -720,7 +739,8 @@ main {
 .region-location-label {
   transform: translate(-50%, -50%);
   display: inline-block;
-  max-width: 220px;
+  width: max-content;
+  max-width: 180px;
   padding: 0;
   background: transparent;
   border: none;
@@ -767,8 +787,8 @@ main {
 }
 
 .custom-marker .icon-asset {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .legend-label {
@@ -864,6 +884,51 @@ main {
   color: var(--text-primary);
   line-height: 1.5;
 }
+
+.popup-contents {
+  margin-top: 10px;
+}
+
+.popup-contents-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.popup-contents-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.popup-contents-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.popup-contents-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.popup-contents-icon .icon-asset {
+  width: 16px;
+  height: 16px;
+}
+
 .popup-coordinates {
   font-size: 0.8rem;
   color: var(--text-muted);
