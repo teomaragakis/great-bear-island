@@ -128,6 +128,18 @@ export function createEditModeController({
     else delete entry.el.dataset.poiId;
   }
 
+  function sanitizeTemporaryPoint(point) {
+    const category = getCategoryMeta(point.category);
+    const type = category?.types?.[point.type] ?? null;
+
+    if (category?.name === false || type?.name === false) {
+      delete point.name;
+    }
+    if (category?.desc === false || type?.desc === false) {
+      delete point.desc;
+    }
+  }
+
   function openEditEditor(entry) {
     // Existing markers use `poi`; temporary markers use `point`.
     const normalizedEntry = {
@@ -281,7 +293,7 @@ export function createEditModeController({
       pixelCoords: [x, y],
     };
     // New temporary POIs inherit the last selected category/type so repeated entry is faster.
-    syncPointCustomFields(point);
+    sanitizeTemporaryPoint(point);
     rememberPointConfig(point);
 
     const markerElement = markerController.createMarkerElement(point, 'temporary-marker');
