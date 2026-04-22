@@ -31,133 +31,138 @@
     crossorigin=""
   ></script>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/modals.css" />
 </head>
 <body>
-
-  <!-- ── TOP BAR ── -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <h1 class="topbar-title">Great Bear Island</h1>
-      <span class="topbar-slash" aria-hidden="true">/</span>
-      <div class="title-region-picker">
-        <select id="area-select" aria-label="Region">
-          <option value="coastal-highway" selected>Coastal Highway</option>
-        </select>
-        <span class="title-region-chevron" aria-hidden="true">▾</span>
+  <div class="app-shell">
+    <!-- ── TOP BAR ── -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="topbar-title">Great Bear Island</h1>
+        <span class="topbar-slash" aria-hidden="true">/</span>
+        <div class="title-region-picker">
+          <select id="area-select" aria-label="Region">
+            <option value="coastal-highway" selected>Coastal Highway</option>
+          </select>
+          <span class="title-region-chevron" aria-hidden="true">▾</span>
+        </div>
+        <button type="button" id="area-info-trigger" class="header-link-btn">Area Info</button>
       </div>
-      <button type="button" id="area-info-trigger" class="header-link-btn">Area Info</button>
-    </div>
-    <div class="topbar-center"></div>
-    <div class="topbar-right">
-      <div class="control-group">
-        <label>LAYER</label>
-        <div class="layer-tabs">
-          <button class="layer-btn active" data-layer="aerial-contour">Aerial Contour</button>
-          <button class="layer-btn " data-layer="aerial">Aerial</button>
-          <button class="layer-btn" data-layer="topographic">Topographic</button>
+      <div class="topbar-center"></div>
+      <div class="topbar-right">
+        <div class="control-group">
+          <label>LAYER</label>
+          <div class="layer-tabs">
+            <button class="layer-btn active" data-layer="aerial-contour">Aerial Contour</button>
+            <button class="layer-btn " data-layer="aerial">Aerial</button>
+            <button class="layer-btn" data-layer="topographic">Topographic</button>
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- ── MAIN LAYOUT ── -->
-  <main>
+    <!-- ── MAIN LAYOUT ── -->
+    <main class="app-main">
+      <section class="map-region" aria-label="Map region">
+        <div id="map"></div>
+      </section>
 
-    <!-- Map Container -->
-    <div id="map"></div>
-
-    <!-- ── SIDEBAR ── -->
-    <aside id="sidebar" class="sidebar">
-      <div class="sidebar-header">
-        <h2>Points of Interest</h2>
-        <button type="button" id="hide-all-pois" class="legend-group-toggle">Hide all</button>
-      </div>
-      <div class="sidebar-section" id="developer-poi-panel" hidden>
-        <div id="developer-poi-form"></div>
-      </div>
-      <div class="sidebar-section">
-        <div class="sidebar-search">
-          <input
-            type="text"
-            id="poi-search"
-            class="sidebar-search-input"
-            placeholder="Search POIs"
-            autocomplete="off"
-          />
-          <button type="button" id="poi-search-clear" class="sidebar-search-clear" hidden aria-label="Clear POI search">✕</button>
+      <!-- ── SIDEBAR ── -->
+      <aside id="sidebar" class="sidebar" aria-label="Points of interest sidebar">
+        <div class="sidebar-header">
+          <h2>Points of Interest</h2>
+          <button type="button" id="hide-all-pois" class="legend-group-toggle">Hide all</button>
         </div>
-        <div class="legend" id="legend">
-          <!-- Populated by JS -->
+        <div class="sidebar-section" id="edit-poi-panel" hidden>
+          <div id="edit-poi-form"></div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-search">
+            <input
+              type="text"
+              id="poi-search"
+              class="sidebar-search-input"
+              placeholder="Search POIs"
+              autocomplete="off"
+            />
+            <button type="button" id="poi-search-clear" class="sidebar-search-clear" hidden aria-label="Clear POI search">✕</button>
+          </div>
+          <div class="legend" id="legend">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="sidebar-section sidebar-settings collapsed" id="sidebar-settings">
+          <button type="button" id="settings-toggle" class="sidebar-settings-header" aria-expanded="false">
+            <span class="sidebar-settings-title">Settings</span>
+            <span class="sidebar-settings-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="sidebar-settings-body">
+            <label class="form-toggle settings-toggle" for="group-pois">
+              <span>Group nearby items</span>
+              <input type="checkbox" id="group-pois" checked />
+              <span class="settings-switch" aria-hidden="true"></span>
+            </label>
+            <label class="form-toggle settings-toggle" for="group-by-category">
+              <span>Group by category</span>
+              <input type="checkbox" id="group-by-category" checked />
+              <span class="settings-switch" aria-hidden="true"></span>
+            </label>
+            <label class="form-toggle settings-toggle" for="hide-missing-pois">
+              <span>Hide items not present in region</span>
+              <input type="checkbox" id="hide-missing-pois" checked />
+              <span class="settings-switch" aria-hidden="true"></span>
+            </label>
+            <label class="form-toggle settings-toggle" for="show-dlc-pois">
+              <span>Show DLC content</span>
+              <input type="checkbox" id="show-dlc-pois" checked />
+              <span class="settings-switch" aria-hidden="true"></span>
+            </label>
+            <label class="form-toggle settings-toggle" for="flatten-pois">
+              <span>Flatten POI list</span>
+              <input type="checkbox" id="flatten-pois" />
+              <span class="settings-switch" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section class="app-overlays" aria-label="App overlays">
+      <div id="json-modal" class="modal modal-json" hidden>
+        <div class="modal-backdrop" data-close-json-modal></div>
+        <div class="modal-dialog modal-dialog-json" role="dialog" aria-modal="true" aria-labelledby="json-modal-title">
+          <div class="modal-header">
+            <h2 id="json-modal-title">Current POIs JSON</h2>
+            <button type="button" class="modal-close" id="json-modal-close" aria-label="Close JSON modal">✕</button>
+          </div>
+          <pre class="modal-content-json" id="json-modal-content"></pre>
+          <div class="modal-footer">
+            <button type="button" id="json-modal-copy">Copy</button>
+            <button type="button" id="json-modal-export">Export</button>
+          </div>
         </div>
       </div>
-      <div class="sidebar-section sidebar-settings collapsed" id="sidebar-settings">
-        <button type="button" id="settings-toggle" class="sidebar-settings-header" aria-expanded="false">
-          <span class="sidebar-settings-title">Settings</span>
-          <span class="sidebar-settings-chevron" aria-hidden="true">▾</span>
-        </button>
-        <div class="sidebar-settings-body" id="settings-body">
-          <label class="settings-toggle" for="group-pois">
-            <span>Group nearby items</span>
-            <input type="checkbox" id="group-pois" checked />
-            <span class="settings-switch" aria-hidden="true"></span>
-          </label>
-          <label class="settings-toggle" for="group-by-category">
-            <span>Group by category</span>
-            <input type="checkbox" id="group-by-category" checked />
-            <span class="settings-switch" aria-hidden="true"></span>
-          </label>
-          <label class="settings-toggle" for="hide-missing-pois">
-            <span>Hide items not present in region</span>
-            <input type="checkbox" id="hide-missing-pois" checked />
-            <span class="settings-switch" aria-hidden="true"></span>
-          </label>
-          <label class="settings-toggle" for="show-dlc-pois">
-            <span>Show DLC content</span>
-            <input type="checkbox" id="show-dlc-pois" checked />
-            <span class="settings-switch" aria-hidden="true"></span>
-          </label>
-          <label class="settings-toggle" for="flatten-pois">
-            <span>Flatten POI list</span>
-            <input type="checkbox" id="flatten-pois" />
-            <span class="settings-switch" aria-hidden="true"></span>
-          </label>
+
+      <div id="area-info-modal" class="modal modal-region-info" hidden>
+        <div class="modal-backdrop" data-close-area-info-modal></div>
+        <div class="modal-dialog modal-dialog-region-info" role="dialog" aria-modal="true" aria-labelledby="area-info-modal-title">
+          <div class="modal-header modal-header-region-info">
+            <div>
+              <div class="modal-kicker">Region Overview</div>
+              <h2 id="area-info-modal-title">Coastal Highway</h2>
+            </div>
+            <button type="button" class="modal-close" id="area-info-modal-close" aria-label="Close area information modal">✕</button>
+          </div>
+          <div class="modal-body modal-body-region-info">
+            <p id="region-desc" class="region-desc-text"></p>
+            <div class="region-stats" id="region-stats"></div>
+          </div>
         </div>
       </div>
-    </aside>
-
-  </main>
-
-  <div id="json-modal" class="json-modal" hidden>
-    <div class="json-modal-backdrop" data-close-json-modal></div>
-    <div class="json-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="json-modal-title">
-      <div class="json-modal-header">
-        <h2 id="json-modal-title">Current POIs JSON</h2>
-        <button type="button" id="json-modal-close" aria-label="Close JSON modal">✕</button>
-      </div>
-      <pre id="json-modal-content"></pre>
-      <div class="json-modal-footer">
-        <button type="button" id="json-modal-copy">Copy</button>
-        <button type="button" id="json-modal-export">Export</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="area-info-modal" class="area-info-modal" hidden>
-    <div class="area-info-modal-backdrop" data-close-area-info-modal></div>
-    <div class="area-info-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="area-info-modal-title">
-      <div class="area-info-modal-header">
-        <div>
-          <div class="area-info-modal-kicker">Region Overview</div>
-          <h2 id="area-info-modal-title">Coastal Highway</h2>
-        </div>
-        <button type="button" id="area-info-modal-close" aria-label="Close area information modal">✕</button>
-      </div>
-      <div class="area-info-modal-body">
-        <p id="region-desc" class="region-desc-text"></p>
-        <div class="region-stats" id="region-stats"></div>
-      </div>
-    </div>
+    </section>
   </div>
 
   <script type="module" src="src/main.js"></script>

@@ -1,6 +1,7 @@
 // Marker lifecycle for POIs, popups, clustering, and region label overlays.
-import { px, serializePointForJson } from '../data/loadAreas.js';
-import { getFilterKey } from '../ui/createLegendController.js';
+import { px, serializePointForJson } from '../data/loadRegions.js';
+import { getContentTypeMeta, getCategoryRenderPriority } from '../state/typeIndex.js';
+import { getFilterKey } from '../ui/legendController.js';
 
 export function createMarkerController({
   map,
@@ -14,9 +15,9 @@ export function createMarkerController({
   getPointIcon,
   shouldClusterMarkers,
   shouldClusterByCategory,
-  isDeveloperModeEnabled,
-  onOpenDeveloperEditor,
-  onDeveloperPointMoved,
+  isEditModeEnabled,
+  onOpenEditEditor,
+  onEditPointMoved,
 }) {
   const POPUP_EDGE_PADDING = 20;
   let activeMarkers = [];
@@ -49,15 +50,6 @@ export function createMarkerController({
     return el;
   }
 
-  function getCategoryRenderPriority(categoryKey) {
-    const categoryKeys = Object.keys(getPointCategories());
-    const categoryIndex = categoryKeys.indexOf(categoryKey);
-    if (categoryIndex === -1) return 0;
-
-    // Earlier categories in categories.json should render above later ones.
-    return (categoryKeys.length - categoryIndex) * 1000;
-  }
-
   function hasExplicitDescription(point) {
     return typeof point.desc === 'string' && point.desc.trim().length > 0;
   }
@@ -82,30 +74,15 @@ export function createMarkerController({
   }
 
   function shouldOpenPopupOnClick(point) {
+    // Even POIs without explicit text can still open popups if the schema says they should.
     return hasExplicitDescription(point) || hasContents(point) || getPopupSetting(point);
-  }
-
-  function getContentTypeMeta(typeKey) {
-    for (const [categoryKey, category] of Object.entries(getPointCategories())) {
-      const type = category?.types?.[typeKey];
-      if (type) {
-        return {
-          categoryKey,
-          category,
-          typeKey,
-          type,
-        };
-      }
-    }
-
-    return null;
   }
 
   function getRelatedFilterKeys(point) {
     const filterKeys = new Set([getFilterKey(point.category, point.type)]);
 
     (point.contents ?? []).forEach(typeKey => {
-      const contentMeta = getContentTypeMeta(typeKey);
+      const contentMeta = getContentTypeMeta(getPointCategories(), typeKey);
       if (!contentMeta) return;
       filterKeys.add(getFilterKey(contentMeta.categoryKey, contentMeta.typeKey));
     });
@@ -117,7 +94,7 @@ export function createMarkerController({
     if (!hasContents(point)) return '';
 
     const itemsHtml = point.contents.map(typeKey => {
-      const contentMeta = getContentTypeMeta(typeKey);
+      const contentMeta = getContentTypeMeta(getPointCategories(), typeKey);
       const icon = contentMeta ? getPointIcon(contentMeta.categoryKey, contentMeta.typeKey) : '';
       const label = contentMeta?.type?.label ?? typeKey;
 
@@ -170,7 +147,7 @@ export function createMarkerController({
         <div class="popup-title">${popupTitle}</div>
       </div>
     `;
-    const idHtml = isDeveloperModeEnabled() && point.id
+    const idHtml = isEditModeEnabled() && point.id
       ? `
         <div class="popup-meta-row">
           <span class="popup-label">ID</span>
@@ -178,7 +155,7 @@ export function createMarkerController({
         </div>
       `
       : '';
-    const coordsHtml = isDeveloperModeEnabled()
+    const coordsHtml = isEditModeEnabled()
       ? `
         <div class="popup-coordinates">
           <span class="popup-label">Coordinates</span>
@@ -199,6 +176,7 @@ export function createMarkerController({
   }
 
   function ensurePopupFits(popup, attempt = 0) {
+    // Leaflet autopan sometimes needs one follow-up pass after content/layout settles.
     window.setTimeout(() => {
       const popupEl = popup.getElement();
       if (!popupEl || currentPopup !== popup) return;
@@ -292,6 +270,7 @@ export function createMarkerController({
   function refreshPopup(entry) {
     const point = entry.point ?? entry.poi;
     if (!point) return;
+    // Only mutate the currently open popup; background edits should not hijack another POI's popup.
     if (currentPopup && activeViewPoi === point) {
       currentPopup.setContent(getPopupContent(point));
       currentPopup.setLatLng(entry.marker.getLatLng());
@@ -370,12 +349,13 @@ export function createMarkerController({
         return 72;
       },
       iconCreateFunction(cluster) {
+        // Cluster identity is derived from one child marker so it can reuse the normal icon/color system.
         const firstChildPoint = cluster.getAllChildMarkers()[0]?.__poi ?? null;
         const category = firstChildPoint ? getCategoryMeta(firstChildPoint.category) : null;
         const clusterIcon = clusterKey !== '__all__' && firstChildPoint
           ? getPointIcon(firstChildPoint.category, firstChildPoint.type, firstChildPoint)
           : '';
-        const renderPriority = firstChildPoint ? getCategoryRenderPriority(firstChildPoint.category) : 0;
+        const renderPriority = firstChildPoint ? getCategoryRenderPriority(getPointCategories(), firstChildPoint.category) : 0;
 
         if (typeof cluster.setZIndexOffset === 'function') {
           cluster.setZIndexOffset(renderPriority);
@@ -422,9 +402,10 @@ export function createMarkerController({
   function buildMarkers(regionKey = getCurrentRegion()) {
     clearMarkers();
     const pois = getRegions()[regionKey].pois;
-    const shouldCluster = supportsClustering() && shouldClusterMarkers() && !isDeveloperModeEnabled();
+    const shouldCluster = supportsClustering() && shouldClusterMarkers() && !isEditModeEnabled();
     const clusterByCategory = shouldClusterByCategory();
 
+    // Rebuild markers from current region state so filters, edit mode, and layer toggles stay deterministic.
     pois.forEach(poi => {
       const category = getCategoryMeta(poi.category);
       if (!category) return;
@@ -439,8 +420,8 @@ export function createMarkerController({
           popupAnchor: [0, -38],
         }),
         keyboard: false,
-        draggable: isDeveloperModeEnabled(),
-        zIndexOffset: getCategoryRenderPriority(poi.category),
+        draggable: isEditModeEnabled(),
+        zIndexOffset: getCategoryRenderPriority(getPointCategories(), poi.category),
       });
       marker.__poi = poi;
 
@@ -452,7 +433,7 @@ export function createMarkerController({
         marker.addTo(map);
       }
 
-      setMarkerDragState(marker, isDeveloperModeEnabled());
+      setMarkerDragState(marker, isEditModeEnabled());
 
       marker.on('click', event => {
         if (event.originalEvent) L.DomEvent.stop(event.originalEvent);
@@ -461,14 +442,14 @@ export function createMarkerController({
         const subcat = getTypeMeta(poi.category, poi.type);
         console.debug('POI clicked', {
           point: serializePointForJson(poi),
-          developerModeEnabled: isDeveloperModeEnabled(),
+          editModeEnabled: isEditModeEnabled(),
           categoryLabel: cat?.label ?? null,
           typeLabel: subcat?.label ?? null,
           latlng: marker.getLatLng(),
         });
 
         activeViewPoi = poi;
-        if (!isDeveloperModeEnabled() && !shouldOpenPopupOnClick(poi)) {
+        if (!isEditModeEnabled() && !shouldOpenPopupOnClick(poi)) {
           closeCurrentPopup();
           activeViewPoi = null;
           return;
@@ -476,8 +457,8 @@ export function createMarkerController({
 
         currentPopup = openPopupForPoint(poi, poi.coords, el);
 
-        if (isDeveloperModeEnabled()) {
-          onOpenDeveloperEditor({ marker, point: poi, el });
+        if (isEditModeEnabled()) {
+          onOpenEditEditor({ marker, point: poi, el });
         }
       });
 
@@ -485,7 +466,7 @@ export function createMarkerController({
       marker.on('dragend', () => {
         const entry = { marker, point: poi, el };
         applyPixelCoordsToPoint(entry.point, marker.getLatLng());
-        onDeveloperPointMoved(entry);
+        onEditPointMoved(entry);
         reopenPopupAfterDrag(entry, el);
       });
 
@@ -520,6 +501,7 @@ export function createMarkerController({
       }
     });
 
+    // Hide any open popup whose primary POI type is no longer visible.
     if (activeViewPoi && !activeFilters.has(getFilterKey(activeViewPoi.category, activeViewPoi.type))) {
       closeCurrentPopup();
     }
@@ -552,10 +534,6 @@ export function createMarkerController({
     currentPopup = openPopupForPoint(point, entry.marker.getLatLng(), activeEl);
   }
 
-  function getCurrentPopup() {
-    return currentPopup;
-  }
-
   function getActiveViewPoi() {
     return activeViewPoi;
   }
@@ -574,7 +552,6 @@ export function createMarkerController({
     getPixelCoords,
     applyPixelCoordsToPoint,
     setMarkerDragState,
-    getCurrentPopup,
     getActiveViewPoi,
   };
 }

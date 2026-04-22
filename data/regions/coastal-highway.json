@@ -373,7 +373,7 @@
       }
     ]
   },
-  "amenities": {
+  "loot": {
     "memento-cache": [
       {
         "id": "poi-0090",
@@ -484,7 +484,7 @@
       {
         "id": "poi-0051",
         "transition": "crumbling-highway",
-        "pixelCoords": [4370, 222]
+        "pixelCoords": [4357, 212]
       }
     ],
     "spawn-point": [

@@ -1,10 +1,10 @@
-// App bootstrap and top-level wiring between state, map, legend, settings, and developer tools.
-import { loadRegions, isRegionSelectable } from './data/loadAreas.js';
-import { createMapView } from './map/createMapView.js';
-import { createMarkerController } from './map/createMarkerController.js';
-import { createLegendController, getFilterKey } from './ui/createLegendController.js';
-import { createDeveloperModeController } from './ui/createDeveloperModeController.js';
-import { createSettingsController } from './ui/createSettingsController.js';
+// App bootstrap and top-level wiring between state, map, legend, settings, and edit tools.
+import { loadRegions, isRegionSelectable } from './data/loadRegions.js';
+import { createMapView } from './map/mapView.js';
+import { createMarkerController } from './map/markerController.js';
+import { createLegendController, getFilterKey } from './ui/legendController.js';
+import { createEditModeController } from './ui/editModeController.js';
+import { createSettingsController } from './ui/settingsController.js';
 import {
   state,
   getRegions,
@@ -16,6 +16,7 @@ import {
   getTypeMeta,
   getPointIcon,
 } from './state/appState.js';
+import { getCategoryKeyForType as getCategoryKeyForTypeFromIndex } from './state/typeIndex.js';
 
 const elements = {
   regionSelect: document.getElementById('area-select'),
@@ -33,8 +34,8 @@ const elements = {
   regionDesc: document.getElementById('region-desc'),
   regionStats: document.getElementById('region-stats'),
   legend: document.getElementById('legend'),
-  developerPoiPanel: document.getElementById('developer-poi-panel'),
-  developerPoiForm: document.getElementById('developer-poi-form'),
+  editPoiPanel: document.getElementById('edit-poi-panel'),
+  editPoiForm: document.getElementById('edit-poi-form'),
   jsonModal: document.getElementById('json-modal'),
   jsonModalContent: document.getElementById('json-modal-content'),
   jsonModalClose: document.getElementById('json-modal-close'),
@@ -72,12 +73,13 @@ function getSelectableRegionEntries() {
 }
 
 function getCategoryKeyForType(typeKey) {
-  return Object.entries(state.pointCategories).find(([, category]) => category.types?.[typeKey])?.[0] ?? '';
+  return getCategoryKeyForTypeFromIndex(state.pointCategories, typeKey);
 }
 
 function getRelatedFilterKeys(point) {
   const filterKeys = new Set([getFilterKey(point.category, point.type)]);
 
+  // Contents count as discoverable items for legend filters even when nested inside another POI.
   (point.contents ?? []).forEach(typeKey => {
     const categoryKey = getCategoryKeyForType(typeKey);
     if (!categoryKey) return;
@@ -126,6 +128,7 @@ function buildRegionStatsMarkup(regionKey) {
   ];
 
   return stats.map(stat => {
+    // Transition stats render as buttons so the modal can jump straight to the matching marker.
     const valueMarkup = Array.isArray(stat.value)
       ? (
           stat.value.length
@@ -171,7 +174,7 @@ function updateRegionInfo(regionKey) {
 
 const mapView = createMapView(getCurrentRegion, regionKey => state.regions[regionKey]);
 
-let developerMode;
+let editMode;
 // Controllers are kept loosely coupled and communicate through getters/callbacks.
 const markerController = createMarkerController({
   map: mapView.map,
@@ -185,9 +188,9 @@ const markerController = createMarkerController({
   getPointIcon,
   shouldClusterMarkers: () => settingsController.shouldGroupItems(),
   shouldClusterByCategory: () => settingsController.shouldGroupByCategory(),
-  isDeveloperModeEnabled: () => developerMode?.isDeveloperModeEnabled() ?? false,
-  onOpenDeveloperEditor: entry => developerMode?.openDeveloperEditor(entry),
-  onDeveloperPointMoved: entry => developerMode?.onExistingPointMoved(entry),
+  isEditModeEnabled: () => editMode?.isEditModeEnabled() ?? false,
+  onOpenEditEditor: entry => editMode?.openEditEditor(entry),
+  onEditPointMoved: entry => editMode?.onExistingPointMoved(entry),
 });
 
 const settingsController = createSettingsController({
@@ -211,7 +214,7 @@ const legendController = createLegendController({
   getPointIcon,
 });
 
-developerMode = createDeveloperModeController({
+editMode = createEditModeController({
   map: mapView.map,
   mapView,
   elements,
@@ -224,16 +227,17 @@ developerMode = createDeveloperModeController({
   onChange: () => legendController.buildLegend(),
 });
 
-developerMode.installControl();
+editMode.installControl();
 
 function switchRegion(regionKey) {
   state.currentRegion = regionKey;
+  // Default visible filters are derived from the region's actual POI/content types, not global taxonomy.
   state.activeTypeFilters = new Set(
     state.regions[regionKey].pois.flatMap(getRelatedFilterKeys),
   );
 
   markerController.closeCurrentPopup();
-  developerMode.clearDeveloperPointers();
+  editMode.clearEditPointers();
   mapView.loadMapLayer(regionKey, state.currentLayer);
   markerController.buildMarkers(regionKey);
   legendController.buildLegend(regionKey);
@@ -263,25 +267,25 @@ function bindEvents() {
   elements.hideAllPois.addEventListener('click', () => {
     markerController.closeCurrentPopup();
     legendController.toggleAll();
-    developerMode.setTemporaryMarkersVisible(getActiveFilters().size > 0);
+    editMode.setTemporaryMarkersVisible(getActiveFilters().size > 0);
   });
   settingsController.bind();
 
   elements.jsonModalClose.addEventListener('click', () => {
     resetJsonCopyButtonLabel();
-    developerMode.closeJsonModal();
+    editMode.closeJsonModal();
   });
   elements.jsonModalCopy.addEventListener('click', () => {
-    developerMode.copyCurrentPoisSnapshot()
+    editMode.copyCurrentPoisSnapshot()
       .then(showJsonCopySuccess)
       .catch(error => {
         console.error('Failed to copy POI JSON', error);
       });
   });
-  elements.jsonModalExport.addEventListener('click', () => developerMode.exportCurrentPoisSnapshot());
+  elements.jsonModalExport.addEventListener('click', () => editMode.exportCurrentPoisSnapshot());
   elements.jsonModalBackdrop.addEventListener('click', () => {
     resetJsonCopyButtonLabel();
-    developerMode.closeJsonModal();
+    editMode.closeJsonModal();
   });
   elements.regionInfoTrigger.addEventListener('click', openRegionInfoModal);
   elements.regionInfoModalClose.addEventListener('click', closeRegionInfoModal);
@@ -291,7 +295,7 @@ function bindEvents() {
     if (event.key !== 'Escape') return;
     if (!elements.jsonModal.hidden) {
       resetJsonCopyButtonLabel();
-      developerMode.closeJsonModal();
+      editMode.closeJsonModal();
     }
     if (!elements.regionInfoModal.hidden) {
       closeRegionInfoModal();
@@ -299,8 +303,8 @@ function bindEvents() {
   });
 
   mapView.map.on('click', event => {
-    if (!developerMode.isDeveloperModeEnabled()) return;
-    developerMode.addTemporaryMarker(event.latlng);
+    if (!editMode.isEditModeEnabled()) return;
+    editMode.addTemporaryMarker(event.latlng);
   });
 
   window.addEventListener('resize', () => {

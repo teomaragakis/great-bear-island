@@ -17,6 +17,7 @@ export function getRegionBounds(region) {
 }
 
 export function normalizeRegions(rawRegions) {
+  // Normalize all POIs into the runtime shape once so the rest of the app can stay simple.
   return Object.fromEntries(
     Object.entries(rawRegions).map(([regionKey, region]) => [
       regionKey,
@@ -56,6 +57,7 @@ export function flattenRegionPois(regionPois) {
     return regionPois;
   }
 
+  // Older region files store POIs grouped by category/type; flatten them into point records.
   return Object.entries(regionPois ?? {}).flatMap(([categoryKey, typeGroups]) => (
     Object.entries(typeGroups ?? {}).flatMap(([typeKey, pois]) => (
       (pois ?? []).map(poi => ({
@@ -81,6 +83,7 @@ function normalizeLegacyPoiFields(poi) {
 }
 
 export function serializePointForJson(point) {
+  // Strip runtime-only fields and omit blank editor values before export/save.
   const name = point.name?.trim();
   const desc = point.desc?.trim();
   const customFields = Object.fromEntries(
@@ -107,6 +110,7 @@ export function groupPoisForJson(points) {
   const usedIds = new Set();
 
   function getUniquePointId(point, index) {
+    // Export should be stable even if the current dataset contains duplicate or missing ids.
     const baseId = point.id ?? buildPointId(point, index);
     if (!usedIds.has(baseId)) {
       usedIds.add(baseId);
@@ -138,6 +142,7 @@ export function groupPoisForJson(points) {
 }
 
 export function formatPoiJson(payload) {
+  // Keep common single-line arrays compact to make generated JSON easier to edit by hand.
   const groupedPayload = Array.isArray(payload) ? groupPoisForJson(payload) : payload;
 
   return JSON.stringify(groupedPayload, null, 2).replace(

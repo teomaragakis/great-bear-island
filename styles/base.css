@@ -1,0 +1,59 @@
+/* ─────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-dark:       #0d0f14;
+  --bg-panel:      #13161e;
+  --bg-panel2:     #1a1e28;
+  --border:        #2a2f3f;
+  --accent:        #d7ad31;
+  --accent-hover:  #e0c06a;
+  --text-primary:  #e8e2d4;
+  --text-muted:    #6b7280;
+  --text-dim:      #9ca3af;
+  --sidebar-w:     320px;
+  --topbar-h:      56px;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+.icon-asset {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  vertical-align: middle;
+}
+
+.icon-asset-mask {
+  background: #fff;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+/* ─────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */
+.sidebar::-webkit-scrollbar { width: 5px; }
+.sidebar::-webkit-scrollbar-track { background: var(--bg-panel); }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.modal-body-region-info::-webkit-scrollbar { width: 8px; }
+.modal-body-region-info::-webkit-scrollbar-track { background: rgba(19, 22, 30, 0.2); }
+.modal-body-region-info::-webkit-scrollbar-thumb { background: rgba(215, 173, 49, 0.28); border-radius: 999px; }

@@ -27,10 +27,6 @@ export function getCurrentRegion() {
   return state.currentRegion;
 }
 
-export function getCurrentLayer() {
-  return state.currentLayer;
-}
-
 export function getActiveFilters() {
   return state.activeTypeFilters;
 }
@@ -44,6 +40,7 @@ export function getTypeMeta(categoryKey, typeKey) {
 }
 
 function getTypeIconPath(categoryKey, typeKey) {
+  // Types can either point at a shared explicit asset path or fall back to a same-name icon file.
   const explicitIcon = getTypeMeta(categoryKey, typeKey)?.icon ?? '';
   if (explicitIcon) {
     return explicitIcon;
@@ -66,13 +63,19 @@ function escapeHtmlAttribute(value) {
     .replaceAll('>', '&gt;');
 }
 
+function resolveAssetUrl(path) {
+  return new URL(path, document.baseURI).href;
+}
+
 export function getPointIcon(categoryKey, typeKey, point = null) {
   const icon = point?.icon ?? getTypeIconPath(categoryKey, typeKey);
   if (!icon) return '';
 
   if (isSvgIcon(icon)) {
+    // SVGs are emitted as masked spans so CSS can recolor them consistently.
     const alt = point?.name ?? getTypeMeta(categoryKey, typeKey)?.label ?? '';
-    return `<span class="icon-asset icon-asset-mask" role="img" aria-label="${escapeHtmlAttribute(alt)}" style="--icon-url: url('${escapeHtmlAttribute(icon)}');"></span>`;
+    const resolvedIconUrl = resolveAssetUrl(icon);
+    return `<span class="icon-asset icon-asset-mask" role="img" aria-label="${escapeHtmlAttribute(alt)}" style="--icon-url: url('${escapeHtmlAttribute(resolvedIconUrl)}');"></span>`;
   }
 
   return icon;

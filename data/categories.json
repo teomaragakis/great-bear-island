@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "label": "Navigation & Landmarks",
+    "label": "Navigation",
     "color": "#a1045a",
     "types": {
       "spawn-point": { "label": "Spawn Point" },
@@ -56,21 +56,31 @@
     }
   },
   "amenities": {
-    "label": "Loot & Amenities",
+    "label": "Amenities",
+    "color": "#6b7d8a",
+    "types": {
+      "bed": { "label": "Bed" },
+      "computer": { "label": "Computer" },
+      "fire-barrel": { "label": "Fire Barrel" },
+      "fireplace": { "label": "Fireplace" },
+      "forge": { "label": "Forge" },
+      "stove": { "label": "Wood Stove", "icon": "assets/icons/pot-belly-stove.svg" },
+      "workbench": { "label": "Workbench" }
+    }
+  },
+  "loot": {
+    "label": "Loot",
     "color": "#6b7d8a",
     "types": {
       "backpack": { "label": "Backpack" },
-      "bed": { "label": "Bed" },
       "book": { "label": "Skill Book" },
       "coal": { "label": "Coal" },
-      "computer": { "label": "Computer" },
       "corpse": { "label": "Human Corpse" },
       "first-aid": { "label": "First Aid" },
       "memento-cache": { "label": "Memento Cache", "name": false },
       "metal-box": { "label": "Metal Box" },
       "plastic-box": { "label": "Plastic Box" },
-      "supply-cache": { "label": "Supply Cache", "dlc": true },
-      "workbench": { "label": "Workbench" }
+      "supply-cache": { "label": "Supply Cache", "dlc": true }
     }
   },
   "weapons-and-tools": {

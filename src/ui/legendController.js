@@ -1,4 +1,6 @@
 // Sidebar legend, search, and filter state synchronization for visible POI types.
+import { getCategoryKeyForType } from '../state/typeIndex.js';
+
 export function getFilterKey(categoryKey, typeKey) {
   return `${categoryKey}:${typeKey}`;
 }
@@ -23,15 +25,12 @@ export function createLegendController({
     return getRegions()[getCurrentRegion()].pois;
   }
 
-  function getCategoryKeyForType(typeKey) {
-    return Object.entries(getPointCategories()).find(([, category]) => category.types?.[typeKey])?.[0] ?? '';
-  }
-
   function getRelatedFilterKeys(point) {
+    // Contents contribute to legend counts and filtering even when they are not standalone POIs.
     const filterKeys = new Set([getFilterKey(point.category, point.type)]);
 
     (point.contents ?? []).forEach(typeKey => {
-      const categoryKey = getCategoryKeyForType(typeKey);
+      const categoryKey = getCategoryKeyForType(getPointCategories(), typeKey);
       if (!categoryKey) return;
       filterKeys.add(getFilterKey(categoryKey, typeKey));
     });
@@ -191,6 +190,7 @@ export function createLegendController({
     });
 
     if (shouldFlattenItems()) {
+      // Flat mode turns the grouped legend into one alphabetized list.
       const flatContainer = document.createElement('div');
       flatContainer.className = 'legend-flat-list';
       const enabledFilterKeys = [];
@@ -285,6 +285,7 @@ export function createLegendController({
     const activeFilters = getActiveFilters();
 
     if (activeFilters.size === 0) {
+      // Restore every filter represented by the current region, including content-only types.
       getCurrentPois().forEach(point => {
         getRelatedFilterKeys(point).forEach(filterKey => {
           activeFilters.add(filterKey);

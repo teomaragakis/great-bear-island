@@ -124,6 +124,7 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
   }
 
   function sync() {
+    // First render should honor persisted preferences before any legend/marker build happens.
     const persisted = loadPersistedSettings();
     poiSearch.value = persisted.poiSearch ?? '';
     groupPois.checked = persisted.groupPois ?? true;
