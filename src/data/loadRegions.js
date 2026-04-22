@@ -117,6 +117,18 @@ export function groupPoisForJson(points) {
       return baseId;
     }
 
+    const poiIdMatch = /^poi-(\d{4})$/.exec(baseId);
+    if (poiIdMatch) {
+      let candidateNumber = Number(poiIdMatch[1]) + 1;
+      let candidate = `poi-${String(candidateNumber).padStart(4, '0')}`;
+      while (usedIds.has(candidate)) {
+        candidateNumber += 1;
+        candidate = `poi-${String(candidateNumber).padStart(4, '0')}`;
+      }
+      usedIds.add(candidate);
+      return candidate;
+    }
+
     let suffix = 2;
     let candidate = `${baseId}-${suffix}`;
     while (usedIds.has(candidate)) {
