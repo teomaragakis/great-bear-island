@@ -164,6 +164,7 @@
   "collectibles": {
     "label": "Collectibles",
     "color": "#a78b5b",
+    "name": false,
     "types": {
       "cairn": { "label": "Cairn" },
       "polaroid": { "label": "Polaroid" },
