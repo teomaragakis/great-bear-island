@@ -518,6 +518,9 @@ textarea.form-control {
   padding: 12px 16px;
   min-width: 180px;
   color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .leaflet-popup-tip {
@@ -529,14 +532,12 @@ textarea.form-control {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 8px;
 }
 
 .popup-title-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
 }
 
 .popup-title-icon {
@@ -559,16 +560,11 @@ textarea.form-control {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 6px;
 }
 .popup-desc {
   font-size: 0.9rem;
   color: var(--text-primary);
   line-height: 1.5;
-}
-
-.popup-transition {
-  margin-top: 10px;
 }
 
 .popup-label {
@@ -584,10 +580,6 @@ textarea.form-control {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--accent);
-}
-
-.popup-contents {
-  margin-top: 8px;
 }
 
 .popup-contents-list {
@@ -629,14 +621,6 @@ textarea.form-control {
   display: flex;
   flex-direction: column;
   gap: 2px;
-}
-
-.popup-meta-row {
-  margin-top: 8px;
-}
-
-.popup-coordinates {
-  margin-top: 8px;
 }
 
 .popup-mono-value {

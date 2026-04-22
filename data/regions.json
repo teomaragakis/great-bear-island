@@ -34,6 +34,7 @@
         { "name": "Rabbit Grove", "desc": "A rabbit-rich area across the creek from Bear Creek Campground with a nearby cabin on the hill.", "pixelCoords": [406, 3220] },
         { "name": "Rockfall", "desc": "The blocked western end of the Great Bear Highway with no passable route beyond it.", "pixelCoords": [889, 1651] },
         { "name": "Silent Clearing", "desc": "An open clearing northeast of Coastal Townsite with harvested plants, deer, and a nearby rope climb.", "pixelCoords": [4886, 2810] },
+        { "name": "The Tooth", "desc": "A prominent rocky landmark overlooking the central coastal area near Log Sort.", "pixelCoords": [2288, 3122] },
         { "name": "Train Unloading", "desc": "A far northern rail-side stop near the Ravine connection with a small trailer and modest loot.", "pixelCoords": [1299, 3795] },
         { "name": "Waterfront Cottages", "desc": "A small cluster of southeastern cottages that can provide shelter and supplies depending on spawned condition.", "pixelCoords": [4292, 1048] }
       ]

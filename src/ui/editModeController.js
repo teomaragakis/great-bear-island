@@ -141,10 +141,13 @@ export function createEditModeController({
     const category = getCategoryMeta(point.category);
     const type = category?.types?.[point.type] ?? null;
 
-    if (category?.name === false || type?.name === false) {
+    const hideName = type?.name === false || (type?.name !== true && category?.name === false);
+    const hideDesc = type?.desc === false || (type?.desc !== true && category?.desc === false);
+
+    if (hideName) {
       delete point.name;
     }
-    if (category?.desc === false || type?.desc === false) {
+    if (hideDesc) {
       delete point.desc;
     }
   }

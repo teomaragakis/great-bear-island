@@ -43,11 +43,19 @@ export function createEditPoiForm({
   }
 
   function shouldHideNameField(categoryKey, typeKey) {
-    return getCategoryMeta(categoryKey)?.name === false || getTypeMeta(categoryKey, typeKey)?.name === false;
+    const categoryName = getCategoryMeta(categoryKey)?.name;
+    const typeName = getTypeMeta(categoryKey, typeKey)?.name;
+    if (typeName === false) return true;
+    if (typeName === true) return false;
+    return categoryName === false;
   }
 
   function shouldHideDescField(categoryKey, typeKey) {
-    return getCategoryMeta(categoryKey)?.desc === false || getTypeMeta(categoryKey, typeKey)?.desc === false;
+    const categoryDesc = getCategoryMeta(categoryKey)?.desc;
+    const typeDesc = getTypeMeta(categoryKey, typeKey)?.desc;
+    if (typeDesc === false) return true;
+    if (typeDesc === true) return false;
+    return categoryDesc === false;
   }
 
   function getSelectableRegionOptions(selectedValue = '') {
@@ -71,37 +79,24 @@ export function createEditPoiForm({
     const isChecked = value !== '';
 
     if (fieldMeta.type === 'region-key') {
-      // Optional region links behave like a toggleable field so empty values are not serialized.
-      if (fieldMeta.required !== true) {
-        return `
-          <div class="form-field edit-field" data-custom-field="${escapeHtml(fieldKey)}">
-            <label class="form-toggle settings-toggle edit-inline-toggle">
-              <span class="form-label">${escapeHtml(label)}</span>
-              <input
-                data-role="custom-field-toggle"
-                data-field-key="${escapeHtml(fieldKey)}"
-                type="checkbox"
-                ${isChecked ? 'checked' : ''}
-              >
-              <span class="settings-switch" aria-hidden="true"></span>
-            </label>
-            <select
-              class="form-control"
-              data-role="custom-field"
-              data-field-key="${escapeHtml(fieldKey)}"
-              ${isChecked ? '' : 'hidden'}
-            >
-              <option value="">Select region</option>
-              ${getSelectableRegionOptions(value)}
-            </select>
-          </div>
-        `;
-      }
-
       return `
         <div class="form-field edit-field" data-custom-field="${escapeHtml(fieldKey)}">
-          <span class="form-label">${escapeHtml(label)}</span>
-          <select class="form-control" data-role="custom-field" data-field-key="${escapeHtml(fieldKey)}">
+          <label class="form-toggle settings-toggle edit-inline-toggle">
+            <span class="form-label">${escapeHtml(label)}</span>
+            <input
+              data-role="custom-field-toggle"
+              data-field-key="${escapeHtml(fieldKey)}"
+              type="checkbox"
+              ${isChecked ? 'checked' : ''}
+            >
+            <span class="settings-switch" aria-hidden="true"></span>
+          </label>
+          <select
+            class="form-control"
+            data-role="custom-field"
+            data-field-key="${escapeHtml(fieldKey)}"
+            ${isChecked ? '' : 'hidden'}
+          >
             <option value="">Select region</option>
             ${getSelectableRegionOptions(value)}
           </select>

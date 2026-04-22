@@ -9,6 +9,9 @@
       "bridge": {
         "label": "Bridge"
       },
+      "cliff": {
+        "label": "Cliff"
+      },
       "transition": {
         "label": "Transition Point",
         "fields": {
@@ -72,6 +75,7 @@
       "computer": { "label": "Computer" },
       "fire-barrel": { "label": "Fire Barrel" },
       "fireplace": { "label": "Fireplace" },
+      "fishing-hole": { "label": "Fishing Hole" },
       "forge": { "label": "Forge" },
       "pot-belly-stove": { "label": "Pot Belly Stove", "icon": "assets/icons/pot-belly-stove.svg" },
       "stove": { "label": "Stove", "icon": "assets/icons/stove.svg" },
@@ -81,6 +85,8 @@
   "loot": {
     "label": "Loot",
     "color": "#6b7d8a",
+    "title":"false",
+    "desc": false,
     "types": {
       "backpack": { "label": "Backpack" },
       "book": { "label": "Skill Book" },
@@ -176,8 +182,9 @@
     "label": "Collectibles",
     "color": "#a78b5b",
     "name": false,
+    "desc": false,
     "types": {
-      "cairn": { "label": "Cairn" },
+      "cairn": { "label": "Cairn", "desc": true},
       "polaroid": { "label": "Polaroid" },
       "scrawled-message": { "label": "Scrawled Message" }
     }
