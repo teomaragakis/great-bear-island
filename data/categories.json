@@ -9,8 +9,15 @@
       "bridge": {
         "label": "Bridge"
       },
+      "car": {
+        "label": "Car",
+        "contents": true
+      },
       "cliff": {
         "label": "Cliff"
+      },
+      "train-car": {
+        "label": "Train Car"
       },
       "transition": {
         "label": "Transition Point",
@@ -115,21 +122,6 @@
       "knife": { "label": "Knife", "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife" },
       "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" },
       "rope": { "label": "Rope" }
-    }
-  },
-  "vehicles": {
-    "label": "Vehicles",
-    "color": "#5293BB",
-    "name": false,
-    "desc": false,
-    "types": {
-      "car": {
-        "label": "Car",
-        "contents": true
-      },
-      "train-car": {
-        "label": "Train Car"
-      }
     }
   },
   "predators": {
