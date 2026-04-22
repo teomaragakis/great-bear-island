@@ -241,9 +241,9 @@ export function createEditPoiForm({
     const contentsPanel = container.querySelector('[data-role="contents-panel"]');
     const contentAddButton = container.querySelector('[data-role="content-add"]');
 
-    function rerenderContentsEditor() {
+    function rerenderContentsEditor(focusSelector = '') {
       // Contents rows are rebuilt wholesale because add/remove changes the row indexes.
-      openEditEditor(entry);
+      openEditEditor(entry, { focusSelector });
       refreshPopup(entry);
     }
 
@@ -264,7 +264,7 @@ export function createEditPoiForm({
       const nextContents = Array.isArray(point.contents) ? [...point.contents] : [];
       nextContents.push('');
       point.contents = nextContents;
-      rerenderContentsEditor();
+      rerenderContentsEditor(`[data-role="content-type"][data-content-index="${nextContents.length - 1}"]`);
     });
 
     container.querySelectorAll('[data-role="content-type"]').forEach(select => {
@@ -345,7 +345,10 @@ export function createEditPoiForm({
     </div>
     `}
     <div class="edit-coords">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>
-    <button type="button" class="edit-delete">Delete POI</button>
+    <button type="button" class="edit-delete" aria-label="Delete POI" title="Delete POI">
+      <span aria-hidden="true">🗑</span>
+      <span>Delete POI</span>
+    </button>
   `;
 
   const poiTypeSelect = container.querySelector('[data-role="poi-type"]');
