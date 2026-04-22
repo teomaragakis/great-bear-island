@@ -105,7 +105,7 @@ function closeRegionInfoModal() {
 }
 
 function getRegionTransitionPois(regionKey) {
-  return state.regions[regionKey].pois.filter(poi => Boolean(poi['target-region']));
+  return state.regions[regionKey].pois.filter(poi => Boolean(poi.transition));
 }
 
 function buildRegionStatsMarkup(regionKey) {
@@ -119,7 +119,7 @@ function buildRegionStatsMarkup(regionKey) {
       value: transitions.length
         ? transitions.map(transition => ({
             id: transition.id,
-            label: state.regionIndex[transition['target-region']]?.name ?? transition['target-region'],
+            label: state.regionIndex[transition.transition]?.name ?? transition.transition,
           }))
         : [],
     },
@@ -221,6 +221,7 @@ developerMode = createDeveloperModeController({
   getPointCategories,
   getCategoryMeta,
   markerController,
+  onChange: () => legendController.buildLegend(),
 });
 
 developerMode.installControl();
@@ -260,7 +261,9 @@ function bindEvents() {
   });
 
   elements.hideAllPois.addEventListener('click', () => {
+    markerController.closeCurrentPopup();
     legendController.toggleAll();
+    developerMode.setTemporaryMarkersVisible(getActiveFilters().size > 0);
   });
   settingsController.bind();
 

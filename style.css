@@ -952,31 +952,31 @@ main {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(4, 24px);
+  gap: 16px;
 }
 
 .popup-contents-item {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-  color: var(--text-primary);
+  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 .popup-contents-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
 .popup-contents-icon .icon-asset {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 }
 
 .popup-meta-row,
@@ -1051,6 +1051,41 @@ main {
 .developer-field textarea {
   resize: vertical;
   min-height: 72px;
+}
+
+.developer-contents-field {
+  gap: 8px;
+}
+
+.developer-contents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.developer-contents-row {
+  display: flex;
+  gap: 8px;
+}
+
+.developer-contents-row select {
+  flex: 1 1 auto;
+}
+
+.developer-content-add,
+.developer-content-remove {
+  background: var(--bg-panel2);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.developer-content-add {
+  margin-top: 8px;
 }
 
 .developer-coords {

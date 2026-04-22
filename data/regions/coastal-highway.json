@@ -2,12 +2,20 @@
   "harvestable-plants": {
     "birch-sapling": [
       {
-        "id": "poi-0001",
-        "pixelCoords": [1976, 2017]
+        "id": "poi-0002",
+        "pixelCoords": [4021, 1483]
       },
       {
-        "id": "poi-0002",
-        "pixelCoords": [4017, 1485]
+        "id": "poi-0110",
+        "pixelCoords": [614, 2396]
+      },
+      {
+        "id": "poi-0123",
+        "pixelCoords": [944, 1875]
+      },
+      {
+        "id": "poi-0151",
+        "pixelCoords": [1871, 2135]
       }
     ],
     "cat-tails": [
@@ -152,6 +160,14 @@
       {
         "id": "poi-0037",
         "pixelCoords": [3790, 1588]
+      },
+      {
+        "id": "poi-0111",
+        "pixelCoords": [670, 2267]
+      },
+      {
+        "id": "poi-0112",
+        "pixelCoords": [715, 2255]
       }
     ],
     "rose-hips": [
@@ -162,13 +178,97 @@
       {
         "id": "poi-0039",
         "pixelCoords": [2380, 1877]
+      },
+      {
+        "id": "poi-0088",
+        "pixelCoords": [520, 3268]
+      },
+      {
+        "id": "poi-0138",
+        "pixelCoords": [1030, 2636]
+      }
+    ],
+    "burdock-roots": [
+      {
+        "id": "poi-0081",
+        "pixelCoords": [1430, 3882]
+      },
+      {
+        "id": "poi-0128",
+        "pixelCoords": [943, 2013]
+      },
+      {
+        "id": "poi-0141",
+        "pixelCoords": [1411, 2577]
+      },
+      {
+        "id": "poi-0168",
+        "pixelCoords": [3588, 1831]
+      }
+    ],
+    "salt-deposits": [
+      {
+        "id": "poi-0129",
+        "pixelCoords": [1090, 1967]
+      },
+      {
+        "id": "poi-0160",
+        "pixelCoords": [2485, 1803]
+      },
+      {
+        "id": "poi-0172",
+        "pixelCoords": [3713, 1461]
+      }
+    ],
+    "reishi-mushrooms": [
+      {
+        "id": "poi-0087",
+        "pixelCoords": [482, 3242]
+      },
+      {
+        "id": "poi-0099",
+        "pixelCoords": [564, 3041]
+      },
+      {
+        "id": "poi-0100",
+        "pixelCoords": [629, 2941]
+      },
+      {
+        "id": "poi-0101",
+        "pixelCoords": [606, 2999]
+      }
+    ],
+    "maple-sapling": [
+      {
+        "id": "poi-0091",
+        "pixelCoords": [321, 3065]
+      },
+      {
+        "id": "poi-0114",
+        "pixelCoords": [540, 1803]
+      },
+      {
+        "id": "poi-0129-2",
+        "pixelCoords": [1022, 2486]
+      },
+      {
+        "id": "poi-0131",
+        "pixelCoords": [1671, 2320]
       }
     ]
   },
   "locations": {
+    "trailer": [
+      {
+        "id": "poi-0080",
+        "contents": ["bed", "metal-box", "plastic-box", "backpack", "corpse", "hatchet", "hammer", "book"],
+        "pixelCoords": [1408, 3879]
+      }
+    ],
     "building": [
       {
         "id": "poi-0040",
+        "name": "Coastal House",
         "contents": ["bed", "first-aid", "rifle", "revolver", "metal-box"],
         "pixelCoords": [2354, 1879]
       },
@@ -202,34 +302,236 @@
         "id": "quonset-garage",
         "name": "Quonset Garage",
         "pixelCoords": [4393, 2591]
+      },
+      {
+        "id": "poi-0089",
+        "contents": ["bed", "metal-box", "plastic-box", "computer"],
+        "pixelCoords": [507, 3307]
+      },
+      {
+        "id": "poi-0136",
+        "contents": ["bed", "metal-box"],
+        "pixelCoords": [1057, 2616]
+      },
+      {
+        "id": "poi-0140",
+        "pixelCoords": [1355, 2600]
+      },
+      {
+        "id": "poi-0143",
+        "pixelCoords": [1480, 2629]
+      },
+      {
+        "id": "poi-0144",
+        "pixelCoords": [1520, 2653]
+      },
+      {
+        "id": "poi-0145",
+        "pixelCoords": [1499, 2642]
       }
     ],
     "fishing-hut": [
       {
         "id": "poi-0048",
+        "contents": ["revolver"],
         "pixelCoords": [3066, 1922]
+      },
+      {
+        "id": "poi-0130",
+        "pixelCoords": [1504, 2106]
+      },
+      {
+        "id": "poi-0149",
+        "pixelCoords": [1760, 2652]
+      },
+      {
+        "id": "poi-0154",
+        "pixelCoords": [2075, 2491]
+      },
+      {
+        "id": "poi-0157",
+        "pixelCoords": [2523, 2397]
       }
     ],
     "mine": [
       {
         "id": "cinder-hills-coal-mine",
         "name": "Cinder Hills Coal Mine",
-        "target-region": "pleasant-valley",
+        "transition": "pleasant-valley",
+        "contents": ["workbench", "first-aid", "metal-box", "plastic-box", "backpack", "corpse", "rifle", "knife", "book", "coal"],
         "pixelCoords": [2831, 3949]
+      }
+    ],
+    "bear-cave": [
+      {
+        "id": "poi-0108",
+        "pixelCoords": [657, 2459]
+      },
+      {
+        "id": "poi-0169",
+        "pixelCoords": [3835, 1650]
+      }
+    ]
+  },
+  "amenities": {
+    "memento-cache": [
+      {
+        "id": "poi-0090",
+        "desc": "Under a tree stump south of the cabin.",
+        "pixelCoords": [437, 3260]
+      }
+    ],
+    "corpse": [
+      {
+        "id": "poi-0083",
+        "pixelCoords": [1418, 3888]
+      },
+      {
+        "id": "poi-0092",
+        "pixelCoords": [355, 3010]
+      },
+      {
+        "id": "poi-0103",
+        "pixelCoords": [522, 2930]
+      },
+      {
+        "id": "poi-0117",
+        "pixelCoords": [709, 1916]
+      },
+      {
+        "id": "poi-0152",
+        "pixelCoords": [1905, 2126]
+      },
+      {
+        "id": "poi-0158",
+        "pixelCoords": [2413, 1766]
+      },
+      {
+        "id": "poi-0162",
+        "pixelCoords": [3333, 1863]
+      }
+    ],
+    "backpack": [
+      {
+        "id": "poi-0097",
+        "pixelCoords": [511, 3034]
+      },
+      {
+        "id": "poi-0113",
+        "pixelCoords": [654, 1874]
+      },
+      {
+        "id": "poi-0133",
+        "pixelCoords": [1626, 2411]
+      },
+      {
+        "id": "poi-0163",
+        "pixelCoords": [3316, 1863]
+      },
+      {
+        "id": "poi-0170",
+        "pixelCoords": [3844, 1673]
+      },
+      {
+        "id": "poi-0176",
+        "pixelCoords": [4016, 1469]
+      }
+    ],
+    "metal-box": [
+      {
+        "id": "poi-0098",
+        "pixelCoords": [532, 3038]
+      }
+    ],
+    "supply-cache": [
+      {
+        "id": "poi-0122",
+        "pixelCoords": [743, 2908]
+      },
+      {
+        "id": "poi-0161",
+        "pixelCoords": [2790, 1941]
+      }
+    ],
+    "book": [
+      {
+        "id": "poi-0134",
+        "pixelCoords": [1635, 2420]
+      },
+      {
+        "id": "poi-0146",
+        "pixelCoords": [1518, 2644]
+      },
+      {
+        "id": "poi-0164",
+        "pixelCoords": [3325, 1885]
+      },
+      {
+        "id": "poi-0171",
+        "pixelCoords": [3853, 1678]
       }
     ]
   },
   "navigation": {
-    "transition": [
+    "tunnel": [
       {
         "id": "poi-0050",
-        "target-region": "ravine",
-        "pixelCoords": [640, 3712]
-      },
+        "transition": "ravine",
+        "pixelCoords": [621, 3717]
+      }
+    ],
+    "transition": [
       {
         "id": "poi-0051",
-        "target-region": "crumbling-highway",
+        "transition": "crumbling-highway",
         "pixelCoords": [4370, 222]
+      }
+    ],
+    "spawn-point": [
+      {
+        "id": "poi-0072",
+        "pixelCoords": [788, 3728]
+      },
+      {
+        "id": "poi-0132",
+        "pixelCoords": [1713, 2313]
+      },
+      {
+        "id": "poi-0135",
+        "pixelCoords": [920, 2501]
+      },
+      {
+        "id": "poi-0173",
+        "desc": "TRADER BOX?!",
+        "pixelCoords": [3649, 1580]
+      },
+      {
+        "id": "poi-0174",
+        "pixelCoords": [3563, 1490]
+      }
+    ],
+    "bridge": [
+      {
+        "id": "poi-0073",
+        "pixelCoords": [901, 3743]
+      },
+      {
+        "id": "poi-0085",
+        "pixelCoords": [1366, 3537]
+      },
+      {
+        "id": "poi-0125",
+        "pixelCoords": [1058, 2044]
+      }
+    ],
+    "waterfall": [
+      {
+        "id": "poi-0074",
+        "pixelCoords": [901, 3772]
+      },
+      {
+        "id": "poi-0107",
+        "pixelCoords": [1548, 3318]
       }
     ]
   },
@@ -238,6 +540,10 @@
       {
         "id": "poi-0052",
         "pixelCoords": [3854, 1654]
+      },
+      {
+        "id": "poi-0109",
+        "pixelCoords": [675, 2444]
       }
     ],
     "wolf": [
@@ -252,6 +558,40 @@
       {
         "id": "poi-0055",
         "pixelCoords": [4317, 2584]
+      },
+      {
+        "id": "poi-0095",
+        "pixelCoords": [395, 2800]
+      },
+      {
+        "id": "poi-0102",
+        "pixelCoords": [654, 2976]
+      },
+      {
+        "id": "poi-0150",
+        "pixelCoords": [1872, 2512]
+      },
+      {
+        "id": "poi-0155",
+        "pixelCoords": [2343, 2582]
+      },
+      {
+        "id": "poi-0156",
+        "pixelCoords": [2536, 2700]
+      },
+      {
+        "id": "poi-0165",
+        "pixelCoords": [3401, 2202]
+      }
+    ],
+    "cougar": [
+      {
+        "id": "poi-0105",
+        "pixelCoords": [1051, 3541]
+      },
+      {
+        "id": "poi-0128-2",
+        "pixelCoords": [935, 2458]
       }
     ]
   },
@@ -259,7 +599,7 @@
     "deer": [
       {
         "id": "poi-0056",
-        "pixelCoords": [2075, 2067]
+        "pixelCoords": [2062, 2106]
       },
       {
         "id": "poi-0057",
@@ -284,6 +624,22 @@
       {
         "id": "poi-0062",
         "pixelCoords": [4676, 1811]
+      },
+      {
+        "id": "poi-0078",
+        "pixelCoords": [1220, 3762]
+      },
+      {
+        "id": "poi-0096",
+        "pixelCoords": [537, 3050]
+      },
+      {
+        "id": "poi-0106",
+        "pixelCoords": [1063, 3646]
+      },
+      {
+        "id": "poi-0124",
+        "pixelCoords": [1141, 1734]
       }
     ],
     "rabbit": [
@@ -294,6 +650,32 @@
       {
         "id": "poi-0064",
         "pixelCoords": [3350, 1913]
+      },
+      {
+        "id": "poi-0079",
+        "pixelCoords": [1309, 3822]
+      },
+      {
+        "id": "poi-0086",
+        "pixelCoords": [482, 3280]
+      },
+      {
+        "id": "poi-0116",
+        "pixelCoords": [869, 1762]
+      },
+      {
+        "id": "poi-0137",
+        "pixelCoords": [1025, 2577]
+      }
+    ],
+    "deer-carcass": [
+      {
+        "id": "poi-0094",
+        "pixelCoords": [479, 2913]
+      },
+      {
+        "id": "poi-0115",
+        "pixelCoords": [594, 1763]
       }
     ]
   },
@@ -318,6 +700,25 @@
       {
         "id": "poi-0069",
         "pixelCoords": [4501, 2622]
+      },
+      {
+        "id": "poi-0126",
+        "contents": ["scrawled-message", "book"],
+        "pixelCoords": [1013, 1963]
+      }
+    ],
+    "train-car": [
+      {
+        "id": "poi-0075",
+        "pixelCoords": [1141, 3762]
+      },
+      {
+        "id": "poi-0076",
+        "pixelCoords": [1417, 3898]
+      },
+      {
+        "id": "poi-0077",
+        "pixelCoords": [1387, 3879]
       }
     ]
   },
@@ -326,12 +727,95 @@
       {
         "id": "poi-0070",
         "pixelCoords": [3688, 1700]
+      },
+      {
+        "id": "poi-0082",
+        "pixelCoords": [1422, 3887]
+      },
+      {
+        "id": "poi-0093",
+        "pixelCoords": [360, 3009]
+      },
+      {
+        "id": "poi-0139",
+        "pixelCoords": [1075, 2633]
+      },
+      {
+        "id": "poi-0142",
+        "pixelCoords": [1561, 2585]
       }
     ],
     "revolver": [
       {
         "id": "poi-0071",
-        "pixelCoords": [3348, 1874]
+        "pixelCoords": [3345, 1872]
+      },
+      {
+        "id": "poi-0104",
+        "pixelCoords": [530, 2936]
+      }
+    ],
+    "barb-rifle": [
+      {
+        "id": "poi-0084",
+        "pixelCoords": [1401, 3888]
+      },
+      {
+        "id": "poi-0127",
+        "pixelCoords": [1079, 2010]
+      }
+    ],
+    "knife": [
+      {
+        "id": "poi-0118",
+        "pixelCoords": [716, 1918]
+      },
+      {
+        "id": "poi-0147",
+        "pixelCoords": [1491, 2654]
+      },
+      {
+        "id": "poi-0153",
+        "pixelCoords": [1917, 2130]
+      }
+    ],
+    "rope": [
+      {
+        "id": "poi-0148",
+        "pixelCoords": [1441, 2685]
+      }
+    ],
+    "distress-pistol": [
+      {
+        "id": "poi-0175",
+        "pixelCoords": [4027, 1472]
+      }
+    ]
+  },
+  "collectibles": {
+    "cairn": [
+      {
+        "id": "poi-0121",
+        "pixelCoords": [800, 2041]
+      },
+      {
+        "id": "poi-0157-2",
+        "desc": "Cairn 13",
+        "pixelCoords": [2402, 1882]
+      },
+      {
+        "id": "poi-0166",
+        "pixelCoords": [3494, 1880]
+      },
+      {
+        "id": "poi-0167",
+        "pixelCoords": [3512, 1885]
+      }
+    ],
+    "polaroid": [
+      {
+        "id": "poi-0159",
+        "pixelCoords": [2418, 1763]
       }
     ]
   }

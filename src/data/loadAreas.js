@@ -71,8 +71,11 @@ function normalizeLegacyPoiFields(poi) {
   // Accept older saved POIs while keeping the runtime model canonical.
   return {
     ...poi,
-    ...(poi.targetRegion !== undefined && poi['target-region'] === undefined
-      ? { 'target-region': poi.targetRegion }
+    ...(poi.transition === undefined && poi['target-region'] !== undefined
+      ? { transition: poi['target-region'] }
+      : {}),
+    ...(poi.transition === undefined && poi.targetRegion !== undefined
+      ? { transition: poi.targetRegion }
       : {}),
   };
 }

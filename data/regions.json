@@ -32,7 +32,7 @@
         { "name": "Log Sort", "desc": "A coastal worksite with log piles, a house, a trailer, and a nearby lower mine entrance.", "pixelCoords": [2814, 3114] },
         { "name": "Misanthrope's Homestead", "desc": "A two-story house on a small island between Jackrabbit Island and the Waterfront Cottages." },
         { "name": "Rabbit Grove", "desc": "A rabbit-rich area across the creek from Bear Creek Campground with a nearby cabin on the hill.", "pixelCoords": [406, 3220] },
-        { "name": "Rockfall", "desc": "The blocked western end of the Great Bear Highway with no passable route beyond it.", "pixelCoords": [942, 1750] },
+        { "name": "Rockfall", "desc": "The blocked western end of the Great Bear Highway with no passable route beyond it.", "pixelCoords": [889, 1651] },
         { "name": "Silent Clearing", "desc": "An open clearing northeast of Coastal Townsite with harvested plants, deer, and a nearby rope climb.", "pixelCoords": [4886, 2810] },
         { "name": "Train Unloading", "desc": "A far northern rail-side stop near the Ravine connection with a small trailer and modest loot.", "pixelCoords": [1299, 3795] },
         { "name": "Waterfront Cottages", "desc": "A small cluster of southeastern cottages that can provide shelter and supplies depending on spawned condition.", "pixelCoords": [4292, 1048] }

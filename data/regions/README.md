@@ -41,7 +41,7 @@ data/regions/
 - `name`
 - `desc`
 - `contents`
-- `target-region`
+- `transition`
 - `icon`
 - `pixelCoords`
 

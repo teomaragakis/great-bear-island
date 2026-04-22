@@ -43,7 +43,12 @@ export function getTypeMeta(categoryKey, typeKey) {
   return getCategoryMeta(categoryKey)?.types?.[typeKey] ?? null;
 }
 
-function getTypeIconPath(typeKey) {
+function getTypeIconPath(categoryKey, typeKey) {
+  const explicitIcon = getTypeMeta(categoryKey, typeKey)?.icon ?? '';
+  if (explicitIcon) {
+    return explicitIcon;
+  }
+
   return state.availableIcons.has(typeKey)
     ? `assets/icons/${typeKey}.svg`
     : '';
@@ -62,7 +67,7 @@ function escapeHtmlAttribute(value) {
 }
 
 export function getPointIcon(categoryKey, typeKey, point = null) {
-  const icon = point?.icon ?? getTypeIconPath(typeKey);
+  const icon = point?.icon ?? getTypeIconPath(categoryKey, typeKey);
   if (!icon) return '';
 
   if (isSvgIcon(icon)) {

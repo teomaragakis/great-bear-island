@@ -12,6 +12,7 @@ export function createDeveloperModeController({
   getPointCategories,
   getCategoryMeta,
   markerController,
+  onChange = () => {},
 }) {
   let developerModeEnabled = false;
   let temporaryMarkers = [];
@@ -19,7 +20,7 @@ export function createDeveloperModeController({
   let activeDeveloperEntry = null;
   let lastTemporaryPointConfig = {
     category: 'navigation',
-    type: 'landmark',
+    type: 'waterfall',
   };
 
   const {
@@ -145,6 +146,10 @@ export function createDeveloperModeController({
     return getTypeMeta(categoryKey, typeKey)?.fields ?? {};
   }
 
+  function getTypeSupportsContents(categoryKey, typeKey) {
+    return getTypeMeta(categoryKey, typeKey)?.contents === true;
+  }
+
   function shouldHideNameField(categoryKey, typeKey) {
     return getCategoryMeta(categoryKey)?.name === false || getTypeMeta(categoryKey, typeKey)?.name === false;
   }
@@ -230,6 +235,61 @@ export function createDeveloperModeController({
       .join('');
   }
 
+  function buildContentTypeOptions(selectedType = '') {
+    return Object.entries(getPointCategories()).map(([, category]) => {
+      const options = Object.entries(category?.types ?? {})
+        .map(([typeKey, type]) => `
+          <option value="${escapeHtml(typeKey)}" ${typeKey === selectedType ? 'selected' : ''}>
+            ${escapeHtml(type.label)}
+          </option>
+        `)
+        .join('');
+
+      if (!options) return '';
+
+      return `
+        <optgroup label="${escapeHtml(category.label)}">
+          ${options}
+        </optgroup>
+      `;
+    }).join('');
+  }
+
+  function buildContentsFieldMarkup(categoryKey, typeKey, point) {
+    if (!getTypeSupportsContents(categoryKey, typeKey)) {
+      return '';
+    }
+
+    const contents = Array.isArray(point.contents) ? point.contents : [];
+    const hasContents = contents.length > 0;
+    const rows = contents.map((contentType, index) => `
+      <div class="developer-contents-row" data-content-index="${index}">
+        <select data-role="content-type" data-content-index="${index}">
+          ${buildContentTypeOptions(contentType)}
+        </select>
+        <button type="button" class="developer-content-remove" data-role="content-remove" data-content-index="${index}">Remove</button>
+      </div>
+    `).join('');
+
+    return `
+      <div class="developer-field developer-contents-field">
+        <label class="settings-toggle developer-inline-toggle">
+          <span>Contents</span>
+          <input
+            data-role="contents-toggle"
+            type="checkbox"
+            ${hasContents ? 'checked' : ''}
+          >
+          <span class="settings-switch" aria-hidden="true"></span>
+        </label>
+        <div data-role="contents-panel" ${hasContents ? '' : 'hidden'}>
+          <div class="developer-contents-list">${rows}</div>
+          <button type="button" class="developer-content-add" data-role="content-add">Add content</button>
+        </div>
+      </div>
+    `;
+  }
+
   function syncPointCustomFields(point) {
     // Keep POIs aligned with the currently selected type schema.
     const allowedFieldKeys = new Set(Object.keys(getTypeFields(point.category, point.type)));
@@ -241,7 +301,7 @@ export function createDeveloperModeController({
     }
 
     Object.keys(point).forEach(key => {
-      if (['id', 'category', 'type', 'name', 'desc', 'pixelCoords', 'coords'].includes(key)) return;
+      if (['id', 'category', 'type', 'name', 'desc', 'pixelCoords', 'coords', 'contents'].includes(key)) return;
       if (!allowedFieldKeys.has(key)) {
         delete point[key];
       }
@@ -279,19 +339,80 @@ export function createDeveloperModeController({
         markerController.refreshPopup(entry);
       });
     });
+
+    const contentsToggle = container.querySelector('[data-role="contents-toggle"]');
+    const contentsPanel = container.querySelector('[data-role="contents-panel"]');
+    const contentsList = container.querySelector('.developer-contents-list');
+    const contentAddButton = container.querySelector('[data-role="content-add"]');
+
+    function rerenderContentsEditor() {
+      openDeveloperEditor(entry);
+      markerController.refreshPopup(entry);
+    }
+
+    contentsToggle?.addEventListener('change', () => {
+      if (contentsToggle.checked) {
+        entry.point.contents = Array.isArray(entry.point.contents) && entry.point.contents.length > 0
+          ? entry.point.contents
+          : ['bed'];
+        contentsPanel.hidden = false;
+      } else {
+        delete entry.point.contents;
+        contentsPanel.hidden = true;
+      }
+      rerenderContentsEditor();
+    });
+
+    contentAddButton?.addEventListener('click', () => {
+      const nextContents = Array.isArray(entry.point.contents) ? [...entry.point.contents] : [];
+      nextContents.push('bed');
+      entry.point.contents = nextContents;
+      rerenderContentsEditor();
+    });
+
+    container.querySelectorAll('[data-role="content-type"]').forEach(select => {
+      select.addEventListener('change', () => {
+        const nextContents = Array.isArray(entry.point.contents) ? [...entry.point.contents] : [];
+        nextContents[Number(select.dataset.contentIndex)] = select.value;
+        entry.point.contents = nextContents.filter(Boolean);
+        markerController.refreshPopup(entry);
+      });
+    });
+
+    container.querySelectorAll('[data-role="content-remove"]').forEach(button => {
+      button.addEventListener('click', () => {
+        const nextContents = (entry.point.contents ?? []).filter((_, index) => index !== Number(button.dataset.contentIndex));
+        if (nextContents.length === 0) {
+          delete entry.point.contents;
+        } else {
+          entry.point.contents = nextContents;
+        }
+        rerenderContentsEditor();
+      });
+    });
   }
 
-  function buildDeveloperTypeOptions(categoryKey, selectedType) {
-    const category = getCategoryMeta(categoryKey);
-    return Object.entries(category?.types ?? {}).map(([key, type]) => `
-      <option value="${key}" ${key === selectedType ? 'selected' : ''}>${type.label}</option>
-    `).join('');
-  }
+  function buildDeveloperPoiTypeOptions(selectedCategory, selectedType) {
+    return Object.entries(getPointCategories()).map(([categoryKey, category]) => {
+      const options = Object.entries(category?.types ?? {})
+        .map(([typeKey, type]) => `
+          <option
+            value="${escapeHtml(`${categoryKey}:${typeKey}`)}"
+            ${categoryKey === selectedCategory && typeKey === selectedType ? 'selected' : ''}
+          >
+            ${escapeHtml(type.label)}
+          </option>
+        `)
+        .join('');
 
-  function buildDeveloperCategoryOptions(selectedCategory) {
-    return Object.entries(getPointCategories()).map(([key, category]) => `
-      <option value="${key}" ${key === selectedCategory ? 'selected' : ''}>${category.label}</option>
-    `).join('');
+      if (!options) return '';
+
+      return `
+        <optgroup label="${escapeHtml(category.label)}">
+          ${options}
+        </optgroup>
+      `;
+    }).join('');
   }
 
   function renderDeveloperForm(entry) {
@@ -304,15 +425,9 @@ export function createDeveloperModeController({
     container.className = 'developer-form';
     container.innerHTML = `
       <div class="developer-field">
-        <span>Category</span>
-        <select data-role="category">
-          ${buildDeveloperCategoryOptions(point.category)}
-        </select>
-      </div>
-      <div class="developer-field">
-        <span>Type</span>
-        <select data-role="type">
-          ${buildDeveloperTypeOptions(point.category, point.type)}
+        <span>POI Type</span>
+        <select data-role="poi-type">
+          ${buildDeveloperPoiTypeOptions(point.category, point.type)}
         </select>
       </div>
       ${hideNameField ? '' : `
@@ -321,6 +436,7 @@ export function createDeveloperModeController({
         <input data-role="name" type="text" value="${escapeHtml(pointName)}">
       </div>
       `}
+      ${buildContentsFieldMarkup(point.category, point.type, point)}
       <div data-role="custom-fields">
         ${buildCustomFieldsMarkup(point.category, point.type, point)}
       </div>
@@ -334,8 +450,7 @@ export function createDeveloperModeController({
       <button type="button" class="developer-delete">Delete POI</button>
     `;
 
-    const categorySelect = container.querySelector('[data-role="category"]');
-    const typeSelect = container.querySelector('[data-role="type"]');
+    const poiTypeSelect = container.querySelector('[data-role="poi-type"]');
     const nameInput = container.querySelector('[data-role="name"]');
     const descInput = container.querySelector('[data-role="desc"]');
     const deleteButton = container.querySelector('.developer-delete');
@@ -348,16 +463,12 @@ export function createDeveloperModeController({
       openDeveloperEditor(entry);
     }
 
-    categorySelect.addEventListener('change', () => {
-      point.category = categorySelect.value;
-      point.type = getDefaultType(point.category);
-      rememberPointConfig(point);
-      rerenderForm();
-      markerController.refreshPopup(entry);
-    });
+    poiTypeSelect.addEventListener('change', () => {
+      const [nextCategory, nextType] = poiTypeSelect.value.split(':');
+      if (!nextCategory || !nextType) return;
 
-    typeSelect.addEventListener('change', () => {
-      point.type = typeSelect.value;
+      point.category = nextCategory;
+      point.type = nextType;
       rememberPointConfig(point);
       rerenderForm();
       markerController.refreshPopup(entry);
@@ -399,8 +510,17 @@ export function createDeveloperModeController({
 
   function deleteDeveloperEntry(entry) {
     markerController.closeCurrentPopup();
-    map.removeLayer(entry.marker);
-    temporaryMarkers = temporaryMarkers.filter(candidate => candidate !== entry);
+    if (isTemporaryEntry(entry)) {
+      map.removeLayer(entry.marker);
+      temporaryMarkers = temporaryMarkers.filter(candidate => candidate !== entry);
+    } else {
+      const currentRegion = getCurrentRegion();
+      const currentPois = getRegions()[currentRegion].pois;
+      const point = entry.point ?? entry.poi;
+      getRegions()[currentRegion].pois = currentPois.filter(candidate => candidate !== point);
+      markerController.buildMarkers(currentRegion);
+      onChange();
+    }
 
     if (activeDeveloperEntry === entry) {
       activeDeveloperEntry = null;
@@ -416,6 +536,20 @@ export function createDeveloperModeController({
     activeDeveloperEntry = null;
     setDeveloperPanelContent();
     syncDeveloperControls();
+  }
+
+  function setTemporaryMarkersVisible(visible) {
+    temporaryMarkers.forEach(({ marker }) => {
+      const isOnMap = map.hasLayer(marker);
+      if (visible && !isOnMap) {
+        marker.addTo(map);
+        markerController.setMarkerDragState(marker, developerModeEnabled);
+      }
+
+      if (!visible && isOnMap) {
+        map.removeLayer(marker);
+      }
+    });
   }
 
   function onTemporaryMarkerClick(entry) {
@@ -548,6 +682,7 @@ export function createDeveloperModeController({
     openDeveloperEditor,
     onExistingPointMoved,
     addTemporaryMarker,
+    setTemporaryMarkersVisible,
     openJsonModal,
     closeJsonModal,
     exportCurrentPoisSnapshot,

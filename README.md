@@ -109,7 +109,7 @@ Inside each type array, POIs can include:
   "name": "Optional Name",
   "desc": "Optional description.",
   "contents": ["bed", "first-aid"],
-  "target-region": "pleasant-valley",
+  "transition": "pleasant-valley",
   "pixelCoords": [1800, 1200]
 }
 ```

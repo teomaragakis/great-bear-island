@@ -49,6 +49,15 @@ export function createMarkerController({
     return el;
   }
 
+  function getCategoryRenderPriority(categoryKey) {
+    const categoryKeys = Object.keys(getPointCategories());
+    const categoryIndex = categoryKeys.indexOf(categoryKey);
+    if (categoryIndex === -1) return 0;
+
+    // Earlier categories in categories.json should render above later ones.
+    return (categoryKeys.length - categoryIndex) * 1000;
+  }
+
   function hasExplicitDescription(point) {
     return typeof point.desc === 'string' && point.desc.trim().length > 0;
   }
@@ -113,9 +122,8 @@ export function createMarkerController({
       const label = contentMeta?.type?.label ?? typeKey;
 
       return `
-        <li class="popup-contents-item">
+        <li class="popup-contents-item" title="${label}" aria-label="${label}">
           <span class="popup-contents-icon">${icon}</span>
-          <span class="popup-contents-name">${label}</span>
         </li>
       `;
     }).join('');
@@ -129,15 +137,15 @@ export function createMarkerController({
   }
 
   function getTransitionHtml(point) {
-    if (!point['target-region']) {
+    if (!point.transition) {
       return '';
     }
 
-    const targetRegionName = getRegionIndex()[point['target-region']]?.name ?? point['target-region'];
+    const targetRegionName = getRegionIndex()[point.transition]?.name ?? point.transition;
 
     return `
       <div class="popup-transition">
-        <div class="popup-label">Leads To</div>
+        <div class="popup-label">Region Connection</div>
         <div class="popup-transition-value">${targetRegionName}</div>
       </div>
     `;
@@ -149,7 +157,11 @@ export function createMarkerController({
     const type = getTypeMeta(point.category, point.type);
     const pointIcon = getPointIcon(point.category, point.type, point);
     const popupTitle = point.name || type?.label || category.label;
-    const popupDesc = point.desc ?? type?.desc ?? '';
+    const popupDesc = typeof point.desc === 'string'
+      ? point.desc
+      : typeof type?.desc === 'string'
+        ? type.desc
+        : '';
     const contentsHtml = getContentsHtml(point);
     const transitionHtml = getTransitionHtml(point);
     const titleHtml = `
@@ -178,7 +190,7 @@ export function createMarkerController({
     return `
       <div class="popup-cat" style="color:${category.color}">${category.label}</div>
       ${titleHtml}
-      <div class="popup-desc">${popupDesc}</div>
+      ${popupDesc ? `<div class="popup-desc">${popupDesc}</div>` : ''}
       ${transitionHtml}
       ${contentsHtml}
       ${idHtml}
@@ -242,7 +254,7 @@ export function createMarkerController({
       autoClose: false,
       closeOnClick: false,
       autoPan: true,
-      keepInView: true,
+      keepInView: false,
       autoPanPaddingTopLeft: [POPUP_EDGE_PADDING, POPUP_EDGE_PADDING],
       autoPanPaddingBottomRight: [POPUP_EDGE_PADDING, POPUP_EDGE_PADDING],
       className: 'poi-popup',
@@ -280,7 +292,7 @@ export function createMarkerController({
   function refreshPopup(entry) {
     const point = entry.point ?? entry.poi;
     if (!point) return;
-    if (currentPopup) {
+    if (currentPopup && activeViewPoi === point) {
       currentPopup.setContent(getPopupContent(point));
       currentPopup.setLatLng(entry.marker.getLatLng());
     }
@@ -344,10 +356,8 @@ export function createMarkerController({
     return typeof L.markerClusterGroup === 'function';
   }
 
-  function createClusterLayer(categoryKey) {
+  function createClusterLayer(clusterKey) {
     if (!supportsClustering()) return null;
-
-    const category = categoryKey === '__all__' ? null : getCategoryMeta(categoryKey);
 
     return L.markerClusterGroup({
       showCoverageOnHover: false,
@@ -361,9 +371,15 @@ export function createMarkerController({
       },
       iconCreateFunction(cluster) {
         const firstChildPoint = cluster.getAllChildMarkers()[0]?.__poi ?? null;
-        const clusterIcon = category && firstChildPoint
+        const category = firstChildPoint ? getCategoryMeta(firstChildPoint.category) : null;
+        const clusterIcon = clusterKey !== '__all__' && firstChildPoint
           ? getPointIcon(firstChildPoint.category, firstChildPoint.type, firstChildPoint)
           : '';
+        const renderPriority = firstChildPoint ? getCategoryRenderPriority(firstChildPoint.category) : 0;
+
+        if (typeof cluster.setZIndexOffset === 'function') {
+          cluster.setZIndexOffset(renderPriority);
+        }
 
         return L.divIcon({
           className: 'poi-cluster-icon',
@@ -424,12 +440,13 @@ export function createMarkerController({
         }),
         keyboard: false,
         draggable: isDeveloperModeEnabled(),
+        zIndexOffset: getCategoryRenderPriority(poi.category),
       });
       marker.__poi = poi;
 
       if (shouldCluster) {
-        // Category-aware clustering is optional and driven by user settings.
-        const clusterKey = clusterByCategory ? poi.category : '__all__';
+        // Split clustered markers by exact filter key so subtypes do not merge together.
+        const clusterKey = clusterByCategory ? getFilterKey(poi.category, poi.type) : '__all__';
         getClusterLayer(clusterKey)?.addLayer(marker);
       } else {
         marker.addTo(map);
@@ -477,7 +494,7 @@ export function createMarkerController({
         el,
         poi,
         categoryKey: poi.category,
-        clusterKey: clusterByCategory ? poi.category : '__all__',
+        clusterKey: clusterByCategory ? getFilterKey(poi.category, poi.type) : '__all__',
       });
     });
 
@@ -502,6 +519,10 @@ export function createMarkerController({
         else marker.remove();
       }
     });
+
+    if (activeViewPoi && !activeFilters.has(getFilterKey(activeViewPoi.category, activeViewPoi.type))) {
+      closeCurrentPopup();
+    }
   }
 
   function setAllMarkerDragState(enabled) {
@@ -512,6 +533,7 @@ export function createMarkerController({
     if (!currentPopup) return;
     map.closePopup(currentPopup);
     currentPopup = null;
+    activeViewPoi = null;
   }
 
   function getMarkerEntryForPoint(point) {

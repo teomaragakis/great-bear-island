@@ -286,7 +286,9 @@ export function createLegendController({
 
     if (activeFilters.size === 0) {
       getCurrentPois().forEach(point => {
-        activeFilters.add(getFilterKey(point.category, point.type));
+        getRelatedFilterKeys(point).forEach(filterKey => {
+          activeFilters.add(filterKey);
+        });
       });
     } else {
       activeFilters.clear();
