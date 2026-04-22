@@ -78,10 +78,6 @@ export function createMarkerController({
     return hasExplicitDescription(point) || hasContents(point) || getPopupSetting(point);
   }
 
-  function getHoverTooltipLabel(point) {
-    return getTypeMeta(point.category, point.type)?.label ?? point.type;
-  }
-
   function getRelatedFilterKeys(point) {
     const filterKeys = new Set([getFilterKey(point.category, point.type)]);
 
@@ -435,26 +431,6 @@ export function createMarkerController({
         getClusterLayer(clusterKey)?.addLayer(marker);
       } else {
         marker.addTo(map);
-      }
-
-      if (!isEditModeEnabled() && !shouldOpenPopupOnClick(poi)) {
-        const hoverLabel = getHoverTooltipLabel(poi);
-        el.title = hoverLabel;
-        el.setAttribute('aria-label', hoverLabel);
-
-        marker.bindTooltip(getHoverTooltipLabel(poi), {
-          direction: 'top',
-          offset: [0, -18],
-          opacity: 1,
-          className: 'poi-hover-tooltip',
-        });
-
-        marker.on('mouseover', () => {
-          marker.openTooltip();
-        });
-        marker.on('mouseout', () => {
-          marker.closeTooltip();
-        });
       }
 
       setMarkerDragState(marker, isEditModeEnabled());

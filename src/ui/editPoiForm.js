@@ -161,6 +161,17 @@ export function createEditPoiForm({
     const hasContents = contents.length > 0;
     const rows = contents.map((contentType, index) => `
       <div class="edit-contents-row" data-content-index="${index}">
+        <button
+          type="button"
+          class="edit-content-drag"
+          data-role="content-drag"
+          data-content-index="${index}"
+          draggable="true"
+          aria-label="Reorder content"
+          title="Drag to reorder"
+        >
+          <span aria-hidden="true">⋮⋮</span>
+        </button>
         <select class="form-control" data-role="content-type" data-content-index="${index}">
           ${buildContentTypeOptions(contentType)}
         </select>
@@ -172,7 +183,7 @@ export function createEditPoiForm({
           aria-label="Remove content"
           title="Remove content"
         >
-          <span aria-hidden="true">&times;</span>
+          <span class="edit-content-remove-icon" aria-hidden="true">⊕</span>
         </button>
       </div>
     `).join('');
@@ -180,7 +191,7 @@ export function createEditPoiForm({
     return `
       <div class="form-field edit-field edit-contents-field">
         <label class="form-toggle settings-toggle edit-inline-toggle">
-          <span>Has contents</span>
+          <span class="form-label">Has contents</span>
           <input
             data-role="contents-toggle"
             type="checkbox"
@@ -250,6 +261,7 @@ export function createEditPoiForm({
     const contentsToggle = container.querySelector('[data-role="contents-toggle"]');
     const contentsPanel = container.querySelector('[data-role="contents-panel"]');
     const contentAddButton = container.querySelector('[data-role="content-add"]');
+    let draggedContentIndex = null;
 
     function rerenderContentsEditor(focusSelector = '') {
       // Contents rows are rebuilt wholesale because add/remove changes the row indexes.
@@ -263,11 +275,12 @@ export function createEditPoiForm({
           ? point.contents
           : [''];
         contentsPanel.hidden = false;
+        rerenderContentsEditor('[data-role="content-type"][data-content-index="0"]');
       } else {
         delete point.contents;
         contentsPanel.hidden = true;
+        rerenderContentsEditor();
       }
-      rerenderContentsEditor();
     });
 
     contentAddButton?.addEventListener('click', () => {
@@ -295,6 +308,48 @@ export function createEditPoiForm({
           point.contents = nextContents;
         }
         rerenderContentsEditor();
+      });
+    });
+
+    container.querySelectorAll('[data-role="content-drag"]').forEach(handle => {
+      handle.addEventListener('dragstart', event => {
+        draggedContentIndex = Number(handle.dataset.contentIndex);
+        event.dataTransfer.effectAllowed = 'move';
+        event.dataTransfer.setData('text/plain', String(draggedContentIndex));
+        handle.closest('.edit-contents-row')?.classList.add('dragging');
+      });
+
+      handle.addEventListener('dragend', () => {
+        draggedContentIndex = null;
+        container.querySelectorAll('.edit-contents-row').forEach(row => row.classList.remove('dragging', 'drag-over'));
+      });
+    });
+
+    container.querySelectorAll('.edit-contents-row').forEach(row => {
+      row.addEventListener('dragover', event => {
+        if (draggedContentIndex === null) return;
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'move';
+        container.querySelectorAll('.edit-contents-row').forEach(candidate => candidate.classList.remove('drag-over'));
+        row.classList.add('drag-over');
+      });
+
+      row.addEventListener('dragleave', () => {
+        row.classList.remove('drag-over');
+      });
+
+      row.addEventListener('drop', event => {
+        if (draggedContentIndex === null) return;
+        event.preventDefault();
+        const targetIndex = Number(row.dataset.contentIndex);
+        row.classList.remove('drag-over');
+        if (targetIndex === draggedContentIndex) return;
+
+        const nextContents = Array.isArray(point.contents) ? [...point.contents] : [];
+        const [movedItem] = nextContents.splice(draggedContentIndex, 1);
+        nextContents.splice(targetIndex, 0, movedItem);
+        point.contents = nextContents;
+        rerenderContentsEditor(`[data-role="content-type"][data-content-index="${targetIndex}"]`);
       });
     });
   }
