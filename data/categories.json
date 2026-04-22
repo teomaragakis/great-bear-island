@@ -32,9 +32,14 @@
     "label": "Locations",
     "color": "#1B5886",
     "types": {
-      "bear-cave": { "label": "Bear Cave", "icon": "assets/icons/cave.svg" },
+      "bear-cave": {
+        "label": "Bear Cave",
+        "icon": "assets/icons/cave.svg",
+        "name": false,
+        "desc": false
+      },
       "building": { "label": "Building", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations", "contents": true },
-      "cave": { "label": "Cave" },
+      "cave": { "label": "Cave", "name": false, "desc": false },
       "fishing-hut": {
         "label": "Fishing Hut",
         "url": "https://thelongdark.fandom.com/wiki/Fishing_hut",
@@ -42,10 +47,11 @@
         "desc": false,
         "contents": true
       },
-      "trailer": { "label": "Trailer", "contents": true },
+      "trailer": { "label": "Trailer", "name": false, "desc": false,"contents": true },
       "mine": {
         "label": "Mine",
         "url": "https://thelongdark.fandom.com/wiki/Mine",
+        "desc": false,
         "contents": true,
         "fields": {
           "transition": {
@@ -59,13 +65,16 @@
   "amenities": {
     "label": "Amenities",
     "color": "#6b7d8a",
+    "name": false,
+    "desc": false,
     "types": {
       "bed": { "label": "Bed" },
       "computer": { "label": "Computer" },
       "fire-barrel": { "label": "Fire Barrel" },
       "fireplace": { "label": "Fireplace" },
       "forge": { "label": "Forge" },
-      "stove": { "label": "Wood Stove", "icon": "assets/icons/pot-belly-stove.svg" },
+      "pot-belly-stove": { "label": "Pot Belly Stove", "icon": "assets/icons/pot-belly-stove.svg" },
+      "stove": { "label": "Stove", "icon": "assets/icons/stove.svg" },
       "workbench": { "label": "Workbench" }
     }
   },
@@ -79,8 +88,8 @@
       "corpse": { "label": "Human Corpse" },
       "first-aid": { "label": "First Aid" },
       "memento-cache": { "label": "Memento Cache", "name": false },
-      "metal-box": { "label": "Metal Box" },
-      "plastic-box": { "label": "Plastic Box" },
+      "metal-box": { "label": "Metal Container" },
+      "plastic-box": { "label": "Plastic Container" },
       "trade-drop-box": { "label": "Trade Drop Box", "icon": "assets/icons/trade-drop-box.svg" },
       "supply-cache": { "label": "Supply Cache", "dlc": true }
     }
