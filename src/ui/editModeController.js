@@ -35,14 +35,18 @@ export function createEditModeController({
     return editModeEnabled;
   }
 
-  function setEditPanelContent(content = null) {
+  function setEditPanelContent(content = null, focusSelector = '') {
     editPoiForm.innerHTML = '';
     if (content) {
       // Reopening the form after rerenders should keep the active editor visible and focused.
       editPoiForm.appendChild(content);
       editPoiPanel.hidden = false;
-      const firstField = editPoiForm.querySelector('input:not([hidden]), select:not([hidden]), textarea:not([hidden])');
-      firstField?.focus();
+      const targetField = (
+        focusSelector
+          ? editPoiForm.querySelector(focusSelector)
+          : editPoiForm.querySelector('input:not([hidden]), select:not([hidden]), textarea:not([hidden])')
+      );
+      targetField?.focus();
       requestAnimationFrame(() => {
         editPoiPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
@@ -107,8 +111,13 @@ export function createEditModeController({
     };
   }
 
+  function getEntryPoint(entry) {
+    return entry?.point ?? entry?.poi ?? null;
+  }
+
   function isTemporaryEntry(entry) {
-    return temporaryMarkers.includes(entry);
+    const point = getEntryPoint(entry);
+    return temporaryMarkers.some(candidate => candidate === entry || candidate.point === point || candidate.marker === entry?.marker);
   }
 
   function syncEntryMarkerVisual(entry) {
@@ -140,7 +149,7 @@ export function createEditModeController({
     }
   }
 
-  function openEditEditor(entry) {
+  function openEditEditor(entry, options = {}) {
     // Existing markers use `poi`; temporary markers use `point`.
     const normalizedEntry = {
       ...entry,
@@ -157,12 +166,12 @@ export function createEditModeController({
       openEditEditor,
       deleteEditEntry,
       refreshPopup: targetEntry => markerController.refreshPopup(targetEntry),
-    }));
+    }), options.focusSelector ?? '');
   }
 
   function updateEditPointPosition(entry) {
     markerController.refreshPopup(entry);
-    if (activeEditEntry === entry) {
+    if (getEntryPoint(activeEditEntry) === getEntryPoint(entry)) {
       openEditEditor(entry);
     }
   }
@@ -170,19 +179,23 @@ export function createEditModeController({
   function deleteEditEntry(entry) {
     markerController.closeCurrentPopup();
     if (isTemporaryEntry(entry)) {
-      map.removeLayer(entry.marker);
-      temporaryMarkers = temporaryMarkers.filter(candidate => candidate !== entry);
+      const point = getEntryPoint(entry);
+      const temporaryEntry = temporaryMarkers.find(candidate => candidate === entry || candidate.point === point || candidate.marker === entry?.marker);
+      if (temporaryEntry) {
+        map.removeLayer(temporaryEntry.marker);
+        temporaryMarkers = temporaryMarkers.filter(candidate => candidate !== temporaryEntry);
+      }
     } else {
       // Saved POIs live in the current region data array and need a full marker rebuild after removal.
       const currentRegion = getCurrentRegion();
       const currentPois = getRegions()[currentRegion].pois;
-      const point = entry.point ?? entry.poi;
+      const point = getEntryPoint(entry);
       getRegions()[currentRegion].pois = currentPois.filter(candidate => candidate !== point);
       markerController.buildMarkers(currentRegion);
       onChange();
     }
 
-    if (activeEditEntry === entry) {
+    if (getEntryPoint(activeEditEntry) === getEntryPoint(entry)) {
       activeEditEntry = null;
       setEditPanelContent();
     }
