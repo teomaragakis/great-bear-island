@@ -292,14 +292,30 @@ function bindEvents() {
   elements.regionInfoModalBackdrop.addEventListener('click', closeRegionInfoModal);
 
   document.addEventListener('keydown', event => {
-    if (event.key !== 'Escape') return;
-    if (!elements.jsonModal.hidden) {
-      resetJsonCopyButtonLabel();
-      editMode.closeJsonModal();
+    if (event.key === 'Escape') {
+      if (!elements.jsonModal.hidden) {
+        resetJsonCopyButtonLabel();
+        editMode.closeJsonModal();
+      }
+      if (!elements.regionInfoModal.hidden) {
+        closeRegionInfoModal();
+      }
+      return;
     }
-    if (!elements.regionInfoModal.hidden) {
-      closeRegionInfoModal();
-    }
+
+    if (event.key !== 'Backspace') return;
+    if (!editMode.isEditModeEnabled()) return;
+    if (!elements.jsonModal.hidden || !elements.regionInfoModal.hidden) return;
+
+    const target = event.target;
+    const isTypingTarget = target instanceof HTMLElement && (
+      target.matches('input, textarea, [contenteditable="true"]')
+      || target.closest('input, textarea, [contenteditable="true"]')
+    );
+    if (isTypingTarget) return;
+
+    event.preventDefault();
+    editMode.deleteActiveEntry();
   });
 
   mapView.map.on('click', event => {
