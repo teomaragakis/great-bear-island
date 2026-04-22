@@ -587,7 +587,7 @@ textarea.form-control {
 }
 
 .popup-contents {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .popup-contents-list {
@@ -596,7 +596,7 @@ textarea.form-control {
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 24px);
-  gap: 16px;
+  gap: 8px 16px;
 }
 
 .popup-contents-item {
@@ -636,7 +636,7 @@ textarea.form-control {
 }
 
 .popup-coordinates {
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 .popup-mono-value {
@@ -688,10 +688,49 @@ textarea.form-control {
 .edit-contents-row {
   display: flex;
   gap: 8px;
+  align-items: center;
+  border-radius: 10px;
+  transition: background-color 140ms ease, border-color 140ms ease, opacity 140ms ease;
 }
 
 .edit-contents-row select {
   flex: 1 1 auto;
+}
+
+.edit-content-drag {
+  width: 16px;
+  height: 40px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: color 140ms ease, transform 140ms ease;
+}
+
+.edit-content-drag:hover {
+  color: var(--text-primary);
+}
+
+.edit-content-drag:active {
+  cursor: grabbing;
+}
+
+.edit-content-drag span {
+  font-size: 0.9rem;
+  line-height: 1;
+  letter-spacing: -0.1em;
+}
+
+.edit-contents-row.dragging {
+  opacity: 0.55;
+}
+
+.edit-contents-row.drag-over {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .edit-content-add,
