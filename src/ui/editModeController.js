@@ -203,6 +203,11 @@ export function createEditModeController({
     syncEditControls();
   }
 
+  function deleteActiveEntry() {
+    if (!activeEditEntry) return;
+    deleteEditEntry(activeEditEntry);
+  }
+
   function clearEditPointers() {
     temporaryMarkers.forEach(({ marker }) => map.removeLayer(marker));
     temporaryMarkers = [];
@@ -363,5 +368,6 @@ export function createEditModeController({
     exportCurrentPoisSnapshot,
     copyCurrentPoisSnapshot,
     clearEditPointers,
+    deleteActiveEntry,
   };
 }
