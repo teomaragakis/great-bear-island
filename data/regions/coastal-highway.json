@@ -36,6 +36,14 @@
       {
         "id": "poi-0245",
         "pixelCoords": [1838, 3551]
+      },
+      {
+        "id": "poi-0289",
+        "pixelCoords": [4274, 3275]
+      },
+      {
+        "id": "poi-0291",
+        "pixelCoords": [4217, 3637]
       }
     ],
     "cat-tails": [
@@ -196,6 +204,14 @@
       {
         "id": "poi-0274",
         "pixelCoords": [3656, 3506]
+      },
+      {
+        "id": "poi-0295",
+        "pixelCoords": [3712, 3689]
+      },
+      {
+        "id": "poi-0296",
+        "pixelCoords": [3756, 3656]
       }
     ],
     "rose-hips": [
@@ -362,6 +378,10 @@
       {
         "id": "poi-0273",
         "pixelCoords": [3611, 3487]
+      },
+      {
+        "id": "poi-0290",
+        "pixelCoords": [3939, 3655]
       }
     ],
     "oak-tree": [
@@ -380,6 +400,10 @@
       {
         "id": "poi-0265",
         "pixelCoords": [3570, 3707]
+      },
+      {
+        "id": "poi-0297",
+        "pixelCoords": [3727, 3656]
       }
     ]
   },
@@ -716,6 +740,10 @@
       {
         "id": "poi-0246",
         "pixelCoords": [1890, 3533]
+      },
+      {
+        "id": "poi-0294",
+        "pixelCoords": [3716, 3713]
       }
     ],
     "book": [
@@ -807,47 +835,6 @@
         "pixelCoords": [2202, 3389]
       }
     ],
-    "car": [
-      {
-        "id": "poi-0065",
-        "pixelCoords": [4309, 2707]
-      },
-      {
-        "id": "poi-0066",
-        "pixelCoords": [4469, 2485]
-      },
-      {
-        "id": "poi-0067",
-        "pixelCoords": [4469, 2832]
-      },
-      {
-        "id": "poi-0068",
-        "pixelCoords": [4480, 2683]
-      },
-      {
-        "id": "poi-0069",
-        "pixelCoords": [4501, 2622]
-      },
-      {
-        "id": "poi-0126",
-        "contents": ["scrawled-message", "book"],
-        "pixelCoords": [1013, 1963]
-      },
-      {
-        "id": "poi-0178",
-        "contents": ["knife", "scrawled-message", "book"],
-        "pixelCoords": [4278, 453]
-      },
-      {
-        "id": "poi-0216",
-        "pixelCoords": [2024, 3116]
-      },
-      {
-        "id": "poi-0286",
-        "contents": ["revolver", "book"],
-        "pixelCoords": [3740, 2973]
-      }
-    ],
     "waterfall": [
       {
         "id": "poi-0074",
@@ -858,20 +845,6 @@
       {
         "id": "poi-0272",
         "pixelCoords": [3582, 3578]
-      }
-    ],
-    "train-car": [
-      {
-        "id": "poi-0075",
-        "pixelCoords": [1141, 3762]
-      },
-      {
-        "id": "poi-0076",
-        "pixelCoords": [1417, 3898]
-      },
-      {
-        "id": "poi-0077",
-        "pixelCoords": [1387, 3879]
       }
     ]
   },
@@ -966,6 +939,14 @@
       {
         "id": "poi-0285",
         "pixelCoords": [3800, 3102]
+      },
+      {
+        "id": "poi-0288",
+        "pixelCoords": [4137, 3472]
+      },
+      {
+        "id": "poi-0293",
+        "pixelCoords": [3722, 3796]
       }
     ],
     "cougar": [
@@ -1131,6 +1112,63 @@
       }
     ]
   },
+  "vehicles": {
+    "car": [
+      {
+        "id": "poi-0065",
+        "pixelCoords": [4309, 2707]
+      },
+      {
+        "id": "poi-0066",
+        "pixelCoords": [4469, 2485]
+      },
+      {
+        "id": "poi-0067",
+        "pixelCoords": [4469, 2832]
+      },
+      {
+        "id": "poi-0068",
+        "pixelCoords": [4480, 2683]
+      },
+      {
+        "id": "poi-0069",
+        "pixelCoords": [4501, 2622]
+      },
+      {
+        "id": "poi-0126",
+        "contents": ["scrawled-message", "book"],
+        "pixelCoords": [1013, 1963]
+      },
+      {
+        "id": "poi-0178",
+        "contents": ["knife", "scrawled-message", "book"],
+        "pixelCoords": [4278, 453]
+      },
+      {
+        "id": "poi-0216",
+        "pixelCoords": [2024, 3116]
+      },
+      {
+        "id": "poi-0286",
+        "contents": ["revolver", "book"],
+        "pixelCoords": [3740, 2973]
+      }
+    ],
+    "train-car": [
+      {
+        "id": "poi-0075",
+        "pixelCoords": [1141, 3762]
+      },
+      {
+        "id": "poi-0076",
+        "pixelCoords": [1417, 3898]
+      },
+      {
+        "id": "poi-0077",
+        "pixelCoords": [1387, 3879]
+      }
+    ]
+  },
   "weapons-and-tools": {
     "hatchet": [
       {
@@ -1263,6 +1301,14 @@
       {
         "id": "poi-0278",
         "pixelCoords": [3855, 3533]
+      },
+      {
+        "id": "poi-0287",
+        "pixelCoords": [4115, 3185]
+      },
+      {
+        "id": "poi-0292",
+        "pixelCoords": [4172, 3816]
       }
     ],
     "polaroid": [
