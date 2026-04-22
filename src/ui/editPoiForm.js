@@ -25,7 +25,17 @@ export function createEditPoiForm({
   }
 
   function getTypeFields(categoryKey, typeKey) {
-    return getTypeMeta(categoryKey, typeKey)?.fields ?? {};
+    const type = getTypeMeta(categoryKey, typeKey);
+    const fields = { ...(type?.fields ?? {}) };
+
+    if (type?.transition === true && !fields.transition) {
+      fields.transition = {
+        label: 'Region connection',
+        type: 'region-key',
+      };
+    }
+
+    return fields;
   }
 
   function getTypeSupportsContents(categoryKey, typeKey) {
@@ -66,7 +76,7 @@ export function createEditPoiForm({
         return `
           <div class="form-field edit-field" data-custom-field="${escapeHtml(fieldKey)}">
             <label class="form-toggle settings-toggle edit-inline-toggle">
-              <span>${escapeHtml(label)}</span>
+              <span class="form-label">${escapeHtml(label)}</span>
               <input
                 data-role="custom-field-toggle"
                 data-field-key="${escapeHtml(fieldKey)}"
