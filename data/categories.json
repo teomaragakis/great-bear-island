@@ -2,16 +2,15 @@
   "navigation": {
     "label": "Navigation",
     "color": "#a1045a",
+    "name": false,
+    "desc": false,
     "types": {
       "spawn-point": { "label": "Spawn Point" },
       "bridge": {
-        "label": "Bridge",
-        "name": false,
-        "desc": false
+        "label": "Bridge"
       },
       "transition": {
         "label": "Transition Point",
-        "name": false,
         "fields": {
           "transition": {
             "label": "Region connection",
@@ -20,10 +19,12 @@
           }
         }
       },
-      "tunnel": { "label": "Tunnel" },
+      "tunnel": {
+        "label": "Tunnel",
+        "transition": true
+      },
       "waterfall": {
-        "label": "Waterfall",
-        "icon": "assets/icons/waterfall.svg"
+        "label": "Waterfall"
       }
     }
   },
@@ -80,6 +81,7 @@
       "memento-cache": { "label": "Memento Cache", "name": false },
       "metal-box": { "label": "Metal Box" },
       "plastic-box": { "label": "Plastic Box" },
+      "trade-drop-box": { "label": "Trade Drop Box", "icon": "assets/icons/trade-drop-box.svg" },
       "supply-cache": { "label": "Supply Cache", "dlc": true }
     }
   },
