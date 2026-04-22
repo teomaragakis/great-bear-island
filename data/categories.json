@@ -1,35 +1,53 @@
 {
   "navigation": {
-    "label": "Navigation",
+    "label": "Navigation & Landmarks",
     "color": "#a1045a",
     "types": {
-      "spawn-point": { "label": "Spawn point" },
+      "spawn-point": { "label": "Spawn Point" },
+      "bridge": {
+        "label": "Bridge",
+        "name": false,
+        "desc": false
+      },
       "transition": {
-        "label": "Transition point",
+        "label": "Transition Point",
         "name": false,
         "fields": {
-          "target-region": {
+          "transition": {
             "label": "Region connection",
             "type": "region-key",
             "required": true
           }
         }
       },
-      "landmark": { "label": "Landmark" }
+      "tunnel": { "label": "Tunnel" },
+      "waterfall": {
+        "label": "Waterfall",
+        "icon": "assets/icons/waterfall.svg"
+      }
     }
   },
   "locations": {
     "label": "Locations",
     "color": "#1B5886",
     "types": {
-      "building": { "label": "Building", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations" },
-      "fishing-hut": { "label": "Fishing hut", "url": "https://thelongdark.fandom.com/wiki/Fishing_hut" },
-      "other": { "label": "Other" },
+      "bear-cave": { "label": "Bear Cave", "icon": "assets/icons/cave.svg" },
+      "building": { "label": "Building", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations", "contents": true },
+      "cave": { "label": "Cave" },
+      "fishing-hut": {
+        "label": "Fishing Hut",
+        "url": "https://thelongdark.fandom.com/wiki/Fishing_hut",
+        "name": false,
+        "desc": false,
+        "contents": true
+      },
+      "trailer": { "label": "Trailer", "contents": true },
       "mine": {
         "label": "Mine",
         "url": "https://thelongdark.fandom.com/wiki/Mine",
+        "contents": true,
         "fields": {
-          "target-region": {
+          "transition": {
             "label": "Region connection",
             "type": "region-key"
           }
@@ -38,31 +56,21 @@
     }
   },
   "amenities": {
-    "label": "Amenities",
+    "label": "Loot & Amenities",
     "color": "#6b7d8a",
     "types": {
+      "backpack": { "label": "Backpack" },
       "bed": { "label": "Bed" },
+      "book": { "label": "Skill Book" },
+      "coal": { "label": "Coal" },
+      "computer": { "label": "Computer" },
+      "corpse": { "label": "Human Corpse" },
       "first-aid": { "label": "First Aid" },
+      "memento-cache": { "label": "Memento Cache", "name": false },
       "metal-box": { "label": "Metal Box" },
-      "plastic-box": { "label": "Plastic Box" }
-    }
-  },
-  "harvestable-plants": {
-    "label": "Harvestable Plants",
-    "color": "#0b6623",
-    "popup": false,
-    "name": false,
-    "desc": false,
-    "types": {
-      "cat-tails": { "label": "Cat tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
-      "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
-      "maple-sapling": { "label": "Maple Sapling", "url": "https://thelongdark.fandom.com/wiki/Cured_Maple_Sapling" },
-      "birch-sapling": { "label": "Birch Sapling", "url": "https://thelongdark.fandom.com/wiki/Green_Birch_Sapling" },
-      "rose-hips": { "label": "Rose Hips", "url": "https://thelongdark.fandom.com/wiki/Rose_Hip" },
-      "lichen": { "label": "Old Man's Beard Lichen", "url": "https://thelongdark.fandom.com/wiki/Old_Man%27s_Beard_Lichen" },
-      "reishi-mushrooms": { "label": "Reishi Mushrooms", "url": "https://thelongdark.fandom.com/wiki/Reishi_Mushroom" },
-      "burdock-roots": { "label": "Burdock Roots", "url": "https://thelongdark.fandom.com/wiki/Burdock_Root" },
-      "oak-tree": { "label": "Oak Tree", "url": "https://thelongdark.fandom.com/wiki/Oak_Tree" }
+      "plastic-box": { "label": "Plastic Box" },
+      "supply-cache": { "label": "Supply Cache", "dlc": true },
+      "workbench": { "label": "Workbench" }
     }
   },
   "weapons-and-tools": {
@@ -70,6 +78,7 @@
     "color": "#1CA3DE",
     "types": {
       "vaughns-rifle": { "label": "Vaughn's Rifle", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle" },
+      "barb-rifle": { "label": "Barb's Rifle", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Barb%27s_Rifle", "icon": "assets/icons/rifle.svg" },
       "rifle": { "label": "Rifle", "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle" },
       "hunters-revolver": { "label": "Hunter's Revolver", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Hunter%27s_Revolver" },
       "revolver": { "label": "Revolver", "url": "https://thelongdark.fandom.com/wiki/Revolver" },
@@ -77,15 +86,23 @@
       "bow": { "label": "Bow", "url": "https://thelongdark.fandom.com/wiki/Survival_Bow" },
       "hatchet": { "label": "Hatchet", "url": "https://thelongdark.fandom.com/wiki/Hatchet" },
       "knife": { "label": "Knife", "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife" },
-      "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" }
+      "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" },
+      "rope": { "label": "Rope" }
     }
   },
   "vehicles": {
     "label": "Vehicles",
     "color": "#5293BB",
+    "name": false,
+    "desc": false,
     "types": {
-      "car": { "label": "Car" },
-      "train-car": { "label": "Train car" }
+      "car": {
+        "label": "Car",
+        "contents": true
+      },
+      "train-car": {
+        "label": "Train Car"
+      }
     }
   },
   "predators": {
@@ -113,6 +130,34 @@
       "deer": { "label": "Deer", "url": "https://thelongdark.fandom.com/wiki/Deer" },
       "ptarmigan": { "label": "Ptarmigan", "url": "https://thelongdark.fandom.com/wiki/Ptarmigan" },
       "deer-carcass": { "label": "Deer Carcass", "url": "https://thelongdark.fandom.com/wiki/Deer_Carcass" }
+    }
+  },
+  "harvestable-plants": {
+    "label": "Harvestables",
+    "color": "#0b6623",
+    "popup": false,
+    "name": false,
+    "desc": false,
+    "types": {
+      "cat-tails": { "label": "Cat Tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
+      "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
+      "maple-sapling": { "label": "Maple Sapling", "url": "https://thelongdark.fandom.com/wiki/Cured_Maple_Sapling" },
+      "birch-sapling": { "label": "Birch Sapling", "url": "https://thelongdark.fandom.com/wiki/Green_Birch_Sapling" },
+      "rose-hips": { "label": "Rose Hips", "url": "https://thelongdark.fandom.com/wiki/Rose_Hip" },
+      "lichen": { "label": "Old Man's Beard Lichen", "url": "https://thelongdark.fandom.com/wiki/Old_Man%27s_Beard_Lichen" },
+      "reishi-mushrooms": { "label": "Reishi Mushrooms", "url": "https://thelongdark.fandom.com/wiki/Reishi_Mushroom" },
+      "salt-deposits": { "label": "Salt Deposits" },
+      "burdock-roots": { "label": "Burdock Roots", "url": "https://thelongdark.fandom.com/wiki/Burdock_Root" },
+      "oak-tree": { "label": "Oak Tree", "url": "https://thelongdark.fandom.com/wiki/Oak_Tree" }
+    }
+  },
+  "collectibles": {
+    "label": "Collectibles",
+    "color": "#a78b5b",
+    "types": {
+      "cairn": { "label": "Cairn" },
+      "polaroid": { "label": "Polaroid" },
+      "scrawled-message": { "label": "Scrawled Message" }
     }
   }
 }
