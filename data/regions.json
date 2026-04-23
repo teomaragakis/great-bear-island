@@ -131,13 +131,21 @@
     },
     "broken-railroad": {
       "name": "Broken Railroad",
-      "disabled": true,
       "desc": "A narrow end-of-line region with strong shelter options, industrial loot, and dangerous wildlife concentrated around chokepoints.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival / Story" },
         { "label": "Connects To", "value": "Forlorn Muskeg / Far Range Branch Line" }
       ],
+      "layers": {
+        "imageSize": {
+          "width": 3200,
+          "height": 2800
+        },
+        "aerial": "assets/maps/broken_railroad-aerial.jpeg",
+        "aerial-contour": "assets/maps/broken_railroad-aerial-contour.jpg",
+        "topographic": "assets/maps/broken_railroad-topo.jpg"
+      },
       "path": "data/regions/broken-railroad.json"
     },
     "mountain-town": {
