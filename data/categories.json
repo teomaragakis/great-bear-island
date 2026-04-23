@@ -52,6 +52,7 @@
         "desc": false
       },
       "building": { "label": "Building", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations", "contents": true },
+      "destroyed-building": { "label": "Destroyed Building", "name": false, "desc": false, "contents": false },
       "cave": { "label": "Cave", "name": false, "desc": false },
       "fishing-hut": {
         "label": "Fishing Hut",
