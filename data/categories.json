@@ -1,10 +1,13 @@
 {
   "navigation": {
-    "label": "Navigation",
+    "label": "Navigation & Landmarks",
     "color": "#a1045a",
     "name": false,
     "desc": false,
     "types": {
+      "airplane": {
+        "label": "Airplane"
+      },
       "spawn-point": { "label": "Spawn Point" },
       "bridge": {
         "label": "Bridge"
@@ -39,7 +42,7 @@
     }
   },
   "locations": {
-    "label": "Locations",
+    "label": "Locations & Shelter",
     "color": "#1B5886",
     "types": {
       "bear-cave": {
@@ -78,15 +81,15 @@
     "name": false,
     "desc": false,
     "types": {
-      "bed": { "label": "Bed" },
+      "bed": { "label": "Bed", "url": "https://thelongdark.fandom.com/wiki/Bed" },
       "computer": { "label": "Computer" },
-      "fire-barrel": { "label": "Fire Barrel" },
-      "fireplace": { "label": "Fireplace" },
+      "fire-barrel": { "label": "Fire Barrel", "url": "https://thelongdark.fandom.com/wiki/Fire_Barrel" },
+      "fireplace": { "label": "Fireplace", "url": "https://thelongdark.fandom.com/wiki/Fireplace" },
       "fishing-hole": { "label": "Fishing Hole" },
-      "forge": { "label": "Forge" },
-      "pot-belly-stove": { "label": "Pot Belly Stove", "icon": "assets/icons/pot-belly-stove.svg" },
-      "stove": { "label": "Stove", "icon": "assets/icons/stove.svg" },
-      "workbench": { "label": "Workbench" }
+      "forge": { "label": "Forge", "url": "https://thelongdark.fandom.com/wiki/Forge" },
+      "pot-belly-stove": { "label": "Pot Belly Stove", "icon": "assets/icons/pot-belly-stove.svg", "url": "https://thelongdark.fandom.com/wiki/Pot_Belly_Stove" },
+      "stove": { "label": "Stove", "icon": "assets/icons/stove.svg", "url": "https://thelongdark.fandom.com/wiki/Stove" },
+      "workbench": { "label": "Workbench", "url": "https://thelongdark.fandom.com/wiki/Work_Bench" }
     }
   },
   "loot": {
@@ -95,11 +98,11 @@
     "title":"false",
     "desc": false,
     "types": {
-      "backpack": { "label": "Backpack" },
+      "backpack": { "label": "Backpack", "url": "https://thelongdark.fandom.com/wiki/Backpack" },
       "book": { "label": "Skill Book" },
-      "coal": { "label": "Coal" },
+      "coal": { "label": "Coal", "url": "https://thelongdark.fandom.com/wiki/Coal" },
       "corpse": { "label": "Human Corpse" },
-      "first-aid": { "label": "First Aid" },
+      "first-aid": { "label": "First Aid", "url": "https://thelongdark.fandom.com/wiki/First_Aid" },
       "memento-cache": { "label": "Memento Cache", "name": false },
       "metal-box": { "label": "Metal Container" },
       "plastic-box": { "label": "Plastic Container" },
@@ -121,7 +124,7 @@
       "hatchet": { "label": "Hatchet", "url": "https://thelongdark.fandom.com/wiki/Hatchet" },
       "knife": { "label": "Knife", "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife" },
       "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" },
-      "rope": { "label": "Rope" }
+      "rope": { "label": "Rope", "url": "https://thelongdark.fandom.com/wiki/Mountaineering_Rope" }
     }
   },
   "predators": {
@@ -177,7 +180,7 @@
     "desc": false,
     "types": {
       "cairn": { "label": "Cairn", "desc": true},
-      "polaroid": { "label": "Polaroid" },
+      "polaroid": { "label": "Polaroid", "url": "https://thelongdark.fandom.com/wiki/Polaroids" },
       "scrawled-message": { "label": "Scrawled Message" }
     }
   }
