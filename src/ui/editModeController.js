@@ -164,6 +164,7 @@ export function createEditModeController({
       getPointCategories,
       getCategoryMeta,
       getRegionIndex,
+      getCurrentRegion,
       syncEntryMarkerVisual,
       rememberPointConfig,
       openEditEditor,

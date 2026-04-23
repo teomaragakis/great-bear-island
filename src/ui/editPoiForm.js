@@ -12,6 +12,7 @@ export function createEditPoiForm({
   getPointCategories,
   getCategoryMeta,
   getRegionIndex,
+  getCurrentRegion,
   syncEntryMarkerVisual,
   rememberPointConfig,
   openEditEditor,
@@ -60,6 +61,7 @@ export function createEditPoiForm({
 
   function getSelectableRegionOptions(selectedValue = '') {
     return Object.entries(getRegionIndex())
+      .filter(([regionKey]) => regionKey !== getCurrentRegion())
       .map(([regionKey, regionMeta]) => `
         <option value="${escapeHtml(regionKey)}" ${regionKey === selectedValue ? 'selected' : ''}>
           ${escapeHtml(regionMeta.name)}

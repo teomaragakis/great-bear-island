@@ -231,6 +231,7 @@ editMode.installControl();
 
 function switchRegion(regionKey) {
   state.currentRegion = regionKey;
+  localStorage.setItem('gbi-last-region', regionKey);
   // Default visible filters are derived from the region's actual POI/content types, not global taxonomy.
   state.activeTypeFilters = new Set(
     state.regions[regionKey].pois.flatMap(getRelatedFilterKeys),
@@ -344,7 +345,10 @@ async function boot() {
 
     populateRegionSelect();
 
-    if (!state.regions[state.currentRegion]) {
+    const savedRegion = localStorage.getItem('gbi-last-region');
+    if (savedRegion && state.regions[savedRegion]) {
+      state.currentRegion = savedRegion;
+    } else if (!state.regions[state.currentRegion]) {
       state.currentRegion = getSelectableRegionEntries()[0]?.[0] ?? '';
     }
 
