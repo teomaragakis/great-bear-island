@@ -105,7 +105,7 @@
       "coal": { "label": "Coal", "url": "https://thelongdark.fandom.com/wiki/Coal" },
       "corpse": { "label": "Corpse" },
       "first-aid": { "label": "First Aid", "url": "https://thelongdark.fandom.com/wiki/First_Aid" },
-      "memento-cache": { "label": "Memento Cache", "name": false },
+      "memento-cache": { "label": "Memento Cache", "name": false, "desc": true },
       "metal-box": { "label": "Metal Container" },
       "plastic-box": { "label": "Plastic Container" },
       "trade-drop-box": { "label": "Trade Drop Box", "icon": "assets/icons/trade-drop-box.svg" },
