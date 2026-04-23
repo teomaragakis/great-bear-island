@@ -189,5 +189,15 @@
       "scrawled-message": { "label": "Scrawled Message" },
       "film": { "label": "Film Box", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Film" }
     }
+  },
+  "tools": {
+    "label": "Tools",
+    "color": "#6b7d8a",
+    "name": false,
+    "desc": false,
+    "types": {
+      "tools": { "label": "Tools", "url": "https://thelongdark.fandom.com/wiki/Tools" },
+      "quality-tools": { "label": "Quality Tools", "url": "https://thelongdark.fandom.com/wiki/Quality_Tools" }
+    }
   }
 }
