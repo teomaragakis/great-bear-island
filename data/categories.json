@@ -102,7 +102,7 @@
       "backpack": { "label": "Backpack", "url": "https://thelongdark.fandom.com/wiki/Backpack" },
       "book": { "label": "Skill Book" },
       "coal": { "label": "Coal", "url": "https://thelongdark.fandom.com/wiki/Coal" },
-      "corpse": { "label": "Human Corpse" },
+      "corpse": { "label": "Corpse" },
       "first-aid": { "label": "First Aid", "url": "https://thelongdark.fandom.com/wiki/First_Aid" },
       "memento-cache": { "label": "Memento Cache", "name": false },
       "metal-box": { "label": "Metal Container" },
