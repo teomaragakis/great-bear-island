@@ -35,6 +35,7 @@ data/regions/
 - Every saved POI should have an `id`
 - Named POIs should prefer slug-like IDs
 - Unnamed POIs can use opaque `poi-####` IDs
+- Region location labels are not stored here; add those to `data/regions.json` under the region's `locations` array
 
 ## Optional POI Fields
 
@@ -42,13 +43,15 @@ data/regions/
 - `desc`
 - `contents`
 - `transition`
-- `icon`
 - `pixelCoords`
 
 ## Taxonomy Notes
 
-- `data/categories.json` can mark category or type fields with `name: false` or `desc: false`
-- `popup: false` disables view-mode popups by default unless the POI has its own description or contents
+- `data/categories.json` can mark category or type fields with `name` or `desc`
+- Type-level `name` / `desc` values override category-level defaults
+- `contents: true` enables the contents editor for that type
+- `transition: true` or a `fields.transition` schema enables region-connection editing
+- `popup` can be set at category or type level; type-level values override category defaults
 
 ## Current Files
 

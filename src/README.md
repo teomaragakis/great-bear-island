@@ -7,6 +7,15 @@ This folder contains the app's runtime logic. The code is split by responsibilit
 ### [`main.js`](/Users/teomaragakis/Development/great-bear-island/src/main.js)
 Application entry point. It loads region data, initializes shared state, creates the map and controllers, wires DOM events, and coordinates region/layer switching.
 
+## Related Style Files
+
+Runtime styling lives outside `src` in the top-level `styles/` folder:
+
+- `styles/base.css`: variables, resets, global typography, and Leaflet base sizing
+- `styles/layout.css`: app shell, top bar, sidebar, map region, and structural layout
+- `styles/components.css`: markers, legend, settings, popups, edit form, and shared form controls
+- `styles/modals.css`: shared modal shell plus JSON and region-info modal variants
+
 ## `config/`
 
 ### [`config/constants.js`](/Users/teomaragakis/Development/great-bear-island/src/config/constants.js)

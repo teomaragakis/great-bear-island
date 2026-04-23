@@ -24,10 +24,10 @@ Current functionality includes:
 - Searchable POI legend that matches category or type labels
 - Sidebar settings for grouping nearby items, grouping by category, hiding missing categories, showing DLC categories, and flattening the grouped legend into a single alphabetical list
 - Category-aware clustering in view mode
-- Custom POI markers and popups with icon, title, category label, description, developer coordinates, and optional contents lists
+- Custom POI markers and popups with icon, title, category label, description, edit-mode coordinates, and optional contents lists
 - Popup behavior controlled from taxonomy metadata
 - Static-image map bounds handling with responsive refit on resize
-- Developer mode for creating temporary POIs, editing existing POIs, dragging markers, deleting POIs, previewing the combined JSON snapshot, copying it to the clipboard, and exporting it as a file
+- Edit mode for creating temporary POIs, editing existing POIs, dragging markers, deleting POIs, previewing the combined JSON snapshot, copying it to the clipboard, and exporting it as a file
 
 ## Tech Stack
 
@@ -55,9 +55,14 @@ Current functionality includes:
 │   ├── state/
 │   └── ui/
 ├── assets/
+│   ├── icons/
 │   └── maps/
+├── styles/
+│   ├── base.css
+│   ├── layout.css
+│   ├── components.css
+│   └── modals.css
 ├── index.html
-├── style.css
 ├── README.md
 └── dev-server.sh
 ```
@@ -119,8 +124,10 @@ Inside each type array, POIs can include:
 - category labels and colors
 - type labels and optional wiki `url`
 - optional `popup` behavior flags
-- optional `name: false` / `desc: false` field visibility flags
+- optional `name` / `desc` field visibility flags, where type values override category defaults
+- optional `contents: true` support for container-style POIs
 - optional type-specific field schemas
+- optional `transition: true` shorthand for region connection fields
 - optional `dlc` flags
 
 Icons are resolved from `assets/icons/index.json` plus matching SVG files in `assets/icons/`.
@@ -140,11 +147,11 @@ At runtime, each POI is normalized with Leaflet-friendly coordinates derived fro
 - View POI popups directly on the map
 - View popup contents lists for container-style POIs
 
-## Developer Mode
+## Edit Mode
 
-Developer mode is available from the map controls and is intended for POI authoring.
+Edit mode is available from the map controls and is intended for POI authoring.
 
-In developer mode you can:
+In edit mode you can:
 
 - Click the map to create temporary POIs
 - Edit category, type, name, description, and schema-driven custom fields in the sidebar
