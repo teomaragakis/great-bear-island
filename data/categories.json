@@ -108,6 +108,7 @@
       "metal-box": { "label": "Metal Container" },
       "plastic-box": { "label": "Plastic Container" },
       "trade-drop-box": { "label": "Trade Drop Box", "icon": "assets/icons/trade-drop-box.svg" },
+      "emergency-stim": { "label": "Emergency Stim", "url": "https://thelongdark.fandom.com/wiki/Emergency_Stim" },
       "supply-cache": { "label": "Supply Cache", "dlc": true }
     }
   },
