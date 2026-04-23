@@ -67,6 +67,9 @@
         "aerial-contour": "assets/maps/ravine-aerial-contour.jpg",
         "topographic": "assets/maps/ravine-topo.jpg"
       },
+      "locations": [
+        { "name": "Raven Falls Trestle", "pixelCoords": [2475, 1023] }
+      ],
       "path": "data/regions/ravine.json"
     },
     "pleasant-valley": {

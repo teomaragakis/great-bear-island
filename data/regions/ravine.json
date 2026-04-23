@@ -1,1 +1,218 @@
-{}
+{
+  "navigation": {
+    "waterfall": [
+      {
+        "id": "poi-0001",
+        "pixelCoords": [180, 1008]
+      }
+    ],
+    "transition": [
+      {
+        "id": "poi-0010",
+        "transition": "mystery-lake",
+        "pixelCoords": [33, 741]
+      },
+      {
+        "id": "poi-0025",
+        "transition": "bleak-inlet",
+        "pixelCoords": [1624, 578]
+      }
+    ],
+    "bridge": [
+      {
+        "id": "poi-0011",
+        "pixelCoords": [372, 853]
+      },
+      {
+        "id": "poi-0020",
+        "pixelCoords": [1569, 934]
+      },
+      {
+        "id": "poi-0021",
+        "pixelCoords": [2475, 1036]
+      }
+    ],
+    "train-car": [
+      {
+        "id": "poi-0012",
+        "pixelCoords": [879, 765]
+      },
+      {
+        "id": "poi-0013",
+        "pixelCoords": [910, 760]
+      },
+      {
+        "id": "poi-0014",
+        "pixelCoords": [937, 754]
+      },
+      {
+        "id": "poi-0015",
+        "pixelCoords": [962, 737]
+      },
+      {
+        "id": "poi-0016",
+        "pixelCoords": [988, 713]
+      },
+      {
+        "id": "poi-0017",
+        "pixelCoords": [1019, 682]
+      },
+      {
+        "id": "poi-0018",
+        "pixelCoords": [1030, 652]
+      },
+      {
+        "id": "poi-0019",
+        "pixelCoords": [1108, 629]
+      },
+      {
+        "id": "poi-0028",
+        "pixelCoords": [1350, 972]
+      },
+      {
+        "id": "poi-0029",
+        "pixelCoords": [1333, 940]
+      }
+    ],
+    "tunnel": [
+      {
+        "id": "poi-0022",
+        "pixelCoords": [2053, 948]
+      },
+      {
+        "id": "poi-0023",
+        "pixelCoords": [1742, 1005]
+      },
+      {
+        "id": "poi-0024",
+        "transition": "coastal-highway",
+        "pixelCoords": [2830, 795]
+      }
+    ]
+  },
+  "loot": {
+    "corpse": [
+      {
+        "id": "poi-0002",
+        "pixelCoords": [182, 978]
+      },
+      {
+        "id": "poi-0007",
+        "pixelCoords": [336, 1045]
+      }
+    ],
+    "backpack": [
+      {
+        "id": "poi-0006",
+        "pixelCoords": [328, 1042]
+      }
+    ],
+    "metal-box": [
+      {
+        "id": "poi-0039",
+        "pixelCoords": [1037, 761]
+      }
+    ]
+  },
+  "weapons-and-tools": {
+    "bow": [
+      {
+        "id": "poi-0003",
+        "pixelCoords": [188, 982]
+      }
+    ],
+    "hatchet": [
+      {
+        "id": "poi-0008",
+        "pixelCoords": [342, 1048]
+      }
+    ]
+  },
+  "collectibles": {
+    "cairn": [
+      {
+        "id": "poi-0004",
+        "desc": "71",
+        "pixelCoords": [269, 942]
+      },
+      {
+        "id": "poi-0026",
+        "desc": "126",
+        "pixelCoords": [2686, 898]
+      },
+      {
+        "id": "poi-0033",
+        "desc": "14",
+        "pixelCoords": [1112, 867]
+      },
+      {
+        "id": "poi-0034",
+        "desc": "15",
+        "pixelCoords": [1151, 922]
+      }
+    ]
+  },
+  "harvestable-plants": {
+    "rose-hips": [
+      {
+        "id": "poi-0005",
+        "pixelCoords": [362, 1000]
+      },
+      {
+        "id": "poi-0009",
+        "pixelCoords": [353, 1068]
+      },
+      {
+        "id": "poi-0027",
+        "pixelCoords": [1717, 963]
+      }
+    ],
+    "reishi-mushrooms": [
+      {
+        "id": "poi-0030",
+        "pixelCoords": [1300, 1016]
+      },
+      {
+        "id": "poi-0031",
+        "pixelCoords": [1230, 982]
+      },
+      {
+        "id": "poi-0032",
+        "pixelCoords": [1211, 934]
+      }
+    ],
+    "birch-bark": [
+      {
+        "id": "poi-0035",
+        "pixelCoords": [1285, 989]
+      },
+      {
+        "id": "poi-0036",
+        "pixelCoords": [1251, 896]
+      }
+    ]
+  },
+  "prey": {
+    "rabbit": [
+      {
+        "id": "poi-0037",
+        "pixelCoords": [1260, 945]
+      }
+    ],
+    "deer-carcass": [
+      {
+        "id": "poi-0040",
+        "pixelCoords": [1030, 757]
+      }
+    ]
+  },
+  "locations": {
+    "cave": [
+      {
+        "id": "poi-0038",
+        "contents": ["rope", "backpack"],
+        "pixelCoords": [1234, 1010]
+      }
+    ]
+  }
+}

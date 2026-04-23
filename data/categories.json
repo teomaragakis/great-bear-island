@@ -20,7 +20,8 @@
         "label": "Cliff"
       },
       "train-car": {
-        "label": "Train Car"
+        "label": "Train Car",
+        "contents": true
       },
       "transition": {
         "label": "Transition Point",
@@ -53,7 +54,7 @@
       },
       "building": { "label": "Building", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations", "contents": true },
       "destroyed-building": { "label": "Destroyed Building", "name": false, "desc": false, "contents": false },
-      "cave": { "label": "Cave", "name": false, "desc": false },
+      "cave": { "label": "Cave", "name": false, "desc": false, "contents": true },
       "fishing-hut": {
         "label": "Fishing Hut",
         "url": "https://thelongdark.fandom.com/wiki/Fishing_hut",
