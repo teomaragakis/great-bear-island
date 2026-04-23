@@ -183,7 +183,8 @@
     "types": {
       "cairn": { "label": "Cairn", "desc": true},
       "polaroid": { "label": "Polaroid", "url": "https://thelongdark.fandom.com/wiki/Polaroids" },
-      "scrawled-message": { "label": "Scrawled Message" }
+      "scrawled-message": { "label": "Scrawled Message" },
+      "film": { "label": "Film Box", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Film" }
     }
   }
 }
