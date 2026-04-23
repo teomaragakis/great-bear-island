@@ -52,13 +52,21 @@
     },
     "ravine": {
       "name": "Ravine",
-      "disabled": true,
       "desc": "A narrow transition region dominated by a deep ravine, rail bridge crossing, sparse resources, and low shelter coverage.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival / Story" },
         { "label": "Connects To", "value": "Mystery Lake / Coastal Highway / Bleak Inlet" }
       ],
+      "layers": {
+        "imageSize": {
+          "width": 3000,
+          "height": 1600
+        },
+        "aerial": "assets/maps/ravine-aerial.jpg",
+        "aerial-contour": "assets/maps/ravine-aerial-contour.jpg",
+        "topographic": "assets/maps/ravine-topo.jpg"
+      },
       "path": "data/regions/ravine.json"
     },
     "pleasant-valley": {
