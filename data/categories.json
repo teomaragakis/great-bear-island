@@ -6,25 +6,34 @@
     "desc": false,
     "types": {
       "airplane": {
-        "label": "Airplane"
+        "label": "Airplane",
+        "info": "A wrecked aircraft serving as a fixed regional landmark."
       },
-      "spawn-point": { "label": "Spawn Point" },
+      "spawn-point": {
+        "label": "Spawn Point",
+        "info": "A common starting location when first entering a region."
+      },
       "bridge": {
-        "label": "Bridge"
+        "label": "Bridge",
+        "info": "A structure spanning a gap, ravine, or frozen waterway."
       },
       "car": {
         "label": "Car",
-        "contents": true
+        "contents": true,
+        "info": "An abandoned vehicle that may contain useful supplies."
       },
       "cliff": {
-        "label": "Cliff"
+        "label": "Cliff",
+        "info": "A steep rock face that may require a rope to ascend or descend."
       },
       "train-car": {
         "label": "Train Car",
-        "contents": true
+        "contents": true,
+        "info": "A derailed or stationary railway car that may contain supplies."
       },
       "transition": {
         "label": "Transition Point",
+        "info": "A passage connecting this region to an adjacent one.",
         "fields": {
           "transition": {
             "label": "Region connection",
@@ -35,10 +44,12 @@
       },
       "tunnel": {
         "label": "Tunnel",
-        "transition": true
+        "transition": true,
+        "info": "A passage through terrain that may serve as a region connection."
       },
       "waterfall": {
-        "label": "Waterfall"
+        "label": "Waterfall",
+        "info": "A cascading water feature useful as a navigational landmark."
       }
     }
   },
@@ -50,24 +61,51 @@
         "label": "Bear Cave",
         "icon": "assets/icons/cave.svg",
         "name": false,
-        "desc": false
+        "desc": false,
+        "info": "A cave that serves as a bear's den and sleeping area."
       },
-      "building": { "label": "Building", "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations", "contents": true },
-      "destroyed-building": { "label": "Destroyed Building", "name": false, "desc": false, "contents": false },
-      "cave": { "label": "Cave", "name": false, "desc": false, "contents": true },
+      "building": {
+        "label": "Building",
+        "url": "https://thelongdark.fandom.com/wiki/Category:Indoor_locations",
+        "contents": true,
+        "info": "An enclosed structure providing shelter from wind, cold, and wildlife."
+      },
+      "destroyed-building": {
+        "label": "Destroyed Building",
+        "name": false,
+        "desc": false,
+        "contents": false,
+        "info": "A ruined structure offering only partial shelter."
+      },
+      "cave": {
+        "label": "Cave",
+        "url": "https://thelongdark.fandom.com/wiki/Cave",
+        "name": false,
+        "desc": false,
+        "contents": true,
+        "info": "A natural rock shelter providing protection from wind and wildlife."
+      },
       "fishing-hut": {
         "label": "Fishing Hut",
         "url": "https://thelongdark.fandom.com/wiki/Fishing_hut",
         "name": false,
         "desc": false,
-        "contents": true
+        "contents": true,
+        "info": "A small ice-fishing shelter typically containing a fishing hole and stove."
       },
-      "trailer": { "label": "Trailer", "name": false, "desc": false,"contents": true },
+      "trailer": {
+        "label": "Trailer",
+        "name": false,
+        "desc": false,
+        "contents": true,
+        "info": "A small mobile structure providing basic shelter and loot."
+      },
       "mine": {
         "label": "Mine",
         "url": "https://thelongdark.fandom.com/wiki/Mine",
         "desc": false,
         "contents": true,
+        "info": "An underground tunnel system that may connect to an adjacent region.",
         "fields": {
           "transition": {
             "label": "Region connection",
@@ -83,53 +121,194 @@
     "name": false,
     "desc": false,
     "types": {
-      "bed": { "label": "Bed", "url": "https://thelongdark.fandom.com/wiki/Bed" },
-      "computer": { "label": "Computer" },
-      "fire-barrel": { "label": "Fire Barrel", "url": "https://thelongdark.fandom.com/wiki/Fire_Barrel" },
-      "fireplace": { "label": "Fireplace", "url": "https://thelongdark.fandom.com/wiki/Fireplace" },
-      "fishing-hole": { "label": "Fishing Hole" },
-      "forge": { "label": "Forge", "url": "https://thelongdark.fandom.com/wiki/Forge" },
-      "pot-belly-stove": { "label": "Pot Belly Stove", "icon": "assets/icons/pot-belly-stove.svg", "url": "https://thelongdark.fandom.com/wiki/Pot_Belly_Stove" },
-      "stove": { "label": "Stove", "icon": "assets/icons/stove.svg", "url": "https://thelongdark.fandom.com/wiki/Stove" },
-      "workbench": { "label": "Workbench", "url": "https://thelongdark.fandom.com/wiki/Work_Bench" },
-      "ammo-workbench": { "label": "Ammunition Workbench", "url": "https://thelongdark.fandom.com/wiki/Ammunition_Workbench" },
-      "radio": { "label": "Trader's Radio", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Trader%27s_Radio" }
+      "bed": {
+        "label": "Bed",
+        "url": "https://thelongdark.fandom.com/wiki/Bed",
+        "info": "Allows the player to sleep, pass time, and restore condition."
+      },
+      "computer": {
+        "label": "Computer",
+        "info": "A terminal that may contain readable notes or lore."
+      },
+      "fire-barrel": {
+        "label": "Fire Barrel",
+        "url": "https://thelongdark.fandom.com/wiki/Fire_Barrel",
+        "info": "An outdoor metal barrel used as a heat source and fire-starting station."
+      },
+      "fireplace": {
+        "label": "Fireplace",
+        "url": "https://thelongdark.fandom.com/wiki/Fireplace",
+        "info": "A fixed indoor hearth used for warmth, cooking, and melting snow."
+      },
+      "fishing-hole": {
+        "label": "Fishing Hole",
+        "info": "An opening in the ice used for ice fishing."
+      },
+      "forge": {
+        "label": "Forge",
+        "url": "https://thelongdark.fandom.com/wiki/Forge",
+        "info": "A high-temperature furnace required for crafting and repairing metal tools."
+      },
+      "pot-belly-stove": {
+        "label": "Pot Belly Stove",
+        "icon": "assets/icons/pot-belly-stove.svg",
+        "url": "https://thelongdark.fandom.com/wiki/Pot_Belly_Stove",
+        "info": "A small cast-iron stove found in outbuildings and fishing huts."
+      },
+      "stove": {
+        "label": "Stove",
+        "icon": "assets/icons/stove.svg",
+        "url": "https://thelongdark.fandom.com/wiki/Stove",
+        "info": "A kitchen appliance used for cooking food and melting snow."
+      },
+      "workbench": {
+        "label": "Workbench",
+        "url": "https://thelongdark.fandom.com/wiki/Work_Bench",
+        "info": "A crafting surface used to make and repair clothing and equipment."
+      },
+      "ammo-workbench": {
+        "label": "Ammunition Workbench",
+        "url": "https://thelongdark.fandom.com/wiki/Ammunition_Workbench",
+        "info": "A specialized bench used to hand-load rifle and revolver ammunition."
+      },
+      "radio": {
+        "label": "Trader's Radio",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Trader%27s_Radio",
+        "info": "A DLC radio used to contact Mathis and access the trading system."
+      }
     }
   },
   "loot": {
     "label": "Loot",
     "color": "#6b7d8a",
-    "title":"false",
+    "title": "false",
     "desc": false,
     "types": {
-      "backpack": { "label": "Backpack", "url": "https://thelongdark.fandom.com/wiki/Backpack" },
-      "book": { "label": "Skill Book" },
-      "coal": { "label": "Coal", "url": "https://thelongdark.fandom.com/wiki/Coal" },
-      "corpse": { "label": "Corpse" },
-      "first-aid": { "label": "First Aid", "url": "https://thelongdark.fandom.com/wiki/First_Aid" },
-      "memento-cache": { "label": "Memento Cache", "name": false, "desc": true },
-      "metal-box": { "label": "Metal Container" },
-      "plastic-box": { "label": "Plastic Container" },
-      "trade-drop-box": { "label": "Trade Drop Box", "icon": "assets/icons/trade-drop-box.svg" },
-      "emergency-stim": { "label": "Emergency Stim", "url": "https://thelongdark.fandom.com/wiki/Emergency_Stim" },
-      "supply-cache": { "label": "Supply Cache", "dlc": true }
+      "backpack": {
+        "label": "Backpack",
+        "url": "https://thelongdark.fandom.com/wiki/Backpack",
+        "info": "An abandoned pack that may contain a variety of useful supplies."
+      },
+      "book": {
+        "label": "Skill Book",
+        "url": "https://thelongdark.fandom.com/wiki/Skill_Book",
+        "info": "A book that permanently improves one of the player's survival skills."
+      },
+      "coal": {
+        "label": "Coal",
+        "url": "https://thelongdark.fandom.com/wiki/Coal",
+        "info": "A fossil fuel used as a long-burning fire accelerant."
+      },
+      "corpse": {
+        "label": "Corpse",
+        "url": "https://thelongdark.fandom.com/wiki/Frozen_Corpse",
+        "info": "A frozen body that may be carrying clothing, food, and equipment."
+      },
+      "first-aid": {
+        "label": "First Aid",
+        "url": "https://thelongdark.fandom.com/wiki/First_Aid_Kit",
+        "info": "A medical kit containing bandages, antiseptic, and pain medication."
+      },
+      "memento-cache": {
+        "label": "Memento Cache",
+        "url": "https://thelongdark.fandom.com/wiki/Memento_Cache",
+        "name": false,
+        "desc": true,
+        "info": "A hidden container holding story-related keepsakes."
+      },
+      "metal-box": {
+        "label": "Metal Container",
+        "url": "https://thelongdark.fandom.com/wiki/Metal_Container",
+        "info": "A metal storage container holding a variety of supplies."
+      },
+      "plastic-box": {
+        "label": "Plastic Container",
+        "url": "https://thelongdark.fandom.com/wiki/Plastic_Container",
+        "info": "A plastic storage container holding a variety of supplies."
+      },
+      "trade-drop-box": {
+        "label": "Trade Drop Box",
+        "icon": "assets/icons/trade-drop-box.svg",
+        "url": "https://thelongdark.fandom.com/wiki/Trade_Drop_Box",
+        "info": "A DLC drop box used to exchange items with the trader Mathis."
+      },
+      "emergency-stim": {
+        "label": "Emergency Stim",
+        "url": "https://thelongdark.fandom.com/wiki/Emergency_Stim",
+        "info": "A DLC injectable stimulant that temporarily boosts condition and stamina."
+      },
+      "supply-cache": {
+        "label": "Supply Cache",
+        "url": "https://thelongdark.fandom.com/wiki/Supply_Cache",
+        "dlc": true,
+        "info": "A DLC airdrop container filled with a selection of useful supplies."
+      }
     }
   },
   "weapons-and-tools": {
     "label": "Weapons & Tools",
     "color": "#1CA3DE",
     "types": {
-      "vaughns-rifle": { "label": "Vaughn's Rifle", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle" },
-      "barb-rifle": { "label": "Barb's Rifle", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Barb%27s_Rifle", "icon": "assets/icons/rifle.svg" },
-      "rifle": { "label": "Rifle", "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle" },
-      "hunters-revolver": { "label": "Hunter's Revolver", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Hunter%27s_Revolver" },
-      "revolver": { "label": "Revolver", "url": "https://thelongdark.fandom.com/wiki/Revolver" },
-      "distress-pistol": { "label": "Distress Pistol", "url": "https://thelongdark.fandom.com/wiki/Distress_Pistol" },
-      "bow": { "label": "Bow", "url": "https://thelongdark.fandom.com/wiki/Survival_Bow" },
-      "hatchet": { "label": "Hatchet", "url": "https://thelongdark.fandom.com/wiki/Hatchet" },
-      "knife": { "label": "Knife", "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife" },
-      "hammer": { "label": "Hammer", "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer" },
-      "rope": { "label": "Rope", "url": "https://thelongdark.fandom.com/wiki/Mountaineering_Rope" }
+      "vaughns-rifle": {
+        "label": "Vaughn's Rifle",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle",
+        "info": "A unique DLC bolt-action rifle belonging to Vaughn, found in a fixed location."
+      },
+      "barb-rifle": {
+        "label": "Barb's Rifle",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Barb%27s_Rifle",
+        "icon": "assets/icons/rifle.svg",
+        "info": "A unique DLC bolt-action rifle belonging to Barb, found in a fixed location."
+      },
+      "rifle": {
+        "label": "Rifle",
+        "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle",
+        "info": "A bolt-action hunting rifle effective for long-range game hunting."
+      },
+      "hunters-revolver": {
+        "label": "Hunter's Revolver",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Hunter%27s_Revolver",
+        "info": "A DLC high-calibre revolver capable of fending off predators."
+      },
+      "revolver": {
+        "label": "Revolver",
+        "url": "https://thelongdark.fandom.com/wiki/Revolver",
+        "info": "A reliable sidearm used for hunting and self-defence at close range."
+      },
+      "distress-pistol": {
+        "label": "Distress Pistol",
+        "url": "https://thelongdark.fandom.com/wiki/Distress_Pistol",
+        "info": "A single-shot flare gun that can deter wildlife and signal for help."
+      },
+      "bow": {
+        "label": "Bow",
+        "url": "https://thelongdark.fandom.com/wiki/Survival_Bow",
+        "info": "A craftable survival bow used for silent, reusable hunting."
+      },
+      "hatchet": {
+        "label": "Hatchet",
+        "url": "https://thelongdark.fandom.com/wiki/Hatchet",
+        "info": "A multi-purpose hand tool used for chopping wood and as a melee weapon."
+      },
+      "knife": {
+        "label": "Knife",
+        "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife",
+        "info": "A fixed-blade tool used for harvesting carcasses and skinning hides."
+      },
+      "hammer": {
+        "label": "Hammer",
+        "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer",
+        "info": "A heavy tool required for forge work and certain crafting recipes."
+      },
+      "rope": {
+        "label": "Rope",
+        "url": "https://thelongdark.fandom.com/wiki/Mountaineering_Rope",
+        "info": "A climbing rope anchored at cliff faces to enable vertical traversal."
+      }
     }
   },
   "predators": {
@@ -139,11 +318,31 @@
     "name": false,
     "desc": false,
     "types": {
-      "wolf": { "label": "Wolf", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
-      "wolf-carcass": { "label": "Wolf Carcass", "url": "https://thelongdark.fandom.com/wiki/Wolf" },
-      "bear": { "label": "Bear", "url": "https://thelongdark.fandom.com/wiki/Bear" },
-      "moose": { "label": "Moose", "url": "https://thelongdark.fandom.com/wiki/Moose" },
-      "cougar": { "label": "Cougar", "url": "https://thelongdark.fandom.com/wiki/Cougar" }
+      "wolf": {
+        "label": "Wolf",
+        "url": "https://thelongdark.fandom.com/wiki/Wolf",
+        "info": "An aggressive canine that stalks, bluffs, and charges the player."
+      },
+      "wolf-carcass": {
+        "label": "Wolf Carcass",
+        "url": "https://thelongdark.fandom.com/wiki/Wolf",
+        "info": "The remains of a wolf, harvestable for meat, hide, and gut."
+      },
+      "bear": {
+        "label": "Bear",
+        "url": "https://thelongdark.fandom.com/wiki/Bear",
+        "info": "A large predator capable of mauling the player and causing severe injury."
+      },
+      "moose": {
+        "label": "Moose",
+        "url": "https://thelongdark.fandom.com/wiki/Moose",
+        "info": "A territorial ungulate that charges when approached or surprised."
+      },
+      "cougar": {
+        "label": "Cougar",
+        "url": "https://thelongdark.fandom.com/wiki/Cougar",
+        "info": "A stealthy feline predator that ambushes the player from concealment."
+      }
     }
   },
   "prey": {
@@ -153,10 +352,26 @@
     "name": false,
     "desc": false,
     "types": {
-      "rabbit": { "label": "Rabbit", "url": "https://thelongdark.fandom.com/wiki/Rabbit" },
-      "deer": { "label": "Deer", "url": "https://thelongdark.fandom.com/wiki/Deer" },
-      "ptarmigan": { "label": "Ptarmigan", "url": "https://thelongdark.fandom.com/wiki/Ptarmigan" },
-      "deer-carcass": { "label": "Deer Carcass", "url": "https://thelongdark.fandom.com/wiki/Deer_Carcass" }
+      "rabbit": {
+        "label": "Rabbit",
+        "url": "https://thelongdark.fandom.com/wiki/Rabbit",
+        "info": "A small, fast animal that can be snared or stunned for meat and hide."
+      },
+      "deer": {
+        "label": "Deer",
+        "url": "https://thelongdark.fandom.com/wiki/Deer",
+        "info": "A common ungulate hunted for large quantities of meat, hide, and gut."
+      },
+      "ptarmigan": {
+        "label": "Ptarmigan",
+        "url": "https://thelongdark.fandom.com/wiki/Ptarmigan",
+        "info": "A small ground bird hunted for meat using rocks or firearms."
+      },
+      "deer-carcass": {
+        "label": "Deer Carcass",
+        "url": "https://thelongdark.fandom.com/wiki/Deer_Carcass",
+        "info": "The remains of a deer, harvestable for meat, hide, and gut."
+      }
     }
   },
   "harvestable-plants": {
@@ -166,16 +381,56 @@
     "name": false,
     "desc": false,
     "types": {
-      "cat-tails": { "label": "Cat Tails", "url": "https://thelongdark.fandom.com/wiki/Cat_tail" },
-      "birch-bark": { "label": "Birch Bark", "url": "https://thelongdark.fandom.com/wiki/Birch_Bark" },
-      "maple-sapling": { "label": "Maple Sapling", "url": "https://thelongdark.fandom.com/wiki/Cured_Maple_Sapling" },
-      "birch-sapling": { "label": "Birch Sapling", "url": "https://thelongdark.fandom.com/wiki/Green_Birch_Sapling" },
-      "rose-hips": { "label": "Rose Hips", "url": "https://thelongdark.fandom.com/wiki/Rose_Hip" },
-      "lichen": { "label": "Old Man's Beard Lichen", "url": "https://thelongdark.fandom.com/wiki/Old_Man%27s_Beard_Lichen" },
-      "reishi-mushrooms": { "label": "Reishi Mushrooms", "url": "https://thelongdark.fandom.com/wiki/Reishi_Mushroom" },
-      "salt-deposits": { "label": "Salt Deposits" },
-      "burdock-roots": { "label": "Burdock Roots", "url": "https://thelongdark.fandom.com/wiki/Burdock_Root" },
-      "oak-tree": { "label": "Oak Tree", "url": "https://thelongdark.fandom.com/wiki/Oak_Tree" }
+      "cat-tails": {
+        "label": "Cat Tails",
+        "url": "https://thelongdark.fandom.com/wiki/Cat_tail",
+        "info": "A wetland plant harvested for edible cattail stalks."
+      },
+      "birch-bark": {
+        "label": "Birch Bark",
+        "url": "https://thelongdark.fandom.com/wiki/Birch_Bark",
+        "info": "Bark stripped from birch trees, used as a fire accelerant."
+      },
+      "maple-sapling": {
+        "label": "Maple Sapling",
+        "url": "https://thelongdark.fandom.com/wiki/Cured_Maple_Sapling",
+        "info": "A flexible sapling harvested and cured to craft arrow shafts."
+      },
+      "birch-sapling": {
+        "label": "Birch Sapling",
+        "url": "https://thelongdark.fandom.com/wiki/Green_Birch_Sapling",
+        "info": "A flexible sapling harvested and cured to craft arrow shafts."
+      },
+      "rose-hips": {
+        "label": "Rose Hips",
+        "url": "https://thelongdark.fandom.com/wiki/Rose_Hip",
+        "info": "A small fruit brewed into rose hip tea to restore the player's condition."
+      },
+      "lichen": {
+        "label": "Old Man's Beard Lichen",
+        "url": "https://thelongdark.fandom.com/wiki/Old_Man%27s_Beard_Lichen",
+        "info": "A lichen brewed into tea that reduces fatigue and restores warmth."
+      },
+      "reishi-mushrooms": {
+        "label": "Reishi Mushrooms",
+        "url": "https://thelongdark.fandom.com/wiki/Reishi_Mushroom",
+        "info": "A fungus brewed into tea that improves condition and reduces pain."
+      },
+      "salt-deposits": {
+        "label": "Salt Deposits",
+        "url": "https://thelongdark.fandom.com/wiki/Salt_Deposits",
+        "info": "A mineral deposit harvested for use in food preservation and curing."
+      },
+      "burdock-roots": {
+        "label": "Burdock Roots",
+        "url": "https://thelongdark.fandom.com/wiki/Burdock_Root",
+        "info": "Roots brewed into a tea that provides minor treatment for infections."
+      },
+      "oak-tree": {
+        "label": "Oak Tree",
+        "url": "https://thelongdark.fandom.com/wiki/Oak_Tree",
+        "info": "A hardwood tree harvested for high-quality firewood and coal."
+      }
     }
   },
   "collectibles": {
@@ -184,10 +439,28 @@
     "name": false,
     "desc": false,
     "types": {
-      "cairn": { "label": "Cairn", "desc": true},
-      "polaroid": { "label": "Polaroid", "url": "https://thelongdark.fandom.com/wiki/Polaroids" },
-      "scrawled-message": { "label": "Scrawled Message" },
-      "film": { "label": "Film Box", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Film" }
+      "cairn": {
+        "label": "Cairn",
+        "url": "https://thelongdark.fandom.com/wiki/Cairn",
+        "desc": true,
+        "info": "A stacked stone marker that may contain a note or be part of a challenge."
+      },
+      "polaroid": {
+        "label": "Polaroid",
+        "url": "https://thelongdark.fandom.com/wiki/Polaroids",
+        "info": "A photograph depicting a location, collected as part of an in-game challenge."
+      },
+      "scrawled-message": {
+        "label": "Scrawled Message",
+        "url": "https://thelongdark.fandom.com/wiki/Scrawled_Note",
+        "info": "A handwritten note left by a survivor, containing story or lore."
+      },
+      "film": {
+        "label": "Film Box",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Film",
+        "info": "A DLC film canister collected as part of a photography challenge."
+      }
     }
   },
   "tools": {
@@ -196,8 +469,16 @@
     "name": false,
     "desc": false,
     "types": {
-      "tools": { "label": "Tools", "url": "https://thelongdark.fandom.com/wiki/Tools" },
-      "quality-tools": { "label": "Quality Tools", "url": "https://thelongdark.fandom.com/wiki/Quality_Tools" }
+      "tools": {
+        "label": "Tools",
+        "url": "https://thelongdark.fandom.com/wiki/Tools",
+        "info": "A set of hand tools that improves the quality of items crafted at a workbench."
+      },
+      "quality-tools": {
+        "label": "Quality Tools",
+        "url": "https://thelongdark.fandom.com/wiki/Quality_Tools",
+        "info": "A premium set of hand tools providing the highest crafting quality bonus."
+      }
     }
   }
 }
