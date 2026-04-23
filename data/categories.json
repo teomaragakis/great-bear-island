@@ -92,6 +92,7 @@
       "pot-belly-stove": { "label": "Pot Belly Stove", "icon": "assets/icons/pot-belly-stove.svg", "url": "https://thelongdark.fandom.com/wiki/Pot_Belly_Stove" },
       "stove": { "label": "Stove", "icon": "assets/icons/stove.svg", "url": "https://thelongdark.fandom.com/wiki/Stove" },
       "workbench": { "label": "Workbench", "url": "https://thelongdark.fandom.com/wiki/Work_Bench" },
+      "ammo-workbench": { "label": "Ammunition Workbench", "url": "https://thelongdark.fandom.com/wiki/Ammunition_Workbench" },
       "radio": { "label": "Trader's Radio", "dlc": true, "url": "https://thelongdark.fandom.com/wiki/Trader%27s_Radio" }
     }
   },
