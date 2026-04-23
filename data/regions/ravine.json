@@ -4,13 +4,17 @@
       {
         "id": "poi-0001",
         "pixelCoords": [180, 1008]
+      },
+      {
+        "id": "poi-0043",
+        "pixelCoords": [895, 687]
       }
     ],
     "transition": [
       {
         "id": "poi-0010",
         "transition": "mystery-lake",
-        "pixelCoords": [33, 741]
+        "pixelCoords": [109, 772]
       },
       {
         "id": "poi-0025",
@@ -39,6 +43,7 @@
       },
       {
         "id": "poi-0013",
+        "contents": ["rope", "first-aid", "metal-box", "corpse", "book"],
         "pixelCoords": [910, 760]
       },
       {
@@ -63,6 +68,7 @@
       },
       {
         "id": "poi-0019",
+        "contents": ["plastic-box", "corpse", "knife", "book"],
         "pixelCoords": [1108, 629]
       },
       {
@@ -88,6 +94,12 @@
         "transition": "coastal-highway",
         "pixelCoords": [2830, 795]
       }
+    ],
+    "cliff": [
+      {
+        "id": "poi-0078",
+        "pixelCoords": [1065, 574]
+      }
     ]
   },
   "loot": {
@@ -99,18 +111,30 @@
       {
         "id": "poi-0007",
         "pixelCoords": [336, 1045]
+      },
+      {
+        "id": "poi-0076",
+        "pixelCoords": [978, 592]
       }
     ],
     "backpack": [
       {
         "id": "poi-0006",
         "pixelCoords": [328, 1042]
+      },
+      {
+        "id": "poi-0075",
+        "pixelCoords": [955, 578]
       }
     ],
     "metal-box": [
       {
         "id": "poi-0039",
         "pixelCoords": [1037, 761]
+      },
+      {
+        "id": "poi-0041",
+        "pixelCoords": [878, 783]
       }
     ]
   },
@@ -149,6 +173,36 @@
         "id": "poi-0034",
         "desc": "15",
         "pixelCoords": [1151, 922]
+      },
+      {
+        "id": "poi-0059",
+        "desc": "135",
+        "pixelCoords": [515, 772]
+      },
+      {
+        "id": "poi-0064",
+        "desc": "142",
+        "pixelCoords": [679, 680]
+      },
+      {
+        "id": "poi-0065",
+        "desc": "145",
+        "pixelCoords": [696, 662]
+      },
+      {
+        "id": "poi-0066",
+        "desc": "79",
+        "pixelCoords": [800, 599]
+      },
+      {
+        "id": "poi-0077",
+        "desc": "46",
+        "pixelCoords": [1043, 580]
+      },
+      {
+        "id": "poi-0080",
+        "desc": "110",
+        "pixelCoords": [1264, 585]
       }
     ]
   },
@@ -165,6 +219,26 @@
       {
         "id": "poi-0027",
         "pixelCoords": [1717, 963]
+      },
+      {
+        "id": "poi-0042",
+        "pixelCoords": [825, 781]
+      },
+      {
+        "id": "poi-0072",
+        "pixelCoords": [968, 640]
+      },
+      {
+        "id": "poi-0073",
+        "pixelCoords": [1002, 609]
+      },
+      {
+        "id": "poi-0074",
+        "pixelCoords": [1114, 588]
+      },
+      {
+        "id": "poi-0087",
+        "pixelCoords": [1512, 640]
       }
     ],
     "reishi-mushrooms": [
@@ -179,6 +253,18 @@
       {
         "id": "poi-0032",
         "pixelCoords": [1211, 934]
+      },
+      {
+        "id": "poi-0081",
+        "pixelCoords": [1391, 669]
+      },
+      {
+        "id": "poi-0082",
+        "pixelCoords": [1602, 705]
+      },
+      {
+        "id": "poi-0083",
+        "pixelCoords": [1567, 639]
       }
     ],
     "birch-bark": [
@@ -189,6 +275,88 @@
       {
         "id": "poi-0036",
         "pixelCoords": [1251, 896]
+      },
+      {
+        "id": "poi-0044",
+        "pixelCoords": [273, 580]
+      },
+      {
+        "id": "poi-0045",
+        "pixelCoords": [468, 751]
+      },
+      {
+        "id": "poi-0046",
+        "pixelCoords": [608, 616]
+      },
+      {
+        "id": "poi-0047",
+        "pixelCoords": [688, 572]
+      },
+      {
+        "id": "poi-0048",
+        "pixelCoords": [1007, 492]
+      }
+    ],
+    "birch-sapling": [
+      {
+        "id": "poi-0051",
+        "pixelCoords": [335, 617]
+      },
+      {
+        "id": "poi-0052",
+        "pixelCoords": [336, 491]
+      },
+      {
+        "id": "poi-0053",
+        "pixelCoords": [559, 614]
+      }
+    ],
+    "lichen": [
+      {
+        "id": "poi-0054",
+        "pixelCoords": [315, 470]
+      },
+      {
+        "id": "poi-0055",
+        "pixelCoords": [431, 537]
+      },
+      {
+        "id": "poi-0056",
+        "pixelCoords": [536, 532]
+      },
+      {
+        "id": "poi-0070",
+        "pixelCoords": [1044, 520]
+      },
+      {
+        "id": "poi-0071",
+        "pixelCoords": [961, 606]
+      }
+    ],
+    "cat-tails": [
+      {
+        "id": "poi-0060",
+        "pixelCoords": [598, 738]
+      },
+      {
+        "id": "poi-0061",
+        "pixelCoords": [619, 721]
+      },
+      {
+        "id": "poi-0062",
+        "pixelCoords": [707, 737]
+      },
+      {
+        "id": "poi-0063",
+        "pixelCoords": [719, 737]
+      },
+      {
+        "id": "poi-0085",
+        "pixelCoords": [1554, 702]
+      },
+      {
+        "id": "poi-0086",
+        "pixelCoords": [1604, 675]
       }
     ]
   },
@@ -197,12 +365,46 @@
       {
         "id": "poi-0037",
         "pixelCoords": [1260, 945]
+      },
+      {
+        "id": "poi-0049",
+        "pixelCoords": [467, 774]
+      },
+      {
+        "id": "poi-0067",
+        "pixelCoords": [1070, 431]
+      },
+      {
+        "id": "poi-0079",
+        "pixelCoords": [1082, 615]
       }
     ],
     "deer-carcass": [
       {
         "id": "poi-0040",
         "pixelCoords": [1030, 757]
+      },
+      {
+        "id": "poi-0058",
+        "pixelCoords": [379, 473]
+      },
+      {
+        "id": "poi-0068",
+        "pixelCoords": [1064, 480]
+      },
+      {
+        "id": "poi-0069",
+        "pixelCoords": [1012, 548]
+      },
+      {
+        "id": "poi-0084",
+        "pixelCoords": [1543, 645]
+      }
+    ],
+    "deer": [
+      {
+        "id": "poi-0050",
+        "pixelCoords": [465, 656]
       }
     ]
   },
@@ -212,6 +414,16 @@
         "id": "poi-0038",
         "contents": ["rope", "backpack"],
         "pixelCoords": [1234, 1010]
+      },
+      {
+        "id": "poi-0057",
+        "contents": ["rope", "backpack"],
+        "pixelCoords": [392, 449]
+      },
+      {
+        "id": "poi-0088",
+        "contents": ["bed", "backpack", "book"],
+        "pixelCoords": [1538, 622]
       }
     ]
   }
