@@ -2,7 +2,7 @@
 
 Interactive map app for exploring *The Long Dark* regions with layered static map imagery, category-based points of interest, searchable filtering, clustering, and built-in tooling for authoring POIs.
 
-⚠️ Right now only Coastal Highway is enabled and most POIs are missing. Consider this an alpha.
+⚠️ Right now only Coastal Highway Has POIs. Consider this an alpha.
 
 View it here: [teomaragakis.github.io/great-bear-island/](https://teomaragakis.github.io/great-bear-island/)
 
