@@ -14,6 +14,7 @@ export function createEditModeController({
   getCategoryMeta,
   markerController,
   onChange = () => {},
+  onEditOpen = () => {},
 }) {
   let editModeEnabled = false;
   let temporaryMarkers = [];
@@ -159,6 +160,7 @@ export function createEditModeController({
       point: entry.point ?? entry.poi,
     };
     activeEditEntry = normalizedEntry;
+    onEditOpen(normalizedEntry);
     setEditPanelContent(createEditPoiForm({
       entry: normalizedEntry,
       getPointCategories,
@@ -360,10 +362,40 @@ export function createEditModeController({
     map.addControl(new Control());
   }
 
+  function setEditMode(enabled) {
+    if (editModeEnabled === enabled) return;
+
+    const selectedPoi = markerController.getActiveViewPoi();
+    editModeEnabled = enabled;
+    mapView.setMaxZoom(editModeEnabled ? EDIT_MODE_MAX_ZOOM : VIEW_MODE_MAX_ZOOM);
+    syncEditControls();
+    markerController.closeCurrentPopup();
+    markerController.buildMarkers(getCurrentRegion());
+    markerController.setAllMarkerDragState(editModeEnabled);
+    temporaryMarkers.forEach(({ marker }) => markerController.setMarkerDragState(marker, editModeEnabled));
+
+    if (editModeEnabled && selectedPoi) {
+      const entry = markerController.getMarkerEntryForPoint(selectedPoi)
+        ?? temporaryMarkers.find(candidate => candidate.point === selectedPoi);
+      if (entry) {
+        markerController.openPopupFromEntry(entry);
+        openEditEditor(entry);
+      }
+    } else if (editModeEnabled) {
+      markerController.refreshActivePopupContent();
+    }
+
+    if (!editModeEnabled) {
+      hideEditEditor();
+    }
+  }
+
   return {
     installControl,
     isEditModeEnabled,
+    setEditMode,
     openEditEditor,
+    hideEditEditor,
     onExistingPointMoved,
     addTemporaryMarker,
     setTemporaryMarkersVisible,

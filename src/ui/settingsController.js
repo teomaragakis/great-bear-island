@@ -6,6 +6,8 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
     settingsToggle,
     poiSearch,
     poiSearchClear,
+    editPoiSearch,
+    editPoiSearchClear,
     groupPois,
     groupByCategory,
     hideMissingPois,
@@ -65,6 +67,16 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
 
   function syncPoiSearchClearButton() {
     poiSearchClear.hidden = poiSearch.value.length === 0;
+    if (editPoiSearchClear) {
+      editPoiSearchClear.hidden = poiSearch.value.length === 0;
+    }
+  }
+
+  function syncPoiSearchInputs(value) {
+    poiSearch.value = value;
+    if (editPoiSearch) {
+      editPoiSearch.value = value;
+    }
   }
 
   function syncSettingsCollapse() {
@@ -86,16 +98,32 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
 
     poiSearch.addEventListener('input', () => {
       syncPoiSearchClearButton();
+      if (editPoiSearch) editPoiSearch.value = poiSearch.value;
       savePersistedSettings();
       onChange();
     });
 
     poiSearchClear.addEventListener('click', () => {
-      poiSearch.value = '';
+      syncPoiSearchInputs('');
       syncPoiSearchClearButton();
       savePersistedSettings();
       onChange();
       poiSearch.focus();
+    });
+
+    editPoiSearch?.addEventListener('input', () => {
+      poiSearch.value = editPoiSearch.value;
+      syncPoiSearchClearButton();
+      savePersistedSettings();
+      onChange();
+    });
+
+    editPoiSearchClear?.addEventListener('click', () => {
+      syncPoiSearchInputs('');
+      syncPoiSearchClearButton();
+      savePersistedSettings();
+      onChange();
+      editPoiSearch.focus();
     });
 
     groupPois.addEventListener('change', () => {
@@ -126,7 +154,7 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
   function sync() {
     // First render should honor persisted preferences before any legend/marker build happens.
     const persisted = loadPersistedSettings();
-    poiSearch.value = persisted.poiSearch ?? '';
+    syncPoiSearchInputs(persisted.poiSearch ?? '');
     groupPois.checked = persisted.groupPois ?? true;
     groupByCategory.checked = persisted.groupByCategory ?? true;
     hideMissingPois.checked = persisted.hideMissingPois ?? true;

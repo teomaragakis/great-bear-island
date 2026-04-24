@@ -527,6 +527,7 @@
       {
         "id": "misanthropes-homestead",
         "name": "Misanthrope's Homestead",
+        "url": "https://thelongdark.fandom.com/wiki/Misanthrope%27s_Homestead",
         "contents": ["bed", "first-aid", "metal-box", "plastic-box"],
         "pixelCoords": [3646, 1724]
       },
@@ -585,11 +586,6 @@
         "pixelCoords": [2739, 3116]
       },
       {
-        "id": "destroyed-building",
-        "name": "Destroyed Building",
-        "pixelCoords": [2777, 3066]
-      },
-      {
         "id": "poi-0280",
         "desc": "todo",
         "pixelCoords": [3513, 3409]
@@ -598,17 +594,6 @@
         "id": "poi-0281",
         "desc": "todo",
         "pixelCoords": [3551, 3423]
-      },
-      {
-        "id": "destroyed-building-2",
-        "name": "Destroyed Building",
-        "desc": "Todo",
-        "pixelCoords": [3573, 3352]
-      },
-      {
-        "id": "destroyed-building-3",
-        "name": "Destroyed Building",
-        "pixelCoords": [3605, 3354]
       },
       {
         "id": "poi-0324",
@@ -633,6 +618,20 @@
       {
         "id": "poi-0352",
         "pixelCoords": [4431, 2461]
+      }
+    ],
+    "destroyed-building": [
+      {
+        "id": "destroyed-building-2",
+        "pixelCoords": [3573, 3352]
+      },
+      {
+        "id": "destroyed-building-3",
+        "pixelCoords": [3605, 3354]
+      },
+      {
+        "id": "destroyed-building",
+        "pixelCoords": [2777, 3066]
       }
     ],
     "fishing-hut": [
@@ -728,7 +727,7 @@
     "corpse": [
       {
         "id": "poi-0083",
-        "pixelCoords": [1418, 3888]
+        "pixelCoords": [1439, 3907]
       },
       {
         "id": "poi-0092",
@@ -980,6 +979,10 @@
       {
         "id": "poi-0312",
         "pixelCoords": [4753, 3169]
+      },
+      {
+        "id": "poi-0355",
+        "pixelCoords": [3558, 3513]
       }
     ],
     "car": [
@@ -1007,6 +1010,12 @@
         "id": "poi-0353",
         "contents": ["scrawled-message", "knife", "book"],
         "pixelCoords": [4274, 454]
+      }
+    ],
+    "airplane": [
+      {
+        "id": "poi-0354",
+        "pixelCoords": [5145, 2277]
       }
     ]
   },
@@ -1385,7 +1394,7 @@
       },
       {
         "id": "poi-0082",
-        "pixelCoords": [1422, 3887]
+        "pixelCoords": [1441, 3904]
       },
       {
         "id": "poi-0093",
@@ -1425,7 +1434,7 @@
     "barb-rifle": [
       {
         "id": "poi-0084",
-        "pixelCoords": [1401, 3888]
+        "pixelCoords": [1403, 3898]
       },
       {
         "id": "poi-0127",
@@ -1479,7 +1488,7 @@
       },
       {
         "id": "poi-0157-2",
-        "desc": "Cairn 13",
+        "number": 13,
         "pixelCoords": [2402, 1882]
       },
       {

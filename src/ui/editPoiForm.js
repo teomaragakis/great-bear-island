@@ -43,6 +43,10 @@ export function createEditPoiForm({
     return getTypeMeta(categoryKey, typeKey)?.contents === true;
   }
 
+  function getTypeIsNumbered(categoryKey, typeKey) {
+    return getTypeMeta(categoryKey, typeKey)?.numbered === true;
+  }
+
   function shouldHideNameField(categoryKey, typeKey) {
     const categoryName = getCategoryMeta(categoryKey)?.name;
     const typeName = getTypeMeta(categoryKey, typeKey)?.name;
@@ -188,7 +192,7 @@ export function createEditPoiForm({
     return `
       <div class="form-field edit-field edit-contents-field">
         <label class="form-toggle settings-toggle edit-inline-toggle">
-          <span class="form-label">Has contents</span>
+          <span class="form-label">Contents</span>
           <input
             data-role="contents-toggle"
             type="checkbox"
@@ -213,9 +217,12 @@ export function createEditPoiForm({
     if (shouldHideDescField(targetPoint.category, targetPoint.type)) {
       delete targetPoint.desc;
     }
+    if (!getTypeIsNumbered(targetPoint.category, targetPoint.type)) {
+      delete targetPoint.number;
+    }
 
     Object.keys(targetPoint).forEach(key => {
-      if (['id', 'category', 'type', 'name', 'desc', 'pixelCoords', 'coords', 'contents'].includes(key)) return;
+      if (['id', 'category', 'type', 'name', 'desc', 'number', 'pixelCoords', 'coords', 'contents'].includes(key)) return;
       if (!allowedFieldKeys.has(key)) {
         delete targetPoint[key];
       }
@@ -376,8 +383,10 @@ export function createEditPoiForm({
 
   const pointName = point.name ?? '';
   const pointDesc = point.desc ?? '';
+  const pointNumber = point.number ?? '';
   const hideNameField = shouldHideNameField(point.category, point.type);
   const hideDescField = shouldHideDescField(point.category, point.type);
+  const showNumberField = getTypeIsNumbered(point.category, point.type);
   const customFieldsMarkup = buildCustomFieldsMarkup(point.category, point.type, point);
   const container = document.createElement('div');
   container.className = 'edit-form';
@@ -394,6 +403,12 @@ export function createEditPoiForm({
       <input class="form-control" data-role="name" type="text" value="${escapeHtml(pointName)}">
     </div>
     `}
+    ${showNumberField ? `
+    <div class="form-field edit-field">
+      <span class="form-label">Number</span>
+      <input class="form-control" data-role="number" type="number" min="1" step="1" value="${escapeHtml(String(pointNumber))}">
+    </div>
+    ` : ''}
     ${buildContentsFieldMarkup(point.category, point.type, point)}
     ${customFieldsMarkup ? `
     <div data-role="custom-fields">
@@ -415,6 +430,7 @@ export function createEditPoiForm({
 
   const poiTypeSelect = container.querySelector('[data-role="poi-type"]');
   const nameInput = container.querySelector('[data-role="name"]');
+  const numberInput = container.querySelector('[data-role="number"]');
   const descInput = container.querySelector('[data-role="desc"]');
   const deleteButton = container.querySelector('.edit-delete');
 
@@ -440,6 +456,13 @@ export function createEditPoiForm({
 
   nameInput?.addEventListener('input', () => {
     point.name = nameInput.value;
+    refreshPopup(entry);
+  });
+
+  numberInput?.addEventListener('input', () => {
+    const parsed = parseInt(numberInput.value, 10);
+    if (isNaN(parsed)) delete point.number;
+    else point.number = parsed;
     refreshPopup(entry);
   });
 

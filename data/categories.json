@@ -1,6 +1,7 @@
 {
   "navigation": {
     "label": "Navigation & Landmarks",
+    "important": true,
     "color": "#a1045a",
     "name": false,
     "desc": false,
@@ -54,12 +55,13 @@
     }
   },
   "locations": {
+    "important": true,
     "label": "Locations & Shelter",
     "color": "#1B5886",
     "types": {
       "bear-cave": {
         "label": "Bear Cave",
-        "icon": "assets/icons/cave.svg",
+        "icon": "assets/icons/pois/cave.svg",
         "name": false,
         "desc": false,
         "info": "A cave that serves as a bear's den and sleeping area."
@@ -151,13 +153,13 @@
       },
       "pot-belly-stove": {
         "label": "Pot Belly Stove",
-        "icon": "assets/icons/pot-belly-stove.svg",
+        "icon": "assets/icons/pois/pot-belly-stove.svg",
         "url": "https://thelongdark.fandom.com/wiki/Pot_Belly_Stove",
         "info": "A small cast-iron stove found in outbuildings and fishing huts."
       },
       "stove": {
         "label": "Stove",
-        "icon": "assets/icons/stove.svg",
+        "icon": "assets/icons/pois/stove.svg",
         "url": "https://thelongdark.fandom.com/wiki/Stove",
         "info": "A kitchen appliance used for cooking food and melting snow."
       },
@@ -176,6 +178,71 @@
         "dlc": true,
         "url": "https://thelongdark.fandom.com/wiki/Trader%27s_Radio",
         "info": "A DLC radio used to contact Mathis and access the trading system."
+      }
+    }
+  },
+  "weapons-and-tools": {
+    "label": "Weapons & Tools",
+    "color": "#1CA3DE",
+    "types": {
+      "vaughns-rifle": {
+        "label": "Vaughn's Rifle",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle",
+        "info": "A unique DLC bolt-action rifle belonging to Vaughn, found in a fixed location."
+      },
+      "barb-rifle": {
+        "label": "Barb's Rifle",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Barb%27s_Rifle",
+        "icon": "assets/icons/pois/rifle.svg",
+        "info": "A unique DLC bolt-action rifle belonging to Barb, found in a fixed location."
+      },
+      "rifle": {
+        "label": "Rifle",
+        "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle",
+        "info": "A bolt-action hunting rifle effective for long-range game hunting."
+      },
+      "hunters-revolver": {
+        "label": "Hunter's Revolver",
+        "dlc": true,
+        "url": "https://thelongdark.fandom.com/wiki/Hunter%27s_Revolver",
+        "info": "A DLC high-calibre revolver capable of fending off predators."
+      },
+      "revolver": {
+        "label": "Revolver",
+        "url": "https://thelongdark.fandom.com/wiki/Revolver",
+        "info": "A reliable sidearm used for hunting and self-defence at close range."
+      },
+      "distress-pistol": {
+        "label": "Distress Pistol",
+        "url": "https://thelongdark.fandom.com/wiki/Distress_Pistol",
+        "info": "A single-shot flare gun that can deter wildlife and signal for help."
+      },
+      "bow": {
+        "label": "Bow",
+        "url": "https://thelongdark.fandom.com/wiki/Survival_Bow",
+        "info": "A craftable survival bow used for silent, reusable hunting."
+      },
+      "hatchet": {
+        "label": "Hatchet",
+        "url": "https://thelongdark.fandom.com/wiki/Hatchet",
+        "info": "A multi-purpose hand tool used for chopping wood and as a melee weapon."
+      },
+      "knife": {
+        "label": "Knife",
+        "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife",
+        "info": "A fixed-blade tool used for harvesting carcasses and skinning hides."
+      },
+      "hammer": {
+        "label": "Hammer",
+        "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer",
+        "info": "A heavy tool required for forge work and certain crafting recipes."
+      },
+      "rope": {
+        "label": "Rope",
+        "url": "https://thelongdark.fandom.com/wiki/Mountaineering_Rope",
+        "info": "A climbing rope anchored at cliff faces to enable vertical traversal."
       }
     }
   },
@@ -229,7 +296,7 @@
       },
       "trade-drop-box": {
         "label": "Trade Drop Box",
-        "icon": "assets/icons/trade-drop-box.svg",
+        "icon": "assets/icons/pois/trade-drop-box.svg",
         "url": "https://thelongdark.fandom.com/wiki/Trade_Drop_Box",
         "info": "A DLC drop box used to exchange items with the trader Mathis."
       },
@@ -243,71 +310,6 @@
         "url": "https://thelongdark.fandom.com/wiki/Supply_Cache",
         "dlc": true,
         "info": "A DLC airdrop container filled with a selection of useful supplies."
-      }
-    }
-  },
-  "weapons-and-tools": {
-    "label": "Weapons & Tools",
-    "color": "#1CA3DE",
-    "types": {
-      "vaughns-rifle": {
-        "label": "Vaughn's Rifle",
-        "dlc": true,
-        "url": "https://thelongdark.fandom.com/wiki/Vaughn%27s_Rifle",
-        "info": "A unique DLC bolt-action rifle belonging to Vaughn, found in a fixed location."
-      },
-      "barb-rifle": {
-        "label": "Barb's Rifle",
-        "dlc": true,
-        "url": "https://thelongdark.fandom.com/wiki/Barb%27s_Rifle",
-        "icon": "assets/icons/rifle.svg",
-        "info": "A unique DLC bolt-action rifle belonging to Barb, found in a fixed location."
-      },
-      "rifle": {
-        "label": "Rifle",
-        "url": "https://thelongdark.fandom.com/wiki/Hunting_Rifle",
-        "info": "A bolt-action hunting rifle effective for long-range game hunting."
-      },
-      "hunters-revolver": {
-        "label": "Hunter's Revolver",
-        "dlc": true,
-        "url": "https://thelongdark.fandom.com/wiki/Hunter%27s_Revolver",
-        "info": "A DLC high-calibre revolver capable of fending off predators."
-      },
-      "revolver": {
-        "label": "Revolver",
-        "url": "https://thelongdark.fandom.com/wiki/Revolver",
-        "info": "A reliable sidearm used for hunting and self-defence at close range."
-      },
-      "distress-pistol": {
-        "label": "Distress Pistol",
-        "url": "https://thelongdark.fandom.com/wiki/Distress_Pistol",
-        "info": "A single-shot flare gun that can deter wildlife and signal for help."
-      },
-      "bow": {
-        "label": "Bow",
-        "url": "https://thelongdark.fandom.com/wiki/Survival_Bow",
-        "info": "A craftable survival bow used for silent, reusable hunting."
-      },
-      "hatchet": {
-        "label": "Hatchet",
-        "url": "https://thelongdark.fandom.com/wiki/Hatchet",
-        "info": "A multi-purpose hand tool used for chopping wood and as a melee weapon."
-      },
-      "knife": {
-        "label": "Knife",
-        "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife",
-        "info": "A fixed-blade tool used for harvesting carcasses and skinning hides."
-      },
-      "hammer": {
-        "label": "Hammer",
-        "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer",
-        "info": "A heavy tool required for forge work and certain crafting recipes."
-      },
-      "rope": {
-        "label": "Rope",
-        "url": "https://thelongdark.fandom.com/wiki/Mountaineering_Rope",
-        "info": "A climbing rope anchored at cliff faces to enable vertical traversal."
       }
     }
   },
@@ -346,7 +348,7 @@
     }
   },
   "prey": {
-    "label": "Prey / Hunting",
+    "label": "Prey & Hunting",
     "color": "#92664a",
     "popup": false,
     "name": false,
@@ -443,6 +445,7 @@
         "label": "Cairn",
         "url": "https://thelongdark.fandom.com/wiki/Cairn",
         "desc": true,
+        "numbered": true,
         "info": "A stacked stone marker that may contain a note or be part of a challenge."
       },
       "polaroid": {

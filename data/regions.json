@@ -2,7 +2,7 @@
   "regions": {
     "coastal-highway": {
       "name": "Coastal Highway",
-      "desc": "A weather-battered coastline wrapped around a frozen bay, Coastal Highway is an intermediate region with strong shelter coverage, abundant early loot, fishing access, and coastal beachcombing. Its advantages are offset by thin ice in parts of the bay and heavy predator pressure, especially around the townsite, Log Sort, and Misanthrope's Homestead.",
+      "info": "A weather-battered coastline wrapped around a frozen bay, Coastal Highway is an intermediate region with strong shelter coverage, abundant early loot, fishing access, and coastal beachcombing. Its advantages are offset by thin ice in parts of the bay and heavy predator pressure, especially around the townsite, Log Sort, and Misanthrope's Homestead.",
       "path": "data/regions/coastal-highway.json",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
@@ -23,26 +23,26 @@
         "topographic": "assets/maps/coastal_highway-topo.jpeg"
       },
       "locations": [
-        { "name": "Abandoned Lookout", "desc": "A small fire lookout tower on the northern hill near the Pleasant Valley mine route.", "pixelCoords": [3612, 3618] },
-        { "name": "Bear Creek Campground", "desc": "An exposed campground beside a creek on the western side of the region.", "pixelCoords": [502, 3010] },
-        { "name": "Coastal Townsite", "desc": "A small settlement centered on the Quonset area, with many houses, cars, and frequent predators.", "pixelCoords": [4418, 2634] },
-        { "name": "Commuter's Lament", "desc": "A rockfall-choked roadside landmark at the southeastern edge that leads toward Crumbling Highway.", "pixelCoords": [4334, 296] },
-        { "name": "Fishing Camp", "desc": "A cluster of fishing cabins and docks between Bear Creek Campground and Jackrabbit Island.", "pixelCoords": [1474, 2660] },
-        { "name": "Jackrabbit Island", "desc": "An offshore island with a house and strong rabbit activity near the Fishing Camp.", "pixelCoords": [2334, 1968] },
-        { "name": "Log Sort", "desc": "A coastal worksite with log piles, a house, a trailer, and a nearby lower mine entrance.", "pixelCoords": [2814, 3114] },
-        { "name": "Misanthrope's Homestead", "desc": "A two-story house on a small island between Jackrabbit Island and the Waterfront Cottages." },
-        { "name": "Rabbit Grove", "desc": "A rabbit-rich area across the creek from Bear Creek Campground with a nearby cabin on the hill.", "pixelCoords": [406, 3220] },
-        { "name": "Rockfall", "desc": "The blocked western end of the Great Bear Highway with no passable route beyond it.", "pixelCoords": [889, 1651] },
-        { "name": "Silent Clearing", "desc": "An open clearing northeast of Coastal Townsite with harvested plants, deer, and a nearby rope climb.", "pixelCoords": [4886, 2810] },
-        { "name": "The Tooth", "desc": "A prominent rocky landmark overlooking the central coastal area near Log Sort.", "pixelCoords": [2288, 3122] },
-        { "name": "Train Unloading", "desc": "A far northern rail-side stop near the Ravine connection with a small trailer and modest loot.", "pixelCoords": [1299, 3795] },
-        { "name": "Waterfront Cottages", "desc": "A small cluster of southeastern cottages that can provide shelter and supplies depending on spawned condition.", "pixelCoords": [4292, 1048] }
+        { "name": "Abandoned Lookout", "info": "A small fire lookout tower on the northern hill near the Pleasant Valley mine route.", "pixelCoords": [3612, 3618] },
+        { "name": "Bear Creek Campground", "info": "An exposed campground beside a creek on the western side of the region.", "pixelCoords": [502, 3010] },
+        { "name": "Coastal Townsite", "info": "A small settlement centered on the Quonset area, with many houses, cars, and frequent predators.", "url": "https://thelongdark.fandom.com/wiki/Coastal_Townsite", "pixelCoords": [4418, 2634] },
+        { "name": "Commuter's Lament", "info": "A rockfall-choked roadside landmark at the southeastern edge that leads toward Crumbling Highway.", "pixelCoords": [4334, 296] },
+        { "name": "Fishing Camp", "info": "A cluster of fishing cabins and docks between Bear Creek Campground and Jackrabbit Island.", "pixelCoords": [1474, 2660] },
+        { "name": "Jackrabbit Island", "info": "An offshore island with a house and strong rabbit activity near the Fishing Camp.", "url": "https://thelongdark.fandom.com/wiki/Jackrabbit_Island", "pixelCoords": [2334, 1968] },
+        { "name": "Log Sort", "info": "A coastal worksite with log piles, a house, a trailer, and a nearby lower mine entrance.", "url": "https://thelongdark.fandom.com/wiki/Log_Sort", "pixelCoords": [2814, 3114] },
+        { "name": "Misanthrope's Homestead", "info": "A two-story house on a small island between Jackrabbit Island and the Waterfront Cottages.", "url": "https://thelongdark.fandom.com/wiki/Misanthrope%27s_Homestead" },
+        { "name": "Rabbit Grove", "info": "A rabbit-rich area across the creek from Bear Creek Campground with a nearby cabin on the hill.", "pixelCoords": [406, 3220] },
+        { "name": "Rockfall", "info": "The blocked western end of the Great Bear Highway with no passable route beyond it.", "pixelCoords": [889, 1651] },
+        { "name": "Silent Clearing", "info": "An open clearing northeast of Coastal Townsite with harvested plants, deer, and a nearby rope climb.", "pixelCoords": [4886, 2810] },
+        { "name": "The Tooth", "info": "A prominent rocky landmark overlooking the central coastal area near Log Sort.", "pixelCoords": [2288, 3122] },
+        { "name": "Train Unloading", "info": "A far northern rail-side stop near the Ravine connection with a small trailer and modest loot.", "pixelCoords": [1299, 3795] },
+        { "name": "Waterfront Cottages", "info": "A small cluster of southeastern cottages that can provide shelter and supplies depending on spawned condition.", "url": "https://thelongdark.fandom.com/wiki/Waterfront_Cottages", "pixelCoords": [4292, 1048] }
       ]
     },
     "mystery-lake": {
       "name": "Mystery Lake",
       "disabled": true,
-      "desc": "A balanced inland region centered on its namesake lake, with cabins, rail lines, fishing, and relatively forgiving navigation for new players.",
+      "info": "A balanced inland region centered on its namesake lake, with cabins, rail lines, fishing, and relatively forgiving navigation for new players.",
       "stats": [
         { "label": "Difficulty", "value": "Beginner" },
         { "label": "Mode", "value": "Survival / Story" },
@@ -52,7 +52,7 @@
     },
     "ravine": {
       "name": "Ravine",
-      "desc": "A narrow transition region dominated by a deep ravine, rail bridge crossing, sparse resources, and low shelter coverage.",
+      "info": "A narrow transition region dominated by a deep ravine, rail bridge crossing, sparse resources, and low shelter coverage.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival / Story" },
@@ -74,7 +74,7 @@
     },
     "pleasant-valley": {
       "name": "Pleasant Valley",
-      "desc": "A large agricultural basin known for long sightlines, punishing blizzards, scattered farmsteads, and wide travel distances between shelters.",
+      "info": "A large agricultural basin known for long sightlines, punishing blizzards, scattered farmsteads, and wide travel distances between shelters.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Shelter Density", "value": "Medium" },
@@ -99,7 +99,7 @@
     "desolation-point": {
       "name": "Desolation Point",
       "disabled": true,
-      "desc": "A compact industrial peninsula with a forge, lighthouse, shipwreck loot, and frequent predator pressure along narrow travel routes.",
+      "info": "A compact industrial peninsula with a forge, lighthouse, shipwreck loot, and frequent predator pressure along narrow travel routes.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival" },
@@ -110,7 +110,7 @@
     "crumbling-highway": {
       "name": "Crumbling Highway",
       "disabled": true,
-      "desc": "A collapsed coastal transition zone with mine tunnels, broken roadways, and limited shelter connecting Coastal Highway to Desolation Point.",
+      "info": "A collapsed coastal transition zone with mine tunnels, broken roadways, and limited shelter connecting Coastal Highway to Desolation Point.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival" },
@@ -121,7 +121,7 @@
     "timberwolf-mountain": {
       "name": "Timberwolf Mountain",
       "disabled": true,
-      "desc": "A steep alpine region built around rope climbs, exposed travel, and the summit’s high-value cargo loot.",
+      "info": "A steep alpine region built around rope climbs, exposed travel, and the summit’s high-value cargo loot.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival" },
@@ -132,7 +132,7 @@
     "forlorn-muskeg": {
       "name": "Forlorn Muskeg",
       "disabled": true,
-      "desc": "A bleak marshland of thin ice, rail lines, and sparse shelter that rewards route knowledge and caution.",
+      "info": "A bleak marshland of thin ice, rail lines, and sparse shelter that rewards route knowledge and caution.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival / Story" },
@@ -142,7 +142,7 @@
     },
     "broken-railroad": {
       "name": "Broken Railroad",
-      "desc": "A narrow end-of-line region with strong shelter options, industrial loot, and dangerous wildlife concentrated around chokepoints.",
+      "info": "A narrow end-of-line region with strong shelter options, industrial loot, and dangerous wildlife concentrated around chokepoints.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival / Story" },
@@ -162,7 +162,7 @@
     "mountain-town": {
       "name": "Mountain Town",
       "disabled": true,
-      "desc": "A beginner-friendly region built around the town of Milton, with dense shelter, good early loot, and surrounding cliffs and basins.",
+      "info": "A beginner-friendly region built around the town of Milton, with dense shelter, good early loot, and surrounding cliffs and basins.",
       "stats": [
         { "label": "Difficulty", "value": "Beginner" },
         { "label": "Mode", "value": "Survival / Story" },
@@ -173,7 +173,7 @@
     "hushed-river-valley": {
       "name": "Hushed River Valley",
       "disabled": true,
-      "desc": "A remote wilderness region with no conventional indoor shelter, vertical navigation, rich resources, and strong survival demands.",
+      "info": "A remote wilderness region with no conventional indoor shelter, vertical navigation, rich resources, and strong survival demands.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival" },
@@ -184,7 +184,7 @@
     "bleak-inlet": {
       "name": "Bleak Inlet",
       "disabled": true,
-      "desc": "A storm-lashed coastal-industrial region featuring timberwolves, dangerous traversals, and access to ammunition crafting infrastructure.",
+      "info": "A storm-lashed coastal-industrial region featuring timberwolves, dangerous traversals, and access to ammunition crafting infrastructure.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival" },
@@ -195,7 +195,7 @@
     "ash-canyon": {
       "name": "Ash Canyon",
       "disabled": true,
-      "desc": "A severe canyonland of rope climbs, narrow ledges, and high-value unique rewards hidden in difficult terrain.",
+      "info": "A severe canyonland of rope climbs, narrow ledges, and high-value unique rewards hidden in difficult terrain.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival" },
@@ -206,7 +206,7 @@
     "blackrock": {
       "name": "Blackrock",
       "disabled": true,
-      "desc": "A mountainous prison region mixing industrial structures, severe weather, timberwolves, and long, hazardous routes.",
+      "info": "A mountainous prison region mixing industrial structures, severe weather, timberwolves, and long, hazardous routes.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival / Story" },
@@ -218,7 +218,7 @@
       "name": "Transfer Pass",
       "disabled": true,
       "dlc": true,
-      "desc": "A rail transfer hub that serves as the main gateway into the Far Territory expansion regions.",
+      "info": "A rail transfer hub that serves as the main gateway into the Far Territory expansion regions.",
       "stats": [
         { "label": "Difficulty", "value": "Intermediate" },
         { "label": "Mode", "value": "Survival" },
@@ -230,7 +230,7 @@
       "name": "Forsaken Airfield",
       "disabled": true,
       "dlc": true,
-      "desc": "A vast, exposed airfield region with bitter cold, heavy travel distances, and sparse but valuable infrastructure.",
+      "info": "A vast, exposed airfield region with bitter cold, heavy travel distances, and sparse but valuable infrastructure.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival" },
@@ -242,7 +242,7 @@
       "name": "Zone of Contamination",
       "disabled": true,
       "dlc": true,
-      "desc": "A poisoned industrial mining region defined by toxic gas hazards, mine structures, and severe environmental risk.",
+      "info": "A poisoned industrial mining region defined by toxic gas hazards, mine structures, and severe environmental risk.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival" },
@@ -254,7 +254,7 @@
       "name": "Sundered Pass",
       "disabled": true,
       "dlc": true,
-      "desc": "A high-altitude mountain pass with avalanches, extreme cold, and exposed routes linking the Far Territory regions.",
+      "info": "A high-altitude mountain pass with avalanches, extreme cold, and exposed routes linking the Far Territory regions.",
       "stats": [
         { "label": "Difficulty", "value": "Advanced" },
         { "label": "Mode", "value": "Survival" },

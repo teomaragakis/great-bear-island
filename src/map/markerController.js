@@ -18,6 +18,9 @@ export function createMarkerController({
   isEditModeEnabled,
   onOpenEditEditor,
   onEditPointMoved,
+  onPoiOpen = () => {},
+  onPoiClose = () => {},
+  onLocationOpen = () => {},
 }) {
   const POPUP_EDGE_PADDING = 20;
   let activeMarkers = [];
@@ -106,9 +109,9 @@ export function createMarkerController({
     }).join('');
 
     return `
-      <div class="popup-contents">
+      <div class="info-item popup-contents">
         <div class="popup-label">Contents</div>
-        <ul class="popup-contents-list">${itemsHtml}</ul>
+        <ul class="info-item-value popup-contents-list">${itemsHtml}</ul>
       </div>
     `;
   }
@@ -121,9 +124,9 @@ export function createMarkerController({
     const targetRegionName = getRegionIndex()[point.transition]?.name ?? point.transition;
 
     return `
-      <div class="popup-transition">
+      <div class="info-item popup-transition">
         <div class="popup-label">Region Connection</div>
-        <div class="popup-transition-value">${targetRegionName}</div>
+        <div class="info-item-value popup-transition-value">${targetRegionName}</div>
       </div>
     `;
   }
@@ -133,12 +136,9 @@ export function createMarkerController({
     const category = getCategoryMeta(point.category);
     const type = getTypeMeta(point.category, point.type);
     const pointIcon = getPointIcon(point.category, point.type, point);
-    const popupTitle = point.name || type?.label || category.label;
-    const popupDesc = typeof point.desc === 'string'
-      ? point.desc
-      : typeof type?.desc === 'string'
-        ? type.desc
-        : '';
+    const baseName = point.name || type?.label || category.label;
+    const popupTitle = point.number != null ? `${baseName} #${point.number}` : baseName;
+    const poiDesc = typeof point.desc === 'string' ? point.desc : '';
     const contentsHtml = getContentsHtml(point);
     const transitionHtml = getTransitionHtml(point);
     const titleHtml = `
@@ -167,11 +167,23 @@ export function createMarkerController({
     return `
       <div class="popup-cat" style="color:${category.color}">${category.label}</div>
       ${titleHtml}
-      ${popupDesc ? `<div class="popup-desc">${popupDesc}</div>` : ''}
+      ${poiDesc ? `<div class="popup-desc">${poiDesc}</div>` : ''}
       ${transitionHtml}
       ${contentsHtml}
       ${idHtml}
       ${coordsHtml}
+    `;
+  }
+
+  function getPoiInfoContent(point) {
+    const type = getTypeMeta(point.category, point.type);
+    const poiDesc = typeof point.desc === 'string' ? point.desc : '';
+    const typeInfo = typeof type?.info === 'string' ? type.info : '';
+    return `
+      ${getContentsHtml(point)}
+      ${getTransitionHtml(point)}
+      ${poiDesc ? `<div class="info-item"><div class="popup-label">Notes</div><div class="info-item-value">${poiDesc}</div></div>` : ''}
+      ${typeInfo ? `<div class="info-item"><div class="popup-label">Info</div><div class="info-item-value">${typeInfo}</div></div>` : ''}
     `;
   }
 
@@ -248,6 +260,10 @@ export function createMarkerController({
       if (activeMarkerEl === activeEl) {
         activeMarkerEl = null;
       }
+      if (activeViewPoi === point) {
+        activeViewPoi = null;
+        if (!isEditModeEnabled()) onPoiClose();
+      }
     });
 
     currentPopup.openOn(map);
@@ -321,10 +337,8 @@ export function createMarkerController({
         if (event.originalEvent) L.DomEvent.stop(event.originalEvent);
 
         const targetZoom = Math.min(map.getMaxZoom(), 0);
-
-        map.setView(latlng, targetZoom, {
-          animate: true,
-        });
+        map.setView(latlng, targetZoom, { animate: true });
+        onLocationOpen(location);
       });
 
       activeLocationLabels.push(marker);
@@ -451,7 +465,7 @@ export function createMarkerController({
         activeViewPoi = poi;
         if (!isEditModeEnabled() && !shouldOpenPopupOnClick(poi)) {
           closeCurrentPopup();
-          activeViewPoi = null;
+          onPoiOpen(poi);
           return;
         }
 
@@ -459,6 +473,8 @@ export function createMarkerController({
 
         if (isEditModeEnabled()) {
           onOpenEditEditor({ marker, point: poi, el });
+        } else {
+          onPoiOpen(poi);
         }
       });
 
@@ -532,6 +548,7 @@ export function createMarkerController({
     if (!point) return;
     activeViewPoi = point;
     currentPopup = openPopupForPoint(point, entry.marker.getLatLng(), activeEl);
+    if (!isEditModeEnabled()) onPoiOpen(point);
   }
 
   function getActiveViewPoi() {
@@ -553,5 +570,6 @@ export function createMarkerController({
     applyPixelCoordsToPoint,
     setMarkerDragState,
     getActiveViewPoi,
+    getPoiInfoContent,
   };
 }

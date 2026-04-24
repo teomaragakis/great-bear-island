@@ -196,7 +196,7 @@ export async function loadRegions() {
   // Load the three app inputs up front: region index, icon manifest, and taxonomy.
   const [regionIndexResponse, iconIndexResponse, categoriesPayload] = await Promise.all([
     fetch('data/regions.json', { cache: 'no-store' }),
-    fetch('assets/icons/index.json', { cache: 'no-store' }),
+    fetch('assets/icons/pois/index.json', { cache: 'no-store' }),
     fetchFirstAvailableJson(['data/categories.json', 'data/poi-categories.json']),
   ]);
 
@@ -204,7 +204,7 @@ export async function loadRegions() {
     throw new Error(`Failed to load regions.json (${regionIndexResponse.status})`);
   }
   if (!iconIndexResponse.ok) {
-    throw new Error(`Failed to load assets/icons/index.json (${iconIndexResponse.status})`);
+    throw new Error(`Failed to load assets/icons/pois/index.json (${iconIndexResponse.status})`);
   }
 
   const [rawRegionIndex, rawIconIndex] = await Promise.all([

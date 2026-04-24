@@ -20,6 +20,7 @@ export function createLegendController({
   getPointIcon,
 }) {
   const collapsedGroups = new Set();
+  const autoCollapsedGroups = new Set(); // groups collapsed automatically in search mode
 
   function getCurrentPois() {
     return getRegions()[getCurrentRegion()].pois;
@@ -129,7 +130,10 @@ export function createLegendController({
     if (!hasEnabledItems) return;
 
     const allVisible = getVisibleFilterKeys(filterKeys).length === filterKeys.length;
-    toggleEl.textContent = allVisible ? 'Hide' : 'Show';
+    const verb = allVisible ? 'Hide' : 'Show';
+    toggleEl.textContent = verb;
+    const groupLabel = toggleEl.dataset.groupLabel;
+    if (groupLabel) toggleEl.setAttribute('aria-label', `${verb} ${groupLabel}`);
   }
 
   function toggleLegendGroup(groupKey, filterKeys, itemsContainer, toggleEl, groupEl, collapseToggleEl) {
@@ -175,7 +179,22 @@ export function createLegendController({
     syncGroupCollapse(groupKey, groupEl, collapseToggleEl);
   }
 
-  function buildLegend(regionKey = getCurrentRegion()) {
+  function expandGroup(groupKey) {
+    collapsedGroups.delete(groupKey);
+    autoCollapsedGroups.delete(groupKey);
+  }
+
+  function expandAllGroups() {
+    collapsedGroups.clear();
+    autoCollapsedGroups.clear();
+  }
+
+  function clearAutoCollapse() {
+    autoCollapsedGroups.forEach(k => collapsedGroups.delete(k));
+    autoCollapsedGroups.clear();
+  }
+
+  function buildLegend(regionKey = getCurrentRegion(), collapseInactive = false) {
     // The legend is derived from the current region's live POI counts.
     const pois = getRegions()[regionKey].pois;
     const pointCategories = getPointCategories();
@@ -247,6 +266,7 @@ export function createLegendController({
       const toggle = document.createElement('button');
       toggle.type = 'button';
       toggle.className = 'legend-group-toggle';
+      toggle.dataset.groupLabel = category.label;
       header.appendChild(toggle);
       group.appendChild(header);
 
@@ -263,6 +283,12 @@ export function createLegendController({
       });
 
       syncGroupCollapse(key, group, collapseToggle);
+      if (collapseInactive && getVisibleFilterKeys(enabledFilterKeys).length === 0) {
+        if (!collapsedGroups.has(key)) {
+          autoCollapsedGroups.add(key);
+          setGroupCollapsed(key, true, group, collapseToggle);
+        }
+      }
       title.addEventListener('click', () => toggleGroupCollapse(key, group, collapseToggle));
       syncLegendGroupToggle(toggle, enabledFilterKeys);
       toggle.addEventListener('click', () => toggleLegendGroup(key, enabledFilterKeys, items, toggle, group, collapseToggle));
@@ -278,10 +304,14 @@ export function createLegendController({
     if (!hideAllButtonEl) return;
 
     const allHidden = getActiveFilters().size === 0;
-    hideAllButtonEl.textContent = allHidden ? 'Show all' : 'Hide all';
+    hideAllButtonEl.classList.toggle('all-hidden', allHidden);
+    hideAllButtonEl.setAttribute('aria-label', allHidden ? 'Show all POIs' : 'Hide all POIs');
+
+    const img = hideAllButtonEl.querySelector('img');
+    if (img) img.src = allHidden ? 'assets/icons/ui/eye.svg' : 'assets/icons/ui/eye-closed.svg';
   }
 
-  function toggleAll() {
+  function toggleAll(preservedFilterKeys = []) {
     const activeFilters = getActiveFilters();
 
     if (activeFilters.size === 0) {
@@ -293,6 +323,9 @@ export function createLegendController({
       });
     } else {
       activeFilters.clear();
+      preservedFilterKeys.forEach(filterKey => {
+        activeFilters.add(filterKey);
+      });
     }
 
     refreshMarkerVisibility();
@@ -302,5 +335,7 @@ export function createLegendController({
   return {
     buildLegend,
     toggleAll,
+    expandGroup,
+    expandAllGroups,
   };
 }

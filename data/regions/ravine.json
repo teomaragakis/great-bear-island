@@ -156,52 +156,52 @@
     "cairn": [
       {
         "id": "poi-0004",
-        "desc": "71",
+        "number": 71,
         "pixelCoords": [269, 942]
       },
       {
         "id": "poi-0026",
-        "desc": "126",
+        "number": 126,
         "pixelCoords": [2686, 898]
       },
       {
         "id": "poi-0033",
-        "desc": "14",
+        "number": 14,
         "pixelCoords": [1112, 867]
       },
       {
         "id": "poi-0034",
-        "desc": "15",
+        "number": 15,
         "pixelCoords": [1151, 922]
       },
       {
         "id": "poi-0059",
-        "desc": "135",
+        "number": 135,
         "pixelCoords": [515, 772]
       },
       {
         "id": "poi-0064",
-        "desc": "142",
+        "number": 142,
         "pixelCoords": [679, 680]
       },
       {
         "id": "poi-0065",
-        "desc": "145",
+        "number": 145,
         "pixelCoords": [696, 662]
       },
       {
         "id": "poi-0066",
-        "desc": "79",
+        "number": 79,
         "pixelCoords": [800, 599]
       },
       {
         "id": "poi-0077",
-        "desc": "46",
+        "number": 46,
         "pixelCoords": [1043, 580]
       },
       {
         "id": "poi-0080",
-        "desc": "110",
+        "number": 110,
         "pixelCoords": [1264, 585]
       }
     ]

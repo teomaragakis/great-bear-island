@@ -38,6 +38,7 @@
 </head>
 <body>
   <div class="app-shell">
+
     <!-- ── TOP BAR ── -->
     <header class="topbar">
       <div class="topbar-left">
@@ -57,80 +58,200 @@
           <label>LAYER</label>
           <div class="layer-tabs">
             <button class="layer-btn active" data-layer="aerial-contour">Aerial Contour</button>
-            <button class="layer-btn " data-layer="aerial">Aerial</button>
+            <button class="layer-btn" data-layer="aerial">Aerial</button>
             <button class="layer-btn" data-layer="topographic">Topographic</button>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- ── MAIN LAYOUT ── -->
-    <main class="app-main">
-      <section class="map-region" aria-label="Map region">
-        <div id="map"></div>
-      </section>
+    <!-- ── MAP ── -->
+    <main id="map" aria-label="Map"></main>
 
-      <!-- ── SIDEBAR ── -->
-      <aside id="sidebar" class="sidebar" aria-label="Points of interest sidebar">
-        <div class="sidebar-header">
-          <h2>Points of Interest</h2>
-          <button type="button" id="hide-all-pois" class="legend-group-toggle">Hide all</button>
-        </div>
-        <div class="sidebar-section" id="edit-poi-panel" hidden>
-          <div id="edit-poi-form"></div>
-        </div>
-        <div class="sidebar-section">
-          <div class="sidebar-search">
-            <input
-              type="text"
-              id="poi-search"
-              class="sidebar-search-input"
-              placeholder="Search POIs"
-              autocomplete="off"
-            />
-            <button type="button" id="poi-search-clear" class="sidebar-search-clear" hidden aria-label="Clear POI search">✕</button>
+    <!-- ── RIGHT PANEL STACK ── -->
+    <div class="panels-right">
+
+      <!-- POI INFO PANEL -->
+      <div class="poi-panel-wrapper" id="poi-panel-wrapper">
+        <div class="map-panel poi-info-panel" id="poi-info-panel">
+          <div class="panel-header">
+            <div class="panel-header-row">
+              <div class="panel-header-collapsible">
+                <span class="poi-info-icon" id="poi-info-icon"></span>
+                <div class="panel-header-title">
+                  <div class="modal-kicker" id="poi-info-kicker">—</div>
+                  <h3 class="panel-title" id="poi-info-name">—</h3>
+                </div>
+              </div>
+              <button type="button" class="panel-btn" id="poi-info-close-btn" aria-label="Close POI info">✕</button>
+            </div>
           </div>
-          <div class="legend" id="legend">
+          <div class="panel-body">
+            <div class="panel-pane" id="panel-pane-poi-info">
+              <div class="panel-section" id="poi-info-content"></div>
+            </div>
+            <div class="panel-pane" id="panel-pane-poi-edit" hidden>
+              <div id="edit-poi-panel" class="panel-section" hidden>
+                <div id="edit-poi-form"></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer" id="poi-info-footer" hidden>
+            <a class="poi-info-link" id="poi-info-link" href="" target="_blank" rel="noopener noreferrer">Wiki page ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FLOATING PANEL (Google Maps-style drawer) ── -->
+      <div class="map-panel" id="map-panel">
+      <div class="panel-header">
+
+        <!-- Mobile drag handle -->
+        <div class="panel-drag-handle" id="panel-drag-handle" aria-hidden="true"></div>
+
+        <div class="panel-header-row">
+          <div class="panel-header-collapsible">
+            <div class="panel-header-title">
+              <div class="modal-kicker" id="panel-region-name">Coastal Highway</div>
+              <h3 class="panel-title">Legend</h3>
+            </div>
+            <div class="panel-header-actions">
+              <button type="button" class="panel-btn" id="hide-all-pois" aria-label="Hide all POIs">
+                <img src="assets/icons/ui/eye.svg" alt="" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+          <button type="button" class="panel-btn" id="panel-toggle-btn" aria-label="Toggle panel">✕</button>
+        </div>
+
+      </div><!-- /.panel-header -->
+
+      <!-- ── PANEL BODY (scrollable, mode-specific content) ── -->
+      <div class="panel-body">
+
+        <!-- MAP PANE -->
+        <div class="panel-pane" id="panel-pane-explore">
+          <div class="panel-section legend-search-section">
+            <div class="panel-title-wrap">
+              <input
+                type="text"
+                id="poi-filter"
+                class="legend-search-input"
+                placeholder="Filter items"
+                autocomplete="off"
+              />
+              <button type="button" id="poi-filter-clear" class="legend-filter-clear" hidden aria-label="Clear search">✕</button>
+            </div>
+          </div>
+          <div class="panel-section legend-list-section">
+            <div class="legend" id="legend">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+          <div class="panel-section sidebar-settings sticky collapsed" id="sidebar-settings">
+            <button type="button" id="settings-toggle" class="sidebar-settings-header" aria-expanded="false">
+              <span class="sidebar-settings-title">Settings</span>
+              <span class="sidebar-settings-chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="sidebar-settings-body">
+              <label class="form-toggle settings-toggle" for="group-pois">
+                <span>Group nearby items</span>
+                <input type="checkbox" id="group-pois" checked />
+                <span class="settings-switch" aria-hidden="true"></span>
+              </label>
+              <label class="form-toggle settings-toggle" for="group-by-category">
+                <span>Group by type</span>
+                <input type="checkbox" id="group-by-category" checked />
+                <span class="settings-switch" aria-hidden="true"></span>
+              </label>
+              <label class="form-toggle settings-toggle" for="hide-missing-pois">
+                <span>Hide items not present in region</span>
+                <input type="checkbox" id="hide-missing-pois" checked />
+                <span class="settings-switch" aria-hidden="true"></span>
+              </label>
+              <label class="form-toggle settings-toggle" for="show-dlc-pois">
+                <span>Show DLC content</span>
+                <input type="checkbox" id="show-dlc-pois" checked />
+                <span class="settings-switch" aria-hidden="true"></span>
+              </label>
+              <label class="form-toggle settings-toggle" for="flatten-pois">
+                <span>Flatten POI list</span>
+                <input type="checkbox" id="flatten-pois" />
+                <span class="settings-switch" aria-hidden="true"></span>
+              </label>
+            </div>
+          </div>
+        </div><!-- /#panel-pane-explore -->
+
+        <!-- LIST PANE -->
+        <div class="panel-pane" id="panel-pane-search" hidden>
+          <div id="poi-list" class="poi-list">
             <!-- Populated by JS -->
           </div>
-        </div>
-        <div class="sidebar-section sidebar-settings collapsed" id="sidebar-settings">
-          <button type="button" id="settings-toggle" class="sidebar-settings-header" aria-expanded="false">
-            <span class="sidebar-settings-title">Settings</span>
-            <span class="sidebar-settings-chevron" aria-hidden="true">▾</span>
-          </button>
-          <div class="sidebar-settings-body">
-            <label class="form-toggle settings-toggle" for="group-pois">
-              <span>Group nearby items</span>
-              <input type="checkbox" id="group-pois" checked />
-              <span class="settings-switch" aria-hidden="true"></span>
-            </label>
-            <label class="form-toggle settings-toggle" for="group-by-category">
-              <span>Group by category</span>
-              <input type="checkbox" id="group-by-category" checked />
-              <span class="settings-switch" aria-hidden="true"></span>
-            </label>
-            <label class="form-toggle settings-toggle" for="hide-missing-pois">
-              <span>Hide items not present in region</span>
-              <input type="checkbox" id="hide-missing-pois" checked />
-              <span class="settings-switch" aria-hidden="true"></span>
-            </label>
-            <label class="form-toggle settings-toggle" for="show-dlc-pois">
-              <span>Show DLC content</span>
-              <input type="checkbox" id="show-dlc-pois" checked />
-              <span class="settings-switch" aria-hidden="true"></span>
-            </label>
-            <label class="form-toggle settings-toggle" for="flatten-pois">
-              <span>Flatten POI list</span>
-              <input type="checkbox" id="flatten-pois" />
-              <span class="settings-switch" aria-hidden="true"></span>
-            </label>
-          </div>
-        </div>
-      </aside>
-    </main>
+        </div><!-- /#panel-pane-search -->
 
+        <!-- EDIT PANE -->
+        <div class="panel-pane" id="panel-pane-edit" hidden>
+          <div class="panel-section legend-search-section">
+            <div class="panel-title-wrap">
+              <input
+                type="text"
+                id="edit-poi-filter"
+                class="legend-search-input"
+                placeholder="Filter items"
+                autocomplete="off"
+              />
+              <button type="button" id="edit-poi-filter-clear" class="legend-filter-clear" hidden aria-label="Clear search">✕</button>
+            </div>
+          </div>
+          <div class="panel-section legend-list-section">
+            <div id="edit-poi-list" class="legend"></div>
+          </div>
+          <div class="panel-section panel-edit-hint sticky">
+            <p>Click the map to place a new POI, or click an existing marker to edit it.</p>
+            <p class="panel-edit-hint-sub">Press <kbd>Backspace</kbd> to delete the selected POI.</p>
+          </div>
+        </div><!-- /#panel-pane-edit -->
+
+      </div><!-- /.panel-body -->
+      <div class="panel-footer" id="map-panel-footer" hidden>
+        <button type="button" id="json-modal-trigger" class="panel-edit-action-btn" hidden>View JSON</button>
+      </div>
+      </div><!-- /.map-panel (legend) -->
+
+    </div><!-- /.panels-right -->
+
+    <!-- ── LEFT PANEL STACK ── -->
+    <div class="panels-left">
+      <div class="map-mode-control">
+        <div class="panel-mode-tabs" role="tablist" aria-label="View mode">
+          <button type="button" class="panel-mode-tab" data-mode="search" role="tab" aria-selected="false" aria-label="Search"><img src="assets/icons/ui/search.svg" alt="" aria-hidden="true" /></button>
+          <button type="button" class="panel-mode-tab active" data-mode="explore" role="tab" aria-selected="true" aria-label="Explore"><img src="assets/icons/ui/compass.svg" alt="" aria-hidden="true" /></button>
+          <button type="button" class="panel-mode-tab" data-mode="edit" role="tab" aria-selected="false" aria-label="Edit"><img src="assets/icons/ui/edit.svg" alt="" aria-hidden="true" /></button>
+        </div>
+      </div>
+      <input type="text" id="left-search-input" class="left-search-input" placeholder="Search items, places and regions." autocomplete="off" hidden />
+    </div>
+
+    <!-- ── MOBILE BOTTOM NAVIGATION ── -->
+    <nav class="mobile-bottom-nav" aria-label="View mode">
+      <button type="button" class="mobile-nav-btn" data-mode="search" aria-label="Search">
+        <img src="assets/icons/ui/search.svg" alt="" aria-hidden="true" />
+      </button>
+      <button type="button" class="mobile-nav-btn active" data-mode="explore" aria-label="Explore">
+        <img src="assets/icons/ui/compass.svg" alt="" aria-hidden="true" />
+      </button>
+      <button type="button" class="mobile-nav-btn" data-mode="edit" aria-label="Edit">
+        <img src="assets/icons/ui/edit.svg" alt="" aria-hidden="true" />
+      </button>
+    </nav>
+
+    <!-- ── MOBILE BACKDROP ── -->
+    <div class="panel-backdrop" id="panel-backdrop" hidden></div>
+
+    <!-- ── MODALS ── -->
     <section class="app-overlays" aria-label="App overlays">
+
       <div id="json-modal" class="modal modal-json" hidden>
         <div class="modal-backdrop" data-close-json-modal></div>
         <div class="modal-dialog modal-dialog-json" role="dialog" aria-modal="true" aria-labelledby="json-modal-title">
@@ -162,8 +283,26 @@
           </div>
         </div>
       </div>
+
+      <div id="region-switch-modal" class="modal" hidden>
+        <div class="modal-backdrop" data-close-region-switch-modal></div>
+        <div class="modal-dialog modal-dialog-confirm" role="dialog" aria-modal="true" aria-labelledby="region-switch-modal-title">
+          <div class="modal-header">
+            <h2 id="region-switch-modal-title">Open Another Region?</h2>
+            <button type="button" class="modal-close" id="region-switch-modal-close" aria-label="Close region switch modal">✕</button>
+          </div>
+          <div class="modal-body-confirm">
+            <p id="region-switch-modal-text">This result is in another region.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="region-switch-modal-cancel" class="modal-btn-secondary">Cancel</button>
+            <button type="button" id="region-switch-modal-confirm" class="modal-btn-primary">Open Region</button>
+          </div>
+        </div>
+      </div>
+
     </section>
-  </div>
+  </div><!-- /.app-shell -->
 
   <script type="module" src="src/main.js"></script>
 </body>

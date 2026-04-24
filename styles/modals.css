@@ -49,10 +49,23 @@
 }
 
 #json-modal-copy,
-#json-modal-export {
+#json-modal-export,
+.modal-btn-primary {
   background: var(--accent);
   border: 1px solid var(--accent);
   color: var(--bg-dark);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-btn-secondary {
+  background: var(--bg-panel2);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
   border-radius: 6px;
   padding: 8px 12px;
   font: inherit;
@@ -83,6 +96,16 @@
 
 .modal-dialog-json {
   width: min(900px, calc(100vw - 48px));
+}
+
+.modal-dialog-confirm {
+  width: min(420px, calc(100vw - 48px));
+}
+
+.modal-body-confirm {
+  padding: 18px 16px;
+  color: var(--text-primary);
+  line-height: 1.6;
 }
 
 .modal-region-info .modal-backdrop {
@@ -118,7 +141,7 @@
 }
 
 .modal-header-region-info h2 {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   line-height: 1.1;
   color: var(--text-primary);
 }

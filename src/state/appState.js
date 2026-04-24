@@ -40,14 +40,20 @@ export function getTypeMeta(categoryKey, typeKey) {
 }
 
 function getTypeIconPath(categoryKey, typeKey) {
-  // Types can either point at a shared explicit asset path or fall back to a same-name icon file.
+  // Types can either point at a shared explicit asset path, inherit a category icon,
+  // or fall back to a same-name icon file.
   const explicitIcon = getTypeMeta(categoryKey, typeKey)?.icon ?? '';
   if (explicitIcon) {
     return explicitIcon;
   }
 
+  const categoryIcon = getCategoryMeta(categoryKey)?.icon ?? '';
+  if (categoryIcon) {
+    return categoryIcon;
+  }
+
   return state.availableIcons.has(typeKey)
-    ? `assets/icons/${typeKey}.svg`
+    ? `assets/icons/pois/${typeKey}.svg`
     : '';
 }
 
