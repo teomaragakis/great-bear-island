@@ -59,8 +59,16 @@ body { position: relative; }
   flex-shrink: 0;
 }
 
+.topbar-logo {
+  display: block;
+  height: 1.6rem;
+  width: auto;
+  flex: 0 0 auto;
+}
+
 .topbar-title {
   font-size: 1.6rem;
+  line-height: 1;
   font-weight: 800;
   font-family: 'Oswald', system-ui, sans-serif;
   text-transform: uppercase;
@@ -826,6 +834,7 @@ body { position: relative; }
   }
 
   /* Topbar: hide title + layer label to save space */
+  .topbar-logo,
   .topbar-title,
   .topbar-slash,
   .control-group label {
