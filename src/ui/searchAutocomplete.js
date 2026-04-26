@@ -161,31 +161,19 @@ export function createSearchAutocomplete({
     const collected = [];
     const currentRegionName = regionIndex[getCurrentRegion()]?.name ?? getCurrentRegion();
 
-    // Named POIs: current region first, then other regions
+    // Named POIs: current region only
     const currentRegionKey = getCurrentRegion();
-    const allRegions = getRegions();
-    const poiMatches = [];
-
-    Object.entries(allRegions).forEach(([regionKey, regionData]) => {
-      const regionPois = regionData?.pois ?? [];
-      regionPois.forEach(poi => {
-        if (!poi.name?.toLowerCase().includes(t)) return;
-        poiMatches.push({ poi, regionKey });
-      });
-    });
+    const poiMatches = pois.filter(poi => poi.name?.toLowerCase().includes(t));
 
     poiMatches
-      .sort((a, b) => (a.regionKey === currentRegionKey ? -1 : 1) - (b.regionKey === currentRegionKey ? -1 : 1))
       .slice(0, 6)
-      .forEach(({ poi, regionKey }) => {
+      .forEach(poi => {
+        const regionKey = currentRegionKey;
         const cat = getCategoryMeta(poi.category);
         const typeMeta = cat?.types?.[poi.type];
         const typeLabel = typeMeta?.label ?? poi.type;
         const label = poi.number != null ? `${poi.name} #${poi.number}` : poi.name;
-        const regionName = regionIndex[regionKey]?.name ?? regionKey;
-        const sublabel = regionKey === currentRegionKey
-          ? typeLabel
-          : `${typeLabel} · ${regionName}`;
+        const sublabel = typeLabel;
         collected.push({
           kind: 'poi',
           group: 'Named Places',
@@ -198,21 +186,20 @@ export function createSearchAutocomplete({
         });
       });
 
-    // Named region locations from all regions (from regions.json)
+    // Named region locations from the current region only (from regions.json)
+    const currentRegionMeta = regionIndex[currentRegionKey];
     const regionLocationMatches = [];
-    Object.entries(regionIndex).forEach(([regionKey, regionMeta]) => {
-      (regionMeta.locations ?? []).forEach(loc => {
-        if (!loc.pixelCoords || !loc.name?.toLowerCase().includes(t)) return;
-        regionLocationMatches.push({
-          kind: 'location',
-          group: 'Locations',
-          label: loc.name,
-          sublabel: regionMeta.name ?? regionKey,
-          location: loc,
-          regionKey,
-          iconHtml: '<img class="search-suggestion-inner-icon" src="assets/icons/ui/map.svg" alt="" aria-hidden="true" />',
-          color: '#6b7280',
-        });
+    (currentRegionMeta?.locations ?? []).forEach(loc => {
+      if (!loc.pixelCoords || !loc.name?.toLowerCase().includes(t)) return;
+      regionLocationMatches.push({
+        kind: 'location',
+        group: 'Locations',
+        label: loc.name,
+        sublabel: currentRegionMeta.name ?? currentRegionKey,
+        location: loc,
+        regionKey: currentRegionKey,
+        iconHtml: '<img class="search-suggestion-inner-icon" src="assets/icons/ui/map.svg" alt="" aria-hidden="true" />',
+        color: '#6b7280',
       });
     });
     collected.push(...regionLocationMatches.slice(0, 6));

@@ -18,6 +18,7 @@ export function createEditPoiForm({
   openEditEditor,
   deleteEditEntry,
   refreshPopup,
+  recordUndoSnapshot = () => {},
 }) {
   const { point } = entry;
 
@@ -222,7 +223,7 @@ export function createEditPoiForm({
     }
 
     Object.keys(targetPoint).forEach(key => {
-      if (['id', 'category', 'type', 'name', 'desc', 'number', 'pixelCoords', 'coords', 'contents'].includes(key)) return;
+      if (['id', 'category', 'type', 'name', 'desc', 'number', 'pixelCoords', 'coords', 'contents', 'locked'].includes(key)) return;
       if (!allowedFieldKeys.has(key)) {
         delete targetPoint[key];
       }
@@ -236,6 +237,7 @@ export function createEditPoiForm({
       const fieldInput = container.querySelector(`[data-role="custom-field"][data-field-key="${fieldKey}"]`);
 
       input.addEventListener('change', () => {
+        recordUndoSnapshot();
         if (input.checked) {
           fieldInput.hidden = false;
           point[fieldKey] = fieldInput.value || '';
@@ -274,6 +276,7 @@ export function createEditPoiForm({
     }
 
     contentsToggle?.addEventListener('change', () => {
+      recordUndoSnapshot();
       if (contentsToggle.checked) {
         point.contents = Array.isArray(point.contents) && point.contents.length > 0
           ? point.contents
@@ -288,6 +291,7 @@ export function createEditPoiForm({
     });
 
     contentAddButton?.addEventListener('click', () => {
+      recordUndoSnapshot();
       const nextContents = Array.isArray(point.contents) ? [...point.contents] : [];
       nextContents.push('');
       point.contents = nextContents;
@@ -296,6 +300,7 @@ export function createEditPoiForm({
 
     container.querySelectorAll('[data-role="content-type"]').forEach(select => {
       select.addEventListener('change', () => {
+        recordUndoSnapshot();
         const nextContents = Array.isArray(point.contents) ? [...point.contents] : [];
         nextContents[Number(select.dataset.contentIndex)] = select.value;
         point.contents = nextContents.filter(Boolean);
@@ -305,6 +310,7 @@ export function createEditPoiForm({
 
     container.querySelectorAll('[data-role="content-remove"]').forEach(button => {
       button.addEventListener('click', () => {
+        recordUndoSnapshot();
         const nextContents = (point.contents ?? []).filter((_, index) => index !== Number(button.dataset.contentIndex));
         if (nextContents.length === 0) {
           delete point.contents;
@@ -421,6 +427,13 @@ export function createEditPoiForm({
       <textarea class="form-control" data-role="desc" rows="3">${pointDesc}</textarea>
     </div>
     `}
+    <div class="form-field edit-field">
+      <label class="form-toggle settings-toggle edit-inline-toggle">
+        <span class="form-label">Lock Movement</span>
+        <input data-role="locked" type="checkbox" ${point.locked ? 'checked' : ''}>
+        <span class="settings-switch" aria-hidden="true"></span>
+      </label>
+    </div>
     <div class="edit-coords">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>
   `;
 
@@ -438,6 +451,7 @@ export function createEditPoiForm({
   }
 
   poiTypeSelect.addEventListener('change', () => {
+    recordUndoSnapshot();
     const [nextCategory, nextType] = poiTypeSelect.value.split(':');
     if (!nextCategory || !nextType) return;
 
@@ -463,6 +477,23 @@ export function createEditPoiForm({
   descInput?.addEventListener('input', () => {
     point.desc = descInput.value;
     refreshPopup(entry);
+  });
+
+  const lockedInput = container.querySelector('[data-role="locked"]');
+  lockedInput.addEventListener('change', () => {
+    recordUndoSnapshot();
+    if (lockedInput.checked) point.locked = true;
+    else delete point.locked;
+    syncEntryMarkerVisual(entry);
+    refreshPopup(entry);
+  });
+
+  container.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
+    let snapped = false;
+    input.addEventListener('focus', () => { snapped = false; });
+    input.addEventListener('input', () => {
+      if (!snapped) { recordUndoSnapshot(); snapped = true; }
+    });
   });
 
   return container;

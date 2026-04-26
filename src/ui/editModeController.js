@@ -20,6 +20,7 @@ export function createEditModeController({
   let temporaryMarkers = [];
   let editViewButton = null;
   let activeEditEntry = null;
+  const undoStack = [];
   let lastTemporaryPointConfig = {
     category: 'navigation',
     type: 'waterfall',
@@ -105,6 +106,18 @@ export function createEditModeController({
     jsonModal.hidden = true;
   }
 
+  function getEditSnapshot() {
+    const currentRegion = getCurrentRegion();
+    return {
+      savedPois: JSON.parse(JSON.stringify(getRegions()[currentRegion].pois)),
+      tempPoints: temporaryMarkers.map(({ point }) => JSON.parse(JSON.stringify(point))),
+    };
+  }
+
+  function pushUndoSnapshot() {
+    undoStack.push(getEditSnapshot());
+  }
+
   function rememberPointConfig(point) {
     lastTemporaryPointConfig = {
       category: point.category,
@@ -136,6 +149,8 @@ export function createEditModeController({
     entry.el.innerHTML = nextMarkerElement.innerHTML;
     if (nextMarkerElement.dataset.poiId) entry.el.dataset.poiId = nextMarkerElement.dataset.poiId;
     else delete entry.el.dataset.poiId;
+
+    markerController.setMarkerDragState(entry.marker, editModeEnabled && !point.locked);
   }
 
   function sanitizeTemporaryPoint(point) {
@@ -172,6 +187,7 @@ export function createEditModeController({
       openEditEditor,
       deleteEditEntry,
       refreshPopup: targetEntry => markerController.refreshPopup(targetEntry),
+      recordUndoSnapshot: pushUndoSnapshot,
     }), options.focusSelector ?? '');
   }
 
@@ -182,7 +198,30 @@ export function createEditModeController({
     }
   }
 
+  function applyUndoSnapshot(snapshot) {
+    const currentRegion = getCurrentRegion();
+    getRegions()[currentRegion].pois = JSON.parse(JSON.stringify(snapshot.savedPois));
+
+    temporaryMarkers.forEach(({ marker }) => map.removeLayer(marker));
+    temporaryMarkers = [];
+    snapshot.tempPoints.forEach(point => {
+      const restored = JSON.parse(JSON.stringify(point));
+      registerTempMarker(restored, restored.coords);
+    });
+
+    markerController.buildMarkers(currentRegion);
+    markerController.setAllMarkerDragState(editModeEnabled);
+    onChange();
+    hideEditEditor();
+  }
+
+  function undo() {
+    if (!undoStack.length) return;
+    applyUndoSnapshot(undoStack.pop());
+  }
+
   function deleteEditEntry(entry) {
+    pushUndoSnapshot();
     markerController.closeCurrentPopup();
     if (isTemporaryEntry(entry)) {
       const point = getEntryPoint(entry);
@@ -218,6 +257,7 @@ export function createEditModeController({
     temporaryMarkers.forEach(({ marker }) => map.removeLayer(marker));
     temporaryMarkers = [];
     activeEditEntry = null;
+    undoStack.length = 0;
     setEditPanelContent();
     syncEditControls();
   }
@@ -307,19 +347,7 @@ export function createEditModeController({
     });
   }
 
-  function addTemporaryMarker(latlng) {
-    const { x, y } = markerController.getPixelCoords(latlng);
-    const point = {
-      category: lastTemporaryPointConfig.category,
-      type: lastTemporaryPointConfig.type,
-      name: '',
-      desc: '',
-      pixelCoords: [x, y],
-    };
-    // New temporary POIs inherit the last selected category/type so repeated entry is faster.
-    sanitizeTemporaryPoint(point);
-    rememberPointConfig(point);
-
+  function registerTempMarker(point, latlng) {
     const markerElement = markerController.createMarkerElement(point, 'temporary-marker');
     const editMarker = L.marker(latlng, {
       icon: L.divIcon({
@@ -335,12 +363,10 @@ export function createEditModeController({
 
     const entry = { marker: editMarker, point, el: markerElement };
     editMarker.on('click', event => {
-      if (event.originalEvent) {
-        L.DomEvent.stop(event.originalEvent);
-      }
+      if (event.originalEvent) L.DomEvent.stop(event.originalEvent);
       onTemporaryMarkerClick(entry);
     });
-    editMarker.on('dragstart', markerController.closeCurrentPopup);
+    editMarker.on('dragstart', () => { pushUndoSnapshot(); markerController.closeCurrentPopup(); });
     editMarker.on('dragend', () => {
       markerController.applyPixelCoordsToPoint(entry.point, editMarker.getLatLng());
       updateEditPointPosition(entry);
@@ -348,6 +374,24 @@ export function createEditModeController({
     });
 
     temporaryMarkers.push(entry);
+    return entry;
+  }
+
+  function addTemporaryMarker(latlng) {
+    pushUndoSnapshot();
+    const { x, y } = markerController.getPixelCoords(latlng);
+    const point = {
+      category: lastTemporaryPointConfig.category,
+      type: lastTemporaryPointConfig.type,
+      name: '',
+      desc: '',
+      pixelCoords: [x, y],
+    };
+    // New temporary POIs inherit the last selected category/type so repeated entry is faster.
+    sanitizeTemporaryPoint(point);
+    rememberPointConfig(point);
+
+    const entry = registerTempMarker(point, latlng);
     syncEditControls();
     openEditEditor(entry);
     markerController.openPopupFromEntry(entry, entry.el);
@@ -367,6 +411,7 @@ export function createEditModeController({
 
     const selectedPoi = markerController.getActiveViewPoi();
     editModeEnabled = enabled;
+    if (!enabled) undoStack.length = 0;
     mapView.setMaxZoom(editModeEnabled ? EDIT_MODE_MAX_ZOOM : VIEW_MODE_MAX_ZOOM);
     syncEditControls();
     markerController.closeCurrentPopup();
@@ -390,6 +435,19 @@ export function createEditModeController({
     }
   }
 
+  document.addEventListener('keydown', e => {
+    if (!editModeEnabled) return;
+    if (!((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey)) return;
+    const active = document.activeElement;
+    const isTyping = active && (
+      active.tagName === 'TEXTAREA' ||
+      (active.tagName === 'INPUT' && active.type !== 'checkbox' && active.type !== 'radio')
+    );
+    if (isTyping) return;
+    e.preventDefault();
+    undo();
+  });
+
   return {
     installControl,
     isEditModeEnabled,
@@ -405,5 +463,6 @@ export function createEditModeController({
     copyCurrentPoisSnapshot,
     clearEditPointers,
     deleteActiveEntry,
+    pushUndoSnapshot,
   };
 }

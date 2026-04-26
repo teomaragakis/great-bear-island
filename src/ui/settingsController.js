@@ -31,7 +31,6 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
       hideMissingPois: hideMissingPois.checked,
       showDlcPois: showDlcPois.checked,
       flattenPois: flattenPois.checked,
-      settingsCollapsed: settingsPanel.classList.contains('collapsed'),
     };
 
     try {
@@ -160,7 +159,7 @@ export function createSettingsController({ elements, onChange, onGroupingChange 
     hideMissingPois.checked = persisted.hideMissingPois ?? true;
     showDlcPois.checked = persisted.showDlcPois ?? true;
     flattenPois.checked = persisted.flattenPois ?? false;
-    settingsPanel.classList.toggle('collapsed', persisted.settingsCollapsed ?? true);
+    settingsPanel.classList.add('collapsed');
     syncPoiSearchClearButton();
     syncSettingsCollapse();
     syncGroupingDependencies();

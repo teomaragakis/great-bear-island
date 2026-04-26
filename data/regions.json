@@ -94,6 +94,24 @@
         "aerial-contour": "assets/maps/pleasant_valley-aerial-contour.jpeg",
         "topographic": "assets/maps/pleasant_valley-topo.jpeg"
       },
+      "locations": [
+        { "name": "Pleasant Valley Farmstead", "info": "The largest shelter complex in the region, with a farmhouse, barn, and several outbuildings.", "url": "https://thelongdark.fandom.com/wiki/Pleasant_Valley_Farmstead", "pixelCoords":[1676, 2442] },
+        { "name": "Heartbreak Bridge", "info": "A covered bridge spanning a river gorge, a key crossing point in the valley.", "url": "https://thelongdark.fandom.com/wiki/Heartbreak_Bridge", "pixelCoords": [1753, 1935] },
+        { "name": "Homesteader's Respite", "info": "A small isolated cabin providing shelter in the eastern reaches of the valley.", "url": "https://thelongdark.fandom.com/wiki/Homesteader%27s_Respite" },
+        { "name": "Rural Crossroads", "info": "A road intersection with a nearby car and modest loot on the valley floor.", "url": "https://thelongdark.fandom.com/wiki/Rural_Crossroads" },
+        { "name": "Signal Hill", "info": "An elevated summit with a radio hut and strong vantage over the surrounding valley.", "url": "https://thelongdark.fandom.com/wiki/Signal_Hill" },
+        { "name": "Skeeter's Ridge", "info": "A high ridge with a radio hut and commanding views, exposed to severe weather.", "url": "https://thelongdark.fandom.com/wiki/Skeeter%27s_Ridge" },
+        { "name": "Pleasant Valley Outbuildings", "pixelCoords": [2878, 1984] },
+        { "name": "Upper Falls", "pixelCoords": [3690, 504] },
+        { "name": "Lower Falls", "pixelCoords": [1764, 1290] },
+        { "name": "Point Of Disagreement", "pixelCoords": [3616, 3666] },
+        { "name": "Three Strikes Farmstead", "pixelCoords": [945, 4031] },
+        { "name": "Contemplation Bridge", "pixelCoords": [2768, 1576] },
+        { "name": "Thompson's Crossing", "pixelCoords": [3453, 965] },
+        { "name": "Misty Falls Picnic Area", "pixelCoords": [4194, 4202] },
+        { "name": "Pesnive Pond", "info": "A small frozen pond with ice fishing access, centrally located in the valley.", "pixelCoords": [1944, 786] },
+        { "name": "Picnic Spot", "pixelCoords": [2250, 567]}
+      ],
       "path": "data/regions/pleasant-valley.json"
     },
     "desolation-point": {

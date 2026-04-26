@@ -1,1 +1,214 @@
-{}
+{
+  "navigation": {
+    "bridge": [
+      {
+        "id": "poi-0001",
+        "locked": true,
+        "pixelCoords": [3120, 1880]
+      },
+      {
+        "id": "poi-0002",
+        "locked": true,
+        "pixelCoords": [1862, 3740]
+      },
+      {
+        "id": "poi-0003",
+        "locked": true,
+        "pixelCoords": [3729, 915]
+      },
+      {
+        "id": "poi-0004",
+        "locked": true,
+        "pixelCoords": [1568, 584]
+      },
+      {
+        "id": "poi-0005",
+        "locked": true,
+        "pixelCoords": [4026, 3574]
+      },
+      {
+        "id": "poi-0006",
+        "locked": true,
+        "pixelCoords": [2768, 1576]
+      },
+      {
+        "id": "poi-0007",
+        "locked": true,
+        "pixelCoords": [1244, 3656]
+      },
+      {
+        "id": "poi-0008",
+        "locked": true,
+        "pixelCoords": [2072, 2842]
+      },
+      {
+        "id": "poi-0009",
+        "name": "Heartbreak Bridge",
+        "locked": true,
+        "pixelCoords": [1753, 1935]
+      },
+      {
+        "id": "poi-0010",
+        "locked": true,
+        "pixelCoords": [3592, 3050]
+      }
+    ],
+    "grain-silo": [
+      {
+        "id": "poi-0014",
+        "locked": true,
+        "pixelCoords": [1721, 2459]
+      }
+    ],
+    "car": [
+      {
+        "id": "poi-0015",
+        "contents": ["scrawled-message"],
+        "pixelCoords": [1549, 2457]
+      },
+      {
+        "id": "poi-0022",
+        "contents": ["book"],
+        "pixelCoords": [1688, 1929]
+      },
+      {
+        "id": "poi-0023",
+        "pixelCoords": [1448, 2033]
+      },
+      {
+        "id": "poi-0033",
+        "pixelCoords": [3274, 1070]
+      },
+      {
+        "id": "poi-0034",
+        "contents": [
+          ""
+        ],
+        "locked": true,
+        "pixelCoords": [3621, 892]
+      },
+      {
+        "id": "poi-0035",
+        "contents": ["metal-box"],
+        "locked": true,
+        "pixelCoords": [3600, 895]
+      },
+      {
+        "id": "poi-0036",
+        "locked": true,
+        "pixelCoords": [3598, 890]
+      }
+    ],
+    "waterfall": [
+      {
+        "id": "poi-0021",
+        "pixelCoords": [3778, 3296]
+      }
+    ]
+  },
+  "locations": {
+    "building": [
+      {
+        "id": "poi-0011",
+        "name": "Farmhouse",
+        "contents": ["bed", "stove", "fireplace", "first-aid", "backpack", "book", "plastic-box", "metal-box", "tools", "lantern", "hacksaw", "distress-pistol"],
+        "locked": true,
+        "pixelCoords": [1646, 2482]
+      },
+      {
+        "id": "barn",
+        "name": "Molly's Barn",
+        "desc": "flashlight",
+        "contents": ["backpack", "prybar", "metal-box"],
+        "locked": true,
+        "pixelCoords": [1446, 2017]
+      },
+      {
+        "id": "poi-0024",
+        "pixelCoords": [2813, 2091]
+      },
+      {
+        "id": "poi-0025",
+        "pixelCoords": [2824, 2046]
+      },
+      {
+        "id": "poi-0026",
+        "pixelCoords": [2829, 2025]
+      },
+      {
+        "id": "poi-0027",
+        "name": "Barn",
+        "contents": ["fire-barrel", "first-aid", "metal-box", "tools", "note-left-behind", "lantern"],
+        "locked": true,
+        "pixelCoords": [2938, 2118]
+      },
+      {
+        "id": "poi-0029",
+        "pixelCoords": [2171, 2373]
+      },
+      {
+        "id": "poi-0030",
+        "pixelCoords": [2175, 2346]
+      },
+      {
+        "id": "gas-station",
+        "name": "Gas Station",
+        "contents": ["book", "first-aid", "plastic-box"],
+        "pixelCoords": [3612, 891]
+      },
+      {
+        "id": "community-hall",
+        "name": "Community Hall",
+        "contents": ["bed", "stove", "plastic-box"],
+        "pixelCoords": [3622, 993]
+      },
+      {
+        "id": "poi-0038",
+        "locked": true,
+        "pixelCoords": [947, 4027]
+      }
+    ],
+    "destroyed-building": [
+      {
+        "id": "poi-0028",
+        "pixelCoords": [2899, 1935]
+      },
+      {
+        "id": "poi-0016",
+        "locked": true,
+        "pixelCoords": [1724, 2402]
+      }
+    ],
+    "cave": [
+      {
+        "id": "poi-0037",
+        "pixelCoords": [4150, 4288]
+      }
+    ]
+  },
+  "amenities": {
+    "fire-barrel": [
+      {
+        "id": "poi-0020",
+        "locked": true,
+        "pixelCoords": [1682, 2470]
+      }
+    ]
+  },
+  "loot": {
+    "corpse": [
+      {
+        "id": "poi-0031",
+        "pixelCoords": [2152, 2384]
+      }
+    ]
+  },
+  "prey": {
+    "deer": [
+      {
+        "id": "poi-0032",
+        "pixelCoords": [2864, 1524]
+      }
+    ]
+  }
+}

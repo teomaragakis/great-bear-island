@@ -16,10 +16,11 @@
       },
       "bridge": {
         "label": "Bridge",
+        "name": true,
         "info": "A structure spanning a gap, ravine, or frozen waterway."
       },
       "car": {
-        "label": "Car",
+        "label": "Vehicle",
         "contents": true,
         "info": "An abandoned vehicle that may contain useful supplies."
       },
@@ -47,6 +48,18 @@
         "label": "Tunnel",
         "transition": true,
         "info": "A passage through terrain that may serve as a region connection."
+      },
+      "landmark": {
+        "label": "Landmark",
+        "icon": "assets/icons/pois/landmark.svg",
+        "info": "A notable fixed feature used as a navigational reference point."
+      },
+      "grain-silo": {
+        "label": "Grain Silo",
+        "icon": "assets/icons/pois/grain-silo.svg",
+        "name": false,
+        "desc": false,
+        "info": "A tall cylindrical storage structure serving as a fixed regional landmark."
       },
       "waterfall": {
         "label": "Waterfall",
@@ -163,6 +176,12 @@
         "url": "https://thelongdark.fandom.com/wiki/Stove",
         "info": "A kitchen appliance used for cooking food and melting snow."
       },
+      "wood-stove": {
+        "label": "Wood Stove",
+        "icon": "assets/icons/pois/wood-stove.svg",
+        "url": "https://thelongdark.fandom.com/wiki/Wood_Stove",
+        "info": "A wood-burning stove used for warmth and cooking."
+      },
       "workbench": {
         "label": "Workbench",
         "url": "https://thelongdark.fandom.com/wiki/Work_Bench",
@@ -254,6 +273,16 @@
         "label": "Prybar",
         "url": "https://thelongdark.fandom.com/wiki/Prybar",
         "info": "A metal lever used to force open locked containers and as a basic defensive tool."
+      },
+      "tools": {
+        "label": "Simple Tools",
+        "url": "https://thelongdark.fandom.com/wiki/Tools",
+        "info": "A set of hand tools that improves the quality of items crafted at a workbench."
+      },
+      "quality-tools": {
+        "label": "Quality Tools",
+        "url": "https://thelongdark.fandom.com/wiki/Quality_Tools",
+        "info": "A premium set of hand tools providing the highest crafting quality bonus."
       },
       "rope": {
         "label": "Rope",
@@ -478,29 +507,17 @@
         "url": "https://thelongdark.fandom.com/wiki/Scrawled_Note",
         "info": "A handwritten note left by a survivor, containing story or lore."
       },
+      "note-left-behind": {
+        "label": "Note Left Behind",
+        "icon": "assets/icons/pois/scrawled-message.svg",
+        "url": "https://thelongdark.fandom.com/wiki/Note_Left_Behind",
+        "info": "A personal note left at a location, providing story context or survivor history."
+      },
       "film": {
         "label": "Film Box",
         "dlc": true,
         "url": "https://thelongdark.fandom.com/wiki/Film",
         "info": "A DLC film canister collected as part of a photography challenge."
-      }
-    }
-  },
-  "tools": {
-    "label": "Tools",
-    "color": "#6b7d8a",
-    "name": false,
-    "desc": false,
-    "types": {
-      "tools": {
-        "label": "Tools",
-        "url": "https://thelongdark.fandom.com/wiki/Tools",
-        "info": "A set of hand tools that improves the quality of items crafted at a workbench."
-      },
-      "quality-tools": {
-        "label": "Quality Tools",
-        "url": "https://thelongdark.fandom.com/wiki/Quality_Tools",
-        "info": "A premium set of hand tools providing the highest crafting quality bonus."
       }
     }
   }

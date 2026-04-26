@@ -1,1 +1,48 @@
-{}
+{
+  "navigation": {
+    "bridge": [
+      {
+        "id": "poi-0001",
+        "pixelCoords": [484, 679]
+      },
+      {
+        "id": "poi-0008",
+        "pixelCoords": [1199, 1791]
+      },
+      {
+        "id": "poi-0009",
+        "pixelCoords": [1693, 1751]
+      }
+    ],
+    "train-car": [
+      {
+        "id": "poi-0004",
+        "pixelCoords": [1624, 749]
+      },
+      {
+        "id": "poi-0005",
+        "pixelCoords": [1674, 810]
+      },
+      {
+        "id": "poi-0006",
+        "pixelCoords": [1665, 789]
+      },
+      {
+        "id": "poi-0007",
+        "pixelCoords": [1647, 772]
+      }
+    ]
+  },
+  "locations": {
+    "building": [
+      {
+        "id": "poi-0002",
+        "pixelCoords": [888, 1151]
+      },
+      {
+        "id": "poi-0003",
+        "pixelCoords": [728, 2168]
+      }
+    ]
+  }
+}

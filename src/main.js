@@ -197,19 +197,13 @@ function switchMode(mode, { focus = true } = {}) {
     // Keep the currently open POI visible so the info panel stays open.
     const activePoi = markerController.getActiveViewPoi();
     if (activePoi) state.activeTypeFilters.add(getFilterKey(activePoi.category, activePoi.type));
-    buildLegendForCurrentMode();
-    buildLeftSearchTags();
     markerController.refreshMarkerVisibility();
+    buildLeftSearchTags();
+    if (focus) elements.leftSearchInput.focus();
   } else if (prevMode === 'search' && savedExploreFilters) {
     state.activeTypeFilters = savedExploreFilters;
     savedExploreFilters = null;
-    buildLegendForCurrentMode();
     markerController.refreshMarkerVisibility();
-  }
-
-  if (mode === 'search') {
-    buildLeftSearchTags();
-    if (focus) elements.leftSearchInput.focus();
   }
 
   buildLegendForCurrentMode();
@@ -694,6 +688,7 @@ const markerController = createMarkerController({
   isEditModeEnabled: () => editMode?.isEditModeEnabled() ?? false,
   onOpenEditEditor: entry => editMode?.openEditEditor(entry),
   onEditPointMoved: entry => editMode?.onExistingPointMoved(entry),
+  onBeforeEditDrag: () => editMode?.pushUndoSnapshot(),
   onPoiOpen: point => showPoiInfoPanel(point),
   onPoiClose: hidePoiInfoPanel,
   onLocationOpen: location => showLocationInfoPanel(location, state.regionIndex[state.currentRegion]?.name ?? ''),

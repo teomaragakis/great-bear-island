@@ -18,6 +18,7 @@ export function createMarkerController({
   isEditModeEnabled,
   onOpenEditEditor,
   onEditPointMoved,
+  onBeforeEditDrag = () => {},
   onPoiOpen = () => {},
   onPoiClose = () => {},
   onLocationOpen = () => {},
@@ -297,6 +298,7 @@ export function createMarkerController({
 
   function setMarkerDragState(marker, enabled) {
     if (!marker.dragging) return;
+    marker.options.draggable = enabled;
     if (enabled) marker.dragging.enable();
     else marker.dragging.disable();
   }
@@ -450,7 +452,7 @@ export function createMarkerController({
         marker.addTo(map);
       }
 
-      setMarkerDragState(marker, isEditModeEnabled());
+      setMarkerDragState(marker, isEditModeEnabled() && !poi.locked);
 
       marker.on('click', event => {
         if (event.originalEvent) L.DomEvent.stop(event.originalEvent);
@@ -481,7 +483,7 @@ export function createMarkerController({
         }
       });
 
-      marker.on('dragstart', closePopupForDrag);
+      marker.on('dragstart', () => { onBeforeEditDrag(); closePopupForDrag(); });
       marker.on('dragend', () => {
         const entry = { marker, point: poi, el };
         applyPixelCoordsToPoint(entry.point, marker.getLatLng());
@@ -527,7 +529,7 @@ export function createMarkerController({
   }
 
   function setAllMarkerDragState(enabled) {
-    activeMarkers.forEach(({ marker }) => setMarkerDragState(marker, enabled));
+    activeMarkers.forEach(({ marker }) => setMarkerDragState(marker, enabled && !marker.__poi?.locked));
   }
 
   function closeCurrentPopup() {
