@@ -73,8 +73,18 @@ function resolveAssetUrl(path) {
   return new URL(path, document.baseURI).href;
 }
 
+function resolveIconPath(icon) {
+  if (!icon) return '';
+  if (isSvgIcon(icon)) return icon;
+  // Plain name with no extension — treat as a POI icon key.
+  if (!icon.includes('/') && !icon.includes('.')) {
+    return state.availableIcons.has(icon) ? `assets/icons/pois/${icon}.svg` : '';
+  }
+  return icon;
+}
+
 export function getPointIcon(categoryKey, typeKey, point = null) {
-  const icon = point?.icon ?? getTypeIconPath(categoryKey, typeKey);
+  const icon = resolveIconPath(point?.icon) || getTypeIconPath(categoryKey, typeKey);
   if (!icon) return '';
 
   if (isSvgIcon(icon)) {

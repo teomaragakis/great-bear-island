@@ -534,7 +534,8 @@
       {
         "id": "quonset-garage",
         "name": "Quonset Garage",
-        "contents": ["bed", "emergency-stim", "spawn-point", "fire-barrel", "first-aid", "workbench", "scrawled-message", "metal-box", "barb-rifle", "revolver", "book", "computer", "film", "radio"],
+        "icon": "assets/icons/pois/garage.svg",
+        "contents": ["spawn-point", "bed", "fire-barrel", "emergency-stim", "first-aid", "workbench", "scrawled-message", "metal-box", "barb-rifle", "revolver", "book", "computer", "hacksaw", "hatchet", "lantern", "radio", "film"],
         "pixelCoords": [4451, 2593]
       },
       {
@@ -1023,6 +1024,7 @@
     "bear": [
       {
         "id": "poi-0052",
+        "path": [],
         "pixelCoords": [3854, 1654]
       },
       {

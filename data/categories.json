@@ -184,6 +184,7 @@
   "weapons-and-tools": {
     "label": "Weapons & Tools",
     "color": "#1CA3DE",
+    "important": true,
     "types": {
       "vaughns-rifle": {
         "label": "Vaughn's Rifle",
@@ -229,15 +230,30 @@
         "url": "https://thelongdark.fandom.com/wiki/Hatchet",
         "info": "A multi-purpose hand tool used for chopping wood and as a melee weapon."
       },
+      "hacksaw": {
+        "label": "Hacksaw",
+        "url": "https://thelongdark.fandom.com/wiki/Hacksaw",
+        "info": "A cutting tool used to harvest metal and open certain locked containers."
+      },
       "knife": {
         "label": "Knife",
         "url": "https://thelongdark.fandom.com/wiki/Hunting_Knife",
         "info": "A fixed-blade tool used for harvesting carcasses and skinning hides."
       },
+      "lantern": {
+        "label": "Storm Lantern",
+        "url": "https://thelongdark.fandom.com/wiki/Storm_Lantern",
+        "info": "A fuel-powered light source used to illuminate dark interiors and caves."
+      },
       "hammer": {
         "label": "Hammer",
         "url": "https://thelongdark.fandom.com/wiki/Heavy_Hammer",
         "info": "A heavy tool required for forge work and certain crafting recipes."
+      },
+      "prybar": {
+        "label": "Prybar",
+        "url": "https://thelongdark.fandom.com/wiki/Prybar",
+        "info": "A metal lever used to force open locked containers and as a basic defensive tool."
       },
       "rope": {
         "label": "Rope",
@@ -302,6 +318,7 @@
       },
       "emergency-stim": {
         "label": "Emergency Stim",
+        "important": true,
         "url": "https://thelongdark.fandom.com/wiki/Emergency_Stim",
         "info": "A DLC injectable stimulant that temporarily boosts condition and stamina."
       },
@@ -316,6 +333,7 @@
   "predators": {
     "label": "Predators",
     "color": "#dc2626",
+    "important": true,
     "popup": false,
     "name": false,
     "desc": false,
@@ -333,7 +351,8 @@
       "bear": {
         "label": "Bear",
         "url": "https://thelongdark.fandom.com/wiki/Bear",
-        "info": "A large predator capable of mauling the player and causing severe injury."
+        "info": "A large predator capable of mauling the player and causing severe injury.",
+        "path": true
       },
       "moose": {
         "label": "Moose",
@@ -410,6 +429,7 @@
       },
       "lichen": {
         "label": "Old Man's Beard Lichen",
+        "color": "#9da693",
         "url": "https://thelongdark.fandom.com/wiki/Old_Man%27s_Beard_Lichen",
         "info": "A lichen brewed into tea that reduces fatigue and restores warmth."
       },

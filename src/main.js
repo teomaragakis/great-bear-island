@@ -26,11 +26,16 @@ const elements = {
   hideAllPois: document.getElementById('hide-all-pois'),
   settingsPanel: document.getElementById('sidebar-settings'),
   settingsToggle: document.getElementById('settings-toggle'),
+  editHintSection: document.getElementById('edit-hint-section'),
+  editHintToggle: document.getElementById('edit-hint-toggle'),
   poiSearch: document.getElementById('poi-filter'),
   poiSearchClear: document.getElementById('poi-filter-clear'),
   editPoiSearch: document.getElementById('edit-poi-filter'),
   editPoiSearchClear: document.getElementById('edit-poi-filter-clear'),
+  leftSearchWrap: document.getElementById('left-search-wrap'),
   leftSearchInput: document.getElementById('left-search-input'),
+  leftSearchClear: document.getElementById('left-search-clear'),
+  leftSearchTags: document.getElementById('left-search-tags'),
   groupPois: document.getElementById('group-pois'),
   groupByCategory: document.getElementById('group-by-category'),
   hideMissingPois: document.getElementById('hide-missing-pois'),
@@ -48,7 +53,7 @@ const elements = {
   jsonModalExport: document.getElementById('json-modal-export'),
   jsonModalBackdrop: document.querySelector('[data-close-json-modal]'),
   jsonModalTrigger: document.getElementById('json-modal-trigger'),
-  mapPanelFooter: document.getElementById('map-panel-footer'),
+  editPoiDelete: document.getElementById('edit-poi-delete'),
   regionInfoModal: document.getElementById('area-info-modal'),
   regionInfoModalTitle: document.getElementById('area-info-modal-title'),
   regionInfoModalClose: document.getElementById('area-info-modal-close'),
@@ -76,14 +81,18 @@ const elements = {
   editLegend: document.getElementById('edit-poi-list'),
   panelRegionName: document.getElementById('panel-region-name'),
   // POI info panel
-  poiPanelWrapper: document.getElementById('poi-panel-wrapper'),
+  poiPanelWrapper: document.getElementById('panel-wrapper'),
   poiInfoPanel: document.getElementById('poi-info-panel'),
   poiInfoIcon: document.getElementById('poi-info-icon'),
   poiInfoKicker: document.getElementById('poi-info-kicker'),
   poiInfoName: document.getElementById('poi-info-name'),
   poiInfoContent: document.getElementById('poi-info-content'),
   poiInfoFooter: document.getElementById('poi-info-footer'),
+  poiInfoCount: document.getElementById('poi-info-count'),
   poiInfoLink: document.getElementById('poi-info-link'),
+  poiInfoId: document.getElementById('poi-info-id'),
+  poiInfoDlcTag: document.getElementById('poi-info-dlc-tag'),
+  poiInfoBackBtn: document.getElementById('poi-info-back-btn'),
   poiInfoCloseBtn: document.getElementById('poi-info-close-btn'),
 };
 
@@ -94,6 +103,7 @@ let isMobileExpanded = false;
 let listController = null;      // search pane — important POIs only
 let savedExploreFilters = null; // filters saved when entering search mode
 let pendingRegionSwitchAction = null;
+let searchGroupPanelItem = null; // group item to return to when hitting back
 
 function isMobileBreakpoint() {
   return window.matchMedia('(max-width: 640px)').matches;
@@ -142,6 +152,7 @@ function switchMode(mode) {
   }
 
   currentMode = mode;
+  document.body.dataset.mode = mode;
 
   // Sync all tab indicators (desktop tabs + mobile nav).
   elements.panelModeTabs.forEach(tab =>
@@ -155,25 +166,39 @@ function switchMode(mode) {
   elements.panelPaneExplore.hidden = mode === 'edit';
   elements.panelPaneSearch.hidden = true;
   elements.panelPaneEdit.hidden = mode !== 'edit';
-  elements.mapPanelFooter.hidden = mode !== 'edit';
   elements.jsonModalTrigger.hidden = mode !== 'edit';
-  elements.leftSearchInput.hidden = mode !== 'search';
+  elements.leftSearchWrap.hidden = mode !== 'search';
 
   // Toggle edit mode on / off.
   if (mode === 'edit') {
+    elements.poiInfoLink.hidden = true;
+    const poiToEdit = markerController.getActiveViewPoi();
     editMode.setEditMode(true);
+    if (poiToEdit) {
+      const entry = markerController.getMarkerEntryForPoint(poiToEdit);
+      if (entry) {
+        showEditInfoPanel(entry);
+      }
+    }
   } else if (prevMode === 'edit') {
+    const poiToRestore = markerController.getActiveViewPoi();
     editMode.setEditMode(false);
     elements.panelPanePoiInfo.hidden = false;
     elements.panelPanePoiEdit.hidden = true;
-    hidePoiInfoPanel();
+    if (poiToRestore) {
+      showPoiInfoPanel(poiToRestore);
+    }
   }
 
   // Search mode uses important-only filters; restore on exit.
   if (mode === 'search') {
     savedExploreFilters = new Set(state.activeTypeFilters);
     state.activeTypeFilters = computeImportantFilterKeys(state.currentRegion);
+    // Keep the currently open POI visible so the info panel stays open.
+    const activePoi = markerController.getActiveViewPoi();
+    if (activePoi) state.activeTypeFilters.add(getFilterKey(activePoi.category, activePoi.type));
     buildLegendForCurrentMode();
+    buildLeftSearchTags();
     markerController.refreshMarkerVisibility();
   } else if (prevMode === 'search' && savedExploreFilters) {
     state.activeTypeFilters = savedExploreFilters;
@@ -183,8 +208,11 @@ function switchMode(mode) {
   }
 
   if (mode === 'search') {
+    buildLeftSearchTags();
     elements.leftSearchInput.focus();
   }
+
+  buildLegendForCurrentMode();
 
   mapView.map.invalidateSize();
 }
@@ -238,6 +266,92 @@ function computeImportantFilterKeys(regionKey) {
       })
       .map(poi => getFilterKey(poi.category, poi.type)),
   );
+}
+
+function getImportantSearchTags(regionKey) {
+  const pois = state.regions[regionKey]?.pois ?? [];
+  const tags = [];
+  const seen = new Set();
+
+  pois.forEach(poi => {
+    const categoryMeta = getCategoryMeta(poi.category);
+    const typeMeta = categoryMeta?.types?.[poi.type];
+
+    if (categoryMeta?.important === true) {
+      const key = `category:${poi.category}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        const categoryTypeKeys = new Set(Object.keys(categoryMeta.types ?? {}));
+        const matchingPois = pois.filter(regionPoi => (
+          regionPoi.category === poi.category
+          || (Array.isArray(regionPoi.contents) && regionPoi.contents.some(typeKey => categoryTypeKeys.has(typeKey)))
+        ));
+        tags.push({
+          key,
+          kind: 'poi-group',
+          group: 'Categories',
+          categoryKey: poi.category,
+          label: categoryMeta.label ?? poi.category,
+          color: categoryMeta.color,
+          iconHtml: getPointIcon(poi.category, matchingPois[0]?.type ?? poi.type, matchingPois[0] ?? poi),
+          sublabel: state.regionIndex[regionKey]?.name ?? regionKey,
+          matchCount: matchingPois.length,
+          pois: matchingPois,
+          regionKey,
+        });
+      }
+    }
+
+    if (typeMeta?.important === true) {
+      const key = `type:${poi.category}:${poi.type}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        const matchingPois = pois.filter(regionPoi => (
+          (regionPoi.category === poi.category && regionPoi.type === poi.type)
+          || (Array.isArray(regionPoi.contents) && regionPoi.contents.includes(poi.type))
+        ));
+        tags.push({
+          key,
+          kind: 'poi-group',
+          group: 'Types',
+          categoryKey: poi.category,
+          typeKey: poi.type,
+          label: typeMeta.label ?? poi.type,
+          color: typeMeta.color ?? categoryMeta?.color,
+          iconHtml: getPointIcon(poi.category, poi.type, matchingPois[0] ?? poi),
+          sublabel: categoryMeta.label ?? poi.category,
+          matchCount: matchingPois.length,
+          pois: matchingPois,
+          regionKey,
+        });
+      }
+    }
+  });
+
+  return tags;
+}
+
+function buildLeftSearchTags(regionKey = getCurrentRegion()) {
+  if (!elements.leftSearchTags) return;
+
+  const tags = getImportantSearchTags(regionKey);
+  elements.leftSearchTags.innerHTML = '';
+
+  tags.forEach(tag => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'left-search-tag';
+    if (tag.color) button.style.setProperty('--tag-color', tag.color);
+    button.innerHTML = `
+      <span class="left-search-tag-dot" aria-hidden="true"></span>
+      ${tag.iconHtml ? `<span class="left-search-tag-icon">${tag.iconHtml}</span>` : ''}
+      <span>${tag.label}</span>
+    `;
+    button.addEventListener('click', () => {
+      handleSearchSelection(tag);
+    });
+    elements.leftSearchTags.appendChild(button);
+  });
 }
 
 function populateRegionSelect() {
@@ -327,11 +441,14 @@ function updateRegionInfo(regionKey) {
       const transitionPoi = getRegionTransitionPois(regionKey).find(poi => poi.id === button.dataset.transitionId);
       if (!transitionPoi) return;
 
-      closeRegionInfoModal();
-      const targetZoom = Math.min(mapView.map.getMaxZoom(), 0);
-      mapView.map.setView(transitionPoi.coords, targetZoom, { animate: true });
-      const markerEntry = markerController.getMarkerEntryForPoint(transitionPoi);
-      if (markerEntry) markerController.openPopupFromEntry(markerEntry);
+      const targetRegionName = state.regionIndex[transitionPoi.transition]?.name ?? transitionPoi.transition;
+      openRegionSwitchModal(`Navigate to the transition point to ${targetRegionName}?`, () => {
+        closeRegionInfoModal();
+        const targetZoom = Math.min(mapView.map.getMaxZoom(), 0);
+        mapView.map.setView(transitionPoi.coords, targetZoom, { animate: true });
+        const markerEntry = markerController.getMarkerEntryForPoint(transitionPoi);
+        if (markerEntry) markerController.openPopupFromEntry(markerEntry);
+      });
     });
   });
 }
@@ -343,86 +460,222 @@ function poiDisplayName(point, fallbackType, fallbackCategory) {
   return point.number != null ? `${base} #${point.number}` : base;
 }
 
-function setPoiInfoFooter(url) {
-  if (url) {
-    elements.poiInfoLink.href = url;
-    elements.poiInfoFooter.hidden = false;
-  } else {
-    elements.poiInfoLink.href = '';
-    elements.poiInfoFooter.hidden = true;
-  }
+function setPoiInfoFooter(url, count = null) {
+  elements.editPoiDelete.hidden = true;
+  elements.poiInfoLink.href = url ?? '';
+  elements.poiInfoLink.hidden = !url || currentMode === 'edit';
+  elements.poiInfoCount.hidden = count == null;
+  elements.poiInfoCount.textContent = count != null ? `${count} ${count === 1 ? 'item' : 'items'}` : '';
+  elements.poiInfoFooter.hidden = !url && count == null;
 }
 
 function showEditInfoPanel(entry) {
   const point = entry.point ?? entry.poi;
   const category = getCategoryMeta(point.category);
   const type = getTypeMeta(point.category, point.type);
+  elements.poiInfoIcon.style.setProperty('--poi-icon-bg', type?.color ?? category.color);
   elements.poiInfoIcon.innerHTML = getPointIcon(point.category, point.type, point);
   elements.poiInfoKicker.textContent = category.label;
   elements.poiInfoKicker.style.color = category.color;
   elements.poiInfoName.textContent = poiDisplayName(point, type, category);
+  elements.poiInfoId.textContent = point.id ?? '';
+  elements.poiInfoId.hidden = !point.id;
   elements.panelPanePoiInfo.hidden = true;
   elements.panelPanePoiEdit.hidden = false;
-  elements.poiInfoFooter.hidden = true;
+  elements.poiInfoCount.hidden = true;
+  elements.poiInfoLink.hidden = true;
+  elements.editPoiDelete.hidden = false;
+  elements.poiInfoFooter.hidden = false;
   elements.poiPanelWrapper.classList.add('panel-visible');
 }
 
 function showLocationInfoPanel(location, regionName = '') {
+  searchGroupPanelItem = null;
+  setCloseBtn('close');
   elements.panelPanePoiInfo.hidden = false;
   elements.panelPanePoiEdit.hidden = true;
-  elements.poiInfoIcon.innerHTML = '';
+  elements.poiInfoIcon.style.setProperty('--poi-icon-bg', '#6b7280');
+  elements.poiInfoIcon.innerHTML = '<img src="assets/icons/ui/map.svg" alt="" aria-hidden="true" />';
   elements.poiInfoKicker.textContent = regionName ? `Location in ${regionName}` : 'Location';
   elements.poiInfoKicker.style.color = '';
   elements.poiInfoName.textContent = location.name;
-  const content = location.info ? `<div class="info-item"><div class="popup-label">Description</div><div class="info-item-value">${location.info}</div></div>` : '';
-  elements.poiInfoContent.innerHTML = content;
-  elements.poiInfoContent.hidden = !content;
-  setPoiInfoFooter(location.url);
+  elements.poiInfoDlcTag.hidden = true;
+  elements.poiInfoId.hidden = true;
+  animateInfoPanelHeight(() => {
+    elements.poiInfoContent.innerHTML = '';
+    if (location.info) {
+      const s = document.createElement('section');
+      s.className = 'panel-section';
+      s.innerHTML = `<div class="info-item"><div class="popup-label">Description</div><div class="info-item-value">${location.info}</div></div>`;
+      elements.poiInfoContent.appendChild(s);
+    }
+    setPoiInfoFooter(location.url);
+  });
   elements.poiPanelWrapper.classList.add('panel-visible');
 }
 
 function showSearchGroupInfoPanel(item) {
+  searchGroupPanelItem = null;
+  setCloseBtn('close');
   elements.panelPanePoiInfo.hidden = false;
   elements.panelPanePoiEdit.hidden = true;
-  elements.poiInfoIcon.innerHTML = '';
-  elements.poiInfoKicker.textContent = item.group;
+  elements.poiInfoIcon.style.setProperty('--poi-icon-bg', item.color ?? '#6b7280');
+  elements.poiInfoIcon.innerHTML = item.iconHtml ?? '';
+  elements.poiInfoKicker.textContent = item.group === 'Types' ? (item.sublabel ?? item.group) : item.group;
   elements.poiInfoKicker.style.color = item.color ?? '';
   elements.poiInfoName.textContent = item.label;
-  elements.poiInfoContent.innerHTML = `
-    <div class="info-item">
-      <div class="popup-label">Matches</div>
-      <div class="info-item-value">${item.pois.length}</div>
-    </div>
-    ${item.sublabel ? `
-      <div class="info-item">
-        <div class="popup-label">Scope</div>
-        <div class="info-item-value">${item.sublabel}</div>
-      </div>
-    ` : ''}
-  `;
-  elements.poiInfoContent.hidden = false;
-  setPoiInfoFooter(null);
+  elements.poiInfoDlcTag.hidden = true;
+  elements.poiInfoId.hidden = true;
+
+  animateInfoPanelHeight(() => {
+    elements.poiInfoContent.innerHTML = '';
+
+    if (item.group === 'Types' && item.categoryKey && item.typeKey) {
+      const typeInfo = getTypeMeta(item.categoryKey, item.typeKey)?.info ?? '';
+      if (typeInfo) {
+        const infoSection = document.createElement('section');
+        infoSection.className = 'panel-section';
+        infoSection.innerHTML = `<div class="info-item"><div class="popup-label">Info</div><div class="info-item-value">${typeInfo}</div></div>`;
+        elements.poiInfoContent.appendChild(infoSection);
+      }
+    }
+
+    const group = document.createElement('div');
+    group.className = 'legend-group';
+
+    const header = document.createElement('div');
+    header.className = 'legend-group-header';
+
+    const title = document.createElement('button');
+    title.type = 'button';
+    title.className = 'legend-group-title';
+
+    const heading = document.createElement('h3');
+    heading.textContent = 'Points of interest';
+    title.appendChild(heading);
+
+    const collapseToggle = document.createElement('span');
+    collapseToggle.className = 'legend-group-collapse';
+    collapseToggle.innerHTML = '<span class="legend-group-chevron" aria-hidden="true">▾</span>';
+    title.appendChild(collapseToggle);
+    header.appendChild(title);
+    group.appendChild(header);
+
+    const listOuter = document.createElement('div');
+    listOuter.className = 'legend-group-items-outer';
+    const list = document.createElement('div');
+    list.className = 'legend-group-items';
+    listOuter.appendChild(list);
+
+    title.addEventListener('click', () => {
+      const collapsed = group.classList.toggle('collapsed');
+      collapseToggle.innerHTML = `<span class="legend-group-chevron${collapsed ? ' collapsed' : ''}" aria-hidden="true">▾</span>`;
+      title.setAttribute('aria-expanded', String(!collapsed));
+    });
+
+    item.pois.forEach(poi => {
+      const cat = getCategoryMeta(poi.category);
+      const type = getTypeMeta(poi.category, poi.type);
+      const color = type?.color ?? cat?.color ?? '#888';
+      const icon = getPointIcon(poi.category, poi.type, poi);
+      const label = poi.name
+        ? (poi.number != null ? `${poi.name} #${poi.number}` : poi.name)
+        : (type?.label ?? poi.type);
+      const idHtml = poi.id ? `<span class="poi-list-id">${poi.id}</span>` : '';
+
+      const row = document.createElement('div');
+      row.className = 'legend-item';
+      row.style.setProperty('--category-color', color);
+      row.innerHTML = `<div class="legend-dot"></div><span class="legend-label">${icon} ${label}</span>${idHtml}`;
+      row.addEventListener('click', () => {
+        searchGroupPanelItem = item;
+        setCloseBtn('back');
+        const targetZoom = Math.min(mapView.map.getMaxZoom(), 0);
+        mapView.map.setView(poi.coords, targetZoom, { animate: true });
+        const markerEntry = markerController.getMarkerEntryForPoint(poi);
+        if (markerEntry) markerController.openPopupFromEntry(markerEntry);
+        if (isMobileBreakpoint()) collapseMobilePanel();
+      });
+      list.appendChild(row);
+    });
+
+    group.appendChild(listOuter);
+    const groupSection = document.createElement('section');
+    groupSection.className = 'panel-section list-section';
+    groupSection.appendChild(group);
+    elements.poiInfoContent.appendChild(groupSection);
+    const itemUrl = item.group === 'Types'
+      ? (getTypeMeta(item.categoryKey, item.typeKey)?.url ?? null)
+      : null;
+    setPoiInfoFooter(itemUrl, item.pois.length);
+  });
   elements.poiPanelWrapper.classList.add('panel-visible');
 }
 
 function showPoiInfoPanel(point) {
+  if (!searchGroupPanelItem) setCloseBtn('close');
   elements.panelPanePoiInfo.hidden = false;
   elements.panelPanePoiEdit.hidden = true;
   const category = getCategoryMeta(point.category);
   const type = getTypeMeta(point.category, point.type);
+  elements.poiInfoIcon.style.setProperty('--poi-icon-bg', type?.color ?? category.color);
   elements.poiInfoIcon.innerHTML = getPointIcon(point.category, point.type, point);
   elements.poiInfoKicker.textContent = category.label;
   elements.poiInfoKicker.style.color = category.color;
   elements.poiInfoName.textContent = poiDisplayName(point, type, category);
-  const content = markerController.getPoiInfoContent(point).trim();
-  elements.poiInfoContent.innerHTML = content;
-  elements.poiInfoContent.hidden = !content;
-  setPoiInfoFooter(point.url ?? type?.url ?? null);
+  elements.poiInfoDlcTag.hidden = type?.dlc !== true;
+  elements.poiInfoId.hidden = true;
+  const { contents, info } = markerController.getPoiInfoContent(point);
+  animateInfoPanelHeight(() => {
+    elements.poiInfoContent.innerHTML = '';
+    if (contents) {
+      const s = document.createElement('section');
+      s.className = 'panel-section';
+      s.innerHTML = contents;
+      elements.poiInfoContent.appendChild(s);
+    }
+    if (info) {
+      const s = document.createElement('section');
+      s.className = 'panel-section';
+      s.innerHTML = info;
+      elements.poiInfoContent.appendChild(s);
+    }
+    setPoiInfoFooter(point.url ?? type?.url ?? null);
+  });
   elements.poiPanelWrapper.classList.add('panel-visible');
 }
 
+function setCloseBtn(mode) {
+  elements.poiInfoBackBtn.hidden = mode !== 'back';
+}
+
 function hidePoiInfoPanel() {
+  searchGroupPanelItem = null;
+  setCloseBtn('close');
   elements.poiPanelWrapper.classList.remove('panel-visible');
+}
+
+function animateInfoPanelHeight(updateFn) {
+  const body = elements.poiInfoPanel.querySelector('.panel-body');
+  if (!body || !elements.poiPanelWrapper.classList.contains('panel-visible')) {
+    updateFn();
+    return;
+  }
+  const from = body.offsetHeight;
+  updateFn();
+  const to = body.offsetHeight;
+  if (from === to) return;
+  body.style.overflow = 'hidden';
+  body.style.transition = 'none';
+  body.style.height = `${from}px`;
+  void body.offsetHeight;
+  body.style.transition = 'height 0.25s cubic-bezier(0.4, 0, 0.2, 1)';
+  body.style.height = `${to}px`;
+  body.addEventListener('transitionend', () => {
+    body.style.height = '';
+    body.style.overflow = '';
+    body.style.transition = '';
+  }, { once: true });
 }
 
 let editMode;
@@ -526,6 +779,7 @@ function switchRegion(regionKey) {
   mapView.loadMapLayer(regionKey, state.currentLayer);
   markerController.buildMarkers(regionKey);
   buildLegendForCurrentMode(regionKey);
+  buildLeftSearchTags(regionKey);
   updateRegionInfo(regionKey);
   mapView.updateBounds();
   mapView.fitRegion(regionKey, true);
@@ -605,6 +859,47 @@ function maybeConfirmCrossRegionSearchResult(item, onContinue) {
   openRegionSwitchModal(`This result is in ${targetRegionName}. Do you want to open that region?`, onContinue);
 }
 
+function handleSearchSelection(item) {
+  maybeConfirmCrossRegionSearchResult(item, () => {
+    const targetZoom = Math.min(mapView.map.getMaxZoom(), 0);
+    if (item.kind === 'region') {
+      switchRegion(item.regionKey);
+      elements.regionSelect.value = item.regionKey;
+    } else if (item.kind === 'location') {
+      if (item.regionKey !== getCurrentRegion()) {
+        switchRegion(item.regionKey);
+        elements.regionSelect.value = item.regionKey;
+      }
+      const [x, y] = item.location.pixelCoords;
+      mapView.map.setView(px(x, y), targetZoom, { animate: true });
+      showLocationInfoPanel(item.location, state.regionIndex[item.regionKey]?.name ?? '');
+    } else if (item.kind === 'poi-group') {
+      revealSearchResult(item);
+      const validCoords = item.pois.map(p => p.coords).filter(Boolean);
+      if (validCoords.length === 1 && item.pois.length === 1) {
+        mapView.map.setView(validCoords[0], targetZoom, { animate: true });
+        const markerEntry = markerController.getMarkerEntryForPoint(item.pois[0]);
+        if (markerEntry) markerController.openPopupFromEntry(markerEntry);
+      } else {
+        if (validCoords.length > 1) {
+          mapView.map.fitBounds(validCoords, { padding: [60, 60], animate: true });
+        }
+        showSearchGroupInfoPanel(item);
+      }
+    } else {
+      if (item.regionKey && item.regionKey !== getCurrentRegion()) {
+        switchRegion(item.regionKey);
+        elements.regionSelect.value = item.regionKey;
+      }
+      revealSearchResult(item);
+      mapView.map.setView(item.poi.coords, targetZoom, { animate: true });
+      const markerEntry = markerController.getMarkerEntryForPoint(item.poi);
+      if (markerEntry) markerController.openPopupFromEntry(markerEntry);
+    }
+    if (isMobileBreakpoint()) collapseMobilePanel();
+  });
+}
+
 function bindEvents() {
   // Region / layer selectors
   elements.regionSelect.addEventListener('change', event => {
@@ -632,42 +927,19 @@ function bindEvents() {
     getCategoryMeta,
     getPointIcon,
     onSelect: item => {
-      maybeConfirmCrossRegionSearchResult(item, () => {
-        const targetZoom = Math.min(mapView.map.getMaxZoom(), 0);
-        if (item.kind === 'region') {
-          switchRegion(item.regionKey);
-          elements.regionSelect.value = item.regionKey;
-        } else if (item.kind === 'location') {
-          if (item.regionKey !== getCurrentRegion()) {
-            switchRegion(item.regionKey);
-            elements.regionSelect.value = item.regionKey;
-          }
-          const [x, y] = item.location.pixelCoords;
-          mapView.map.setView(px(x, y), targetZoom, { animate: true });
-          showLocationInfoPanel(item.location, state.regionIndex[item.regionKey]?.name ?? '');
-        } else if (item.kind === 'poi-group') {
-          revealSearchResult(item);
-          if (item.pois.length === 1) {
-            mapView.map.setView(item.pois[0].coords, targetZoom, { animate: true });
-            const markerEntry = markerController.getMarkerEntryForPoint(item.pois[0]);
-            if (markerEntry) markerController.openPopupFromEntry(markerEntry);
-          } else {
-            mapView.map.fitBounds(item.pois.map(p => p.coords), { padding: [60, 60], animate: true });
-            showSearchGroupInfoPanel(item);
-          }
-        } else {
-          if (item.regionKey && item.regionKey !== getCurrentRegion()) {
-            switchRegion(item.regionKey);
-            elements.regionSelect.value = item.regionKey;
-          }
-          revealSearchResult(item);
-          mapView.map.setView(item.poi.coords, targetZoom, { animate: true });
-          const markerEntry = markerController.getMarkerEntryForPoint(item.poi);
-          if (markerEntry) markerController.openPopupFromEntry(markerEntry);
-        }
-        if (isMobileBreakpoint()) collapseMobilePanel();
-      });
+      elements.leftSearchClear.hidden = !elements.leftSearchInput.value;
+      handleSearchSelection(item);
     },
+  });
+
+  // Left search clear button
+  elements.leftSearchInput.addEventListener('input', () => {
+    elements.leftSearchClear.hidden = !elements.leftSearchInput.value;
+  });
+  elements.leftSearchClear.addEventListener('click', () => {
+    elements.leftSearchInput.value = '';
+    elements.leftSearchClear.hidden = true;
+    elements.leftSearchInput.focus();
   });
 
   // Settings
@@ -689,6 +961,7 @@ function bindEvents() {
     editMode.closeJsonModal();
   });
   elements.jsonModalTrigger.addEventListener('click', () => editMode.openJsonModal());
+  elements.editPoiDelete.addEventListener('click', () => editMode.deleteActiveEntry());
 
   // Area info modal
   elements.regionInfoTrigger.addEventListener('click', openRegionInfoModal);
@@ -699,7 +972,15 @@ function bindEvents() {
   elements.regionSwitchModalConfirm.addEventListener('click', confirmRegionSwitchModal);
   elements.regionSwitchModalBackdrop.addEventListener('click', closeRegionSwitchModal);
 
-  // ── POI info panel close ────────────────────────────────────────────────
+  // ── POI info panel close / back ─────────────────────────────────────────
+  elements.poiInfoBackBtn.addEventListener('click', () => {
+    const groupItem = searchGroupPanelItem;
+    searchGroupPanelItem = null;
+    setCloseBtn('close');
+    markerController.closeCurrentPopup();
+    showSearchGroupInfoPanel(groupItem);
+  });
+
   elements.poiInfoCloseBtn.addEventListener('click', () => {
     markerController.closeCurrentPopup();
     editMode.hideEditEditor();
@@ -732,6 +1013,12 @@ function bindEvents() {
 
   // ── Backdrop tap collapses mobile panel ─────────────────────────────────
   elements.panelBackdrop.addEventListener('click', collapseMobilePanel);
+
+  // ── Edit hint toggle ────────────────────────────────────────────────────
+  elements.editHintToggle.addEventListener('click', () => {
+    const collapsed = elements.editHintSection.classList.toggle('collapsed');
+    elements.editHintToggle.setAttribute('aria-expanded', String(!collapsed));
+  });
 
   // ── Mode tabs (desktop) ─────────────────────────────────────────────────
   elements.panelModeTabs.forEach(tab => {
@@ -833,6 +1120,7 @@ async function boot() {
     bindEvents();
     settingsController.sync();
     mapView.map.invalidateSize();
+    document.body.dataset.mode = currentMode;
     elements.regionSelect.value = state.currentRegion;
     resetJsonCopyButtonLabel();
     switchRegion(state.currentRegion);

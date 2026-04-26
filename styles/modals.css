@@ -38,6 +38,10 @@
 .modal-header h2 {
   font-size: 0.95rem;
   color: var(--text-primary);
+  font-family: 'Oswald', system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
 }
 
 .modal-footer {

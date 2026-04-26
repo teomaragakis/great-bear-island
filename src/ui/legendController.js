@@ -76,7 +76,7 @@ export function createLegendController({
     const item = document.createElement('div');
     item.className = `legend-item${isDisabled ? ' disabled' : ''}${!isDisabled && !activeFilters.has(filterKey) ? ' inactive' : ''}`;
     item.dataset.filterKey = filterKey;
-    item.style.setProperty('--category-color', category.color);
+    item.style.setProperty('--category-color', type.color ?? category.color);
     item.innerHTML = `
       <div class="legend-dot"></div>
       <span class="legend-label">${getPointIcon(categoryKey, typeKey)} ${type.label}</span>
@@ -241,7 +241,7 @@ export function createLegendController({
         return;
       }
 
-      const group = document.createElement('section');
+      const group = document.createElement('div');
       group.className = 'legend-group';
       group.dataset.groupKey = key;
 
@@ -270,8 +270,11 @@ export function createLegendController({
       header.appendChild(toggle);
       group.appendChild(header);
 
+      const itemsOuter = document.createElement('div');
+      itemsOuter.className = 'legend-group-items-outer';
       const items = document.createElement('div');
       items.className = 'legend-group-items';
+      itemsOuter.appendChild(items);
 
       visibleEntries.forEach(entry => {
         const { isDisabled } = entry;
@@ -293,7 +296,7 @@ export function createLegendController({
       syncLegendGroupToggle(toggle, enabledFilterKeys);
       toggle.addEventListener('click', () => toggleLegendGroup(key, enabledFilterKeys, items, toggle, group, collapseToggle));
 
-      group.appendChild(items);
+      group.appendChild(itemsOuter);
       legendEl.appendChild(group);
     });
 

@@ -184,7 +184,7 @@ export function createEditPoiForm({
           aria-label="Remove content"
           title="Remove content"
         >
-          <span class="edit-content-remove-icon" aria-hidden="true">⊕</span>
+          <img src="assets/icons/ui/delete.svg" alt="" aria-hidden="true" style="width:16px;height:16px;" />
         </button>
       </div>
     `).join('');
@@ -422,18 +422,12 @@ export function createEditPoiForm({
     </div>
     `}
     <div class="edit-coords">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>
-    <button type="button" class="edit-delete" aria-label="Delete POI" title="Delete POI">
-      <span aria-hidden="true">🗑</span>
-      <span>Delete POI</span>
-    </button>
   `;
 
   const poiTypeSelect = container.querySelector('[data-role="poi-type"]');
   const nameInput = container.querySelector('[data-role="name"]');
   const numberInput = container.querySelector('[data-role="number"]');
   const descInput = container.querySelector('[data-role="desc"]');
-  const deleteButton = container.querySelector('.edit-delete');
-
   attachFieldListeners(container);
 
   function rerenderForm() {
@@ -469,10 +463,6 @@ export function createEditPoiForm({
   descInput?.addEventListener('input', () => {
     point.desc = descInput.value;
     refreshPopup(entry);
-  });
-
-  deleteButton.addEventListener('click', () => {
-    deleteEditEntry(entry);
   });
 
   return container;

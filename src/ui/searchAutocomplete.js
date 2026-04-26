@@ -1,5 +1,8 @@
 import { isRegionSelectable } from '../data/loadRegions.js';
 
+const HISTORY_KEY = 'gbi-search-history';
+const MAX_HISTORY = 5;
+
 export function createSearchAutocomplete({
   inputEl,
   getRegions,
@@ -47,9 +50,110 @@ export function createSearchAutocomplete({
       : '';
   }
 
+  function getStoredHistory() {
+    try {
+      return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function isSameHistoryEntry(a, b) {
+    if (a.kind !== b.kind) return false;
+    if (a.kind === 'poi') return a.poiKey === b.poiKey && a.regionKey === b.regionKey;
+    if (a.kind === 'location') return a.locationName === b.locationName && a.regionKey === b.regionKey;
+    if (a.kind === 'region') return a.regionKey === b.regionKey;
+    if (a.kind === 'poi-group') return a.categoryKey === b.categoryKey && a.typeKey === b.typeKey;
+    return false;
+  }
+
+  function serializeHistoryItem(item) {
+    const base = {
+      kind: item.kind,
+      label: item.label,
+      sublabel: item.sublabel,
+      color: item.color,
+      iconHtml: item.iconHtml,
+      originalGroup: item.originalGroup ?? item.group,
+    };
+    if (item.kind === 'poi') {
+      const poiKey = item.poi?.id ?? item.poi?.pixelCoords?.join(',');
+      if (!poiKey) return null;
+      return { ...base, poiKey, usesId: !!item.poi?.id, regionKey: item.regionKey };
+    }
+    if (item.kind === 'location') {
+      return { ...base, locationName: item.location?.name, regionKey: item.regionKey };
+    }
+    if (item.kind === 'region') {
+      return { ...base, regionKey: item.regionKey };
+    }
+    if (item.kind === 'poi-group') {
+      return { ...base, categoryKey: item.categoryKey, typeKey: item.typeKey, regionKey: item.regionKey };
+    }
+    return null;
+  }
+
+  function rehydrateHistoryItem(entry) {
+    const regionIndex = getRegionIndex();
+    const regions = getRegions();
+
+    if (entry.kind === 'poi') {
+      const regionData = regions[entry.regionKey];
+      if (!regionData) return null;
+      const poi = regionData.pois.find(p =>
+        entry.usesId ? p.id === entry.poiKey : p.pixelCoords?.join(',') === entry.poiKey,
+      );
+      if (!poi) return null;
+      return { kind: 'poi', group: 'History', originalGroup: entry.originalGroup, label: entry.label, sublabel: entry.sublabel, color: entry.color, iconHtml: entry.iconHtml, poi, regionKey: entry.regionKey };
+    }
+    if (entry.kind === 'location') {
+      const regionMeta = regionIndex[entry.regionKey];
+      if (!regionMeta) return null;
+      const location = (regionMeta.locations ?? []).find(l => l.name === entry.locationName);
+      if (!location) return null;
+      return { kind: 'location', group: 'History', originalGroup: entry.originalGroup, label: entry.label, sublabel: entry.sublabel, color: entry.color, iconHtml: entry.iconHtml, location, regionKey: entry.regionKey };
+    }
+    if (entry.kind === 'region') {
+      if (!regionIndex[entry.regionKey]) return null;
+      return { kind: 'region', group: 'History', originalGroup: entry.originalGroup, label: entry.label, sublabel: entry.sublabel, color: entry.color, iconHtml: entry.iconHtml, regionKey: entry.regionKey };
+    }
+    if (entry.kind === 'poi-group') {
+      const catMeta = getPointCategories()[entry.categoryKey];
+      if (!catMeta) return null;
+      const currentPois = getRegions()[getCurrentRegion()]?.pois ?? [];
+      let matching;
+      if (entry.typeKey) {
+        matching = dedupePois(currentPois.filter(p =>
+          (p.category === entry.categoryKey && p.type === entry.typeKey)
+          || (Array.isArray(p.contents) && p.contents.includes(entry.typeKey)),
+        ));
+      } else {
+        const categoryTypeKeys = new Set(Object.keys(catMeta.types ?? {}));
+        matching = dedupePois(currentPois.filter(p =>
+          p.category === entry.categoryKey
+          || (Array.isArray(p.contents) && p.contents.some(tk => categoryTypeKeys.has(tk))),
+        ));
+      }
+      return { kind: 'poi-group', group: 'History', originalGroup: entry.originalGroup, label: entry.label, sublabel: entry.sublabel, color: entry.color, iconHtml: entry.iconHtml, categoryKey: entry.categoryKey, typeKey: entry.typeKey, matchCount: matching.length, pois: matching, regionKey: entry.regionKey };
+    }
+    return null;
+  }
+
+  function getHistoryResults() {
+    return getStoredHistory().map(rehydrateHistoryItem).filter(Boolean);
+  }
+
+  function saveToHistory(item) {
+    const entry = serializeHistoryItem(item);
+    if (!entry) return;
+    const stored = getStoredHistory().filter(e => !isSameHistoryEntry(e, entry));
+    stored.unshift(entry);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(stored.slice(0, MAX_HISTORY)));
+  }
+
   function buildResults(term) {
     const t = term.toLowerCase().trim();
-    if (!t) return [];
+    if (!t) return getHistoryResults();
 
     const pois = getRegionData()?.pois ?? [];
     const categories = getPointCategories();
@@ -90,7 +194,7 @@ export function createSearchAutocomplete({
           poi,
           regionKey,
           iconHtml: getPoiIconImage(poi.category, poi.type, poi),
-          color: cat?.color,
+          color: typeMeta?.color ?? cat?.color,
         });
       });
 
@@ -134,7 +238,7 @@ export function createSearchAutocomplete({
           matchCount: matching.length,
           pois: matching,
           iconHtml: getSearchIconImage(catKey, typeKey, matching[0]),
-          color: catMeta?.color,
+          color: typeMeta?.color ?? catMeta?.color,
         });
       });
     });
@@ -241,7 +345,8 @@ export function createSearchAutocomplete({
     if (!item) return;
     inputEl.value = item.label;
     closeDropdown();
-    onSelect(item);
+    saveToHistory(item);
+    onSelect(item.originalGroup ? { ...item, group: item.originalGroup } : item);
   }
 
   function closeDropdown() {
@@ -251,9 +356,7 @@ export function createSearchAutocomplete({
   }
 
   function reopenForCurrentValue() {
-    const term = inputEl.value.trim();
-    if (!term) return;
-    render(buildResults(term));
+    render(buildResults(inputEl.value));
   }
 
   inputEl.addEventListener('input', () => {

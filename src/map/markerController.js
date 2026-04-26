@@ -45,9 +45,10 @@ export function createMarkerController({
 
   function createMarkerElement(point, extraClassName = '') {
     const category = getCategoryMeta(point.category);
+    const type = getTypeMeta(point.category, point.type);
     const el = document.createElement('div');
     el.className = `custom-marker${extraClassName ? ` ${extraClassName}` : ''}`;
-    el.style.setProperty('--category-color', category.color);
+    el.style.setProperty('--category-color', type?.color ?? category.color);
     el.innerHTML = `<div class="marker-icon">${getPointIcon(point.category, point.type, point)}</div>`;
     if (point.id) el.dataset.poiId = point.id;
     return el;
@@ -165,7 +166,7 @@ export function createMarkerController({
       : '';
 
     return `
-      <div class="popup-cat" style="color:${category.color}">${category.label}</div>
+      <div class="popup-cat" style="color:${type?.color ?? category.color}">${category.label}</div>
       ${titleHtml}
       ${poiDesc ? `<div class="popup-desc">${poiDesc}</div>` : ''}
       ${transitionHtml}
@@ -179,12 +180,13 @@ export function createMarkerController({
     const type = getTypeMeta(point.category, point.type);
     const poiDesc = typeof point.desc === 'string' ? point.desc : '';
     const typeInfo = typeof type?.info === 'string' ? type.info : '';
-    return `
-      ${getContentsHtml(point)}
-      ${getTransitionHtml(point)}
-      ${poiDesc ? `<div class="info-item"><div class="popup-label">Notes</div><div class="info-item-value">${poiDesc}</div></div>` : ''}
-      ${typeInfo ? `<div class="info-item"><div class="popup-label">Info</div><div class="info-item-value">${typeInfo}</div></div>` : ''}
-    `;
+    return {
+      contents: [getContentsHtml(point), getTransitionHtml(point)].join('').trim(),
+      info: [
+        poiDesc ? `<div class="info-item"><div class="popup-label">Notes</div><div class="info-item-value">${poiDesc}</div></div>` : '',
+        typeInfo ? `<div class="info-item"><div class="popup-label">Info</div><div class="info-item-value">${typeInfo}</div></div>` : '',
+      ].join('').trim(),
+    };
   }
 
   function ensurePopupFits(popup, attempt = 0) {
@@ -366,6 +368,7 @@ export function createMarkerController({
         // Cluster identity is derived from one child marker so it can reuse the normal icon/color system.
         const firstChildPoint = cluster.getAllChildMarkers()[0]?.__poi ?? null;
         const category = firstChildPoint ? getCategoryMeta(firstChildPoint.category) : null;
+        const firstChildType = firstChildPoint ? getTypeMeta(firstChildPoint.category, firstChildPoint.type) : null;
         const clusterIcon = clusterKey !== '__all__' && firstChildPoint
           ? getPointIcon(firstChildPoint.category, firstChildPoint.type, firstChildPoint)
           : '';
@@ -378,7 +381,7 @@ export function createMarkerController({
         return L.divIcon({
           className: 'poi-cluster-icon',
           html: `
-            <div class="poi-cluster-badge" style="--cluster-color: ${category?.color ?? '#d7ad31'}">
+            <div class="poi-cluster-badge" style="--cluster-color: ${firstChildType?.color ?? category?.color ?? '#d7ad31'}">
               ${clusterIcon ? `<span class="poi-cluster-badge-icon">${clusterIcon}</span>` : ''}
               <span class="poi-cluster-badge-count">${cluster.getChildCount()}</span>
             </div>
