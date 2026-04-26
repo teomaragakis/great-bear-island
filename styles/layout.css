@@ -201,27 +201,40 @@ body { position: relative; }
 }
 
 /* ── Right panel stack (POI info above legend) ── */
-.panels-right {
+.panels {
   position: fixed;
-  right: 16px;
-  top: calc(var(--topbar-h) + 16px);
+  top: var(--topbar-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 500;
+  gap: 16px;
+}
+
+.panels-right {
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: fit-content;
+  margin-left: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 16px;
-  z-index: 500;
-  max-height: calc(100vh - var(--topbar-h) - 32px);
+  pointer-events: auto;
 }
 
 .panels-left {
-  position: fixed;
-  left: 16px;
-  top: calc(var(--topbar-h) + 16px);
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   gap: 16px;
-  z-index: 500;
+  pointer-events: auto;
 }
 
 .map-mode-control { display: block; }
@@ -235,18 +248,25 @@ body { position: relative; }
 
 /* Wrapper that collapses to 0 when POI panel is hidden */
 .panel-wrapper {
-  display: grid;
+  display: none;
   grid-template-rows: 0fr;
-  width: 380px;
-  max-width: calc(100vw - 32px);
-  margin-bottom: -16px; /* cancel the flex gap when collapsed */
   transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              margin-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              display 0s 0.3s;
+  transition-behavior: allow-discrete;
 }
 
 .panel-wrapper.panel-visible {
+  display: grid;
   grid-template-rows: 1fr;
-  margin-bottom: 0;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              display 0s;
+  transition-behavior: allow-discrete;
+}
+
+@starting-style {
+  .panel-wrapper.panel-visible {
+    grid-template-rows: 0fr;
+  }
 }
 
 .panel-wrapper > .map-panel {
@@ -331,6 +351,10 @@ body { position: relative; }
   font-size: 1.2rem;
   line-height: 1.1;
   color: var(--text-primary);
+  font-family: 'Oswald', system-ui, sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.05rem;
 }
 
 .sticky-section {

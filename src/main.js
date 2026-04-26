@@ -66,7 +66,7 @@ const elements = {
   regionSwitchModalBackdrop: document.querySelector('[data-close-region-switch-modal]'),
   layerButtons: document.querySelectorAll('.layer-btn'),
   // Panel UI
-  panel: document.getElementById('map-panel'),
+  panel: document.getElementById('legend-panel'),
   panelToggleBtn: document.getElementById('panel-toggle-btn'),
   panelBackdrop: document.getElementById('panel-backdrop'),
   panelDragHandle: document.getElementById('panel-drag-handle'),
@@ -142,7 +142,7 @@ function collapseMobilePanel() {
 }
 
 // ── Mode switching ───────────────────────────────────────────────────────────
-function switchMode(mode) {
+function switchMode(mode, { focus = true } = {}) {
   const prevMode = currentMode;
 
   if (mode === currentMode) {
@@ -209,7 +209,7 @@ function switchMode(mode) {
 
   if (mode === 'search') {
     buildLeftSearchTags();
-    elements.leftSearchInput.focus();
+    if (focus) elements.leftSearchInput.focus();
   }
 
   buildLegendForCurrentMode();
@@ -1124,7 +1124,7 @@ async function boot() {
     elements.regionSelect.value = state.currentRegion;
     resetJsonCopyButtonLabel();
     switchRegion(state.currentRegion);
-    switchMode('search');
+    switchMode('search', { focus: false });
   } catch (error) {
     console.error(error);
   }
