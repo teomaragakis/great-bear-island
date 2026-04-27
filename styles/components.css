@@ -412,12 +412,55 @@ textarea.form-control {
   box-shadow: 0 4px 16px rgba(0,0,0,0.8);
 }
 .custom-marker.active-marker {
-  transform: rotate(-45deg) scale(1.28);
+  transform: rotate(-45deg) scale(1.45);
   border-color: white;
 }
 
 .custom-marker.temporary-marker {
   border-style: dashed;
+}
+
+.custom-marker.marker-environment.marker-important {
+  transform: scale(1.6);
+}
+.custom-marker.marker-environment.marker-important:hover {
+  transform: scale(1.65);
+}
+.custom-marker.marker-environment.marker-important.active-marker {
+  transform: scale(1.8);
+}
+
+.custom-marker.marker-environment {
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  transform: none;
+  width: 32px;
+  height: 32px;
+  filter:
+    drop-shadow(-1px  0   0 white)
+    drop-shadow( 1px  0   0 white)
+    drop-shadow( 0   -1px 0 white)
+    drop-shadow( 0    1px 0 white);
+}
+.custom-marker.marker-environment:hover {
+  transform: scale(1.15);
+  box-shadow: none;
+}
+.custom-marker.marker-environment.active-marker {
+  transform: scale(1.45);
+  border: none;
+}
+.custom-marker.marker-environment .marker-icon {
+  transform: none;
+}
+.custom-marker.marker-environment .icon-asset {
+  width: 28px;
+  height: 28px;
+}
+.custom-marker.marker-environment .icon-asset-mask {
+  background: var(--category-color);
 }
 
 .custom-marker .marker-icon {

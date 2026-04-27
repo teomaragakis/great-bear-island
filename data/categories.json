@@ -7,6 +7,8 @@
     "desc": false,
     "types": {
       "airplane": {
+        "environment":true,
+        "important":true,
         "label": "Airplane",
         "info": "A wrecked aircraft serving as a fixed regional landmark."
       },
@@ -16,6 +18,7 @@
       },
       "bridge": {
         "label": "Bridge",
+        "environment":true,
         "name": true,
         "info": "A structure spanning a gap, ravine, or frozen waterway."
       },
@@ -56,6 +59,8 @@
       },
       "grain-silo": {
         "label": "Grain Silo",
+        "important": true,
+        "environment": true,
         "icon": "assets/icons/pois/grain-silo.svg",
         "name": false,
         "desc": false,
@@ -362,10 +367,10 @@
   "predators": {
     "label": "Predators",
     "color": "#dc2626",
-    "important": true,
     "popup": false,
     "name": false,
     "desc": false,
+    "environment": true,
     "types": {
       "wolf": {
         "label": "Wolf",
@@ -398,6 +403,7 @@
   "prey": {
     "label": "Prey & Hunting",
     "color": "#92664a",
+    "environment": true,
     "popup": false,
     "name": false,
     "desc": false,
@@ -426,6 +432,7 @@
   },
   "harvestable-plants": {
     "label": "Harvestables",
+    "environment": true,
     "color": "#0b6623",
     "popup": false,
     "name": false,

@@ -47,8 +47,10 @@ export function createMarkerController({
   function createMarkerElement(point, extraClassName = '') {
     const category = getCategoryMeta(point.category);
     const type = getTypeMeta(point.category, point.type);
+    const isEnvironment = type?.environment === true || category?.environment === true;
+    const isImportant = type?.important === true || category?.important === true;
     const el = document.createElement('div');
-    el.className = `custom-marker${extraClassName ? ` ${extraClassName}` : ''}`;
+    el.className = `custom-marker${isEnvironment ? ' marker-environment' : ''}${isImportant ? ' marker-important' : ''}${extraClassName ? ` ${extraClassName}` : ''}`;
     el.style.setProperty('--category-color', type?.color ?? category.color);
     el.innerHTML = `<div class="marker-icon">${getPointIcon(point.category, point.type, point)}</div>`;
     if (point.id) el.dataset.poiId = point.id;
@@ -66,6 +68,10 @@ export function createMarkerController({
   function getPopupSetting(point) {
     const category = getCategoryMeta(point.category);
     const type = getTypeMeta(point.category, point.type);
+
+    if (type?.environment === true || category?.environment === true) {
+      return false;
+    }
 
     if (typeof type?.popup === 'boolean') {
       return type.popup;
@@ -257,16 +263,7 @@ export function createMarkerController({
       .setContent(getPopupContent(point));
 
     currentPopup.on('remove', () => {
-      if (activeEl) {
-        activeEl.classList.remove('active-marker');
-      }
-      if (activeMarkerEl === activeEl) {
-        activeMarkerEl = null;
-      }
-      if (activeViewPoi === point) {
-        activeViewPoi = null;
-        if (!isEditModeEnabled()) onPoiClose();
-      }
+      currentPopup = null;
     });
 
     currentPopup.openOn(map);
@@ -430,13 +427,14 @@ export function createMarkerController({
       if (!category) return;
 
       const el = createMarkerElement(poi);
+      const isEnvironment = el.classList.contains('marker-environment');
       const marker = L.marker(poi.coords, {
         icon: L.divIcon({
           className: 'poi-div-icon',
           html: el,
-          iconSize: [32, 38],
-          iconAnchor: [16, 38],
-          popupAnchor: [0, -38],
+          iconSize: isEnvironment ? [32, 32] : [32, 38],
+          iconAnchor: isEnvironment ? [16, 16] : [16, 38],
+          popupAnchor: isEnvironment ? [0, -16] : [0, -38],
         }),
         keyboard: false,
         draggable: isEditModeEnabled(),
@@ -533,10 +531,15 @@ export function createMarkerController({
   }
 
   function closeCurrentPopup() {
-    if (!currentPopup) return;
-    map.closePopup(currentPopup);
-    currentPopup = null;
+    if (activeMarkerEl) {
+      activeMarkerEl.classList.remove('active-marker');
+      activeMarkerEl = null;
+    }
     activeViewPoi = null;
+    if (currentPopup) {
+      map.closePopup(currentPopup);
+      currentPopup = null;
+    }
   }
 
   function getMarkerEntryForPoint(point) {
