@@ -29,6 +29,7 @@
       },
       "cliff": {
         "label": "Cliff",
+        "environment": true,
         "info": "A steep rock face that may require a rope to ascend or descend."
       },
       "train-car": {
@@ -50,6 +51,7 @@
       "tunnel": {
         "label": "Tunnel",
         "transition": true,
+        "environment": true,
         "info": "A passage through terrain that may serve as a region connection."
       },
       "landmark": {
@@ -68,6 +70,7 @@
       },
       "waterfall": {
         "label": "Waterfall",
+        "environment": true,
         "info": "A cascading water feature useful as a navigational landmark."
       }
     }
@@ -79,6 +82,7 @@
     "types": {
       "bear-cave": {
         "label": "Bear Cave",
+        "environment": true,
         "icon": "assets/icons/pois/cave.svg",
         "name": false,
         "desc": false,
@@ -91,14 +95,17 @@
         "info": "An enclosed structure providing shelter from wind, cold, and wildlife."
       },
       "destroyed-building": {
+        "important": false,
         "label": "Destroyed Building",
         "name": false,
         "desc": false,
         "contents": false,
+        "environment": true,
         "info": "A ruined structure offering only partial shelter."
       },
       "cave": {
         "label": "Cave",
+        "environment": true,
         "url": "https://thelongdark.fandom.com/wiki/Cave",
         "name": false,
         "desc": false,
@@ -106,6 +113,8 @@
         "info": "A natural rock shelter providing protection from wind and wildlife."
       },
       "fishing-hut": {
+        "important": false,
+        "environment": true,
         "label": "Fishing Hut",
         "url": "https://thelongdark.fandom.com/wiki/Fishing_hut",
         "name": false,
@@ -122,6 +131,7 @@
       },
       "mine": {
         "label": "Mine",
+        "environment": true,
         "url": "https://thelongdark.fandom.com/wiki/Mine",
         "desc": false,
         "contents": true,

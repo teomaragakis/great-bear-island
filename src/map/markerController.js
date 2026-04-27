@@ -48,7 +48,11 @@ export function createMarkerController({
     const category = getCategoryMeta(point.category);
     const type = getTypeMeta(point.category, point.type);
     const isEnvironment = type?.environment === true || category?.environment === true;
-    const isImportant = type?.important === true || category?.important === true;
+    const isImportant = typeof point.important === 'boolean'
+      ? point.important
+      : typeof type?.important === 'boolean'
+        ? type.important
+        : category?.important === true;
     const el = document.createElement('div');
     el.className = `custom-marker${isEnvironment ? ' marker-environment' : ''}${isImportant ? ' marker-important' : ''}${extraClassName ? ` ${extraClassName}` : ''}`;
     el.style.setProperty('--category-color', type?.color ?? category.color);

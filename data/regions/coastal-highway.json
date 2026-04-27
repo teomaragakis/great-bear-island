@@ -533,6 +533,7 @@
       },
       {
         "id": "quonset-garage",
+        "important": true,
         "name": "Quonset Garage",
         "icon": "assets/icons/pois/garage.svg",
         "contents": ["spawn-point", "bed", "fire-barrel", "emergency-stim", "first-aid", "workbench", "scrawled-message", "metal-box", "barb-rifle", "revolver", "book", "computer", "hacksaw", "hatchet", "lantern", "radio", "film"],

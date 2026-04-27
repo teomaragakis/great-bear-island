@@ -420,6 +420,16 @@ textarea.form-control {
   border-style: dashed;
 }
 
+.custom-marker.marker-important {
+  /* transform: rotate(-45deg) scale(1.35); */
+}
+.custom-marker.marker-important:hover {
+  /* transform: rotate(-45deg) scale(1.45); */
+}
+.custom-marker.marker-important.active-marker {
+  /* transform: rotate(-45deg) scale(1.6); */
+}
+
 .custom-marker.marker-environment.marker-important {
   transform: scale(1.6);
 }
@@ -533,8 +543,8 @@ textarea.form-control {
   background: transparent;
   border: none;
   color: rgba(58, 58, 58, 0.96);
-  font-size: 1rem;
-  line-height: 1.3;
+  font-size: 1.1rem;
+  line-height: 1.6;
   letter-spacing: 0.01em;
   white-space: normal;
   text-transform: uppercase;

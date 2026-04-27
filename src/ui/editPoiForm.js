@@ -223,7 +223,7 @@ export function createEditPoiForm({
     }
 
     Object.keys(targetPoint).forEach(key => {
-      if (['id', 'category', 'type', 'name', 'desc', 'number', 'pixelCoords', 'coords', 'contents', 'locked'].includes(key)) return;
+      if (['id', 'category', 'type', 'name', 'desc', 'number', 'pixelCoords', 'coords', 'contents', 'locked', 'environment'].includes(key)) return;
       if (!allowedFieldKeys.has(key)) {
         delete targetPoint[key];
       }
@@ -434,6 +434,13 @@ export function createEditPoiForm({
         <span class="settings-switch" aria-hidden="true"></span>
       </label>
     </div>
+    <div class="form-field edit-field">
+      <label class="form-toggle settings-toggle edit-inline-toggle">
+        <span class="form-label">Environment</span>
+        <input data-role="environment" type="checkbox" ${point.environment ? 'checked' : ''}>
+        <span class="settings-switch" aria-hidden="true"></span>
+      </label>
+    </div>
     <div class="edit-coords">x: ${point.pixelCoords[0]}, y: ${point.pixelCoords[1]}</div>
   `;
 
@@ -484,6 +491,15 @@ export function createEditPoiForm({
     recordUndoSnapshot();
     if (lockedInput.checked) point.locked = true;
     else delete point.locked;
+    syncEntryMarkerVisual(entry);
+    refreshPopup(entry);
+  });
+
+  const environmentInput = container.querySelector('[data-role="environment"]');
+  environmentInput.addEventListener('change', () => {
+    recordUndoSnapshot();
+    if (environmentInput.checked) point.environment = true;
+    else delete point.environment;
     syncEntryMarkerVisual(entry);
     refreshPopup(entry);
   });
