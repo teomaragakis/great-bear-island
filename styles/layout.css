@@ -916,9 +916,20 @@ body { position: relative; }
    MOBILE (≤ 640px) — BOTTOM SHEET PATTERN
 ───────────────────────────────────────── */
 @media (max-width: 640px) {
-  /* POI info panel — hide on mobile (popup handles POI info there) */
+  /* POI info panel — slides up as its own sheet above the legend */
   .panel-wrapper {
     display: none;
+  }
+
+  .panel-wrapper.panel-visible > .map-panel {
+    transform: translateY(0);
+    z-index: 510;
+  }
+
+  @starting-style {
+    .panel-wrapper.panel-visible > .map-panel {
+      transform: translateY(100%);
+    }
   }
 
   /* Restore fixed positioning for the legend panel inside panels-right */
@@ -1007,8 +1018,7 @@ body { position: relative; }
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.25);
   }
 
-  .panels-left-top,
-  .map-mode-control {
+  .panels-left-top {
     display: none;
   }
 
@@ -1043,7 +1053,6 @@ body { position: relative; }
   }
 
   body[data-mode="search"] .left-search-tags-wrap {
-    position: static;
     width: 100%;
     max-width: none;
   }

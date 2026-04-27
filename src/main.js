@@ -1104,6 +1104,19 @@ function bindEvents() {
   });
 
   // ── Resize ───────────────────────────────────────────────────────────────
+  const mobileQuery = window.matchMedia('(max-width: 640px)');
+  mobileQuery.addEventListener('change', e => {
+    if (!e.matches) {
+      // Crossed to desktop: re-sync button icon and remove mobile-only classes.
+      elements.panel.classList.remove('panel-expanded');
+      elements.panelBackdrop.hidden = true;
+      elements.panelToggleBtn.innerHTML = isPanelOpen
+        ? '✕'
+        : '<img src="assets/icons/ui/legend.svg" alt="" aria-hidden="true" />';
+      syncLegendPanelControls(isPanelOpen);
+    }
+  });
+
   window.addEventListener('resize', () => {
     mapView.map.invalidateSize();
     mapView.updateBounds();
