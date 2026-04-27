@@ -73,16 +73,6 @@
         <button type="button" id="area-info-trigger" class="header-link-btn">Area Info</button>
       </div>
       <div class="topbar-center"></div>
-      <div class="topbar-right">
-        <div class="control-group">
-          <label>LAYER</label>
-          <div class="layer-tabs">
-            <button class="layer-btn active" data-layer="aerial-contour">Aerial Contour</button>
-            <button class="layer-btn" data-layer="aerial">Aerial</button>
-            <button class="layer-btn" data-layer="topographic">Topographic</button>
-          </div>
-        </div>
-      </div>
     </header>
 
     <!-- ── MAP ── -->
@@ -122,16 +112,11 @@
               <img src="assets/icons/ui/json.svg" alt="" aria-hidden="true" />
             </button>
           </div>
-          <div class="left-layers-control">
-            <button type="button" class="panel-btn left-layers-btn" id="left-layers-toggle" aria-label="Toggle layer selector" aria-expanded="false">
-              <img src="assets/icons/ui/layers.svg" alt="" aria-hidden="true" />
-            </button>
-          </div>
-          <div class="left-layer-selector" id="left-layer-selector" hidden>
-            <div class="panel-mode-tabs left-layer-tabs" aria-label="Map layer">
-              <button type="button" class="layer-btn left-layer-btn active" data-layer="aerial-contour">Aerial Contour</button>
-              <button type="button" class="layer-btn left-layer-btn" data-layer="aerial">Aerial</button>
-              <button type="button" class="layer-btn left-layer-btn" data-layer="topographic">Topographic</button>
+          <div class="map-mode-control">
+            <div class="panel-mode-tabs" role="tablist" aria-label="Map layer">
+              <button type="button" class="panel-mode-tab active" data-layer="aerial-contour" role="tab" aria-selected="true" aria-label="Aerial Contour"><img src="assets/icons/ui/air-contour.svg" alt="" aria-hidden="true" /></button>
+              <button type="button" class="panel-mode-tab" data-layer="aerial" role="tab" aria-selected="false" aria-label="Aerial"><img src="assets/icons/ui/air.svg" alt="" aria-hidden="true" /></button>
+              <button type="button" class="panel-mode-tab" data-layer="topographic" role="tab" aria-selected="false" aria-label="Topographic"><img src="assets/icons/ui/contour.svg" alt="" aria-hidden="true" /></button>
             </div>
           </div>
         </div>

@@ -68,16 +68,14 @@ const elements = {
   regionSwitchModalCancel: document.getElementById('region-switch-modal-cancel'),
   regionSwitchModalConfirm: document.getElementById('region-switch-modal-confirm'),
   regionSwitchModalBackdrop: document.querySelector('[data-close-region-switch-modal]'),
-  layerButtons: document.querySelectorAll('.layer-btn'),
+  layerButtons: document.querySelectorAll('.panel-mode-tab[data-layer]'),
   // Panel UI
   panel: document.getElementById('legend-panel'),
   panelToggleBtn: document.getElementById('panel-toggle-btn'),
-  leftLayersToggle: document.getElementById('left-layers-toggle'),
-  leftLayerSelector: document.getElementById('left-layer-selector'),
   mobileLegendToggle: document.getElementById('mobile-legend-toggle'),
   panelBackdrop: document.getElementById('panel-backdrop'),
   panelDragHandle: document.getElementById('panel-drag-handle'),
-  panelModeTabs: document.querySelectorAll('.map-mode-control .panel-mode-tab'),
+  panelModeTabs: document.querySelectorAll('.panel-mode-tab[data-mode]'),
   mobileNavBtns: document.querySelectorAll('.mobile-nav-btn'),
   panelPaneExplore: document.getElementById('panel-pane-explore'),
   panelPaneSearch: document.getElementById('panel-pane-search'),
@@ -107,7 +105,6 @@ const elements = {
 let currentMode = 'explore';    // 'explore' | 'search' | 'edit'
 let isPanelOpen = true;
 let isMobileExpanded = false;
-let isLayerSelectorOpen = false;
 let listController = null;      // search pane — important POIs only
 let savedExploreFilters = null; // filters saved when entering search mode
 let pendingRegionSwitchAction = null;
@@ -151,17 +148,6 @@ function setLegendPanelOpen(open) {
 
 function toggleLegendPanel() {
   setLegendPanelOpen(isMobileBreakpoint() ? !isMobileExpanded : !isPanelOpen);
-}
-
-function setLayerSelectorOpen(open) {
-  isLayerSelectorOpen = open;
-  elements.leftLayerSelector.hidden = !open;
-  elements.leftLayersToggle.classList.toggle('active', open);
-  elements.leftLayersToggle.setAttribute('aria-expanded', String(open));
-}
-
-function toggleLayerSelector() {
-  setLayerSelectorOpen(!isLayerSelectorOpen);
 }
 
 // ── Mode switching ───────────────────────────────────────────────────────────
@@ -1049,7 +1035,6 @@ function bindEvents() {
   // ── Legend panel toggles ────────────────────────────────────────────────
   elements.panelToggleBtn.addEventListener('click', toggleLegendPanel);
   elements.mobileLegendToggle.addEventListener('click', toggleLegendPanel);
-  elements.leftLayersToggle.addEventListener('click', toggleLayerSelector);
 
   // ── Mobile: drag handle tap expands / collapses ─────────────────────────
   elements.panelDragHandle.addEventListener('click', () => {
