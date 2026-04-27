@@ -122,7 +122,7 @@ function closePanel() {
   isPanelOpen = false;
   elements.panel.classList.add('panel-hidden');
   elements.panelToggleBtn.setAttribute('aria-expanded', 'false');
-  elements.panelToggleBtn.innerHTML = '<img src="assets/icons/ui/legend.svg" alt="" aria-hidden="true" />';
+  elements.panelToggleBtn.innerHTML = '<img src="assets/icons/ui/map.svg" alt="" aria-hidden="true" />';
   mapView.map.invalidateSize();
 }
 
