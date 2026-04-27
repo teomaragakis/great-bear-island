@@ -2,102 +2,102 @@
   "navigation": {
     "waterfall": [
       {
-        "id": "poi-0001",
+        "id": "0001",
         "pixelCoords": [180, 1008]
       },
       {
-        "id": "poi-0043",
+        "id": "0043",
         "pixelCoords": [895, 687]
       }
     ],
     "transition": [
       {
-        "id": "poi-0010",
+        "id": "0010",
         "transition": "mystery-lake",
         "pixelCoords": [109, 772]
       },
       {
-        "id": "poi-0025",
+        "id": "0025",
         "transition": "bleak-inlet",
         "pixelCoords": [1624, 578]
       }
     ],
     "bridge": [
       {
-        "id": "poi-0011",
+        "id": "0011",
         "pixelCoords": [372, 853]
       },
       {
-        "id": "poi-0020",
+        "id": "0020",
         "pixelCoords": [1569, 934]
       },
       {
-        "id": "poi-0021",
+        "id": "0021",
         "pixelCoords": [2475, 1036]
       }
     ],
     "train-car": [
       {
-        "id": "poi-0012",
+        "id": "0012",
         "pixelCoords": [879, 765]
       },
       {
-        "id": "poi-0013",
+        "id": "0013",
         "contents": ["rope", "first-aid", "metal-box", "corpse", "book"],
         "pixelCoords": [910, 760]
       },
       {
-        "id": "poi-0014",
+        "id": "0014",
         "pixelCoords": [937, 754]
       },
       {
-        "id": "poi-0015",
+        "id": "0015",
         "pixelCoords": [962, 737]
       },
       {
-        "id": "poi-0016",
+        "id": "0016",
         "pixelCoords": [988, 713]
       },
       {
-        "id": "poi-0017",
+        "id": "0017",
         "pixelCoords": [1019, 682]
       },
       {
-        "id": "poi-0018",
+        "id": "0018",
         "pixelCoords": [1030, 652]
       },
       {
-        "id": "poi-0019",
+        "id": "0019",
         "contents": ["plastic-box", "corpse", "knife", "book"],
         "pixelCoords": [1108, 629]
       },
       {
-        "id": "poi-0028",
+        "id": "0028",
         "pixelCoords": [1350, 972]
       },
       {
-        "id": "poi-0029",
+        "id": "0029",
         "pixelCoords": [1333, 940]
       }
     ],
     "tunnel": [
       {
-        "id": "poi-0022",
+        "id": "0022",
         "pixelCoords": [2053, 948]
       },
       {
-        "id": "poi-0023",
+        "id": "0023",
         "pixelCoords": [1742, 1005]
       },
       {
-        "id": "poi-0024",
+        "id": "0024",
         "transition": "coastal-highway",
         "pixelCoords": [2830, 795]
       }
     ],
     "cliff": [
       {
-        "id": "poi-0078",
+        "id": "0078",
         "pixelCoords": [1065, 574]
       }
     ]
@@ -105,35 +105,35 @@
   "loot": {
     "corpse": [
       {
-        "id": "poi-0002",
+        "id": "0002",
         "pixelCoords": [182, 978]
       },
       {
-        "id": "poi-0007",
+        "id": "0007",
         "pixelCoords": [336, 1045]
       },
       {
-        "id": "poi-0076",
+        "id": "0076",
         "pixelCoords": [978, 592]
       }
     ],
     "backpack": [
       {
-        "id": "poi-0006",
+        "id": "0006",
         "pixelCoords": [328, 1042]
       },
       {
-        "id": "poi-0075",
+        "id": "0075",
         "pixelCoords": [955, 578]
       }
     ],
     "metal-box": [
       {
-        "id": "poi-0039",
+        "id": "0039",
         "pixelCoords": [1037, 761]
       },
       {
-        "id": "poi-0041",
+        "id": "0041",
         "pixelCoords": [878, 783]
       }
     ]
@@ -141,13 +141,13 @@
   "weapons-and-tools": {
     "bow": [
       {
-        "id": "poi-0003",
+        "id": "0003",
         "pixelCoords": [188, 982]
       }
     ],
     "hatchet": [
       {
-        "id": "poi-0008",
+        "id": "0008",
         "pixelCoords": [342, 1048]
       }
     ]
@@ -155,52 +155,52 @@
   "collectibles": {
     "cairn": [
       {
-        "id": "poi-0004",
+        "id": "0004",
         "number": 71,
         "pixelCoords": [269, 942]
       },
       {
-        "id": "poi-0026",
+        "id": "0026",
         "number": 126,
         "pixelCoords": [2686, 898]
       },
       {
-        "id": "poi-0033",
+        "id": "0033",
         "number": 14,
         "pixelCoords": [1112, 867]
       },
       {
-        "id": "poi-0034",
+        "id": "0034",
         "number": 15,
         "pixelCoords": [1151, 922]
       },
       {
-        "id": "poi-0059",
+        "id": "0059",
         "number": 135,
         "pixelCoords": [515, 772]
       },
       {
-        "id": "poi-0064",
+        "id": "0064",
         "number": 142,
         "pixelCoords": [679, 680]
       },
       {
-        "id": "poi-0065",
+        "id": "0065",
         "number": 145,
         "pixelCoords": [696, 662]
       },
       {
-        "id": "poi-0066",
+        "id": "0066",
         "number": 79,
         "pixelCoords": [800, 599]
       },
       {
-        "id": "poi-0077",
+        "id": "0077",
         "number": 46,
         "pixelCoords": [1043, 580]
       },
       {
-        "id": "poi-0080",
+        "id": "0080",
         "number": 110,
         "pixelCoords": [1264, 585]
       }
@@ -209,153 +209,153 @@
   "harvestable-plants": {
     "rose-hips": [
       {
-        "id": "poi-0005",
+        "id": "0005",
         "pixelCoords": [362, 1000]
       },
       {
-        "id": "poi-0009",
+        "id": "0009",
         "pixelCoords": [353, 1068]
       },
       {
-        "id": "poi-0027",
+        "id": "0027",
         "pixelCoords": [1717, 963]
       },
       {
-        "id": "poi-0042",
+        "id": "0042",
         "pixelCoords": [825, 781]
       },
       {
-        "id": "poi-0072",
+        "id": "0072",
         "pixelCoords": [968, 640]
       },
       {
-        "id": "poi-0073",
+        "id": "0073",
         "pixelCoords": [1002, 609]
       },
       {
-        "id": "poi-0074",
+        "id": "0074",
         "pixelCoords": [1114, 588]
       },
       {
-        "id": "poi-0087",
+        "id": "0087",
         "pixelCoords": [1512, 640]
       }
     ],
     "reishi-mushrooms": [
       {
-        "id": "poi-0030",
+        "id": "0030",
         "pixelCoords": [1300, 1016]
       },
       {
-        "id": "poi-0031",
+        "id": "0031",
         "pixelCoords": [1230, 982]
       },
       {
-        "id": "poi-0032",
+        "id": "0032",
         "pixelCoords": [1211, 934]
       },
       {
-        "id": "poi-0081",
+        "id": "0081",
         "pixelCoords": [1391, 669]
       },
       {
-        "id": "poi-0082",
+        "id": "0082",
         "pixelCoords": [1602, 705]
       },
       {
-        "id": "poi-0083",
+        "id": "0083",
         "pixelCoords": [1567, 639]
       }
     ],
     "birch-bark": [
       {
-        "id": "poi-0035",
+        "id": "0035",
         "pixelCoords": [1285, 989]
       },
       {
-        "id": "poi-0036",
+        "id": "0036",
         "pixelCoords": [1251, 896]
       },
       {
-        "id": "poi-0044",
+        "id": "0044",
         "pixelCoords": [273, 580]
       },
       {
-        "id": "poi-0045",
+        "id": "0045",
         "pixelCoords": [468, 751]
       },
       {
-        "id": "poi-0046",
+        "id": "0046",
         "pixelCoords": [608, 616]
       },
       {
-        "id": "poi-0047",
+        "id": "0047",
         "pixelCoords": [688, 572]
       },
       {
-        "id": "poi-0048",
+        "id": "0048",
         "pixelCoords": [1007, 492]
       }
     ],
     "birch-sapling": [
       {
-        "id": "poi-0051",
+        "id": "0051",
         "pixelCoords": [335, 617]
       },
       {
-        "id": "poi-0052",
+        "id": "0052",
         "pixelCoords": [336, 491]
       },
       {
-        "id": "poi-0053",
+        "id": "0053",
         "pixelCoords": [559, 614]
       }
     ],
     "lichen": [
       {
-        "id": "poi-0054",
+        "id": "0054",
         "pixelCoords": [315, 470]
       },
       {
-        "id": "poi-0055",
+        "id": "0055",
         "pixelCoords": [431, 537]
       },
       {
-        "id": "poi-0056",
+        "id": "0056",
         "pixelCoords": [536, 532]
       },
       {
-        "id": "poi-0070",
+        "id": "0070",
         "pixelCoords": [1044, 520]
       },
       {
-        "id": "poi-0071",
+        "id": "0071",
         "pixelCoords": [961, 606]
       }
     ],
     "cat-tails": [
       {
-        "id": "poi-0060",
+        "id": "0060",
         "pixelCoords": [598, 738]
       },
       {
-        "id": "poi-0061",
+        "id": "0061",
         "pixelCoords": [619, 721]
       },
       {
-        "id": "poi-0062",
+        "id": "0062",
         "pixelCoords": [707, 737]
       },
       {
-        "id": "poi-0063",
+        "id": "0063",
         "pixelCoords": [719, 737]
       },
       {
-        "id": "poi-0085",
+        "id": "0085",
         "pixelCoords": [1554, 702]
       },
       {
-        "id": "poi-0086",
+        "id": "0086",
         "pixelCoords": [1604, 675]
       }
     ]
@@ -363,47 +363,47 @@
   "prey": {
     "rabbit": [
       {
-        "id": "poi-0037",
+        "id": "0037",
         "pixelCoords": [1260, 945]
       },
       {
-        "id": "poi-0049",
+        "id": "0049",
         "pixelCoords": [467, 774]
       },
       {
-        "id": "poi-0067",
+        "id": "0067",
         "pixelCoords": [1070, 431]
       },
       {
-        "id": "poi-0079",
+        "id": "0079",
         "pixelCoords": [1082, 615]
       }
     ],
     "deer-carcass": [
       {
-        "id": "poi-0040",
+        "id": "0040",
         "pixelCoords": [1030, 757]
       },
       {
-        "id": "poi-0058",
+        "id": "0058",
         "pixelCoords": [379, 473]
       },
       {
-        "id": "poi-0068",
+        "id": "0068",
         "pixelCoords": [1064, 480]
       },
       {
-        "id": "poi-0069",
+        "id": "0069",
         "pixelCoords": [1012, 548]
       },
       {
-        "id": "poi-0084",
+        "id": "0084",
         "pixelCoords": [1543, 645]
       }
     ],
     "deer": [
       {
-        "id": "poi-0050",
+        "id": "0050",
         "pixelCoords": [465, 656]
       }
     ]
@@ -411,17 +411,17 @@
   "locations": {
     "cave": [
       {
-        "id": "poi-0038",
+        "id": "0038",
         "contents": ["rope", "backpack"],
         "pixelCoords": [1234, 1010]
       },
       {
-        "id": "poi-0057",
+        "id": "0057",
         "contents": ["rope", "backpack"],
         "pixelCoords": [392, 449]
       },
       {
-        "id": "poi-0088",
+        "id": "0088",
         "contents": ["bed", "backpack", "book"],
         "pixelCoords": [1538, 622]
       }

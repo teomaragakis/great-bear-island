@@ -36,6 +36,9 @@ const elements = {
   leftSearchInput: document.getElementById('left-search-input'),
   leftSearchClear: document.getElementById('left-search-clear'),
   leftSearchTags: document.getElementById('left-search-tags'),
+  leftSearchTagsWrap: document.getElementById('left-search-tags-wrap'),
+  leftSearchTagsScrollLeft: document.getElementById('left-search-tags-scroll-left'),
+  leftSearchTagsScrollRight: document.getElementById('left-search-tags-scroll-right'),
   groupPois: document.getElementById('group-pois'),
   groupByCategory: document.getElementById('group-by-category'),
   hideMissingPois: document.getElementById('hide-missing-pois'),
@@ -46,6 +49,7 @@ const elements = {
   legend: document.getElementById('legend'),
   editPoiPanel: document.getElementById('edit-poi-panel'),
   editPoiForm: document.getElementById('edit-poi-form'),
+  jsonModalControl: document.querySelector('.left-json-control'),
   jsonModal: document.getElementById('json-modal'),
   jsonModalContent: document.getElementById('json-modal-content'),
   jsonModalClose: document.getElementById('json-modal-close'),
@@ -68,6 +72,9 @@ const elements = {
   // Panel UI
   panel: document.getElementById('legend-panel'),
   panelToggleBtn: document.getElementById('panel-toggle-btn'),
+  leftLayersToggle: document.getElementById('left-layers-toggle'),
+  leftLayerSelector: document.getElementById('left-layer-selector'),
+  mobileLegendToggle: document.getElementById('mobile-legend-toggle'),
   panelBackdrop: document.getElementById('panel-backdrop'),
   panelDragHandle: document.getElementById('panel-drag-handle'),
   panelModeTabs: document.querySelectorAll('.map-mode-control .panel-mode-tab'),
@@ -100,6 +107,7 @@ const elements = {
 let currentMode = 'explore';    // 'explore' | 'search' | 'edit'
 let isPanelOpen = true;
 let isMobileExpanded = false;
+let isLayerSelectorOpen = false;
 let listController = null;      // search pane — important POIs only
 let savedExploreFilters = null; // filters saved when entering search mode
 let pendingRegionSwitchAction = null;
@@ -109,36 +117,51 @@ function isMobileBreakpoint() {
   return window.matchMedia('(max-width: 640px)').matches;
 }
 
-// ── Panel open / close (desktop) ────────────────────────────────────────────
-function openPanel() {
-  isPanelOpen = true;
-  elements.panel.classList.remove('panel-hidden');
-  elements.panelToggleBtn.setAttribute('aria-expanded', 'true');
-  elements.panelToggleBtn.innerHTML = '✕';
-  mapView.map.invalidateSize();
+// ── Legend panel open / close ────────────────────────────────────────────────
+function syncLegendPanelControls(open) {
+  const expanded = String(open);
+  elements.panelToggleBtn.setAttribute('aria-expanded', expanded);
+  elements.mobileLegendToggle.setAttribute('aria-expanded', expanded);
 }
 
-function closePanel() {
-  isPanelOpen = false;
-  elements.panel.classList.add('panel-hidden');
-  elements.panelToggleBtn.setAttribute('aria-expanded', 'false');
-  elements.panelToggleBtn.innerHTML = '<img src="assets/icons/ui/map.svg" alt="" aria-hidden="true" />';
-  mapView.map.invalidateSize();
-}
+function setLegendPanelOpen(open) {
+  if (isMobileBreakpoint()) {
+    isMobileExpanded = open;
+    isPanelOpen = open;
+    elements.panel.classList.toggle('panel-hidden', !open);
+    elements.panel.classList.toggle('panel-expanded', open);
+    elements.panelToggleBtn.innerHTML = '✕';
+    elements.panelBackdrop.hidden = !open;
+    syncLegendPanelControls(open);
+    mapView.map.invalidateSize();
+    return;
+  }
 
-// ── Bottom-sheet expand / collapse (mobile) ──────────────────────────────────
-function expandMobilePanel() {
-  isMobileExpanded = true;
-  elements.panel.classList.add('panel-expanded');
-  elements.panelBackdrop.hidden = false;
-  mapView.map.invalidateSize();
-}
-
-function collapseMobilePanel() {
+  isPanelOpen = open;
   isMobileExpanded = false;
+  elements.panel.classList.toggle('panel-hidden', !open);
   elements.panel.classList.remove('panel-expanded');
   elements.panelBackdrop.hidden = true;
+  elements.panelToggleBtn.innerHTML = open
+    ? '✕'
+    : '<img src="assets/icons/ui/legend.svg" alt="" aria-hidden="true" />';
+  syncLegendPanelControls(open);
   mapView.map.invalidateSize();
+}
+
+function toggleLegendPanel() {
+  setLegendPanelOpen(isMobileBreakpoint() ? !isMobileExpanded : !isPanelOpen);
+}
+
+function setLayerSelectorOpen(open) {
+  isLayerSelectorOpen = open;
+  elements.leftLayerSelector.hidden = !open;
+  elements.leftLayersToggle.classList.toggle('active', open);
+  elements.leftLayersToggle.setAttribute('aria-expanded', String(open));
+}
+
+function toggleLayerSelector() {
+  setLayerSelectorOpen(!isLayerSelectorOpen);
 }
 
 // ── Mode switching ───────────────────────────────────────────────────────────
@@ -147,7 +170,7 @@ function switchMode(mode, { focus = true } = {}) {
 
   if (mode === currentMode) {
     // On mobile, re-tapping the active mode tab expands the panel.
-    if (isMobileBreakpoint() && !isMobileExpanded) expandMobilePanel();
+    if (isMobileBreakpoint() && !isMobileExpanded) setLegendPanelOpen(true);
     return;
   }
 
@@ -166,7 +189,7 @@ function switchMode(mode, { focus = true } = {}) {
   elements.panelPaneExplore.hidden = mode === 'edit';
   elements.panelPaneSearch.hidden = true;
   elements.panelPaneEdit.hidden = mode !== 'edit';
-  elements.jsonModalTrigger.hidden = mode !== 'edit';
+  elements.jsonModalControl.hidden = mode !== 'edit';
   elements.leftSearchWrap.hidden = mode !== 'search';
 
   // Toggle edit mode on / off.
@@ -335,6 +358,7 @@ function buildLeftSearchTags(regionKey = getCurrentRegion()) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'left-search-tag';
+    button.setAttribute('aria-label', `Search for ${tag.label}`);
     if (tag.color) button.style.setProperty('--tag-color', tag.color);
     button.innerHTML = `
       <span class="left-search-tag-dot" aria-hidden="true"></span>
@@ -345,6 +369,31 @@ function buildLeftSearchTags(regionKey = getCurrentRegion()) {
       handleSearchSelection(tag);
     });
     elements.leftSearchTags.appendChild(button);
+  });
+
+  window.requestAnimationFrame(updateLeftSearchTagScrollControls);
+}
+
+function updateLeftSearchTagScrollControls() {
+  const tagsEl = elements.leftSearchTags;
+  if (!tagsEl || !elements.leftSearchTagsScrollLeft || !elements.leftSearchTagsScrollRight) return;
+
+  const hasOverflow = tagsEl.scrollWidth > tagsEl.clientWidth + 1;
+  const atStart = tagsEl.scrollLeft <= 1;
+  const atEnd = tagsEl.scrollLeft + tagsEl.clientWidth >= tagsEl.scrollWidth - 1;
+
+  elements.leftSearchTagsScrollLeft.hidden = !hasOverflow || atStart;
+  elements.leftSearchTagsScrollRight.hidden = !hasOverflow || atEnd;
+  elements.leftSearchTagsWrap?.classList.toggle('has-overflow', hasOverflow);
+}
+
+function scrollLeftSearchTags(direction) {
+  const tagsEl = elements.leftSearchTags;
+  if (!tagsEl) return;
+
+  tagsEl.scrollBy({
+    left: direction * Math.max(160, tagsEl.clientWidth * 0.7),
+    behavior: 'smooth',
   });
 }
 
@@ -543,6 +592,7 @@ function showSearchGroupInfoPanel(item) {
     const title = document.createElement('button');
     title.type = 'button';
     title.className = 'legend-group-title';
+    title.setAttribute('aria-label', 'Toggle points of interest group');
 
     const heading = document.createElement('h3');
     heading.textContent = 'Points of interest';
@@ -579,16 +629,25 @@ function showSearchGroupInfoPanel(item) {
 
       const row = document.createElement('div');
       row.className = 'legend-item';
+      row.setAttribute('role', 'button');
+      row.tabIndex = 0;
+      row.setAttribute('aria-label', `Open ${label}`);
       row.style.setProperty('--category-color', color);
       row.innerHTML = `<div class="legend-dot"></div><span class="legend-label">${icon} ${label}</span>${idHtml}`;
-      row.addEventListener('click', () => {
+      const openPoi = () => {
         searchGroupPanelItem = item;
         setCloseBtn('back');
         const targetZoom = Math.min(mapView.map.getMaxZoom(), 0);
         mapView.map.setView(poi.coords, targetZoom, { animate: true });
         const markerEntry = markerController.getMarkerEntryForPoint(poi);
         if (markerEntry) markerController.openPopupFromEntry(markerEntry);
-        if (isMobileBreakpoint()) collapseMobilePanel();
+        if (isMobileBreakpoint()) setLegendPanelOpen(false);
+      };
+      row.addEventListener('click', openPoi);
+      row.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openPoi();
       });
       list.appendChild(row);
     });
@@ -891,7 +950,7 @@ function handleSearchSelection(item) {
       const markerEntry = markerController.getMarkerEntryForPoint(item.poi);
       if (markerEntry) markerController.openPopupFromEntry(markerEntry);
     }
-    if (isMobileBreakpoint()) collapseMobilePanel();
+    if (isMobileBreakpoint()) setLegendPanelOpen(false);
   });
 }
 
@@ -931,6 +990,9 @@ function bindEvents() {
   elements.leftSearchInput.addEventListener('input', () => {
     elements.leftSearchClear.hidden = !elements.leftSearchInput.value;
   });
+  elements.leftSearchTags.addEventListener('scroll', updateLeftSearchTagScrollControls);
+  elements.leftSearchTagsScrollLeft.addEventListener('click', () => scrollLeftSearchTags(-1));
+  elements.leftSearchTagsScrollRight.addEventListener('click', () => scrollLeftSearchTags(1));
   elements.leftSearchClear.addEventListener('click', () => {
     elements.leftSearchInput.value = '';
     elements.leftSearchClear.hidden = true;
@@ -984,30 +1046,23 @@ function bindEvents() {
     hidePoiInfoPanel();
   });
 
-  // ── Panel toggle (desktop) ──────────────────────────────────────────────
-  elements.panelToggleBtn.addEventListener('click', () => {
-    if (isMobileBreakpoint()) {
-      if (isMobileExpanded) collapseMobilePanel();
-      else expandMobilePanel();
-    } else {
-      if (isPanelOpen) closePanel();
-      else openPanel();
-    }
-  });
+  // ── Legend panel toggles ────────────────────────────────────────────────
+  elements.panelToggleBtn.addEventListener('click', toggleLegendPanel);
+  elements.mobileLegendToggle.addEventListener('click', toggleLegendPanel);
+  elements.leftLayersToggle.addEventListener('click', toggleLayerSelector);
 
   // ── Mobile: drag handle tap expands / collapses ─────────────────────────
   elements.panelDragHandle.addEventListener('click', () => {
-    if (isMobileExpanded) collapseMobilePanel();
-    else expandMobilePanel();
+    toggleLegendPanel();
   });
 
   // ── Mobile: tap search input → expand panel ─────────────────────────────
   elements.poiSearch.addEventListener('focus', () => {
-    if (isMobileBreakpoint() && !isMobileExpanded) expandMobilePanel();
+    if (isMobileBreakpoint() && !isMobileExpanded) setLegendPanelOpen(true);
   });
 
   // ── Backdrop tap collapses mobile panel ─────────────────────────────────
-  elements.panelBackdrop.addEventListener('click', collapseMobilePanel);
+  elements.panelBackdrop.addEventListener('click', () => setLegendPanelOpen(false));
 
   // ── Edit hint toggle ────────────────────────────────────────────────────
   elements.editHintToggle.addEventListener('click', () => {
@@ -1017,13 +1072,13 @@ function bindEvents() {
 
   // ── Mode tabs (desktop) ─────────────────────────────────────────────────
   elements.panelModeTabs.forEach(tab => {
-    tab.addEventListener('click', () => switchMode(tab.dataset.mode));
+    tab.addEventListener('click', () => switchMode(tab.dataset.mode, { focus: false }));
   });
 
   // ── Mode nav (mobile) ───────────────────────────────────────────────────
   elements.mobileNavBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      switchMode(btn.dataset.mode);
+      switchMode(btn.dataset.mode, { focus: false });
     });
   });
 
@@ -1036,7 +1091,7 @@ function bindEvents() {
       }
       if (!elements.regionInfoModal.hidden) closeRegionInfoModal();
       if (!elements.regionSwitchModal.hidden) closeRegionSwitchModal();
-      if (isMobileExpanded) collapseMobilePanel();
+      if (isMobileExpanded) setLegendPanelOpen(false);
       return;
     }
 
@@ -1060,7 +1115,7 @@ function bindEvents() {
     if (!editMode.isEditModeEnabled()) return;
     editMode.addTemporaryMarker(event.latlng);
     // Ensure the edit pane is visible on mobile after adding a POI.
-    if (isMobileBreakpoint() && !isMobileExpanded) expandMobilePanel();
+    if (isMobileBreakpoint() && !isMobileExpanded) setLegendPanelOpen(true);
   });
 
   // ── Resize ───────────────────────────────────────────────────────────────
@@ -1071,6 +1126,7 @@ function bindEvents() {
       padding: [0, 0],
       animate: false,
     });
+    updateLeftSearchTagScrollControls();
   });
 }
 
@@ -1103,7 +1159,7 @@ async function boot() {
         mapView.map.setView(poi.coords, targetZoom, { animate: true });
         const markerEntry = markerController.getMarkerEntryForPoint(poi);
         if (markerEntry) markerController.openPopupFromEntry(markerEntry);
-        if (isMobileBreakpoint()) collapseMobilePanel();
+        if (isMobileBreakpoint()) setLegendPanelOpen(false);
       },
     };
 
@@ -1120,6 +1176,7 @@ async function boot() {
     resetJsonCopyButtonLabel();
     switchRegion(state.currentRegion);
     switchMode('search', { focus: false });
+    if (isMobileBreakpoint()) setLegendPanelOpen(false);
   } catch (error) {
     console.error(error);
   }

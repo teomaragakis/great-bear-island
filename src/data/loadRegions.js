@@ -49,7 +49,7 @@ function slugifyPointName(name) {
 function buildPointId(point, index) {
   const slug = point?.name?.trim() ? slugifyPointName(point.name) : '';
   if (slug) return slug;
-  return `poi-${String(index).padStart(4, '0')}`;
+  return String(index).padStart(4, '0');
 }
 
 export function flattenRegionPois(regionPois) {
@@ -117,13 +117,13 @@ export function groupPoisForJson(points) {
       return baseId;
     }
 
-    const poiIdMatch = /^poi-(\d{4})$/.exec(baseId);
+    const poiIdMatch = /^(\d{4})$/.exec(baseId);
     if (poiIdMatch) {
       let candidateNumber = Number(poiIdMatch[1]) + 1;
-      let candidate = `poi-${String(candidateNumber).padStart(4, '0')}`;
+      let candidate = String(candidateNumber).padStart(4, '0');
       while (usedIds.has(candidate)) {
         candidateNumber += 1;
-        candidate = `poi-${String(candidateNumber).padStart(4, '0')}`;
+        candidate = String(candidateNumber).padStart(4, '0');
       }
       usedIds.add(candidate);
       return candidate;

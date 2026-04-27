@@ -47,9 +47,9 @@
 
   <!-- Apple Touch Icon for iOS -->
 
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/app/apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/app/android-chrome-192x192.png" />
   <meta name="apple-mobile-web-app-title" content="Great Bear Island" />
   <meta name="application-name" content="Great Bear Island" />
 
@@ -61,7 +61,7 @@
     <!-- ── TOP BAR ── -->
     <header class="topbar">
       <div class="topbar-left">
-        <img class="topbar-logo" src="logo.png" alt="" aria-hidden="true" />
+        <img class="topbar-logo" src="assets/icons/app/logo.png" alt="" aria-hidden="true" />
         <h1 class="topbar-title">Great Bear Island</h1>
         <span class="topbar-slash" aria-hidden="true">/</span>
         <div class="title-region-picker">
@@ -92,20 +92,54 @@
 
       <!-- ── LEFT PANEL STACK ── -->
       <div class="panels-left">
-        <div class="map-mode-control">
-          <div class="panel-mode-tabs" role="tablist" aria-label="View mode">
-            <button type="button" class="panel-mode-tab" data-mode="search" role="tab" aria-selected="false" aria-label="Search"><img src="assets/icons/ui/search.svg" alt="" aria-hidden="true" /></button>
-            <button type="button" class="panel-mode-tab active" data-mode="explore" role="tab" aria-selected="true" aria-label="Explore"><img src="assets/icons/ui/compass.svg" alt="" aria-hidden="true" /></button>
-            <button type="button" class="panel-mode-tab" data-mode="edit" role="tab" aria-selected="false" aria-label="Edit"><img src="assets/icons/ui/edit.svg" alt="" aria-hidden="true" /></button>
+        <div class="panels-left-top">
+          <div class="left-search-wrap" id="left-search-wrap" hidden>
+            <div class="left-search-input-wrap">
+              <input type="text" id="left-search-input" class="left-search-input" placeholder="Search items, places and regions." autocomplete="off" tabindex="1" aria-label="Search items, places and regions" />
+              <button type="button" id="left-search-clear" class="left-search-clear" hidden aria-label="Clear search">✕</button>
+            </div>
+            <div class="left-search-tags-wrap" id="left-search-tags-wrap">
+              <button type="button" class="left-search-tags-scroll left-search-tags-scroll-left" id="left-search-tags-scroll-left" aria-label="Scroll suggested filters left" hidden>
+                <img src="assets/icons/ui/back.svg" alt="" aria-hidden="true" />
+              </button>
+              <div class="left-search-tags" id="left-search-tags" aria-label="Suggested filters"></div>
+              <button type="button" class="left-search-tags-scroll left-search-tags-scroll-right" id="left-search-tags-scroll-right" aria-label="Scroll suggested filters right" hidden>
+                <img src="assets/icons/ui/back.svg" alt="" aria-hidden="true" />
+              </button>
+            </div>
           </div>
         </div>
-        <div class="left-search-wrap" id="left-search-wrap" hidden>
-          <div class="left-search-input-wrap">
-            <input type="text" id="left-search-input" class="left-search-input" placeholder="Search items, places and regions." autocomplete="off" tabindex="1" />
-            <button type="button" id="left-search-clear" class="left-search-clear" hidden aria-label="Clear search">✕</button>
+        <div class="panels-left-bottom">
+          <div class="map-mode-control">
+            <div class="panel-mode-tabs" role="tablist" aria-label="View mode">
+              <button type="button" class="panel-mode-tab" data-mode="search" role="tab" aria-selected="false" aria-label="Search"><img src="assets/icons/ui/search.svg" alt="" aria-hidden="true" /></button>
+              <button type="button" class="panel-mode-tab active" data-mode="explore" role="tab" aria-selected="true" aria-label="Explore"><img src="assets/icons/ui/compass.svg" alt="" aria-hidden="true" /></button>
+              <button type="button" class="panel-mode-tab" data-mode="edit" role="tab" aria-selected="false" aria-label="Edit"><img src="assets/icons/ui/edit.svg" alt="" aria-hidden="true" /></button>
+            </div>
           </div>
-          <div class="left-search-tags" id="left-search-tags" aria-label="Suggested filters"></div>
+          <div class="left-layers-control left-json-control" hidden>
+            <button type="button" id="json-modal-trigger" class="panel-btn left-json-btn" aria-label="View JSON">
+              <img src="assets/icons/ui/json.svg" alt="" aria-hidden="true" />
+            </button>
+          </div>
+          <div class="left-layers-control">
+            <button type="button" class="panel-btn left-layers-btn" id="left-layers-toggle" aria-label="Toggle layer selector" aria-expanded="false">
+              <img src="assets/icons/ui/layers.svg" alt="" aria-hidden="true" />
+            </button>
+          </div>
+          <div class="left-layer-selector" id="left-layer-selector" hidden>
+            <div class="panel-mode-tabs left-layer-tabs" aria-label="Map layer">
+              <button type="button" class="layer-btn left-layer-btn active" data-layer="aerial-contour">Aerial Contour</button>
+              <button type="button" class="layer-btn left-layer-btn" data-layer="aerial">Aerial</button>
+              <button type="button" class="layer-btn left-layer-btn" data-layer="topographic">Topographic</button>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="mobile-legend-control">
+        <button type="button" class="panel-btn mobile-legend-btn" id="mobile-legend-toggle" aria-label="Toggle legend panel" aria-expanded="false">
+          <img src="assets/icons/ui/legend.svg" alt="" aria-hidden="true" />
+        </button>
       </div>
 
       <!-- ── RIGHT PANEL STACK ── -->
@@ -148,8 +182,7 @@
             <div class="panel-footer" id="poi-info-footer" hidden>
               <span class="poi-info-count popup-label" id="poi-info-count" hidden></span>
               <a class="poi-info-link" id="poi-info-link" href="" target="_blank" rel="noopener noreferrer">Wiki page ↗</a>
-              <button type="button" id="edit-poi-delete" class="panel-edit-action-btn panel-edit-action-btn-danger" hidden>Delete POI</button>
-              <button type="button" id="json-modal-trigger" class="panel-edit-action-btn" hidden>View JSON</button>
+              <button type="button" id="edit-poi-delete" class="panel-edit-action-btn panel-edit-action-btn-danger" aria-label="Delete POI" hidden>Delete POI</button>
             </div>
           </div>
         </div>
@@ -191,6 +224,7 @@
                   class="legend-search-input"
                   placeholder="Filter items"
                   autocomplete="off"
+                  aria-label="Filter legend items"
                 />
                 <button type="button" id="poi-filter-clear" class="legend-filter-clear" hidden aria-label="Clear search">✕</button>
               </div>
@@ -201,34 +235,34 @@
               </div>
             </section>
             <section class="panel-section sidebar-settings sticky collapsed" id="sidebar-settings">
-              <button type="button" id="settings-toggle" class="sidebar-settings-header" aria-expanded="false">
+              <button type="button" id="settings-toggle" class="sidebar-settings-header" aria-label="Toggle settings" aria-expanded="false">
                 <span class="sidebar-settings-title">Settings</span>
                 <span class="sidebar-settings-chevron" aria-hidden="true">▾</span>
               </button>
               <div class="sidebar-settings-body">
                 <label class="form-toggle settings-toggle" for="group-pois">
                   <span>Group nearby items</span>
-                  <input type="checkbox" id="group-pois" checked />
+                  <input type="checkbox" id="group-pois" aria-label="Group nearby items" checked />
                   <span class="settings-switch" aria-hidden="true"></span>
                 </label>
                 <label class="form-toggle settings-toggle" for="group-by-category">
                   <span>Group by type</span>
-                  <input type="checkbox" id="group-by-category" checked />
+                  <input type="checkbox" id="group-by-category" aria-label="Group by type" checked />
                   <span class="settings-switch" aria-hidden="true"></span>
                 </label>
                 <label class="form-toggle settings-toggle" for="hide-missing-pois">
                   <span>Hide items not present in region</span>
-                  <input type="checkbox" id="hide-missing-pois" checked />
+                  <input type="checkbox" id="hide-missing-pois" aria-label="Hide items not present in region" checked />
                   <span class="settings-switch" aria-hidden="true"></span>
                 </label>
                 <label class="form-toggle settings-toggle" for="show-dlc-pois">
                   <span>Show DLC content</span>
-                  <input type="checkbox" id="show-dlc-pois" checked />
+                  <input type="checkbox" id="show-dlc-pois" aria-label="Show DLC content" checked />
                   <span class="settings-switch" aria-hidden="true"></span>
                 </label>
                 <label class="form-toggle settings-toggle" for="flatten-pois">
                   <span>Flatten POI list</span>
-                  <input type="checkbox" id="flatten-pois" />
+                  <input type="checkbox" id="flatten-pois" aria-label="Flatten POI list" />
                   <span class="settings-switch" aria-hidden="true"></span>
                 </label>
               </div>
@@ -252,6 +286,7 @@
                   class="legend-search-input"
                   placeholder="Filter items"
                   autocomplete="off"
+                  aria-label="Filter editable POI items"
                 />
                 <button type="button" id="edit-poi-filter-clear" class="legend-filter-clear" hidden aria-label="Clear search">✕</button>
               </div>
@@ -260,7 +295,7 @@
               <div id="edit-poi-list" class="legend"></div>
             </section>
             <section class="panel-section sidebar-settings sticky collapsed" id="edit-hint-section">
-              <button type="button" id="edit-hint-toggle" class="sidebar-settings-header" aria-expanded="false">
+              <button type="button" id="edit-hint-toggle" class="sidebar-settings-header" aria-label="Toggle edit instructions" aria-expanded="false">
                 <span class="sidebar-settings-title">Instructions</span>
                 <span class="sidebar-settings-chevron" aria-hidden="true">▾</span>
               </button>
@@ -282,12 +317,15 @@
     <nav class="mobile-bottom-nav" aria-label="View mode">
       <button type="button" class="mobile-nav-btn" data-mode="search" aria-label="Search">
         <img src="assets/icons/ui/search.svg" alt="" aria-hidden="true" />
+        <span>Search</span>
       </button>
       <button type="button" class="mobile-nav-btn active" data-mode="explore" aria-label="Explore">
         <img src="assets/icons/ui/compass.svg" alt="" aria-hidden="true" />
+        <span>Explore</span>
       </button>
       <button type="button" class="mobile-nav-btn" data-mode="edit" aria-label="Edit">
         <img src="assets/icons/ui/edit.svg" alt="" aria-hidden="true" />
+        <span>Edit</span>
       </button>
     </nav>
 

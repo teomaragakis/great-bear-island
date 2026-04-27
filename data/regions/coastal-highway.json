@@ -2,471 +2,471 @@
   "harvestable-plants": {
     "birch-sapling": [
       {
-        "id": "poi-0002",
+        "id": "0002",
         "pixelCoords": [4021, 1483]
       },
       {
-        "id": "poi-0110",
+        "id": "0110",
         "pixelCoords": [614, 2396]
       },
       {
-        "id": "poi-0123",
+        "id": "0123",
         "pixelCoords": [944, 1875]
       },
       {
-        "id": "poi-0151",
+        "id": "0151",
         "pixelCoords": [1871, 2135]
       },
       {
-        "id": "poi-0180",
+        "id": "0180",
         "pixelCoords": [4202, 431]
       },
       {
-        "id": "poi-0218",
+        "id": "0218",
         "pixelCoords": [1058, 2938]
       },
       {
-        "id": "poi-0225",
+        "id": "0225",
         "pixelCoords": [1511, 3014]
       },
       {
-        "id": "poi-0233",
+        "id": "0233",
         "pixelCoords": [958, 3360]
       },
       {
-        "id": "poi-0245",
+        "id": "0245",
         "pixelCoords": [1838, 3551]
       },
       {
-        "id": "poi-0289",
+        "id": "0289",
         "pixelCoords": [4274, 3275]
       },
       {
-        "id": "poi-0291",
+        "id": "0291",
         "pixelCoords": [4217, 3637]
       },
       {
-        "id": "poi-0307",
+        "id": "0307",
         "pixelCoords": [4635, 3316]
       },
       {
-        "id": "poi-0316",
+        "id": "0316",
         "pixelCoords": [4825, 2724]
       }
     ],
     "cat-tails": [
       {
-        "id": "poi-0003",
+        "id": "0003",
         "pixelCoords": [401, 3026]
       },
       {
-        "id": "poi-0004",
+        "id": "0004",
         "pixelCoords": [408, 2985]
       },
       {
-        "id": "poi-0005",
+        "id": "0005",
         "pixelCoords": [428, 2958]
       },
       {
-        "id": "poi-0006",
+        "id": "0006",
         "pixelCoords": [449, 2992]
       },
       {
-        "id": "poi-0007",
+        "id": "0007",
         "pixelCoords": [456, 2887]
       },
       {
-        "id": "poi-0008",
+        "id": "0008",
         "pixelCoords": [489, 3079]
       },
       {
-        "id": "poi-0009",
+        "id": "0009",
         "pixelCoords": [500, 3142]
       },
       {
-        "id": "poi-0010",
+        "id": "0010",
         "pixelCoords": [511, 2860]
       },
       {
-        "id": "poi-0011",
+        "id": "0011",
         "pixelCoords": [552, 3187]
       },
       {
-        "id": "poi-0012",
+        "id": "0012",
         "pixelCoords": [577, 2837]
       },
       {
-        "id": "poi-0013",
+        "id": "0013",
         "pixelCoords": [606, 2799]
       },
       {
-        "id": "poi-0014",
+        "id": "0014",
         "pixelCoords": [606, 3221]
       },
       {
-        "id": "poi-0015",
+        "id": "0015",
         "pixelCoords": [663, 3245]
       },
       {
-        "id": "poi-0016",
+        "id": "0016",
         "pixelCoords": [670, 2703]
       },
       {
-        "id": "poi-0017",
+        "id": "0017",
         "pixelCoords": [764, 3281]
       },
       {
-        "id": "poi-0018",
+        "id": "0018",
         "pixelCoords": [821, 3317]
       },
       {
-        "id": "poi-0019",
+        "id": "0019",
         "pixelCoords": [839, 3353]
       },
       {
-        "id": "poi-0020",
+        "id": "0020",
         "pixelCoords": [855, 3398]
       },
       {
-        "id": "poi-0021",
+        "id": "0021",
         "pixelCoords": [865, 3439]
       },
       {
-        "id": "poi-0022",
+        "id": "0022",
         "pixelCoords": [871, 3474]
       },
       {
-        "id": "poi-0023",
+        "id": "0023",
         "pixelCoords": [877, 3549]
       },
       {
-        "id": "poi-0024",
+        "id": "0024",
         "pixelCoords": [878, 3610]
       },
       {
-        "id": "poi-0025",
+        "id": "0025",
         "pixelCoords": [882, 3646]
       },
       {
-        "id": "poi-0026",
+        "id": "0026",
         "pixelCoords": [887, 3678]
       },
       {
-        "id": "poi-0027",
+        "id": "0027",
         "pixelCoords": [896, 3707]
       }
     ],
     "lichen": [
       {
-        "id": "poi-0028",
+        "id": "0028",
         "pixelCoords": [2158, 2164]
       },
       {
-        "id": "poi-0029",
+        "id": "0029",
         "pixelCoords": [2344, 2110]
       },
       {
-        "id": "poi-0030",
+        "id": "0030",
         "pixelCoords": [2510, 1973]
       },
       {
-        "id": "poi-0031",
+        "id": "0031",
         "pixelCoords": [2531, 1908]
       },
       {
-        "id": "poi-0032",
+        "id": "0032",
         "pixelCoords": [2596, 1898]
       },
       {
-        "id": "poi-0033",
+        "id": "0033",
         "pixelCoords": [3570, 1838]
       },
       {
-        "id": "poi-0034",
+        "id": "0034",
         "pixelCoords": [3623, 1847]
       },
       {
-        "id": "poi-0035",
+        "id": "0035",
         "pixelCoords": [3709, 1666]
       },
       {
-        "id": "poi-0036",
+        "id": "0036",
         "pixelCoords": [3740, 1647]
       },
       {
-        "id": "poi-0037",
+        "id": "0037",
         "pixelCoords": [3790, 1588]
       },
       {
-        "id": "poi-0111",
+        "id": "0111",
         "pixelCoords": [670, 2267]
       },
       {
-        "id": "poi-0112",
+        "id": "0112",
         "pixelCoords": [715, 2255]
       },
       {
-        "id": "poi-0266",
+        "id": "0266",
         "pixelCoords": [3612, 3713]
       },
       {
-        "id": "poi-0274",
+        "id": "0274",
         "pixelCoords": [3656, 3506]
       },
       {
-        "id": "poi-0295",
+        "id": "0295",
         "pixelCoords": [3712, 3689]
       },
       {
-        "id": "poi-0296",
+        "id": "0296",
         "pixelCoords": [3756, 3656]
       },
       {
-        "id": "poi-0320",
+        "id": "0320",
         "pixelCoords": [4880, 2681]
       },
       {
-        "id": "poi-0322",
+        "id": "0322",
         "pixelCoords": [4917, 2657]
       }
     ],
     "rose-hips": [
       {
-        "id": "poi-0038",
+        "id": "0038",
         "pixelCoords": [2326, 1904]
       },
       {
-        "id": "poi-0039",
+        "id": "0039",
         "pixelCoords": [2380, 1877]
       },
       {
-        "id": "poi-0088",
+        "id": "0088",
         "pixelCoords": [520, 3268]
       },
       {
-        "id": "poi-0138",
+        "id": "0138",
         "pixelCoords": [1030, 2636]
       },
       {
-        "id": "poi-0177",
+        "id": "0177",
         "pixelCoords": [4310, 390]
       },
       {
-        "id": "poi-0188",
+        "id": "0188",
         "pixelCoords": [4225, 1041]
       },
       {
-        "id": "poi-0244",
+        "id": "0244",
         "pixelCoords": [1834, 3513]
       },
       {
-        "id": "poi-0252",
+        "id": "0252",
         "pixelCoords": [3036, 3196]
       },
       {
-        "id": "poi-0270",
+        "id": "0270",
         "pixelCoords": [3575, 3593]
       },
       {
-        "id": "poi-0326",
+        "id": "0326",
         "pixelCoords": [4825, 2302]
       }
     ],
     "burdock-roots": [
       {
-        "id": "poi-0081",
+        "id": "0081",
         "pixelCoords": [1430, 3882]
       },
       {
-        "id": "poi-0128",
+        "id": "0128",
         "pixelCoords": [943, 2013]
       },
       {
-        "id": "poi-0141",
+        "id": "0141",
         "pixelCoords": [1411, 2577]
       },
       {
-        "id": "poi-0168",
+        "id": "0168",
         "pixelCoords": [3588, 1831]
       },
       {
-        "id": "poi-0183",
+        "id": "0183",
         "pixelCoords": [4293, 706]
       },
       {
-        "id": "poi-0235",
+        "id": "0235",
         "pixelCoords": [1398, 3624]
       },
       {
-        "id": "poi-0258",
+        "id": "0258",
         "pixelCoords": [2799, 3037]
       },
       {
-        "id": "poi-0268",
+        "id": "0268",
         "pixelCoords": [3553, 3653]
       },
       {
-        "id": "poi-0310",
+        "id": "0310",
         "pixelCoords": [4719, 3266]
       },
       {
-        "id": "poi-0321",
+        "id": "0321",
         "pixelCoords": [4897, 2671]
       },
       {
-        "id": "poi-0327",
+        "id": "0327",
         "pixelCoords": [4784, 2281]
       },
       {
-        "id": "poi-0330",
+        "id": "0330",
         "pixelCoords": [4986, 2261]
       }
     ],
     "salt-deposits": [
       {
-        "id": "poi-0129",
+        "id": "0129",
         "pixelCoords": [1090, 1967]
       },
       {
-        "id": "poi-0160",
+        "id": "0160",
         "pixelCoords": [2485, 1803]
       },
       {
-        "id": "poi-0172",
+        "id": "0172",
         "pixelCoords": [3713, 1461]
       }
     ],
     "reishi-mushrooms": [
       {
-        "id": "poi-0087",
+        "id": "0087",
         "pixelCoords": [482, 3242]
       },
       {
-        "id": "poi-0099",
+        "id": "0099",
         "pixelCoords": [564, 3041]
       },
       {
-        "id": "poi-0100",
+        "id": "0100",
         "pixelCoords": [629, 2941]
       },
       {
-        "id": "poi-0101",
+        "id": "0101",
         "pixelCoords": [606, 2999]
       },
       {
-        "id": "poi-0189",
+        "id": "0189",
         "pixelCoords": [4273, 1085]
       },
       {
-        "id": "poi-0190",
+        "id": "0190",
         "pixelCoords": [4398, 1054]
       },
       {
-        "id": "poi-0229",
+        "id": "0229",
         "pixelCoords": [1314, 3366]
       },
       {
-        "id": "poi-0230",
+        "id": "0230",
         "pixelCoords": [1364, 3393]
       },
       {
-        "id": "poi-0239",
+        "id": "0239",
         "pixelCoords": [1953, 3533]
       },
       {
-        "id": "poi-0241",
+        "id": "0241",
         "pixelCoords": [1916, 3468]
       },
       {
-        "id": "poi-0251",
+        "id": "0251",
         "pixelCoords": [2951, 3215]
       },
       {
-        "id": "poi-0323",
+        "id": "0323",
         "pixelCoords": [4943, 2680]
       }
     ],
     "maple-sapling": [
       {
-        "id": "poi-0091",
+        "id": "0091",
         "pixelCoords": [321, 3065]
       },
       {
-        "id": "poi-0114",
+        "id": "0114",
         "pixelCoords": [540, 1803]
       },
       {
-        "id": "poi-0129-2",
+        "id": "0129-2",
         "pixelCoords": [1022, 2486]
       },
       {
-        "id": "poi-0131",
+        "id": "0131",
         "pixelCoords": [1671, 2320]
       },
       {
-        "id": "poi-0181",
+        "id": "0181",
         "pixelCoords": [4171, 389]
       },
       {
-        "id": "poi-0232",
+        "id": "0232",
         "pixelCoords": [1118, 3531]
       },
       {
-        "id": "poi-0264",
+        "id": "0264",
         "pixelCoords": [3402, 3686]
       },
       {
-        "id": "poi-0273",
+        "id": "0273",
         "pixelCoords": [3611, 3487]
       },
       {
-        "id": "poi-0290",
+        "id": "0290",
         "pixelCoords": [3939, 3655]
       },
       {
-        "id": "poi-0308",
+        "id": "0308",
         "pixelCoords": [4717, 3336]
       }
     ],
     "oak-tree": [
       {
-        "id": "poi-0226",
+        "id": "0226",
         "pixelCoords": [1328, 3181]
       },
       {
-        "id": "poi-0227",
+        "id": "0227",
         "pixelCoords": [1432, 3221]
       },
       {
-        "id": "poi-0228",
+        "id": "0228",
         "pixelCoords": [1415, 3125]
       },
       {
-        "id": "poi-0265",
+        "id": "0265",
         "pixelCoords": [3570, 3707]
       },
       {
-        "id": "poi-0297",
+        "id": "0297",
         "pixelCoords": [3727, 3656]
       },
       {
-        "id": "poi-0301",
+        "id": "0301",
         "pixelCoords": [4458, 3177]
       },
       {
-        "id": "poi-0302",
+        "id": "0302",
         "pixelCoords": [4415, 3133]
       },
       {
-        "id": "poi-0303",
+        "id": "0303",
         "pixelCoords": [4544, 3046]
       },
       {
-        "id": "poi-0304",
+        "id": "0304",
         "pixelCoords": [4643, 3098]
       },
       {
-        "id": "poi-0313",
+        "id": "0313",
         "pixelCoords": [4945, 2749]
       }
     ]
@@ -474,54 +474,54 @@
   "locations": {
     "trailer": [
       {
-        "id": "poi-0080",
+        "id": "0080",
         "contents": ["bed", "metal-box", "plastic-box", "backpack", "corpse", "hatchet", "hammer", "book"],
         "pixelCoords": [1408, 3879]
       },
       {
-        "id": "poi-0210",
+        "id": "0210",
         "contents": ["bed", "metal-box", "plastic-box", "backpack", "corpse", "hatchet", "hammer", "book"],
         "pixelCoords": [2430, 3600]
       },
       {
-        "id": "poi-0231",
+        "id": "0231",
         "pixelCoords": [1276, 3331]
       },
       {
-        "id": "poi-0256",
+        "id": "0256",
         "pixelCoords": [2820, 3046]
       },
       {
-        "id": "poi-0305",
+        "id": "0305",
         "contents": ["bed", "first-aid", "metal-box", "plastic-box", "backpack"],
         "pixelCoords": [4557, 3125]
       }
     ],
     "building": [
       {
-        "id": "poi-0040",
+        "id": "0040",
         "name": "Coastal House",
         "contents": ["bed", "first-aid", "rifle", "revolver", "metal-box"],
         "pixelCoords": [2354, 1879]
       },
       {
-        "id": "poi-0041",
+        "id": "0041",
         "pixelCoords": [4271, 2579]
       },
       {
-        "id": "poi-0042",
+        "id": "0042",
         "pixelCoords": [4316, 2482]
       },
       {
-        "id": "poi-0043",
+        "id": "0043",
         "pixelCoords": [4352, 2742]
       },
       {
-        "id": "poi-0044",
+        "id": "0044",
         "pixelCoords": [4440, 2811]
       },
       {
-        "id": "poi-0045",
+        "id": "0045",
         "pixelCoords": [4459, 2707]
       },
       {
@@ -539,85 +539,85 @@
         "pixelCoords": [4451, 2593]
       },
       {
-        "id": "poi-0089",
+        "id": "0089",
         "contents": ["bed", "metal-box", "plastic-box", "computer"],
         "pixelCoords": [507, 3307]
       },
       {
-        "id": "poi-0136",
+        "id": "0136",
         "contents": ["bed", "metal-box"],
         "pixelCoords": [1057, 2616]
       },
       {
-        "id": "poi-0140",
+        "id": "0140",
         "pixelCoords": [1355, 2600]
       },
       {
-        "id": "poi-0143",
+        "id": "0143",
         "pixelCoords": [1480, 2629]
       },
       {
-        "id": "poi-0144",
+        "id": "0144",
         "pixelCoords": [1520, 2653]
       },
       {
-        "id": "poi-0145",
+        "id": "0145",
         "pixelCoords": [1499, 2642]
       },
       {
-        "id": "poi-0185",
+        "id": "0185",
         "pixelCoords": [4312, 1116]
       },
       {
-        "id": "poi-0186",
+        "id": "0186",
         "pixelCoords": [4239, 1022]
       },
       {
-        "id": "poi-0187",
+        "id": "0187",
         "pixelCoords": [4313, 988]
       },
       {
-        "id": "poi-0240",
+        "id": "0240",
         "name": "Cabin",
         "contents": ["bed", "metal-box", "plastic-box"],
         "pixelCoords": [1922, 3514]
       },
       {
-        "id": "poi-0253",
+        "id": "0253",
         "pixelCoords": [2739, 3116]
       },
       {
-        "id": "poi-0280",
+        "id": "0280",
         "desc": "todo",
         "pixelCoords": [3513, 3409]
       },
       {
-        "id": "poi-0281",
+        "id": "0281",
         "desc": "todo",
         "pixelCoords": [3551, 3423]
       },
       {
-        "id": "poi-0324",
+        "id": "0324",
         "pixelCoords": [4786, 2302]
       },
       {
-        "id": "poi-0344",
+        "id": "0344",
         "pixelCoords": [4535, 2655]
       },
       {
-        "id": "poi-0346",
+        "id": "0346",
         "pixelCoords": [4624, 2471]
       },
       {
-        "id": "poi-0347",
+        "id": "0347",
         "pixelCoords": [4555, 2518]
       },
       {
-        "id": "poi-0351",
+        "id": "0351",
         "pixelCoords": [4335, 2399]
       },
       {
-        "id": "poi-0352",
+        "id": "0352",
         "pixelCoords": [4431, 2461]
       }
     ],
@@ -637,47 +637,47 @@
     ],
     "fishing-hut": [
       {
-        "id": "poi-0048",
+        "id": "0048",
         "contents": ["fishing-hole", "pot-belly-stove", "revolver"],
         "pixelCoords": [3066, 1922]
       },
       {
-        "id": "poi-0130",
+        "id": "0130",
         "contents": ["fishing-hole", "pot-belly-stove", "distress-pistol"],
         "pixelCoords": [1504, 2106]
       },
       {
-        "id": "poi-0149",
+        "id": "0149",
         "contents": ["fishing-hole", "pot-belly-stove", "plastic-box"],
         "pixelCoords": [1759, 2650]
       },
       {
-        "id": "poi-0154",
+        "id": "0154",
         "contents": ["fishing-hole", "pot-belly-stove"],
         "pixelCoords": [2075, 2491]
       },
       {
-        "id": "poi-0157",
+        "id": "0157",
         "contents": ["fishing-hole", "pot-belly-stove", "plastic-box", "book"],
         "pixelCoords": [2523, 2397]
       },
       {
-        "id": "poi-0198",
+        "id": "0198",
         "contents": ["fishing-hole", "pot-belly-stove", "plastic-box"],
         "pixelCoords": [4126, 1882]
       },
       {
-        "id": "poi-0201",
+        "id": "0201",
         "contents": ["fishing-hole", "pot-belly-stove", "barb-rifle", "book"],
         "pixelCoords": [3684, 2288]
       },
       {
-        "id": "poi-0203",
+        "id": "0203",
         "contents": ["fishing-hole", "pot-belly-stove", "rope", "knife"],
         "pixelCoords": [3640, 2693]
       },
       {
-        "id": "poi-0206",
+        "id": "0206",
         "contents": ["fishing-hole", "pot-belly-stove", "book"],
         "pixelCoords": [3027, 2559]
       }
@@ -699,15 +699,15 @@
     ],
     "bear-cave": [
       {
-        "id": "poi-0108",
+        "id": "0108",
         "pixelCoords": [657, 2459]
       },
       {
-        "id": "poi-0169",
+        "id": "0169",
         "pixelCoords": [3835, 1650]
       },
       {
-        "id": "poi-0298",
+        "id": "0298",
         "pixelCoords": [4369, 3354]
       }
     ]
@@ -715,189 +715,189 @@
   "loot": {
     "memento-cache": [
       {
-        "id": "poi-0090",
+        "id": "0090",
         "desc": "Under a tree stump south of the cabin.",
         "pixelCoords": [437, 3260]
       },
       {
-        "id": "poi-0350",
+        "id": "0350",
         "desc": "Inside the boat.",
         "pixelCoords": [4364, 2395]
       }
     ],
     "corpse": [
       {
-        "id": "poi-0083",
+        "id": "0083",
         "pixelCoords": [1439, 3907]
       },
       {
-        "id": "poi-0092",
+        "id": "0092",
         "pixelCoords": [355, 3010]
       },
       {
-        "id": "poi-0103",
+        "id": "0103",
         "pixelCoords": [522, 2930]
       },
       {
-        "id": "poi-0117",
+        "id": "0117",
         "pixelCoords": [709, 1916]
       },
       {
-        "id": "poi-0152",
+        "id": "0152",
         "pixelCoords": [1905, 2126]
       },
       {
-        "id": "poi-0158",
+        "id": "0158",
         "pixelCoords": [2413, 1766]
       },
       {
-        "id": "poi-0162",
+        "id": "0162",
         "pixelCoords": [3333, 1863]
       },
       {
-        "id": "poi-0194",
+        "id": "0194",
         "pixelCoords": [4697, 1539]
       },
       {
-        "id": "poi-0214",
+        "id": "0214",
         "pixelCoords": [2241, 3199]
       },
       {
-        "id": "poi-0223",
+        "id": "0223",
         "pixelCoords": [1489, 2982]
       },
       {
-        "id": "poi-0234",
+        "id": "0234",
         "pixelCoords": [982, 3205]
       },
       {
-        "id": "poi-0247",
+        "id": "0247",
         "pixelCoords": [1914, 3571]
       },
       {
-        "id": "poi-0248",
+        "id": "0248",
         "pixelCoords": [2484, 3450]
       },
       {
-        "id": "poi-0275",
+        "id": "0275",
         "pixelCoords": [3699, 3507]
       },
       {
-        "id": "poi-0318",
+        "id": "0318",
         "pixelCoords": [4936, 2699]
       }
     ],
     "backpack": [
       {
-        "id": "poi-0097",
+        "id": "0097",
         "pixelCoords": [511, 3034]
       },
       {
-        "id": "poi-0113",
+        "id": "0113",
         "pixelCoords": [654, 1874]
       },
       {
-        "id": "poi-0133",
+        "id": "0133",
         "pixelCoords": [1626, 2411]
       },
       {
-        "id": "poi-0163",
+        "id": "0163",
         "pixelCoords": [3316, 1863]
       },
       {
-        "id": "poi-0170",
+        "id": "0170",
         "pixelCoords": [3844, 1673]
       },
       {
-        "id": "poi-0176",
+        "id": "0176",
         "pixelCoords": [4016, 1469]
       },
       {
-        "id": "poi-0212",
+        "id": "0212",
         "pixelCoords": [2292, 3130]
       },
       {
-        "id": "poi-0237",
+        "id": "0237",
         "pixelCoords": [1991, 3586]
       },
       {
-        "id": "poi-0277",
+        "id": "0277",
         "pixelCoords": [3519, 3458]
       },
       {
-        "id": "poi-0331",
+        "id": "0331",
         "pixelCoords": [4991, 2196]
       }
     ],
     "metal-box": [
       {
-        "id": "poi-0098",
+        "id": "0098",
         "pixelCoords": [535, 3018]
       }
     ],
     "supply-cache": [
       {
-        "id": "poi-0122",
+        "id": "0122",
         "pixelCoords": [743, 2908]
       },
       {
-        "id": "poi-0161",
+        "id": "0161",
         "pixelCoords": [2790, 1941]
       },
       {
-        "id": "poi-0221",
+        "id": "0221",
         "pixelCoords": [1093, 2827]
       },
       {
-        "id": "poi-0246",
+        "id": "0246",
         "pixelCoords": [1890, 3533]
       },
       {
-        "id": "poi-0294",
+        "id": "0294",
         "pixelCoords": [3716, 3713]
       },
       {
-        "id": "poi-0332",
+        "id": "0332",
         "pixelCoords": [5097, 2215]
       }
     ],
     "book": [
       {
-        "id": "poi-0134",
+        "id": "0134",
         "pixelCoords": [1635, 2420]
       },
       {
-        "id": "poi-0146",
+        "id": "0146",
         "pixelCoords": [1518, 2644]
       },
       {
-        "id": "poi-0164",
+        "id": "0164",
         "pixelCoords": [3325, 1885]
       },
       {
-        "id": "poi-0171",
+        "id": "0171",
         "pixelCoords": [3853, 1678]
       },
       {
-        "id": "poi-0217",
+        "id": "0217",
         "pixelCoords": [2014, 3130]
       },
       {
-        "id": "poi-0334",
+        "id": "0334",
         "pixelCoords": [4466, 2841]
       },
       {
-        "id": "poi-0339",
+        "id": "0339",
         "pixelCoords": [4344, 2716]
       },
       {
-        "id": "poi-0342",
+        "id": "0342",
         "pixelCoords": [4497, 2566]
       }
     ],
     "trade-drop-box": [
       {
-        "id": "poi-0174",
+        "id": "0174",
         "pixelCoords": [3563, 1490]
       }
     ]
@@ -905,117 +905,117 @@
   "navigation": {
     "tunnel": [
       {
-        "id": "poi-0050",
+        "id": "0050",
         "transition": "ravine",
         "pixelCoords": [621, 3717]
       }
     ],
     "transition": [
       {
-        "id": "poi-0051",
+        "id": "0051",
         "transition": "crumbling-highway",
         "pixelCoords": [4346, 298]
       }
     ],
     "spawn-point": [
       {
-        "id": "poi-0072",
+        "id": "0072",
         "pixelCoords": [788, 3728]
       },
       {
-        "id": "poi-0132",
+        "id": "0132",
         "pixelCoords": [1713, 2313]
       },
       {
-        "id": "poi-0135",
+        "id": "0135",
         "pixelCoords": [920, 2501]
       },
       {
-        "id": "poi-0173",
+        "id": "0173",
         "desc": "TRADER BOX?!",
         "pixelCoords": [3649, 1580]
       },
       {
-        "id": "poi-0179",
+        "id": "0179",
         "pixelCoords": [4166, 442]
       },
       {
-        "id": "poi-0211",
+        "id": "0211",
         "pixelCoords": [2465, 3589]
       },
       {
-        "id": "poi-0309",
+        "id": "0309",
         "pixelCoords": [4843, 3247]
       }
     ],
     "bridge": [
       {
-        "id": "poi-0073",
+        "id": "0073",
         "pixelCoords": [901, 3743]
       },
       {
-        "id": "poi-0085",
+        "id": "0085",
         "pixelCoords": [1366, 3537]
       },
       {
-        "id": "poi-0125",
+        "id": "0125",
         "pixelCoords": [1058, 2044]
       },
       {
-        "id": "poi-0209",
+        "id": "0209",
         "pixelCoords": [2202, 3389]
       }
     ],
     "waterfall": [
       {
-        "id": "poi-0074",
+        "id": "0074",
         "pixelCoords": [901, 3772]
       }
     ],
     "cliff": [
       {
-        "id": "poi-0272",
+        "id": "0272",
         "pixelCoords": [3582, 3578]
       },
       {
-        "id": "poi-0312",
+        "id": "0312",
         "pixelCoords": [4753, 3169]
       },
       {
-        "id": "poi-0355",
+        "id": "0355",
         "pixelCoords": [3558, 3513]
       }
     ],
     "car": [
       {
-        "id": "poi-0333",
+        "id": "0333",
         "pixelCoords": [4471, 2837]
       },
       {
-        "id": "poi-0338",
+        "id": "0338",
         "pixelCoords": [4337, 2713]
       },
       {
-        "id": "poi-0340",
+        "id": "0340",
         "pixelCoords": [4482, 2684]
       },
       {
-        "id": "poi-0341",
+        "id": "0341",
         "pixelCoords": [4440, 2533]
       },
       {
-        "id": "poi-0343",
+        "id": "0343",
         "pixelCoords": [4503, 2562]
       },
       {
-        "id": "poi-0353",
+        "id": "0353",
         "contents": ["scrawled-message", "knife", "book"],
         "pixelCoords": [4274, 454]
       }
     ],
     "airplane": [
       {
-        "id": "poi-0354",
+        "id": "0354",
         "pixelCoords": [5145, 2277]
       }
     ]
@@ -1023,142 +1023,142 @@
   "predators": {
     "bear": [
       {
-        "id": "poi-0052",
+        "id": "0052",
         "path": [],
         "pixelCoords": [3854, 1654]
       },
       {
-        "id": "poi-0109",
+        "id": "0109",
         "pixelCoords": [675, 2444]
       },
       {
-        "id": "poi-0299",
+        "id": "0299",
         "pixelCoords": [4342, 3328]
       }
     ],
     "wolf": [
       {
-        "id": "poi-0053",
+        "id": "0053",
         "pixelCoords": [3893, 1225]
       },
       {
-        "id": "poi-0054",
+        "id": "0054",
         "pixelCoords": [3899, 1050]
       },
       {
-        "id": "poi-0055",
+        "id": "0055",
         "pixelCoords": [4327, 2561]
       },
       {
-        "id": "poi-0095",
+        "id": "0095",
         "pixelCoords": [395, 2800]
       },
       {
-        "id": "poi-0102",
+        "id": "0102",
         "pixelCoords": [654, 2976]
       },
       {
-        "id": "poi-0150",
+        "id": "0150",
         "pixelCoords": [1872, 2512]
       },
       {
-        "id": "poi-0155",
+        "id": "0155",
         "pixelCoords": [2343, 2582]
       },
       {
-        "id": "poi-0156",
+        "id": "0156",
         "pixelCoords": [2536, 2700]
       },
       {
-        "id": "poi-0165",
+        "id": "0165",
         "pixelCoords": [3401, 2202]
       },
       {
-        "id": "poi-0196",
+        "id": "0196",
         "pixelCoords": [4498, 1868]
       },
       {
-        "id": "poi-0197",
+        "id": "0197",
         "pixelCoords": [4331, 1732]
       },
       {
-        "id": "poi-0200",
+        "id": "0200",
         "pixelCoords": [3880, 2115]
       },
       {
-        "id": "poi-0202",
+        "id": "0202",
         "pixelCoords": [3854, 2528]
       },
       {
-        "id": "poi-0204",
+        "id": "0204",
         "pixelCoords": [3352, 2848]
       },
       {
-        "id": "poi-0207",
+        "id": "0207",
         "pixelCoords": [2484, 2919]
       },
       {
-        "id": "poi-0219",
+        "id": "0219",
         "pixelCoords": [1190, 3037]
       },
       {
-        "id": "poi-0220",
+        "id": "0220",
         "pixelCoords": [1033, 2800]
       },
       {
-        "id": "poi-0263",
+        "id": "0263",
         "pixelCoords": [2935, 3813]
       },
       {
-        "id": "poi-0279",
+        "id": "0279",
         "pixelCoords": [3846, 3473]
       },
       {
-        "id": "poi-0285",
+        "id": "0285",
         "pixelCoords": [3800, 3102]
       },
       {
-        "id": "poi-0288",
+        "id": "0288",
         "pixelCoords": [4195, 3451]
       },
       {
-        "id": "poi-0293",
+        "id": "0293",
         "pixelCoords": [3722, 3796]
       },
       {
-        "id": "poi-0306",
+        "id": "0306",
         "pixelCoords": [4579, 3456]
       },
       {
-        "id": "poi-0314",
+        "id": "0314",
         "pixelCoords": [4900, 2789]
       },
       {
-        "id": "poi-0337",
+        "id": "0337",
         "pixelCoords": [4430, 2752]
       },
       {
-        "id": "poi-0345",
+        "id": "0345",
         "pixelCoords": [4550, 2610]
       }
     ],
     "cougar": [
       {
-        "id": "poi-0105",
+        "id": "0105",
         "pixelCoords": [1051, 3541]
       },
       {
-        "id": "poi-0128-2",
+        "id": "0128-2",
         "pixelCoords": [935, 2458]
       },
       {
-        "id": "poi-0335",
+        "id": "0335",
         "pixelCoords": [4471, 2764]
       }
     ],
     "moose": [
       {
-        "id": "poi-0336",
+        "id": "0336",
         "pixelCoords": [4548, 2747]
       }
     ]
@@ -1166,167 +1166,167 @@
   "prey": {
     "deer": [
       {
-        "id": "poi-0056",
+        "id": "0056",
         "pixelCoords": [2062, 2106]
       },
       {
-        "id": "poi-0057",
+        "id": "0057",
         "pixelCoords": [2651, 2144]
       },
       {
-        "id": "poi-0058",
+        "id": "0058",
         "pixelCoords": [3665, 1801]
       },
       {
-        "id": "poi-0059",
+        "id": "0059",
         "pixelCoords": [4042, 635]
       },
       {
-        "id": "poi-0060",
+        "id": "0060",
         "pixelCoords": [4395, 2671]
       },
       {
-        "id": "poi-0061",
+        "id": "0061",
         "pixelCoords": [4470, 1402]
       },
       {
-        "id": "poi-0062",
+        "id": "0062",
         "pixelCoords": [4676, 1811]
       },
       {
-        "id": "poi-0078",
+        "id": "0078",
         "pixelCoords": [1220, 3762]
       },
       {
-        "id": "poi-0096",
+        "id": "0096",
         "pixelCoords": [537, 3050]
       },
       {
-        "id": "poi-0106",
+        "id": "0106",
         "pixelCoords": [1063, 3646]
       },
       {
-        "id": "poi-0124",
+        "id": "0124",
         "pixelCoords": [1141, 1734]
       },
       {
-        "id": "poi-0199",
+        "id": "0199",
         "pixelCoords": [4265, 2262]
       },
       {
-        "id": "poi-0205",
+        "id": "0205",
         "pixelCoords": [3056, 2456]
       },
       {
-        "id": "poi-0208",
+        "id": "0208",
         "pixelCoords": [1984, 2936]
       },
       {
-        "id": "poi-0243",
+        "id": "0243",
         "pixelCoords": [1843, 3478]
       },
       {
-        "id": "poi-0250",
+        "id": "0250",
         "pixelCoords": [2944, 3597]
       },
       {
-        "id": "poi-0262",
+        "id": "0262",
         "pixelCoords": [2875, 3854]
       },
       {
-        "id": "poi-0267",
+        "id": "0267",
         "pixelCoords": [3650, 3697]
       },
       {
-        "id": "poi-0317",
+        "id": "0317",
         "pixelCoords": [4883, 2748]
       },
       {
-        "id": "poi-0328",
+        "id": "0328",
         "pixelCoords": [4850, 2324]
       }
     ],
     "rabbit": [
       {
-        "id": "poi-0063",
+        "id": "0063",
         "pixelCoords": [2339, 1995]
       },
       {
-        "id": "poi-0064",
+        "id": "0064",
         "pixelCoords": [3350, 1913]
       },
       {
-        "id": "poi-0079",
+        "id": "0079",
         "pixelCoords": [1309, 3822]
       },
       {
-        "id": "poi-0086",
+        "id": "0086",
         "pixelCoords": [482, 3280]
       },
       {
-        "id": "poi-0116",
+        "id": "0116",
         "pixelCoords": [869, 1762]
       },
       {
-        "id": "poi-0137",
+        "id": "0137",
         "pixelCoords": [1025, 2577]
       },
       {
-        "id": "poi-0191",
+        "id": "0191",
         "pixelCoords": [4371, 1072]
       },
       {
-        "id": "poi-0242",
+        "id": "0242",
         "pixelCoords": [1882, 3454]
       },
       {
-        "id": "poi-0249",
+        "id": "0249",
         "pixelCoords": [2593, 3607]
       },
       {
-        "id": "poi-0257",
+        "id": "0257",
         "pixelCoords": [2830, 3078]
       },
       {
-        "id": "poi-0261",
+        "id": "0261",
         "pixelCoords": [2839, 3908]
       },
       {
-        "id": "poi-0284",
+        "id": "0284",
         "pixelCoords": [3445, 3421]
       },
       {
-        "id": "poi-0311",
+        "id": "0311",
         "pixelCoords": [4785, 3235]
       },
       {
-        "id": "poi-0315",
+        "id": "0315",
         "pixelCoords": [4844, 2778]
       }
     ],
     "deer-carcass": [
       {
-        "id": "poi-0094",
+        "id": "0094",
         "pixelCoords": [479, 2913]
       },
       {
-        "id": "poi-0115",
+        "id": "0115",
         "pixelCoords": [594, 1763]
       },
       {
-        "id": "poi-0182",
+        "id": "0182",
         "pixelCoords": [4240, 688]
       },
       {
-        "id": "poi-0193",
+        "id": "0193",
         "pixelCoords": [4517, 1605]
       },
       {
-        "id": "poi-0215",
+        "id": "0215",
         "pixelCoords": [2209, 3333]
       },
       {
-        "id": "poi-0260",
+        "id": "0260",
         "pixelCoords": [2954, 2877]
       }
     ]
@@ -1334,56 +1334,56 @@
   "vehicles": {
     "car": [
       {
-        "id": "poi-0065",
+        "id": "0065",
         "pixelCoords": [4309, 2707]
       },
       {
-        "id": "poi-0066",
+        "id": "0066",
         "pixelCoords": [4469, 2485]
       },
       {
-        "id": "poi-0067",
+        "id": "0067",
         "pixelCoords": [4469, 2832]
       },
       {
-        "id": "poi-0068",
+        "id": "0068",
         "pixelCoords": [4480, 2683]
       },
       {
-        "id": "poi-0069",
+        "id": "0069",
         "pixelCoords": [4501, 2622]
       },
       {
-        "id": "poi-0126",
+        "id": "0126",
         "contents": ["scrawled-message", "book"],
         "pixelCoords": [1013, 1963]
       },
       {
-        "id": "poi-0178",
+        "id": "0178",
         "contents": ["knife", "scrawled-message", "book"],
         "pixelCoords": [4278, 453]
       },
       {
-        "id": "poi-0216",
+        "id": "0216",
         "pixelCoords": [2024, 3116]
       },
       {
-        "id": "poi-0286",
+        "id": "0286",
         "contents": ["revolver", "book"],
         "pixelCoords": [3740, 2973]
       }
     ],
     "train-car": [
       {
-        "id": "poi-0075",
+        "id": "0075",
         "pixelCoords": [1141, 3762]
       },
       {
-        "id": "poi-0076",
+        "id": "0076",
         "pixelCoords": [1417, 3898]
       },
       {
-        "id": "poi-0077",
+        "id": "0077",
         "pixelCoords": [1387, 3879]
       }
     ]
@@ -1391,93 +1391,93 @@
   "weapons-and-tools": {
     "hatchet": [
       {
-        "id": "poi-0070",
+        "id": "0070",
         "pixelCoords": [3688, 1700]
       },
       {
-        "id": "poi-0082",
+        "id": "0082",
         "pixelCoords": [1441, 3904]
       },
       {
-        "id": "poi-0093",
+        "id": "0093",
         "pixelCoords": [360, 3009]
       },
       {
-        "id": "poi-0139",
+        "id": "0139",
         "pixelCoords": [1075, 2633]
       },
       {
-        "id": "poi-0142",
+        "id": "0142",
         "pixelCoords": [1561, 2585]
       },
       {
-        "id": "poi-0195",
+        "id": "0195",
         "pixelCoords": [4710, 1545]
       },
       {
-        "id": "poi-0254",
+        "id": "0254",
         "pixelCoords": [2812, 3100]
       }
     ],
     "revolver": [
       {
-        "id": "poi-0071",
+        "id": "0071",
         "pixelCoords": [3345, 1872]
       },
       {
-        "id": "poi-0104",
+        "id": "0104",
         "pixelCoords": [530, 2936]
       },
       {
-        "id": "poi-0276",
+        "id": "0276",
         "pixelCoords": [3707, 3510]
       }
     ],
     "barb-rifle": [
       {
-        "id": "poi-0084",
+        "id": "0084",
         "pixelCoords": [1403, 3898]
       },
       {
-        "id": "poi-0127",
+        "id": "0127",
         "pixelCoords": [1079, 2010]
       }
     ],
     "knife": [
       {
-        "id": "poi-0118",
+        "id": "0118",
         "pixelCoords": [716, 1918]
       },
       {
-        "id": "poi-0147",
+        "id": "0147",
         "pixelCoords": [1491, 2654]
       },
       {
-        "id": "poi-0153",
+        "id": "0153",
         "pixelCoords": [1917, 2130]
       },
       {
-        "id": "poi-0271",
+        "id": "0271",
         "pixelCoords": [3627, 3634]
       },
       {
-        "id": "poi-0325",
+        "id": "0325",
         "pixelCoords": [4795, 2311]
       }
     ],
     "rope": [
       {
-        "id": "poi-0148",
+        "id": "0148",
         "pixelCoords": [1441, 2685]
       }
     ],
     "distress-pistol": [
       {
-        "id": "poi-0175",
+        "id": "0175",
         "pixelCoords": [4027, 1472]
       },
       {
-        "id": "poi-0319",
+        "id": "0319",
         "pixelCoords": [4945, 2704]
       }
     ]
@@ -1485,90 +1485,90 @@
   "collectibles": {
     "cairn": [
       {
-        "id": "poi-0121",
+        "id": "0121",
         "pixelCoords": [800, 2041]
       },
       {
-        "id": "poi-0157-2",
+        "id": "0157-2",
         "number": 13,
         "pixelCoords": [2402, 1882]
       },
       {
-        "id": "poi-0166",
+        "id": "0166",
         "pixelCoords": [3494, 1880]
       },
       {
-        "id": "poi-0167",
+        "id": "0167",
         "pixelCoords": [3512, 1885]
       },
       {
-        "id": "poi-0184",
+        "id": "0184",
         "pixelCoords": [4454, 656]
       },
       {
-        "id": "poi-0192",
+        "id": "0192",
         "pixelCoords": [4678, 1504]
       },
       {
-        "id": "poi-0222",
+        "id": "0222",
         "pixelCoords": [1458, 3044]
       },
       {
-        "id": "poi-0238",
+        "id": "0238",
         "pixelCoords": [1994, 3554]
       },
       {
-        "id": "poi-0259",
+        "id": "0259",
         "pixelCoords": [2838, 2935]
       },
       {
-        "id": "poi-0269",
+        "id": "0269",
         "pixelCoords": [3522, 3604]
       },
       {
-        "id": "poi-0278",
+        "id": "0278",
         "pixelCoords": [3855, 3533]
       },
       {
-        "id": "poi-0287",
+        "id": "0287",
         "pixelCoords": [4115, 3185]
       },
       {
-        "id": "poi-0292",
+        "id": "0292",
         "pixelCoords": [4172, 3816]
       },
       {
-        "id": "poi-0300",
+        "id": "0300",
         "pixelCoords": [4466, 3385]
       },
       {
-        "id": "poi-0329",
+        "id": "0329",
         "pixelCoords": [5089, 2309]
       },
       {
-        "id": "poi-0348",
+        "id": "0348",
         "pixelCoords": [4214, 2512]
       },
       {
-        "id": "poi-0349",
+        "id": "0349",
         "pixelCoords": [4244, 2408]
       }
     ],
     "polaroid": [
       {
-        "id": "poi-0159",
+        "id": "0159",
         "pixelCoords": [2418, 1763]
       },
       {
-        "id": "poi-0213",
+        "id": "0213",
         "pixelCoords": [2300, 3170]
       },
       {
-        "id": "poi-0224",
+        "id": "0224",
         "pixelCoords": [1490, 3007]
       },
       {
-        "id": "poi-0236",
+        "id": "0236",
         "pixelCoords": [1988, 3609]
       }
     ]

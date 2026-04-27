@@ -29,7 +29,7 @@ data/
 - Region POI files are grouped as `category -> type -> [pois]`
 - Saved POIs do not repeat `category` or `type` because those are implied by their parent keys
 - Named POIs should use slug-like IDs when possible
-- Unnamed POIs can use opaque `poi-####` IDs
+- Unnamed POIs can use opaque `####` IDs
 
 ## Notes
 

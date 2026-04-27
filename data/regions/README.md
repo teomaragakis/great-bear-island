@@ -34,7 +34,7 @@ data/regions/
 - Each type contains an array of POIs
 - Every saved POI should have an `id`
 - Named POIs should prefer slug-like IDs
-- Unnamed POIs can use opaque `poi-####` IDs
+- Unnamed POIs can use opaque `####` IDs
 - Region location labels are not stored here; add those to `data/regions.json` under the region's `locations` array
 
 ## Optional POI Fields

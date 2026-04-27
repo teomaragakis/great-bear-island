@@ -61,9 +61,11 @@ export function createLegendController({
     if (activeFilters.has(filterKey)) {
       activeFilters.delete(filterKey);
       el.classList.add('inactive');
+      el.setAttribute('aria-label', `Show ${el.dataset.label}`);
     } else {
       activeFilters.add(filterKey);
       el.classList.remove('inactive');
+      el.setAttribute('aria-label', `Hide ${el.dataset.label}`);
     }
 
     syncLegendGroupToggle(groupToggleEl, groupFilterKeys);
@@ -75,7 +77,11 @@ export function createLegendController({
 
     const item = document.createElement('div');
     item.className = `legend-item${isDisabled ? ' disabled' : ''}${!isDisabled && !activeFilters.has(filterKey) ? ' inactive' : ''}`;
+    item.setAttribute('role', 'button');
+    item.tabIndex = isDisabled ? -1 : 0;
     item.dataset.filterKey = filterKey;
+    item.dataset.label = type.label;
+    item.setAttribute('aria-label', `${activeFilters.has(filterKey) ? 'Hide' : 'Show'} ${type.label}`);
     item.style.setProperty('--category-color', type.color ?? category.color);
     item.innerHTML = `
       <div class="legend-dot"></div>
@@ -84,8 +90,14 @@ export function createLegendController({
     `;
 
     if (!isDisabled) {
-      item.addEventListener('click', () => {
+      const toggleItem = () => {
         toggleTypeFilter(filterKey, item, enabledFilterKeys, groupToggleEl);
+      };
+      item.addEventListener('click', toggleItem);
+      item.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        toggleItem();
       });
     }
 
@@ -252,6 +264,7 @@ export function createLegendController({
       const title = document.createElement('button');
       title.type = 'button';
       title.className = 'legend-group-title';
+      title.setAttribute('aria-label', `Toggle ${category.label} group`);
 
       const heading = document.createElement('h3');
       heading.textContent = category.label;
